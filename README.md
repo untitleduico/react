@@ -20,9 +20,9 @@ Check out our installation guide here → [untitledui.com/react/docs/installatio
 
 Untitled UI React is built on top of [Untitled UI Figma](https://www.untitledui.com/figma), the world's largest and most popular Figma UI kit and design system. Explore more:
 
-**[Untitled UI Figma:](https://www.untitledui.com/resources/figma-files)** The world's largest Figma UI kit and design system.
+**[Untitled UI Figma:](https://www.untitledui.com/figma-files)** The world's largest Figma UI kit and design system.
 <br/>
-**[Untitled UI Icons:](https://www.untitledui.com/resources/icons)** A clean, consistent, and neutral icon library crafted specifically for modern UI design.
+**[Untitled UI Icons:](https://www.untitledui.com/icons)** A clean, consistent, and neutral icon library crafted specifically for modern UI design.
 <br/>
 **[Untitled UI file icons:](https://www.untitledui.com/resources/file-icons)** Free file format icons, designed specifically for modern web and UI design.
 <br/>
