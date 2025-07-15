@@ -1,0 +1,96 @@
+name: 📚 Documentation improvement
+description: Suggest improvements to documentation, examples, or guides
+title: "[Docs]: "
+labels: ["documentation", "enhancement"]
+assignees: []
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for helping improve our documentation! Please describe what documentation needs to be improved or added.
+
+    - type: input
+      id: component-name
+      attributes:
+          label: Component name
+          description: If this is about a specific component, which one?
+          placeholder: "e.g., Button, Input, Modal, etc."
+
+    - type: textarea
+      id: current-state
+      attributes:
+          label: Current documentation state
+          description: What's wrong with the current documentation or what's missing?
+          placeholder: |
+              Examples:
+              - The Button component doesn't explain the `variant` prop
+              - Missing example for responsive usage
+              - Installation instructions are unclear
+              - No accessibility guidance provided
+      validations:
+          required: true
+
+    - type: textarea
+      id: proposed-improvement
+      attributes:
+          label: Proposed improvement
+          description: What specific improvements would you like to see?
+          placeholder: Describe what should be added, changed, or improved in the documentation
+      validations:
+          required: true
+
+    - type: dropdown
+      id: priority
+      attributes:
+          label: Priority level
+          description: How important is this documentation improvement?
+          options:
+              - Low - Nice to have clarification
+              - Medium - Would help many users
+              - High - Currently causing confusion
+              - Critical - Blocking users from using the component
+
+    - type: checkboxes
+      id: improvement-type
+      attributes:
+          label: Improvement type
+          description: What kind of improvement is needed? (Select all that apply)
+          options:
+              - label: Add missing information
+              - label: Fix incorrect information
+              - label: Improve clarity and readability
+              - label: Add more examples
+              - label: Improve organization/structure
+              - label: Add visual aids (diagrams, screenshots)
+              - label: Add accessibility information
+              - label: Add performance considerations
+              - label: Add troubleshooting information
+              - label: Add migration information
+
+    - type: checkboxes
+      id: contribution
+      attributes:
+          label: Contribution
+          description: Are you willing to help improve this documentation?
+          options:
+              - label: I'm willing to write the documentation
+              - label: I'm willing to review proposed changes
+              - label: I'm willing to provide examples
+              - label: I'm willing to help with proofreading
+
+    - type: textarea
+      id: reference-examples
+      attributes:
+          label: Reference examples
+          description: Are there any other projects or documentation that handle this well?
+          placeholder: |
+              Examples of good documentation from other projects:
+              - Project name: [Description of what they do well]
+              - Link: [URL to good example]
+
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional context
+          description: Any other context about this documentation improvement
+          placeholder: Any additional information that might be helpful

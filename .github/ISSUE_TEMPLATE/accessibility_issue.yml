@@ -1,0 +1,180 @@
+name: ♿ Accessibility issue
+description: Report accessibility problems or improvements
+title: "[A11y]: "
+labels: ["accessibility", "bug", "needs-triage"]
+assignees: []
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for helping us improve accessibility! Please provide details about the accessibility issue you've found.
+
+    - type: checkboxes
+      id: prerequisites
+      attributes:
+          label: Prerequisites
+          description: Please confirm the following before submitting an accessibility issue
+          options:
+              - label: I have searched existing issues to ensure this hasn't been reported already
+                required: false
+              - label: I have tested this with assistive technologies if available
+                required: false
+
+    - type: checkboxes
+      id: accessibility-type
+      attributes:
+          label: Accessibility issue type
+          description: What type of accessibility issue is this? (Select all that apply)
+          options:
+              - label: Keyboard navigation issue
+              - label: Screen reader compatibility issue
+              - label: Focus management issue
+              - label: Color contrast issue
+              - label: Missing ARIA labels/attributes
+              - label: Semantic HTML issue
+              - label: Text alternatives missing (alt text, etc.)
+              - label: Form accessibility issue
+              - label: Touch target size issue
+              - label: Motion/animation accessibility issue
+              - label: Other accessibility issue
+
+    - type: dropdown
+      id: wcag-level
+      attributes:
+          label: WCAG compliance level
+          description: What WCAG compliance level does this issue affect?
+          options:
+              - Level A
+              - Level AA
+              - Level AAA
+              - Unknown
+
+    - type: textarea
+      id: issue-description
+      attributes:
+          label: Issue description
+          description: Describe the accessibility issue in detail
+          placeholder: What accessibility barrier or issue did you encounter?
+      validations:
+          required: true
+
+    - type: textarea
+      id: reproduction-steps
+      attributes:
+          label: Steps to reproduce
+          description: Please provide step-by-step instructions to reproduce the issue
+          placeholder: |
+              1. Navigate to the component using [keyboard/screen reader/etc.]
+              2. Try to [action]
+              3. Observe [issue]
+      validations:
+          required: true
+
+    - type: textarea
+      id: expected-behavior
+      attributes:
+          label: Expected accessible behavior
+          description: What should happen for this to be accessible?
+          placeholder: Describe what the accessible behavior should be
+      validations:
+          required: true
+
+    - type: textarea
+      id: actual-behavior
+      attributes:
+          label: Actual behavior
+          description: What actually happens that creates the accessibility barrier?
+          placeholder: Describe what currently happens that creates the accessibility issue
+      validations:
+          required: true
+
+    - type: checkboxes
+      id: assistive-technologies
+      attributes:
+          label: Assistive technologies tested
+          description: Which assistive technologies have you tested with? (Select all that apply)
+          options:
+              - label: Screen reader (NVDA - Windows)
+              - label: Screen reader (JAWS - Windows)
+              - label: Screen reader (VoiceOver - macOS)
+              - label: Screen reader (VoiceOver - iOS)
+              - label: Screen reader (TalkBack - Android)
+              - label: Voice control software
+              - label: Switch navigation
+              - label: Keyboard only
+              - label: High contrast mode
+              - label: Zoom/magnification software
+              - label: Other (specify in additional context)
+
+    - type: dropdown
+      id: severity
+      attributes:
+          label: Severity level
+          description: How severe is this accessibility issue?
+          options:
+              - Critical - Completely blocks access for users with disabilities
+              - High - Creates significant barriers for users with disabilities
+              - Medium - Creates some difficulty but workarounds exist
+              - Low - Minor accessibility improvement
+      validations:
+          required: true
+
+    - type: textarea
+      id: affected-users
+      attributes:
+          label: Affected user groups
+          description: Which groups of users with disabilities are affected by this issue?
+          placeholder: |
+              Examples:
+              - Users who rely on keyboard navigation
+              - Users who use screen readers
+              - Users with low vision
+              - Users with motor disabilities
+              - Users with cognitive disabilities
+
+    - type: textarea
+      id: suggested-solution
+      attributes:
+          label: Suggested solution
+          description: If you have suggestions for how to fix this accessibility issue, please share them
+          placeholder: How do you think this accessibility issue should be resolved?
+
+    - type: textarea
+      id: code-example
+      attributes:
+          label: Current code example
+          description: If relevant, provide the current code that has the accessibility issue
+          render: tsx
+          placeholder: |
+              <Component>
+                {/* Current implementation with accessibility issue */}
+              </Component>
+
+    - type: textarea
+      id: wcag-guidelines
+      attributes:
+          label: Relevant WCAG guidelines
+          description: If you know which WCAG guidelines this issue relates to, please list them
+          placeholder: |
+              Examples:
+              - 2.1.1 Keyboard (Level A)
+              - 4.1.2 Name, Role, Value (Level A)
+              - 1.4.3 Contrast (Minimum) (Level AA)
+
+    - type: textarea
+      id: testing-environment
+      attributes:
+          label: Testing environment
+          description: Provide details about your testing environment
+          placeholder: |
+              - OS: [e.g. Windows 11, macOS 14.0]
+              - Browser: [e.g. Chrome 120, Firefox 119]
+              - Screen Reader: [e.g. NVDA 2023.3, VoiceOver]
+              - Other AT: [e.g. Dragon NaturallySpeaking]
+
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional context
+          description: Add any other context about the accessibility issue
+          placeholder: Any additional information that might be helpful for understanding or fixing this issue

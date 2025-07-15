@@ -1,0 +1,164 @@
+{
+    "items": [
+        {
+            "name": "Olivia Rhye",
+            "username": "@olivia",
+            "status": "active",
+            "role": "Product Designer",
+            "email": "olivia@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" },
+                { "name": "Engineering", "color": "yellow" },
+                { "name": "Finance", "color": "orange" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Phoenix Baker",
+            "username": "@phoenix",
+            "status": "active",
+            "role": "Product Manager",
+            "email": "phoenix@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" },
+                { "name": "Engineering", "color": "yellow" },
+                { "name": "Finance", "color": "orange" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/phoenix-baker?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Lana Steiner",
+            "username": "@lana",
+            "status": "active",
+            "role": "Frontend Developer",
+            "email": "lana@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/lana-steiner?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Demi Wilkinson",
+            "username": "@demi",
+            "status": "active",
+            "role": "Backend Developer",
+            "email": "demi@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Support", "color": "green" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/demi-wilkinson?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Candice Wu",
+            "username": "@candice",
+            "status": "active",
+            "role": "Fullstack Developer",
+            "email": "candice@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/candice-wu"
+        },
+        {
+            "name": "Natali Craig",
+            "username": "@natali",
+            "status": "active",
+            "role": "UX Designer",
+            "email": "natali@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/natali-craig?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Drew Cano",
+            "username": "@drew",
+            "status": "active",
+            "role": "UX Copywriter",
+            "email": "drew@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" },
+                { "name": "Engineering", "color": "yellow" },
+                { "name": "Finance", "color": "orange" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/drew-cano"
+        },
+        {
+            "name": "Orlando Diggs",
+            "username": "@orlando",
+            "status": "active",
+            "role": "UI Designer",
+            "email": "orlando@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" },
+                { "name": "Engineering", "color": "yellow" },
+                { "name": "Finance", "color": "orange" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/orlando-diggs?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Andi Lane",
+            "username": "@andi",
+            "status": "active",
+            "role": "Product Manager",
+            "email": "andi@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" },
+                { "name": "Engineering", "color": "yellow" },
+                { "name": "Finance", "color": "orange" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/andi-lane?fm=webp&q=80&w=100"
+        },
+        {
+            "name": "Kate Morrison",
+            "username": "@kate",
+            "status": "active",
+            "role": "QA Engineer",
+            "email": "kate@untitledui.com",
+            "teams": [
+                { "name": "Design", "color": "purple" },
+                { "name": "Product", "color": "blue-light" },
+                { "name": "Marketing", "color": "indigo" },
+                { "name": "Sales", "color": "red" },
+                { "name": "Support", "color": "green" }
+            ],
+            "avatarUrl": "https://www.untitledui.com/images/avatars/kate-morrison?fm=webp&q=80&w=100"
+        }
+    ],
+    "total": 10
+}

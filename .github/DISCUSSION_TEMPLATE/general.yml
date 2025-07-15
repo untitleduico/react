@@ -1,0 +1,24 @@
+labels: ["discussion"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for starting a discussion! Please provide as much detail as possible to help others understand your topic.
+
+    - type: textarea
+      id: description
+      attributes:
+          label: Description
+          description: What would you like to discuss?
+          placeholder: Tell us what's on your mind...
+      validations:
+          required: true
+
+    - type: textarea
+      id: context
+      attributes:
+          label: Additional context
+          description: Add any other context, screenshots, or examples that might be helpful.
+          placeholder: Any additional information that might be relevant...
+      validations:
+          required: false

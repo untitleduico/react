@@ -1,0 +1,51 @@
+labels: ["showcase"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Show off what you've built with these components! We love seeing how the community uses the component library.
+
+    - type: textarea
+      id: project
+      attributes:
+          label: What did you build?
+          description: Tell us about your project or creation
+          placeholder: Describe what you built...
+      validations:
+          required: true
+
+    - type: textarea
+      id: components
+      attributes:
+          label: Components used
+          description: Which components from this library did you use?
+          placeholder: List the components you used...
+      validations:
+          required: false
+
+    - type: textarea
+      id: highlights
+      attributes:
+          label: Cool features or customizations
+          description: What are you most proud of? Any interesting customizations or features?
+          placeholder: Share what makes your project special...
+      validations:
+          required: false
+
+    - type: input
+      id: links
+      attributes:
+          label: Links
+          description: Share links to your project (GitHub, demo, website, etc.)
+          placeholder: "https://..."
+      validations:
+          required: false
+
+    - type: textarea
+      id: screenshots
+      attributes:
+          label: Screenshots or demos
+          description: Show us what it looks like! Paste images or GIFs here.
+          placeholder: Drag and drop images here or paste links...
+      validations:
+          required: false

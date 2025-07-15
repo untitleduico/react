@@ -1,0 +1,68 @@
+{
+    "items": [
+        {
+            "name": "Ephemeral",
+            "website": "ephemeral.io",
+            "status": "Customer",
+            "aboutTitle": "Content curating app",
+            "aboutDescription": "Brings all your news into one place",
+            "licenseUse": 70,
+            "logoUrl": "https://www.untitledui.com/logos/images/Ephemeral.jpg"
+        },
+        {
+            "name": "Stack3d Lab",
+            "website": "stack3dlab.com",
+            "status": "Churned",
+            "aboutTitle": "Design software",
+            "aboutDescription": "Super lightweight design app",
+            "licenseUse": 60,
+            "logoUrl": "https://www.untitledui.com/logos/images/3Portals.jpg"
+        },
+        {
+            "name": "Warpspeed",
+            "website": "getwarpspeed.com",
+            "status": "Customer",
+            "aboutTitle": "Data prediction",
+            "aboutDescription": "AI and machine learning data",
+            "licenseUse": 30,
+            "logoUrl": "https://www.untitledui.com/logos/images/Warpspeed.jpg"
+        },
+        {
+            "name": "CloudWatch",
+            "website": "cloudwatch.app",
+            "status": "Customer",
+            "aboutTitle": "Productivity app",
+            "aboutDescription": "Time management and productivity",
+            "licenseUse": 80,
+            "logoUrl": "https://www.untitledui.com/logos/images/CloudWatch.jpg"
+        },
+        {
+            "name": "ContrastAI",
+            "website": "contrastai.com",
+            "status": "Churned",
+            "aboutTitle": "Web app integrations",
+            "aboutDescription": "Connect web apps seamlessly",
+            "licenseUse": 20,
+            "logoUrl": "https://www.untitledui.com/logos/images/ContrastAI.jpg"
+        },
+        {
+            "name": "Convergence",
+            "website": "convergence.io",
+            "status": "Customer",
+            "aboutTitle": "Sales CRM",
+            "aboutDescription": "Web-based sales doc management",
+            "licenseUse": 10,
+            "logoUrl": "https://www.untitledui.com/logos/images/Convergence.jpg"
+        },
+        {
+            "name": "Sisyphus",
+            "website": "sisyphus.com",
+            "status": "Customer",
+            "aboutTitle": "Automation and workflow",
+            "aboutDescription": "Time tracking, invoicing and expenses",
+            "licenseUse": 40,
+            "logoUrl": "https://www.untitledui.com/logos/images/Sisyphus.jpg"
+        }
+    ],
+    "total": 7
+}

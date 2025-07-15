@@ -1,0 +1,42 @@
+labels: ["enhancement", "idea"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for sharing your idea! Feature requests and enhancement ideas help make this component library better.
+
+    - type: textarea
+      id: problem
+      attributes:
+          label: Problem or use case
+          description: What problem does this idea solve? What use case does it address?
+          placeholder: Describe the problem or use case this idea would solve...
+      validations:
+          required: true
+
+    - type: textarea
+      id: solution
+      attributes:
+          label: Proposed solution
+          description: What would you like to see implemented?
+          placeholder: Describe your proposed solution or feature...
+      validations:
+          required: true
+
+    - type: textarea
+      id: alternatives
+      attributes:
+          label: Alternatives considered
+          description: Have you considered any alternative solutions or workarounds?
+          placeholder: Describe any alternatives you've considered...
+      validations:
+          required: false
+
+    - type: textarea
+      id: examples
+      attributes:
+          label: Examples or mockups
+          description: Any examples, code snippets, or mockups that illustrate your idea?
+          placeholder: Provide examples, links, or attach mockups...
+      validations:
+          required: false

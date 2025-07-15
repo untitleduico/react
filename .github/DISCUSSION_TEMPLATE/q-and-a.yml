@@ -1,0 +1,42 @@
+labels: ["question"]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Have a question about using these components? Ask away! Please search existing discussions first to avoid duplicates.
+
+    - type: textarea
+      id: question
+      attributes:
+          label: Your question
+          description: What would you like to know?
+          placeholder: Ask your question here...
+      validations:
+          required: true
+
+    - type: textarea
+      id: context
+      attributes:
+          label: What you're trying to achieve
+          description: What are you trying to build or accomplish?
+          placeholder: Describe what you're working on...
+      validations:
+          required: false
+
+    - type: textarea
+      id: attempted
+      attributes:
+          label: What you've tried
+          description: What have you already tried? Include any code snippets or approaches.
+          placeholder: Share what you've already attempted...
+      validations:
+          required: false
+
+    - type: input
+      id: environment
+      attributes:
+          label: Environment
+          description: What versions are you using? (React, TypeScript, etc.)
+          placeholder: "React 18, TypeScript 5.0, etc."
+      validations:
+          required: false

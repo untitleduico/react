@@ -1,0 +1,154 @@
+name: 🐛 Bug report
+description: Report a bug or unexpected behavior in a component
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for taking the time to report a bug! Please fill out the form below to help us investigate and fix the issue.
+
+    - type: checkboxes
+      id: prerequisites
+      attributes:
+          label: Prerequisites
+          description: Please confirm the following before submitting a bug report
+          options:
+              - label: I have searched existing issues to ensure this bug hasn't been reported already
+                required: true
+              - label: I have tested this with the latest version of the components
+                required: true
+
+    - type: textarea
+      id: bug-description
+      attributes:
+          label: Bug description
+          description: A clear and concise description of what the bug is
+          placeholder: Describe what happened and what you expected to happen
+      validations:
+          required: true
+
+    - type: textarea
+      id: reproduction-steps
+      attributes:
+          label: Steps to reproduce
+          description: Please provide step-by-step instructions to reproduce the bug
+          placeholder: |
+              1. Go to '...'
+              2. Click on '...'
+              3. Scroll down to '...'
+              4. See error
+      validations:
+          required: true
+
+    - type: textarea
+      id: expected-behavior
+      attributes:
+          label: Expected behavior
+          description: What did you expect to happen?
+          placeholder: Describe what should have happened
+      validations:
+          required: true
+
+    - type: textarea
+      id: actual-behavior
+      attributes:
+          label: Actual behavior
+          description: What actually happened?
+          placeholder: Describe what actually happened instead
+      validations:
+          required: true
+
+    - type: textarea
+      id: code-example
+      attributes:
+          label: Code example
+          description: Please provide a minimal code example that reproduces the issue
+          render: tsx
+          placeholder: |
+              import { Button } from "@/components/base/buttons/button";
+
+              export const Example = () => {
+                return (
+                  <Button variant="primary">
+                    Click me
+                  </Button>
+                );
+              };
+
+    - type: dropdown
+      id: browsers
+      attributes:
+          label: Browser
+          description: Which browser(s) are you seeing the problem on?
+          multiple: true
+          options:
+              - Chrome
+              - Firefox
+              - Safari
+              - Edge
+              - Opera
+              - Other (specify in additional context)
+
+    - type: dropdown
+      id: devices
+      attributes:
+          label: Device type
+          description: What type of device are you using?
+          multiple: true
+          options:
+              - Desktop
+              - Mobile
+              - Tablet
+
+    - type: input
+      id: version
+      attributes:
+          label: Component version
+          description: What version of the components are you using?
+          placeholder: "1.0.0"
+
+    - type: textarea
+      id: environment
+      attributes:
+          label: Environment details
+          description: Please provide information about your development environment
+          placeholder: |
+              - OS: [e.g. macOS 14.0, Windows 11, Ubuntu 22.04]
+              - Node.js version: [e.g. 18.17.0]
+              - React version: [e.g. 19.1.0]
+              - Next.js version: [e.g. 15.3.3]
+              - Tailwind CSS version: [e.g. 4.1.8]
+
+    - type: textarea
+      id: screenshots
+      attributes:
+          label: Screenshots/Videos
+          description: If applicable, add screenshots or videos to help explain the problem
+          placeholder: Drag and drop images or paste URLs here
+
+    - type: textarea
+      id: console-errors
+      attributes:
+          label: Console errors
+          description: Please paste any relevant console errors or warnings
+          render: shell
+
+    - type: textarea
+      id: additional-context
+      attributes:
+          label: Additional context
+          description: Add any other context about the problem here
+          placeholder: Any additional information that might be helpful
+
+    - type: checkboxes
+      id: accessibility
+      attributes:
+          label: Accessibility impact
+          description: Does this bug affect accessibility?
+          options:
+              - label: This bug affects keyboard navigation
+              - label: This bug affects screen reader users
+              - label: This bug affects focus management
+              - label: This bug affects color contrast or visual accessibility

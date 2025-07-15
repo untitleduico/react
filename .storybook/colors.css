@@ -1,0 +1,805 @@
+/*****************  UNTITLEDUI COLOR ******************/
+
+.untitled-brand {
+    --color-brand-25: rgb(252 250 255);
+    --color-brand-50: rgb(249 245 255);
+    --color-brand-100: rgb(244 235 255);
+    --color-brand-200: rgb(233 215 254);
+    --color-brand-300: rgb(214 187 251);
+    --color-brand-400: rgb(182 146 246);
+    --color-brand-500: rgb(158 119 237);
+    --color-brand-600: rgb(127 86 217);
+    --color-brand-700: rgb(105 65 198);
+    --color-brand-800: rgb(83 56 158);
+    --color-brand-900: rgb(66 48 125);
+    --color-brand-950: rgb(44 28 95);
+}
+
+.untitled-gray-light-mode {
+    --color-brand-25: rgb(253 253 253);
+    --color-brand-50: rgb(250 250 250);
+    --color-brand-100: rgb(245 245 245);
+    --color-brand-200: rgb(233 234 235);
+    --color-brand-300: rgb(213 215 218);
+    --color-brand-400: rgb(164 167 174);
+    --color-brand-500: rgb(113 118 128);
+    --color-brand-600: rgb(83 88 98);
+    --color-brand-700: rgb(65 70 81);
+    --color-brand-800: rgb(37 43 55);
+    --color-brand-900: rgb(24 29 39);
+    --color-brand-950: rgb(10 13 18);
+}
+
+.untitled-error {
+    --color-brand-25: rgb(255 251 250);
+    --color-brand-50: rgb(254 243 242);
+    --color-brand-100: rgb(254 228 226);
+    --color-brand-200: rgb(254 205 202);
+    --color-brand-300: rgb(253 162 155);
+    --color-brand-400: rgb(249 112 102);
+    --color-brand-500: rgb(240 68 56);
+    --color-brand-600: rgb(217 45 32);
+    --color-brand-700: rgb(180 35 24);
+    --color-brand-800: rgb(145 32 24);
+    --color-brand-900: rgb(122 39 26);
+    --color-brand-950: rgb(85 22 12);
+}
+
+.untitled-warning {
+    --color-brand-25: rgb(255 252 245);
+    --color-brand-50: rgb(255 250 235);
+    --color-brand-100: rgb(254 240 199);
+    --color-brand-200: rgb(254 223 137);
+    --color-brand-300: rgb(254 200 75);
+    --color-brand-400: rgb(253 176 34);
+    --color-brand-500: rgb(247 144 9);
+    --color-brand-600: rgb(220 104 3);
+    --color-brand-700: rgb(181 71 8);
+    --color-brand-800: rgb(147 55 13);
+    --color-brand-900: rgb(122 46 14);
+    --color-brand-950: rgb(78 29 9);
+}
+
+.untitled-success {
+    --color-brand-25: rgb(246 254 249);
+    --color-brand-50: rgb(236 253 243);
+    --color-brand-100: rgb(220 250 230);
+    --color-brand-200: rgb(171 239 198);
+    --color-brand-300: rgb(117 224 167);
+    --color-brand-400: rgb(71 205 137);
+    --color-brand-500: rgb(23 178 106);
+    --color-brand-600: rgb(7 148 85);
+    --color-brand-700: rgb(6 118 71);
+    --color-brand-800: rgb(8 93 58);
+    --color-brand-900: rgb(7 77 49);
+    --color-brand-950: rgb(5 51 33);
+}
+
+.untitled-gray-blue {
+    --color-brand-25: rgb(252 252 253);
+    --color-brand-50: rgb(248 249 252);
+    --color-brand-100: rgb(234 236 245);
+    --color-brand-200: rgb(213 217 235);
+    --color-brand-300: rgb(179 184 219);
+    --color-brand-400: rgb(113 123 188);
+    --color-brand-500: rgb(78 91 166);
+    --color-brand-600: rgb(62 71 132);
+    --color-brand-700: rgb(54 63 114);
+    --color-brand-800: rgb(41 48 86);
+    --color-brand-900: rgb(16 19 35);
+    --color-brand-950: rgb(13 15 28);
+}
+
+.untitled-gray-cool {
+    --color-brand-25: rgb(252 252 253);
+    --color-brand-50: rgb(249 249 251);
+    --color-brand-100: rgb(239 241 245);
+    --color-brand-200: rgb(220 223 234);
+    --color-brand-300: rgb(185 192 212);
+    --color-brand-400: rgb(125 137 176);
+    --color-brand-500: rgb(93 107 152);
+    --color-brand-600: rgb(74 85 120);
+    --color-brand-700: rgb(64 73 104);
+    --color-brand-800: rgb(48 55 79);
+    --color-brand-900: rgb(17 19 34);
+    --color-brand-950: rgb(14 16 27);
+}
+
+.untitled-gray-modern {
+    --color-brand-25: rgb(252 252 253);
+    --color-brand-50: rgb(248 250 252);
+    --color-brand-100: rgb(238 242 246);
+    --color-brand-200: rgb(227 232 239);
+    --color-brand-300: rgb(205 213 223);
+    --color-brand-400: rgb(154 164 178);
+    --color-brand-500: rgb(105 117 134);
+    --color-brand-600: rgb(75 85 101);
+    --color-brand-700: rgb(54 65 82);
+    --color-brand-800: rgb(32 41 57);
+    --color-brand-900: rgb(18 25 38);
+    --color-brand-950: rgb(13 18 28);
+}
+
+.untitled-gray-neutral {
+    --color-brand-25: rgb(252 252 253);
+    --color-brand-50: rgb(249 250 251);
+    --color-brand-100: rgb(243 244 246);
+    --color-brand-200: rgb(229 231 235);
+    --color-brand-300: rgb(210 214 219);
+    --color-brand-400: rgb(157 164 174);
+    --color-brand-500: rgb(108 115 127);
+    --color-brand-600: rgb(77 87 97);
+    --color-brand-700: rgb(56 66 80);
+    --color-brand-800: rgb(31 42 55);
+    --color-brand-900: rgb(17 25 39);
+    --color-brand-950: rgb(13 18 28);
+}
+
+.untitled-gray-iron {
+    --color-brand-25: rgb(252 252 252);
+    --color-brand-50: rgb(247 247 247);
+    --color-brand-100: rgb(244 244 245);
+    --color-brand-200: rgb(228 228 231);
+    --color-brand-300: rgb(209 209 214);
+    --color-brand-400: rgb(160 160 171);
+    --color-brand-500: rgb(112 112 123);
+    --color-brand-600: rgb(81 82 92);
+    --color-brand-700: rgb(63 63 70);
+    --color-brand-800: rgb(38 39 43);
+    --color-brand-900: rgb(26 26 30);
+    --color-brand-950: rgb(19 19 22);
+}
+
+.untitled-gray-true {
+    --color-brand-25: rgb(252 252 252);
+    --color-brand-50: rgb(247 247 247);
+    --color-brand-100: rgb(245 245 245);
+    --color-brand-200: rgb(229 229 229);
+    --color-brand-300: rgb(214 214 214);
+    --color-brand-400: rgb(163 163 163);
+    --color-brand-500: rgb(115 115 115);
+    --color-brand-600: rgb(82 82 82);
+    --color-brand-700: rgb(66 66 66);
+    --color-brand-800: rgb(41 41 41);
+    --color-brand-900: rgb(20 20 20);
+    --color-brand-950: rgb(15 15 15);
+}
+
+.untitled-gray-warm {
+    --color-brand-25: rgb(253 253 252);
+    --color-brand-50: rgb(250 250 249);
+    --color-brand-100: rgb(245 245 244);
+    --color-brand-200: rgb(231 229 228);
+    --color-brand-300: rgb(215 211 208);
+    --color-brand-400: rgb(169 162 157);
+    --color-brand-500: rgb(121 113 107);
+    --color-brand-600: rgb(87 83 78);
+    --color-brand-700: rgb(68 64 60);
+    --color-brand-800: rgb(41 37 36);
+    --color-brand-900: rgb(28 25 23);
+    --color-brand-950: rgb(23 20 18);
+}
+
+.untitled-moss {
+    --color-brand-25: rgb(250 253 247);
+    --color-brand-50: rgb(245 251 238);
+    --color-brand-100: rgb(230 244 215);
+    --color-brand-200: rgb(206 234 176);
+    --color-brand-300: rgb(172 220 121);
+    --color-brand-400: rgb(134 203 60);
+    --color-brand-500: rgb(102 159 42);
+    --color-brand-600: rgb(79 122 33);
+    --color-brand-700: rgb(63 98 26);
+    --color-brand-800: rgb(51 80 21);
+    --color-brand-900: rgb(43 66 18);
+    --color-brand-950: rgb(26 40 11);
+}
+
+.untitled-green-light {
+    --color-brand-25: rgb(250 254 245);
+    --color-brand-50: rgb(243 254 231);
+    --color-brand-100: rgb(227 251 204);
+    --color-brand-200: rgb(208 248 171);
+    --color-brand-300: rgb(166 239 103);
+    --color-brand-400: rgb(133 225 58);
+    --color-brand-500: rgb(102 198 28);
+    --color-brand-600: rgb(76 163 13);
+    --color-brand-700: rgb(59 124 15);
+    --color-brand-800: rgb(50 98 18);
+    --color-brand-900: rgb(43 83 20);
+    --color-brand-950: rgb(21 41 10);
+}
+
+.untitled-green {
+    --color-brand-25: rgb(246 254 249);
+    --color-brand-50: rgb(237 252 242);
+    --color-brand-100: rgb(211 248 223);
+    --color-brand-200: rgb(170 240 196);
+    --color-brand-300: rgb(115 226 163);
+    --color-brand-400: rgb(60 203 127);
+    --color-brand-500: rgb(22 179 100);
+    --color-brand-600: rgb(9 146 80);
+    --color-brand-700: rgb(8 116 67);
+    --color-brand-800: rgb(9 92 55);
+    --color-brand-900: rgb(8 76 46);
+    --color-brand-950: rgb(5 46 28);
+}
+
+.untitled-teal {
+    --color-brand-25: rgb(246 254 252);
+    --color-brand-50: rgb(240 253 249);
+    --color-brand-100: rgb(204 251 239);
+    --color-brand-200: rgb(153 246 224);
+    --color-brand-300: rgb(95 233 208);
+    --color-brand-400: rgb(46 211 183);
+    --color-brand-500: rgb(21 183 158);
+    --color-brand-600: rgb(14 147 132);
+    --color-brand-700: rgb(16 117 105);
+    --color-brand-800: rgb(18 93 86);
+    --color-brand-900: rgb(19 78 72);
+    --color-brand-950: rgb(10 41 38);
+}
+
+.untitled-cyan {
+    --color-brand-25: rgb(245 254 255);
+    --color-brand-50: rgb(236 253 255);
+    --color-brand-100: rgb(207 249 254);
+    --color-brand-200: rgb(165 240 252);
+    --color-brand-300: rgb(103 227 249);
+    --color-brand-400: rgb(34 204 238);
+    --color-brand-500: rgb(6 174 212);
+    --color-brand-600: rgb(8 138 178);
+    --color-brand-700: rgb(14 112 144);
+    --color-brand-800: rgb(21 91 117);
+    --color-brand-900: rgb(22 76 99);
+    --color-brand-950: rgb(13 45 58);
+}
+
+.untitled-blue-light {
+    --color-brand-25: rgb(245 251 255);
+    --color-brand-50: rgb(240 249 255);
+    --color-brand-100: rgb(224 242 254);
+    --color-brand-200: rgb(185 230 254);
+    --color-brand-300: rgb(124 212 253);
+    --color-brand-400: rgb(54 191 250);
+    --color-brand-500: rgb(11 165 236);
+    --color-brand-600: rgb(0 134 201);
+    --color-brand-700: rgb(2 106 162);
+    --color-brand-800: rgb(6 89 134);
+    --color-brand-900: rgb(11 74 111);
+    --color-brand-950: rgb(6 44 65);
+}
+
+.untitled-blue {
+    --color-brand-25: rgb(245 250 255);
+    --color-brand-50: rgb(239 248 255);
+    --color-brand-100: rgb(209 233 255);
+    --color-brand-200: rgb(178 221 255);
+    --color-brand-300: rgb(132 202 255);
+    --color-brand-400: rgb(83 177 253);
+    --color-brand-500: rgb(46 144 250);
+    --color-brand-600: rgb(21 112 239);
+    --color-brand-700: rgb(23 92 211);
+    --color-brand-800: rgb(24 73 169);
+    --color-brand-900: rgb(25 65 133);
+    --color-brand-950: rgb(16 42 86);
+}
+
+.untitled-blue-dark {
+    --color-brand-25: rgb(245 248 255);
+    --color-brand-50: rgb(239 244 255);
+    --color-brand-100: rgb(209 224 255);
+    --color-brand-200: rgb(178 204 255);
+    --color-brand-300: rgb(132 173 255);
+    --color-brand-400: rgb(82 139 255);
+    --color-brand-500: rgb(41 112 255);
+    --color-brand-600: rgb(21 94 239);
+    --color-brand-700: rgb(0 78 235);
+    --color-brand-800: rgb(0 64 193);
+    --color-brand-900: rgb(0 53 158);
+    --color-brand-950: rgb(0 34 102);
+}
+
+.untitled-indigo {
+    --color-brand-25: rgb(245 248 255);
+    --color-brand-50: rgb(238 244 255);
+    --color-brand-100: rgb(224 234 255);
+    --color-brand-200: rgb(199 215 254);
+    --color-brand-300: rgb(164 188 253);
+    --color-brand-400: rgb(128 152 249);
+    --color-brand-500: rgb(97 114 243);
+    --color-brand-600: rgb(68 76 231);
+    --color-brand-700: rgb(53 56 205);
+    --color-brand-800: rgb(45 49 166);
+    --color-brand-900: rgb(45 50 130);
+    --color-brand-950: rgb(31 35 91);
+}
+
+.untitled-violet {
+    --color-brand-25: rgb(251 250 255);
+    --color-brand-50: rgb(245 243 255);
+    --color-brand-100: rgb(236 233 254);
+    --color-brand-200: rgb(221 214 254);
+    --color-brand-300: rgb(195 181 253);
+    --color-brand-400: rgb(164 138 251);
+    --color-brand-500: rgb(135 91 247);
+    --color-brand-600: rgb(120 57 238);
+    --color-brand-700: rgb(105 39 218);
+    --color-brand-800: rgb(87 32 183);
+    --color-brand-900: rgb(73 28 150);
+    --color-brand-950: rgb(46 18 94);
+}
+
+.untitled-purple {
+    --color-brand-25: rgb(250 250 255);
+    --color-brand-50: rgb(244 243 255);
+    --color-brand-100: rgb(235 233 254);
+    --color-brand-200: rgb(217 214 254);
+    --color-brand-300: rgb(189 180 254);
+    --color-brand-400: rgb(155 138 251);
+    --color-brand-500: rgb(122 90 248);
+    --color-brand-600: rgb(105 56 239);
+    --color-brand-700: rgb(89 37 220);
+    --color-brand-800: rgb(74 31 184);
+    --color-brand-900: rgb(62 28 150);
+    --color-brand-950: rgb(39 17 95);
+}
+
+.untitled-fuchsia {
+    --color-brand-25: rgb(254 250 255);
+    --color-brand-50: rgb(253 244 255);
+    --color-brand-100: rgb(251 232 255);
+    --color-brand-200: rgb(246 208 254);
+    --color-brand-300: rgb(238 170 253);
+    --color-brand-400: rgb(228 120 250);
+    --color-brand-500: rgb(212 68 241);
+    --color-brand-600: rgb(186 36 213);
+    --color-brand-700: rgb(159 26 177);
+    --color-brand-800: rgb(130 24 144);
+    --color-brand-900: rgb(111 24 119);
+    --color-brand-950: rgb(71 16 76);
+}
+
+.untitled-pink {
+    --color-brand-25: rgb(254 246 251);
+    --color-brand-50: rgb(253 242 250);
+    --color-brand-100: rgb(252 231 246);
+    --color-brand-200: rgb(252 206 238);
+    --color-brand-300: rgb(250 167 224);
+    --color-brand-400: rgb(246 112 199);
+    --color-brand-500: rgb(238 70 188);
+    --color-brand-600: rgb(221 37 144);
+    --color-brand-700: rgb(193 21 116);
+    --color-brand-800: rgb(158 22 95);
+    --color-brand-900: rgb(133 22 81);
+    --color-brand-950: rgb(78 13 48);
+}
+
+.untitled-rose {
+    --color-brand-25: rgb(255 245 246);
+    --color-brand-50: rgb(255 241 243);
+    --color-brand-100: rgb(255 228 232);
+    --color-brand-200: rgb(254 205 214);
+    --color-brand-300: rgb(254 163 180);
+    --color-brand-400: rgb(253 111 142);
+    --color-brand-500: rgb(246 61 104);
+    --color-brand-600: rgb(227 27 84);
+    --color-brand-700: rgb(192 16 72);
+    --color-brand-800: rgb(161 16 67);
+    --color-brand-900: rgb(137 18 62);
+    --color-brand-950: rgb(81 11 36);
+}
+
+.untitled-orange-dark {
+    --color-brand-25: rgb(255 249 245);
+    --color-brand-50: rgb(255 244 237);
+    --color-brand-100: rgb(255 230 213);
+    --color-brand-200: rgb(255 214 174);
+    --color-brand-300: rgb(255 156 102);
+    --color-brand-400: rgb(255 105 46);
+    --color-brand-500: rgb(255 68 5);
+    --color-brand-600: rgb(230 46 5);
+    --color-brand-700: rgb(188 27 6);
+    --color-brand-800: rgb(151 24 12);
+    --color-brand-900: rgb(119 26 13);
+    --color-brand-950: rgb(87 19 10);
+}
+
+.untitled-orange {
+    --color-brand-25: rgb(254 250 245);
+    --color-brand-50: rgb(254 246 238);
+    --color-brand-100: rgb(253 234 215);
+    --color-brand-200: rgb(249 219 175);
+    --color-brand-300: rgb(247 178 122);
+    --color-brand-400: rgb(243 135 68);
+    --color-brand-500: rgb(239 104 32);
+    --color-brand-600: rgb(224 79 22);
+    --color-brand-700: rgb(185 56 21);
+    --color-brand-800: rgb(147 47 25);
+    --color-brand-900: rgb(119 41 23);
+    --color-brand-950: rgb(81 28 16);
+}
+
+.untitled-yellow {
+    --color-brand-25: rgb(254 253 240);
+    --color-brand-50: rgb(254 251 232);
+    --color-brand-100: rgb(254 247 195);
+    --color-brand-200: rgb(254 238 149);
+    --color-brand-300: rgb(253 226 114);
+    --color-brand-400: rgb(250 197 21);
+    --color-brand-500: rgb(234 170 8);
+    --color-brand-600: rgb(202 133 4);
+    --color-brand-700: rgb(161 92 7);
+    --color-brand-800: rgb(133 74 14);
+    --color-brand-900: rgb(113 59 18);
+    --color-brand-950: rgb(84 44 13);
+}
+
+.untitled-gray-dark-mode {
+    --color-brand-25: rgb(250 250 250);
+    --color-brand-50: rgb(247 247 247);
+    --color-brand-100: rgb(240 240 241);
+    --color-brand-200: rgb(236 236 237);
+    --color-brand-300: rgb(206 207 210);
+    --color-brand-400: rgb(148 151 156);
+    --color-brand-500: rgb(133 136 142);
+    --color-brand-600: rgb(97 101 108);
+    --color-brand-700: rgb(55 58 65);
+    --color-brand-800: rgb(34 38 47);
+    --color-brand-900: rgb(19 22 27);
+    --color-brand-950: rgb(12 14 18);
+}
+
+/*****************  TAILWIND COLOR ******************/
+
+.tailwind-slate {
+    --color-brand-50: rgb(248 250 252);
+    --color-brand-100: rgb(241 245 249);
+    --color-brand-200: rgb(226 232 240);
+    --color-brand-300: rgb(203 213 225);
+    --color-brand-400: rgb(148 163 184);
+    --color-brand-500: rgb(100 116 139);
+    --color-brand-600: rgb(71 85 105);
+    --color-brand-700: rgb(51 65 85);
+    --color-brand-800: rgb(30 41 59);
+    --color-brand-900: rgb(15 23 42);
+    --color-brand-950: rgb(2 6 23);
+}
+.tailwind-gray {
+    --color-brand-50: rgb(249 250 251);
+    --color-brand-100: rgb(243 244 246);
+    --color-brand-200: rgb(229 231 235);
+    --color-brand-300: rgb(209 213 219);
+    --color-brand-400: rgb(156 163 175);
+    --color-brand-500: rgb(107 114 128);
+    --color-brand-600: rgb(75 85 99);
+    --color-brand-700: rgb(55 65 81);
+    --color-brand-800: rgb(31 41 55);
+    --color-brand-900: rgb(17 24 39);
+    --color-brand-950: rgb(3 7 18);
+}
+.tailwind-zinc {
+    --color-brand-50: rgb(250 250 250);
+    --color-brand-100: rgb(244 244 245);
+    --color-brand-200: rgb(228 228 231);
+    --color-brand-300: rgb(212 212 216);
+    --color-brand-400: rgb(161 161 170);
+    --color-brand-500: rgb(113 113 122);
+    --color-brand-600: rgb(82 82 91);
+    --color-brand-700: rgb(63 63 70);
+    --color-brand-800: rgb(39 39 42);
+    --color-brand-900: rgb(24 24 27);
+    --color-brand-950: rgb(9 9 11);
+}
+.tailwind-neutral {
+    --color-brand-50: rgb(250 250 250);
+    --color-brand-100: rgb(245 245 245);
+    --color-brand-200: rgb(229 229 229);
+    --color-brand-300: rgb(212 212 212);
+    --color-brand-400: rgb(163 163 163);
+    --color-brand-500: rgb(115 115 115);
+    --color-brand-600: rgb(82 82 82);
+    --color-brand-700: rgb(64 64 64);
+    --color-brand-800: rgb(38 38 38);
+    --color-brand-900: rgb(23 23 23);
+    --color-brand-950: rgb(10 10 10);
+}
+.tailwind-stone {
+    --color-brand-50: rgb(250 250 249);
+    --color-brand-100: rgb(245 245 244);
+    --color-brand-200: rgb(231 229 228);
+    --color-brand-300: rgb(214 211 209);
+    --color-brand-400: rgb(168 162 158);
+    --color-brand-500: rgb(120 113 108);
+    --color-brand-600: rgb(87 83 78);
+    --color-brand-700: rgb(68 64 60);
+    --color-brand-800: rgb(41 37 36);
+    --color-brand-900: rgb(28 25 23);
+    --color-brand-950: rgb(12 10 9);
+}
+.tailwind-red {
+    --color-brand-50: rgb(254 242 242);
+    --color-brand-100: rgb(254 226 226);
+    --color-brand-200: rgb(254 202 202);
+    --color-brand-300: rgb(252 165 165);
+    --color-brand-400: rgb(248 113 113);
+    --color-brand-500: rgb(239 68 68);
+    --color-brand-600: rgb(220 38 38);
+    --color-brand-700: rgb(185 28 28);
+    --color-brand-800: rgb(153 27 27);
+    --color-brand-900: rgb(127 29 29);
+    --color-brand-950: rgb(69 10 10);
+}
+.tailwind-orange {
+    --color-brand-50: rgb(255 247 237);
+    --color-brand-100: rgb(255 237 213);
+    --color-brand-200: rgb(254 215 170);
+    --color-brand-300: rgb(253 186 116);
+    --color-brand-400: rgb(251 146 60);
+    --color-brand-500: rgb(249 115 22);
+    --color-brand-600: rgb(234 88 12);
+    --color-brand-700: rgb(194 65 12);
+    --color-brand-800: rgb(154 52 18);
+    --color-brand-900: rgb(124 45 18);
+    --color-brand-950: rgb(67 20 7);
+}
+.tailwind-amber {
+    --color-brand-50: rgb(255 251 235);
+    --color-brand-100: rgb(254 243 199);
+    --color-brand-200: rgb(253 230 138);
+    --color-brand-300: rgb(252 211 77);
+    --color-brand-400: rgb(251 191 36);
+    --color-brand-500: rgb(245 158 11);
+    --color-brand-600: rgb(217 119 6);
+    --color-brand-700: rgb(180 83 9);
+    --color-brand-800: rgb(146 64 14);
+    --color-brand-900: rgb(120 53 15);
+    --color-brand-950: rgb(69 26 3);
+}
+.tailwind-yellow {
+    --color-brand-50: rgb(254 252 232);
+    --color-brand-100: rgb(254 249 195);
+    --color-brand-200: rgb(254 240 138);
+    --color-brand-300: rgb(253 224 71);
+    --color-brand-400: rgb(250 204 21);
+    --color-brand-500: rgb(234 179 8);
+    --color-brand-600: rgb(202 138 4);
+    --color-brand-700: rgb(161 98 7);
+    --color-brand-800: rgb(133 77 14);
+    --color-brand-900: rgb(113 63 18);
+    --color-brand-950: rgb(66 32 6);
+}
+.tailwind-lime {
+    --color-brand-50: rgb(247 254 231);
+    --color-brand-100: rgb(236 252 203);
+    --color-brand-200: rgb(217 249 157);
+    --color-brand-300: rgb(190 242 100);
+    --color-brand-400: rgb(163 230 53);
+    --color-brand-500: rgb(132 204 22);
+    --color-brand-600: rgb(101 163 13);
+    --color-brand-700: rgb(77 124 15);
+    --color-brand-800: rgb(63 98 18);
+    --color-brand-900: rgb(54 83 20);
+    --color-brand-950: rgb(26 46 5);
+}
+.tailwind-green {
+    --color-brand-50: rgb(240 253 244);
+    --color-brand-100: rgb(220 252 231);
+    --color-brand-200: rgb(187 247 208);
+    --color-brand-300: rgb(134 239 172);
+    --color-brand-400: rgb(74 222 128);
+    --color-brand-500: rgb(34 197 94);
+    --color-brand-600: rgb(22 163 74);
+    --color-brand-700: rgb(21 128 61);
+    --color-brand-800: rgb(22 101 52);
+    --color-brand-900: rgb(20 83 45);
+    --color-brand-950: rgb(5 46 22);
+}
+.tailwind-emerald {
+    --color-brand-50: rgb(236 253 245);
+    --color-brand-100: rgb(209 250 229);
+    --color-brand-200: rgb(167 243 208);
+    --color-brand-300: rgb(110 231 183);
+    --color-brand-400: rgb(52 211 153);
+    --color-brand-500: rgb(16 185 129);
+    --color-brand-600: rgb(5 150 105);
+    --color-brand-700: rgb(4 120 87);
+    --color-brand-800: rgb(6 95 70);
+    --color-brand-900: rgb(6 78 59);
+    --color-brand-950: rgb(2 44 34);
+}
+.tailwind-teal {
+    --color-brand-50: rgb(240 253 250);
+    --color-brand-100: rgb(204 251 241);
+    --color-brand-200: rgb(153 246 228);
+    --color-brand-300: rgb(94 234 212);
+    --color-brand-400: rgb(45 212 191);
+    --color-brand-500: rgb(20 184 166);
+    --color-brand-600: rgb(13 148 136);
+    --color-brand-700: rgb(15 118 110);
+    --color-brand-800: rgb(17 94 89);
+    --color-brand-900: rgb(19 78 74);
+    --color-brand-950: rgb(4 47 46);
+}
+.tailwind-cyan {
+    --color-brand-50: rgb(236 254 255);
+    --color-brand-100: rgb(207 250 254);
+    --color-brand-200: rgb(165 243 252);
+    --color-brand-300: rgb(103 232 249);
+    --color-brand-400: rgb(34 211 238);
+    --color-brand-500: rgb(6 182 212);
+    --color-brand-600: rgb(8 145 178);
+    --color-brand-700: rgb(14 116 144);
+    --color-brand-800: rgb(21 94 117);
+    --color-brand-900: rgb(22 78 99);
+    --color-brand-950: rgb(8 51 68);
+}
+.tailwind-sky {
+    --color-brand-50: rgb(240 249 255);
+    --color-brand-100: rgb(224 242 254);
+    --color-brand-200: rgb(186 230 253);
+    --color-brand-300: rgb(125 211 252);
+    --color-brand-400: rgb(56 189 248);
+    --color-brand-500: rgb(14 165 233);
+    --color-brand-600: rgb(2 132 199);
+    --color-brand-700: rgb(3 105 161);
+    --color-brand-800: rgb(7 89 133);
+    --color-brand-900: rgb(12 74 110);
+    --color-brand-950: rgb(8 47 73);
+}
+.tailwind-blue {
+    --color-brand-50: rgb(239 246 255);
+    --color-brand-100: rgb(219 234 254);
+    --color-brand-200: rgb(191 219 254);
+    --color-brand-300: rgb(147 197 253);
+    --color-brand-400: rgb(96 165 250);
+    --color-brand-500: rgb(59 130 246);
+    --color-brand-600: rgb(37 99 235);
+    --color-brand-700: rgb(29 78 216);
+    --color-brand-800: rgb(30 64 175);
+    --color-brand-900: rgb(30 58 138);
+    --color-brand-950: rgb(23 37 84);
+}
+.tailwind-indigo {
+    --color-brand-50: rgb(238 242 255);
+    --color-brand-100: rgb(224 231 255);
+    --color-brand-200: rgb(199 210 254);
+    --color-brand-300: rgb(165 180 252);
+    --color-brand-400: rgb(129 140 248);
+    --color-brand-500: rgb(99 102 241);
+    --color-brand-600: rgb(79 70 229);
+    --color-brand-700: rgb(67 56 202);
+    --color-brand-800: rgb(55 48 163);
+    --color-brand-900: rgb(49 46 129);
+    --color-brand-950: rgb(30 27 75);
+}
+.tailwind-violet {
+    --color-brand-50: rgb(245 243 255);
+    --color-brand-100: rgb(237 233 254);
+    --color-brand-200: rgb(221 214 254);
+    --color-brand-300: rgb(196 181 253);
+    --color-brand-400: rgb(167 139 250);
+    --color-brand-500: rgb(139 92 246);
+    --color-brand-600: rgb(124 58 237);
+    --color-brand-700: rgb(109 40 217);
+    --color-brand-800: rgb(91 33 182);
+    --color-brand-900: rgb(76 29 149);
+    --color-brand-950: rgb(46 16 101);
+}
+.tailwind-purple {
+    --color-brand-50: rgb(250 245 255);
+    --color-brand-100: rgb(243 232 255);
+    --color-brand-200: rgb(233 213 255);
+    --color-brand-300: rgb(216 180 254);
+    --color-brand-400: rgb(192 132 252);
+    --color-brand-500: rgb(168 85 247);
+    --color-brand-600: rgb(147 51 234);
+    --color-brand-700: rgb(126 34 206);
+    --color-brand-800: rgb(107 33 168);
+    --color-brand-900: rgb(88 28 135);
+    --color-brand-950: rgb(59 7 100);
+}
+.tailwind-fuchsia {
+    --color-brand-50: rgb(253 244 255);
+    --color-brand-100: rgb(250 232 255);
+    --color-brand-200: rgb(245 208 254);
+    --color-brand-300: rgb(240 171 252);
+    --color-brand-400: rgb(232 121 249);
+    --color-brand-500: rgb(217 70 239);
+    --color-brand-600: rgb(192 38 211);
+    --color-brand-700: rgb(162 28 175);
+    --color-brand-800: rgb(134 25 143);
+    --color-brand-900: rgb(112 26 117);
+    --color-brand-950: rgb(74 4 78);
+}
+.tailwind-pink {
+    --color-brand-50: rgb(253 242 248);
+    --color-brand-100: rgb(252 231 243);
+    --color-brand-200: rgb(251 207 232);
+    --color-brand-300: rgb(249 168 212);
+    --color-brand-400: rgb(244 114 182);
+    --color-brand-500: rgb(236 72 153);
+    --color-brand-600: rgb(219 39 119);
+    --color-brand-700: rgb(190 24 93);
+    --color-brand-800: rgb(157 23 77);
+    --color-brand-900: rgb(131 24 67);
+    --color-brand-950: rgb(80 7 36);
+}
+.tailwind-rose {
+    --color-brand-50: rgb(255 241 242);
+    --color-brand-100: rgb(255 228 230);
+    --color-brand-200: rgb(254 205 211);
+    --color-brand-300: rgb(253 164 175);
+    --color-brand-400: rgb(251 113 133);
+    --color-brand-500: rgb(244 63 94);
+    --color-brand-600: rgb(225 29 72);
+    --color-brand-700: rgb(190 18 60);
+    --color-brand-800: rgb(159 18 57);
+    --color-brand-900: rgb(136 19 55);
+    --color-brand-950: rgb(76 5 25);
+}
+.tailwind-light-blue {
+    --color-brand-50: rgb(240 249 255);
+    --color-brand-100: rgb(224 242 254);
+    --color-brand-200: rgb(186 230 253);
+    --color-brand-300: rgb(125 211 252);
+    --color-brand-400: rgb(56 189 248);
+    --color-brand-500: rgb(14 165 233);
+    --color-brand-600: rgb(2 132 199);
+    --color-brand-700: rgb(3 105 161);
+    --color-brand-800: rgb(7 89 133);
+    --color-brand-900: rgb(12 74 110);
+    --color-brand-950: rgb(8 47 73);
+}
+.tailwind-warm-gray {
+    --color-brand-50: rgb(250 250 249);
+    --color-brand-100: rgb(245 245 244);
+    --color-brand-200: rgb(231 229 228);
+    --color-brand-300: rgb(214 211 209);
+    --color-brand-400: rgb(168 162 158);
+    --color-brand-500: rgb(120 113 108);
+    --color-brand-600: rgb(87 83 78);
+    --color-brand-700: rgb(68 64 60);
+    --color-brand-800: rgb(41 37 36);
+    --color-brand-900: rgb(28 25 23);
+    --color-brand-950: rgb(12 10 9);
+}
+.tailwind-true-gray {
+    --color-brand-50: rgb(250 250 250);
+    --color-brand-100: rgb(245 245 245);
+    --color-brand-200: rgb(229 229 229);
+    --color-brand-300: rgb(212 212 212);
+    --color-brand-400: rgb(163 163 163);
+    --color-brand-500: rgb(115 115 115);
+    --color-brand-600: rgb(82 82 82);
+    --color-brand-700: rgb(64 64 64);
+    --color-brand-800: rgb(38 38 38);
+    --color-brand-900: rgb(23 23 23);
+    --color-brand-950: rgb(10 10 10);
+}
+.tailwind-cool-gray {
+    --color-brand-50: rgb(249 250 251);
+    --color-brand-100: rgb(243 244 246);
+    --color-brand-200: rgb(229 231 235);
+    --color-brand-300: rgb(209 213 219);
+    --color-brand-400: rgb(156 163 175);
+    --color-brand-500: rgb(107 114 128);
+    --color-brand-600: rgb(75 85 99);
+    --color-brand-700: rgb(55 65 81);
+    --color-brand-800: rgb(31 41 55);
+    --color-brand-900: rgb(17 24 39);
+    --color-brand-950: rgb(3 7 18);
+}
+.tailwind-blue-gray {
+    --color-brand-50: rgb(248 250 252);
+    --color-brand-100: rgb(241 245 249);
+    --color-brand-200: rgb(226 232 240);
+    --color-brand-300: rgb(203 213 225);
+    --color-brand-400: rgb(148 163 184);
+    --color-brand-500: rgb(100 116 139);
+    --color-brand-600: rgb(71 85 105);
+    --color-brand-700: rgb(51 65 85);
+    --color-brand-800: rgb(30 41 59);
+    --color-brand-900: rgb(15 23 42);
+    --color-brand-950: rgb(2 6 23);
+}
