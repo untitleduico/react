@@ -25,12 +25,12 @@
   "author": "Untitled UI",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/untitledui/rect/issues"
+    "url": "https://github.com/untitleduico/react/issues"
   },
   "homepage": "https://www.untitledui.com/react",
   "repository": {
     "type": "git",
-    "url": "https://github.com/untitledui/react.git"
+    "url": "https://github.com/untitleduico/react.git"
   },
   "dependencies": {
     "@internationalized/date": "^3.8.2",
