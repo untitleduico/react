@@ -20,17 +20,17 @@ Check out our installation guide here → [untitledui.com/react/docs/installatio
 
 Untitled UI React is built on top of [Untitled UI Figma](https://www.untitledui.com/figma), the world's largest and most popular Figma UI kit and design system. Explore more:
 
-**[Untitled UI Figma:](https://www.untitledui.com/react/resources/figma-files)** The world's largest Figma UI kit and design system.
+**[Untitled UI Figma:](https://www.untitledui.com/resources/figma-files)** The world's largest Figma UI kit and design system.
 <br/>
-**[Untitled UI Icons:](https://www.untitledui.com/react/resources/icons)** A clean, consistent, and neutral icon library crafted specifically for modern UI design.
+**[Untitled UI Icons:](https://www.untitledui.com/resources/icons)** A clean, consistent, and neutral icon library crafted specifically for modern UI design.
 <br/>
-**[Untitled UI file icons:](https://www.untitledui.com/react/resources/file-icons)** Free file format icons, designed specifically for modern web and UI design.
+**[Untitled UI file icons:](https://www.untitledui.com/resources/file-icons)** Free file format icons, designed specifically for modern web and UI design.
 <br/>
-**[Untitled UI flag icons:](https://www.untitledui.com/react/resources/flag-icons)** Free country flag icons, designed specifically for modern web and UI design.
+**[Untitled UI flag icons:](https://www.untitledui.com/resources/flag-icons)** Free country flag icons, designed specifically for modern web and UI design.
 <br/>
-**[Untitled UI avatars:](https://www.untitledui.com/react/resources/avatars)** Free placeholder user avatars and profile pictures to use in your projects.
+**[Untitled UI avatars:](https://www.untitledui.com/resources/avatars)** Free placeholder user avatars and profile pictures to use in your projects.
 <br/>
-**[Untitled UI logos:](https://www.untitledui.com/react/resources/logos)** Free fictional company logos to use in your projects.
+**[Untitled UI logos:](https://www.untitledui.com/resources/logos)** Free fictional company logos to use in your projects.
 
 ## License
 
