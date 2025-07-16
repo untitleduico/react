@@ -146,16 +146,16 @@ type TooltipTriggerProps =
       };
 
 export const TooltipTrigger = (props: TooltipTriggerProps) => {
-    const triggerRef = useRef<FocusableElement>(null);
-
-    const { focusableProps } = useFocusable(
-        {
-            isDisabled: props.isDisabled,
-        },
-        triggerRef,
-    );
-
     if (props.asChild) {
+        const triggerRef = useRef<FocusableElement>(null);
+
+        const { focusableProps } = useFocusable(
+            {
+                isDisabled: props.isDisabled,
+            },
+            triggerRef,
+        );
+
         return cloneElement(props.children, mergeProps(focusableProps, props.children.props, { ref: triggerRef }));
     }
 
