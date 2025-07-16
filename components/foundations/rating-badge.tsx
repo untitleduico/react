@@ -117,27 +117,28 @@ export const Wreath = (props: HTMLAttributes<HTMLOrSVGElement>) => (
     </svg>
 );
 
-interface RatingsBadgeProps extends HTMLAttributes<HTMLDivElement> {
+interface RatingBadgeProps extends HTMLAttributes<HTMLDivElement> {
     title?: string;
     subtitle?: string;
     rating?: number;
+    theme?: "light" | "dark";
 }
 
-export const RatingsBadge = ({ title = "Best Design Tool", subtitle = "2,000+ reviews", rating, className, ...props }: RatingsBadgeProps) => {
+export const RatingBadge = ({ title = "Best Design Tool", subtitle = "2,000+ reviews", rating, theme = "dark", className, ...props }: RatingBadgeProps) => {
     return (
         <div {...props} className={cx("flex items-center -space-x-0.5", className)}>
-            <Wreath className="shrink-0" />
+            <Wreath className={cx("shrink-0", theme === "light" && "text-fg-white")} />
 
             <div className="flex flex-col items-center gap-1">
                 <RatingStars rating={rating} className="gap-0.5" starClassName="size-4" />
 
                 <div className="text-center">
-                    <p className="text-sm font-semibold text-primary">{title}</p>
-                    <p className="text-xs font-medium text-secondary">{subtitle}</p>
+                    <p className={cx("text-sm font-semibold", theme === "light" ? "text-primary_on-brand" : "text-primary")}>{title}</p>
+                    <p className={cx("text-xs font-medium", theme === "light" ? "text-secondary_on-brand" : "text-secondary")}>{subtitle}</p>
                 </div>
             </div>
 
-            <Wreath className="shrink-0 -scale-x-100" />
+            <Wreath className={cx("shrink-0 -scale-x-100", theme === "light" && "text-fg-white")} />
         </div>
     );
 };

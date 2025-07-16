@@ -24,8 +24,8 @@ export const sm = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative", className)}>
-            <svg width="152" height="120" viewBox="0 0 152 120" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
+        <div {...otherProps} className={cx("relative h-[120px] w-[152px]", className)}>
+            <svg viewBox="0 0 152 120" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="76" cy="52" r="52" className="fill-utility-gray-100" />
 
                 <circle cx="21" cy="19" r="5" className="fill-utility-gray-100" />
@@ -107,8 +107,8 @@ export const md = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative", className)}>
-            <svg width="172" height="128" viewBox="0 0 182 137" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
+        <div {...otherProps} className={cx("relative h-[128px] w-[172px]", className)}>
+            <svg viewBox="0 0 182 137" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="91" cy="64" r="64" className="fill-utility-gray-100" />
 
                 <circle cx="25" cy="20" r="6" className="fill-utility-gray-100" />
@@ -191,8 +191,8 @@ export const lg = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative", className)}>
-            <svg width="220" height="160" viewBox="0 0 220 160" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
+        <div {...otherProps} className={cx("relative h-[160px] w-[220px]", className)}>
+            <svg viewBox="0 0 220 160" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="110" cy="80" r="80" className="fill-utility-gray-100" />
                 <circle cx="26" cy="20" r="8" className="fill-utility-gray-100" />
                 <circle cx="198" cy="126" r="6" className="fill-utility-gray-100" />
