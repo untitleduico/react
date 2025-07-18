@@ -10,7 +10,7 @@ Built with React 19.1, Tailwind CSS v4.1, TypeScript 5.8, and React Aria, Untitl
 
 ## Documentation
 
-Check out our documentation here → [untitledui.com/react/docs/](https://www.untitledui.com/react/docs/introduction)
+Check out our documentation here → [untitledui.com/react/docs](https://www.untitledui.com/react/docs/introduction)
 
 ## Installation
 
