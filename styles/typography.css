@@ -38,22 +38,22 @@
 
     /* Lists */
     &:where(ol) {
-        liststyletype: decimal;
+        list-style-type: decimal;
 
         margin-top: calc(var(--spacing) * 4);
         margin-bottom: calc(var(--spacing) * 4);
-        padding-inline-start: 23px;
+        padding-inline-start: calc(var(--spacing) * 5.75);
     }
     &:where(ul) {
-        liststyletype: disc;
+        list-style-type: disc;
 
         margin-top: calc(var(--spacing) * 4);
         margin-bottom: calc(var(--spacing) * 4);
-        padding-inline-start: 23px;
+        padding-inline-start: calc(var(--spacing) * 5.75);
     }
     &:where(li) {
-        margin-top: em(8; 16);
-        margin-bottom: em(8; 16);
+        margin-top: calc(var(--spacing) * 2);
+        margin-bottom: calc(var(--spacing) * 2);
     }
     &:where(ol > li) {
         padding-inline-start: 1px;
@@ -237,8 +237,8 @@
         line-height: 1.25rem;
         font-weight: 700;
         border-radius: 6px;
-        padding: 2px 6px;
-        margin: -2px 0px;
+        padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+        margin: calc(var(--spacing) * -0.5) 0px;
         background: var(--color-bg-secondary);
         box-shadow: 0 0 0 1px var(--color-border-secondary);
 
@@ -302,12 +302,12 @@
         &:where(ol) {
             margin-top: calc(var(--spacing) * 4.5);
             margin-bottom: calc(var(--spacing) * 4.5);
-            padding-inline-start: 26px;
+            padding-inline-start: calc(var(--spacing) * 6.5);
         }
         &:where(ul) {
             margin-top: calc(var(--spacing) * 4.5);
             margin-bottom: calc(var(--spacing) * 4.5);
-            padding-inline-start: 26px;
+            padding-inline-start: calc(var(--spacing) * 6.5);
         }
 
         &:where(ol > li) {
@@ -413,8 +413,8 @@
             line-height: 1.25rem;
             font-weight: 700;
             border-radius: 6px;
-            padding: 2px 6px;
-            margin: -2px 0px;
+            padding: calc(var(--spacing) * 0.5) calc(var(--spacing) * 1.5);
+            margin: calc(var(--spacing) * -0.5) 0px;
             background: var(--color-bg-secondary);
             box-shadow: 0 0 0 1px var(--color-border-secondary);
         }

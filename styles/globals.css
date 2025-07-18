@@ -7,8 +7,6 @@
 @import "./theme.css";
 @import "./typography.css";
 
-@source "../components/application/code-snippet/code-snippet.style.css";
-
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 @custom-variant label (& [data-label]);
 @custom-variant focus-input-within (&:has(input:focus));
