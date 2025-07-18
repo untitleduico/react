@@ -1,11 +1,10 @@
 @import "tailwindcss";
+@import "./theme.css";
+@import "./typography.css";
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-react-aria-components";
 @plugin "tailwindcss-animate";
-
-@import "./theme.css";
-@import "./typography.css";
 
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 @custom-variant label (& [data-label]);
