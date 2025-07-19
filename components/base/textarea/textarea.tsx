@@ -70,9 +70,13 @@ export const TextArea = ({
             value={value as string}
             defaultValue={defaultValue as string}
         >
-            {({ isInvalid }) => (
+            {({ isInvalid, isRequired }) => (
                 <>
-                    {label && <Label tooltip={tooltip}>{label}</Label>}
+                    {label && (
+                        <Label isRequired={isRequired} tooltip={tooltip}>
+                            {label}
+                        </Label>
+                    )}
 
                     <TextAreaBase {...textAreaProps} />
 
