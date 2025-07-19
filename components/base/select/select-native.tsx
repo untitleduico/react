@@ -6,13 +6,14 @@ import { HintText } from "@/components/base/input/hint-text";
 import { Label } from "@/components/base/input/label";
 import { cx } from "@/utils/cx";
 
-interface SelectorComponentProps extends SelectHTMLAttributes<HTMLSelectElement> {
+interface NativeSelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     label?: string;
     hint?: string;
+    selectClassName?: string;
     options: { label: string; value: string; disabled?: boolean }[];
 }
 
-export const NativeSelect = ({ label, hint, options, className, ...props }: SelectorComponentProps) => {
+export const NativeSelect = ({ label, hint, options, className, selectClassName, ...props }: NativeSelectProps) => {
     const id = useId();
     const selectId = `select-native-${id}`;
     const hintId = `select-native-hint-${id}`;
@@ -29,7 +30,6 @@ export const NativeSelect = ({ label, hint, options, className, ...props }: Sele
                 <select
                     {...props}
                     id={selectId}
-                    defaultValue="default"
                     aria-describedby={hintId}
                     aria-labelledby={selectId}
                     className={cx(
@@ -44,6 +44,7 @@ export const NativeSelect = ({ label, hint, options, className, ...props }: Sele
                         "in-data-input-wrapper:in-data-leading:in-data-[input-size=md]:pr-4.5 in-data-input-wrapper:in-data-leading:in-data-[input-size=sm]:pr-4.5",
                         // For "trailing" dropdown within `InputGroup`
                         "in-data-input-wrapper:in-data-trailing:in-data-[input-size=md]:pr-8 in-data-input-wrapper:in-data-trailing:in-data-[input-size=sm]:pr-7.5",
+                        selectClassName,
                     )}
                 >
                     {options.map((opt) => (
