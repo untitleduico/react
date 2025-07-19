@@ -1,5 +1,3 @@
-# Pull request
-
 ## Description
 
 <!-- Provide a brief description of the changes in this PR -->
@@ -62,47 +60,6 @@ Closes #<!-- issue number -->
 
 <!-- Screenshot/video of the changes -->
 
-## Component API changes
-
-<!-- If this affects component APIs, document the changes -->
-
-### New props
-
-```tsx
-interface ComponentProps {
-    // New props added
-    newProp?: string;
-}
-```
-
-### Changed props
-
-```tsx
-// Before
-oldProp: string;
-
-// After
-oldProp: "option1" | "option2";
-```
-
-### Removed props
-
-```tsx
-// These props have been removed
-removedProp?: boolean;
-```
-
-## Accessibility considerations
-
-<!-- Describe accessibility testing and considerations -->
-
-- [ ] ARIA labels are present and correct
-- [ ] Semantic HTML is used appropriately
-- [ ] Keyboard navigation follows expected patterns
-- [ ] Screen reader announcements are appropriate
-- [ ] Focus indicators are visible and clear
-- [ ] Color is not the only means of conveying information
-
 ## Code quality checklist
 
 - [ ] **Code style**: Follows project conventions
@@ -120,8 +77,6 @@ removedProp?: boolean;
 - [ ] Component props are documented with TypeScript interfaces
 - [ ] Storybook stories cover all variants
 - [ ] Usage examples are provided
-- [ ] Accessibility guidelines are documented
-- [ ] CHANGELOG.md is updated (if applicable)
 
 ## Breaking changes
 
@@ -140,22 +95,3 @@ removedProp?: boolean;
 ## Additional context
 
 <!-- Add any additional context, concerns, or questions -->
-
-## Reviewer notes
-
-<!-- Any specific areas you'd like reviewers to focus on -->
-
----
-
-## For maintainers
-
-### Review checklist
-
-- [ ] **Code quality**: Code follows project standards
-- [ ] **Testing**: Adequate testing coverage
-- [ ] **Documentation**: Proper documentation provided
-- [ ] **Accessibility**: Meets WCAG 2.1 AA standards
-- [ ] **Performance**: No performance regressions
-- [ ] **API design**: API is consistent with existing patterns
-- [ ] **Breaking changes**: Properly documented with migration guide
-- [ ] **Visual design**: Matches design system specifications

@@ -3,8 +3,8 @@ contact_links:
     - name: 💬 General Questions & Discussions
       url: https://github.com/untitled-ui/components/discussions
       about: Ask questions, share ideas, and discuss with the community
-    # - name: 💡 Feature Requests
-    #   url: https://github.com/untitleduico/react-temp/discussions/new?category=ideas
+    - name: 💡 Feature Requests
+      url: https://github.com/untitleduico/react-temp/discussions/new?category=ideas
     - name: 📖 Documentation
       url: https://www.untitledui.com/react/components
       about: View the full component documentation and examples
