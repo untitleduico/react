@@ -2,6 +2,7 @@ blank_issues_enabled: false
 contact_links:
     - name: 💡 Feature Requests
       url: https://github.com/untitleduico/react/discussions/new?category=ideas
+      about: Suggest ideas, request features and new components
     - name: 💬 General Questions & Discussions
       url: https://github.com/untitleduico/react/discussions
       about: Ask questions, share ideas, and discuss with the community
