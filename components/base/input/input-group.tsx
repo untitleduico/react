@@ -94,7 +94,7 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
         >
             {(state) => (
                 <>
-                    {label && <Label {...state}>{label}</Label>}
+                    {label && <Label isRequired={state.isRequired}>{label}</Label>}
 
                     <div
                         data-input-size={size}
@@ -121,7 +121,7 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
                         {trailingAddon && <section data-trailing={hasTrailing || undefined}>{trailingAddon}</section>}
                     </div>
 
-                    {hint && <HintText {...state}>{hint}</HintText>}
+                    {hint && <HintText isInvalid={state.isInvalid}>{hint}</HintText>}
                 </>
             )}
         </TextField>

@@ -102,11 +102,18 @@ export const PaymentInput = ({ onChange, value, defaultValue, className, maxLeng
         >
             {({ isDisabled, isInvalid, isRequired }) => (
                 <>
-                    {label && <Label {...{ isRequired }}>{label}</Label>}
+                    {label && <Label isRequired={isRequired}>{label}</Label>}
 
-                    <InputBase {...props} {...{ isDisabled, isInvalid }} icon={card.icon} inputClassName="pl-13" iconClassName="left-2.5 h-6 w-8.5" />
+                    <InputBase
+                        {...props}
+                        isDisabled={isDisabled}
+                        isInvalid={isInvalid}
+                        icon={card.icon}
+                        inputClassName="pl-13"
+                        iconClassName="left-2.5 h-6 w-8.5"
+                    />
 
-                    {hint && <HintText {...{ isInvalid }}>{hint}</HintText>}
+                    {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
                 </>
             )}
         </TextField>
