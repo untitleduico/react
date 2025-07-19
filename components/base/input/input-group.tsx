@@ -92,9 +92,9 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
             )}
             {...props}
         >
-            {(state) => (
+            {({ isDisabled, isInvalid, isRequired }) => (
                 <>
-                    {label && <Label isRequired={state.isRequired}>{label}</Label>}
+                    {label && <Label isRequired={isRequired}>{label}</Label>}
 
                     <div
                         data-input-size={size}
@@ -104,15 +104,15 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
                             // Only apply focus ring when child is select and input is focused
                             "has-[&>select]:shadow-xs has-[&>select]:ring-1 has-[&>select]:ring-border-primary has-[&>select]:ring-inset has-[&>select]:has-[input:focus]:ring-2 has-[&>select]:has-[input:focus]:ring-border-brand",
 
-                            state.isDisabled && "cursor-not-allowed has-[&>select]:bg-disabled_subtle has-[&>select]:ring-border-disabled",
-                            state.isInvalid && "has-[&>select]:ring-border-error_subtle has-[&>select]:has-[input:focus]:ring-border-error",
+                            isDisabled && "cursor-not-allowed has-[&>select]:bg-disabled_subtle has-[&>select]:ring-border-disabled",
+                            isInvalid && "has-[&>select]:ring-border-error_subtle has-[&>select]:has-[input:focus]:ring-border-error",
                         )}
                     >
                         {leadingAddon && <section data-leading={hasLeading || undefined}>{leadingAddon}</section>}
 
                         {prefix && (
                             <span className={cx("my-auto grow pr-2", paddings[size].leadingText)}>
-                                <p className={cx("text-md text-tertiary", state.isDisabled && "text-disabled")}>{prefix}</p>
+                                <p className={cx("text-md text-tertiary", isDisabled && "text-disabled")}>{prefix}</p>
                             </span>
                         )}
 
@@ -121,7 +121,7 @@ export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, l
                         {trailingAddon && <section data-trailing={hasTrailing || undefined}>{trailingAddon}</section>}
                     </div>
 
-                    {hint && <HintText isInvalid={state.isInvalid}>{hint}</HintText>}
+                    {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
                 </>
             )}
         </TextField>
