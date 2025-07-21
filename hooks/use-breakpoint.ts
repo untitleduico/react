@@ -30,7 +30,7 @@ export const useBreakpoint = (size: "sm" | "md" | "lg" | "xl" | "2xl") => {
 
         breakpoint.addEventListener("change", handleChange);
         return () => breakpoint.removeEventListener("change", handleChange);
-    }, []);
+    }, [size]);
 
     return matches;
 };

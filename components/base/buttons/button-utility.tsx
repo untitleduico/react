@@ -51,7 +51,6 @@ export type Props = ButtonProps | LinkProps;
 
 export const ButtonUtility = ({
     tooltip,
-    children,
     className,
     isDisabled,
     icon: Icon,

@@ -10,7 +10,7 @@ interface IllustrationProps extends HTMLAttributes<HTMLDivElement> {
     childrenClassName?: string;
 }
 
-export const CreditCardIllustration = ({ size = "lg", svgClassName, childrenClassName, ...otherProps }: IllustrationProps) => {
+export const CreditCardIllustration = ({ size = "lg", ...otherProps }: IllustrationProps) => {
     const Pattern = sizes[size];
 
     return <Pattern {...otherProps} />;

@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, FC, HTMLAttributes, ReactNode } from "react";
-import React, { cloneElement, createContext, isValidElement, useContext, useEffect, useState } from "react";
+import React, { cloneElement, createContext, isValidElement, useCallback, useContext, useEffect, useState } from "react";
 
 type PaginationPage = {
     /** The type of the pagination item. */
@@ -51,12 +51,7 @@ export interface PaginationRootProps {
 const PaginationRoot = ({ total, siblingCount = 1, page, onPageChange, children, style, className }: PaginationRootProps) => {
     const [pages, setPages] = useState<PaginationItemType[]>([]);
 
-    useEffect(() => {
-        const paginationItems = createPaginationItems();
-        setPages(paginationItems);
-    }, [total, siblingCount, page]);
-
-    const createPaginationItems = (): PaginationItemType[] => {
+    const createPaginationItems = useCallback((): PaginationItemType[] => {
         const items: PaginationItemType[] = [];
         // Calculate the maximum number of pagination elements (pages, potential ellipsis, first and last) to show
         const totalPageNumbers = siblingCount * 2 + 5;
@@ -155,7 +150,12 @@ const PaginationRoot = ({ total, siblingCount = 1, page, onPageChange, children,
         }
 
         return items;
-    };
+    }, [total, siblingCount, page]);
+
+    useEffect(() => {
+        const paginationItems = createPaginationItems();
+        setPages(paginationItems);
+    }, [createPaginationItems]);
 
     const onPageChangeHandler = (newPage: number) => {
         onPageChange?.(newPage);

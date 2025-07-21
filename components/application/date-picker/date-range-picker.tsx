@@ -73,7 +73,7 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                 },
             },
         }),
-        [],
+        [locale],
     );
 
     return (
