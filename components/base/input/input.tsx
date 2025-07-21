@@ -36,20 +36,21 @@ export interface InputBaseProps extends TextFieldProps {
 }
 
 export const InputBase = ({
-    size = "sm",
-    placeholder,
-    icon: Icon,
-    isRequired,
-    isDisabled,
-    isInvalid,
+    ref,
     tooltip,
     shortcut,
-    ref,
     groupRef,
+    size = "sm",
+    isInvalid,
+    isDisabled,
+    icon: Icon,
+    placeholder,
     wrapperClassName,
     tooltipClassName,
     inputClassName,
     iconClassName,
+    // Omit this prop to avoid invalid HTML attribute warning
+    isRequired: _isRequired,
     ...inputProps
 }: Omit<InputBaseProps, "label" | "hint">) => {
     // Check if the input has a leading icon or tooltip

@@ -7,15 +7,13 @@ import { cx } from "@/utils/cx";
 
 type PinInputContextType = {
     size: "sm" | "md" | "lg";
-    disabled?: boolean;
-    digits?: number;
+    disabled: boolean;
     id: string;
 };
 
 const PinInputContext = createContext<PinInputContextType>({
     size: "sm",
     id: "",
-    digits: 4,
     disabled: false,
 });
 
@@ -29,30 +27,29 @@ export const usePinInputContext = () => {
     return context;
 };
 
-interface InputProps extends Omit<ComponentPropsWithRef<typeof OTPInput>, "size" | "maxLength" | "className"> {
-    width?: number;
-    inputClassName?: string;
-}
-
 interface RootProps extends ComponentPropsWithRef<"div"> {
     size?: "sm" | "md" | "lg";
-    digits?: number;
     disabled?: boolean;
 }
 
-const Root = ({ className, size = "md", digits = 4, disabled, ...props }: RootProps) => {
+const Root = ({ className, size = "md", disabled = false, ...props }: RootProps) => {
     const id = useId();
 
     return (
-        <PinInputContext.Provider value={{ size, digits, disabled, id }}>
+        <PinInputContext.Provider value={{ size, disabled, id }}>
             <div role="group" className={cx("flex h-max flex-col gap-1.5", className)} {...props} />
         </PinInputContext.Provider>
     );
 };
 Root.displayName = "Root";
 
-const Group = ({ inputClassName, containerClassName, width, ...props }: InputProps) => {
-    const { id, size, digits, disabled } = usePinInputContext();
+type GroupProps = ComponentPropsWithRef<typeof OTPInput> & {
+    width?: number;
+    inputClassName?: string;
+};
+
+const Group = ({ inputClassName, containerClassName, width, maxLength = 4, ...props }: GroupProps) => {
+    const { id, size, disabled } = usePinInputContext();
 
     const heights = {
         sm: "h-16.5",
@@ -62,9 +59,9 @@ const Group = ({ inputClassName, containerClassName, width, ...props }: InputPro
 
     return (
         <OTPInput
-            {...(props as any)}
+            {...props}
             size={width}
-            maxLength={digits}
+            maxLength={maxLength}
             disabled={disabled}
             id={"pin-input-" + id}
             aria-label="Enter your pin"

@@ -30,13 +30,13 @@ export const LeadingIcon = () => (
 
 export const ButtonGroupDot = () => (
     <ButtonGroup selectedKeys={["archive"]}>
-        <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
             Text
         </ButtonGroupItem>
-        <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
             Text
         </ButtonGroupItem>
-        <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
             Text
         </ButtonGroupItem>
     </ButtonGroup>
@@ -107,16 +107,16 @@ export const All = () => (
         </ButtonGroup>
 
         <ButtonGroup selectedKeys={["archive"]}>
-            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
                 Archive
             </ButtonGroupItem>
-            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
                 Edit
             </ButtonGroupItem>
             <ButtonGroupItem
                 id="delete"
                 isDisabled
-                iconLeading={<Dot className="mx-[3px] size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
             >
                 Delete
             </ButtonGroupItem>

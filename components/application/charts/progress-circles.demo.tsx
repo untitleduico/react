@@ -68,13 +68,7 @@ export const ProgressCircle = ({ size = "sm", title, subtitle }: { size?: "xs" |
                     startAngle={90}
                     endAngle={360 + 90}
                 >
-                    <PolarAngleAxis
-                        tick={false}
-                        type="number"
-                        domain={[0, 1000]}
-                        // @ts-expect-error this prop works but isn't correct in TS types at the moment
-                        reversed
-                    />
+                    <PolarAngleAxis tick={false} type="number" domain={[0, 1000]} reversed />
 
                     <RadialBar
                         isAnimationActive={false}

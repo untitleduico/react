@@ -1,11 +1,12 @@
 "use client";
 
+import type { FC } from "react";
 import * as Demos from "./date-picker.demo";
 
 export default {
     title: "Application/Date pickers",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen items-start justify-center bg-tertiary p-8">
                 <div className="flex w-75 justify-end">
                     <Story />

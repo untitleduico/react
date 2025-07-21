@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useState } from "react";
 import { LifeBuoy01, LogOut01, Settings01 } from "@untitledui/icons";
 import { AnimatePresence, motion } from "motion/react";
@@ -16,15 +17,15 @@ import { NavAccountMenu } from "../base-components/nav-account-card";
 import { NavItemBase } from "../base-components/nav-item";
 import { NavItemButton } from "../base-components/nav-item-button";
 import { NavList } from "../base-components/nav-list";
-import type { NavItemDividerType, NavItemType } from "../config";
+import type { NavItemType } from "../config";
 
 interface SidebarNavigationSlimProps {
     /** URL of the currently active item. */
     activeUrl?: string;
     /** List of items to display. */
-    items: (NavItemType | NavItemDividerType)[];
+    items: (NavItemType & { icon: FC<{ className?: string }> })[];
     /** List of footer items to display. */
-    footerItems?: (NavItemType | NavItemDividerType)[];
+    footerItems?: (NavItemType & { icon: FC<{ className?: string }> })[];
     /** Whether to hide the border. */
     hideBorder?: boolean;
     /** Whether to hide the right side border. */
@@ -67,7 +68,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 href={item.href}
                                 label={item.label || ""}
                                 icon={item.icon}
-                                onClick={(e) => setCurrentItem(item)}
+                                onClick={() => setCurrentItem(item)}
                             />
                         </li>
                     ))}
@@ -83,7 +84,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                         label={item.label || ""}
                                         href={item.href}
                                         icon={item.icon}
-                                        onClick={(e) => setCurrentItem(item)}
+                                        onClick={() => setCurrentItem(item)}
                                     />
                                 </li>
                             ))}
@@ -133,7 +134,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6 pb-5">
                         <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
                         <ul className="mt-2">
-                            {currentItem.items?.map((item, index) => (
+                            {currentItem.items?.map((item) => (
                                 <li key={item.label} className="py-0.5">
                                     <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                         {item.label}

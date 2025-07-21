@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as PinInputs from "@/components/base/pin-input/pin-input.demo";
 
 export default {
     title: "Base components/Inputs/Verification code input",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full bg-primary p-4">
                 <Story />
             </div>

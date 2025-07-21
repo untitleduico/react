@@ -65,7 +65,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                                 badge={item.badge}
                                 icon={item.icon}
                                 type="link"
-                                onClick={(e) => setCurrentItem(item)}
+                                onClick={() => setCurrentItem(item)}
                             >
                                 {item.label}
                             </NavItemBase>
@@ -83,7 +83,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                                         badge={item.badge}
                                         icon={item.icon}
                                         type="link"
-                                        onClick={(e) => setCurrentItem(item)}
+                                        onClick={() => setCurrentItem(item)}
                                     >
                                         {item.label}
                                     </NavItemBase>

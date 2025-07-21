@@ -466,7 +466,7 @@ export const Default = () => {
                     tooltip="This is a tooltip"
                     hint="This is a hint text to help user."
                     placeholder="Select team member"
-                    items={items.map(({ avatarUrl, ...item }) => item)}
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
                 >
                     {(item) => (
                         <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -481,7 +481,7 @@ export const Default = () => {
                     tooltip="This is a tooltip"
                     hint="This is a hint text to help user."
                     placeholder="Select team member"
-                    items={items.map(({ avatarUrl, ...item }) => item)}
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
                 >
                     {(item) => (
                         <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -498,7 +498,7 @@ export const Default = () => {
                     tooltip="This is a tooltip"
                     hint="This is a hint text to help user."
                     placeholder="Select team member"
-                    items={items.map(({ avatarUrl, ...item }) => item)}
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
                 >
                     {(item) => (
                         <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -514,7 +514,7 @@ export const Default = () => {
                     tooltip="This is a tooltip"
                     hint="This is a hint text to help user."
                     placeholder="Select team member"
-                    items={items.map(({ avatarUrl, ...item }) => item)}
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
                 >
                     {(item) => (
                         <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -537,7 +537,7 @@ export const IconLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={User01}
-                items={items.map(({ avatarUrl, ...item }) => ({ ...item, icon: User01 }))}
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -553,7 +553,7 @@ export const IconLeading = () => (
                 placeholder="Select team member"
                 placeholderIcon={User01}
                 isDisabled
-                items={items.map(({ avatarUrl, ...item }) => ({ ...item, icon: User01 }))}
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -571,7 +571,7 @@ export const IconLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={User01}
-                items={items.map(({ avatarUrl, ...item }) => ({ ...item, icon: User01 }))}
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -588,7 +588,7 @@ export const IconLeading = () => (
                 placeholder="Select team member"
                 placeholderIcon={User01}
                 isDisabled
-                items={items.map(({ avatarUrl, ...item }) => ({ ...item, icon: User01 }))}
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -683,7 +683,7 @@ export const DotLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-                items={items.map(({ avatarUrl, ...item }) => ({
+                items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
                 }))}
@@ -702,7 +702,7 @@ export const DotLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-                items={items.map(({ avatarUrl, ...item }) => ({
+                items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
                 }))}
@@ -723,7 +723,7 @@ export const DotLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-                items={items.map(({ avatarUrl, ...item }) => ({
+                items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
                 }))}
@@ -743,7 +743,7 @@ export const DotLeading = () => (
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
                 placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-                items={items.map(({ avatarUrl, ...item }) => ({
+                items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
                 }))}
@@ -767,7 +767,7 @@ export const Search = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Search"
-                items={items.map(({ avatarUrl, ...item }) => item)}
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -782,7 +782,7 @@ export const Search = () => (
                 hint="This is a hint text to help user."
                 placeholder="Search"
                 isDisabled
-                items={items.map(({ avatarUrl, ...item }) => item)}
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -799,7 +799,7 @@ export const Search = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Search"
-                items={items.map(({ avatarUrl, ...item }) => item)}
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
@@ -815,7 +815,7 @@ export const Search = () => (
                 hint="This is a hint text to help user."
                 placeholder="Search"
                 isDisabled
-                items={items.map(({ avatarUrl, ...item }) => item)}
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
             >
                 {(item) => (
                     <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>

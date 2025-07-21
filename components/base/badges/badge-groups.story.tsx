@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as BadgeGroup from "@/components/base/badges/badge-groups.demo";
 
 export default {
     title: "Base components/Badge groups",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex h-screen w-full bg-primary p-4">
                 <Story />
             </div>

@@ -162,7 +162,7 @@ export const LineChart01 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="A"
                         name="Series 1"
                         type="monotone"
@@ -177,7 +177,7 @@ export const LineChart01 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="B"
                         name="Series 2"
                         type="monotone"
@@ -191,7 +191,7 @@ export const LineChart01 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="C"
                         name="Series 3"
                         type="monotone"
@@ -290,7 +290,7 @@ export const LineChart02 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="A"
                         name="Series 1"
                         type="monotone"
@@ -305,7 +305,7 @@ export const LineChart02 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="B"
                         name="Series 2"
                         type="monotone"
@@ -321,7 +321,7 @@ export const LineChart02 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="C"
                         name="Series 3"
                         type="monotone"
@@ -428,7 +428,7 @@ export const LineChart03 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="A"
                         name="Series 1"
                         type="monotone"
@@ -443,7 +443,7 @@ export const LineChart03 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="B"
                         name="Series 2"
                         type="monotone"
@@ -457,7 +457,7 @@ export const LineChart03 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="C"
                         name="Series 3"
                         type="monotone"
@@ -557,7 +557,7 @@ export const LineChart04 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["A"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="A"
                         name="Series 1"
                         type="monotone"
@@ -572,7 +572,7 @@ export const LineChart04 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["B"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="B"
                         name="Series 2"
                         type="monotone"
@@ -586,7 +586,7 @@ export const LineChart04 = () => {
 
                     <Area
                         isAnimationActive={false}
-                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-[6px] [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
+                        className={cx(colors["C"], "[&_.recharts-area-area]:translate-y-1.5 [&_.recharts-area-area]:[clip-path:inset(0_0_6px_0)]")}
                         dataKey="C"
                         name="Series 3"
                         type="monotone"

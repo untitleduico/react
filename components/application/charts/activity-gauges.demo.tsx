@@ -97,13 +97,7 @@ export const ActivityGauge = ({ size = "sm", title = "1,000", subtitle = "Active
                     bottom: 0,
                 }}
             >
-                <PolarAngleAxis
-                    tick={false}
-                    domain={[0, 1000]}
-                    type="number"
-                    // @ts-expect-error this prop works but isn't correct in TS types at the moment
-                    reversed
-                />
+                <PolarAngleAxis tick={false} domain={[0, 1000]} type="number" reversed />
 
                 <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent reversed />} />
 

@@ -5,7 +5,16 @@ import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart a
 import { ChartLegendContent, ChartTooltipContent } from "@/components/application/charts/charts-base";
 import { cx } from "@/utils/cx";
 
-export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke, radius }: any) => {
+interface CustomRadarChartTickProps {
+    payload: { value: string };
+    x: number;
+    y: number;
+    textAnchor: string;
+    stroke: string;
+    radius: number;
+}
+
+export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke, radius }: CustomRadarChartTickProps) => {
     const textRef = useRef<SVGTextElement>(null);
     const rectRef = useRef<SVGRectElement>(null);
 
@@ -118,10 +127,10 @@ export const RadarChart = () => {
                 <PolarAngleAxis
                     dataKey="subject"
                     stroke="currentColor"
-                    tick={({ x, y, textAnchor, index, value, payload, ...props }) => (
+                    tick={({ x, y, textAnchor, index, payload, ...props }) => (
                         <text
                             x={x}
-                            y={index === 0 ? y - 14 : index === 3 || index === 4 ? y + 10 : y}
+                            y={index === 0 ? Number(y) - 14 : index === 3 || index === 4 ? Number(y) + 10 : Number(y)}
                             textAnchor={textAnchor}
                             {...props}
                             className={cx("recharts-text recharts-polar-angle-axis-tick-value", props.className)}
