@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as ToggleComponents from "@/components/base/toggle/toggle.demo";
 
 export default {
     title: "Base components/Toggles",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full bg-primary p-4">
                 <Story />
             </div>

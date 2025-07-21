@@ -1,11 +1,12 @@
 "use client";
 
+import type { FC } from "react";
 import * as Demos from "./pagination.demo";
 
 export default {
     title: "Application/Pagination",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="min-h-screen bg-secondary p-8">
                 <Story />
             </div>

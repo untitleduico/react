@@ -4,9 +4,9 @@ import { PinInput } from "@/components/base/pin-input/pin-input";
 
 export const FourDigitsDemo = () => {
     return (
-        <PinInput digits={4}>
+        <PinInput>
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group>
+            <PinInput.Group maxLength={4}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -19,9 +19,9 @@ export const FourDigitsDemo = () => {
 
 export const DisabledDemo = () => {
     return (
-        <PinInput digits={4} disabled>
+        <PinInput disabled>
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group>
+            <PinInput.Group maxLength={4}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -35,9 +35,9 @@ export const DisabledDemo = () => {
 export const SizesDemo = () => {
     return (
         <div className="flex flex-col gap-8">
-            <PinInput digits={4} size="sm">
+            <PinInput size="sm">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group>
+                <PinInput.Group maxLength={4}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -46,9 +46,9 @@ export const SizesDemo = () => {
                 <PinInput.Description>This is a hint text to help user.</PinInput.Description>
             </PinInput>
 
-            <PinInput digits={4} size="md">
+            <PinInput size="md">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group>
+                <PinInput.Group maxLength={4}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -57,9 +57,9 @@ export const SizesDemo = () => {
                 <PinInput.Description>This is a hint text to help user.</PinInput.Description>
             </PinInput>
 
-            <PinInput digits={4} size="lg">
+            <PinInput size="lg">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group>
+                <PinInput.Group maxLength={4}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -73,9 +73,9 @@ export const SizesDemo = () => {
 
 export const VerificationCodeInputSM = () => {
     return (
-        <PinInput digits={6} size="sm">
+        <PinInput size="sm">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group>
+            <PinInput.Group maxLength={6}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -91,9 +91,9 @@ export const VerificationCodeInputSM = () => {
 
 export const VerificationCodeInputMD = () => {
     return (
-        <PinInput digits={6} size="md">
+        <PinInput size="md">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group>
+            <PinInput.Group maxLength={6}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -109,9 +109,9 @@ export const VerificationCodeInputMD = () => {
 
 export const VerificationCodeInputLG = () => {
     return (
-        <PinInput digits={6} size="lg">
+        <PinInput size="lg">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group>
+            <PinInput.Group maxLength={6}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />

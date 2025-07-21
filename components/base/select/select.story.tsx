@@ -1,10 +1,11 @@
+import type { FC } from "react";
 import * as Selects from "@/components/base/select/select.demo";
 
 export default {
     title: "Base components/Select",
 };
 
-const DefaultDecorator = (Story: any) => (
+const DefaultDecorator = (Story: FC) => (
     <div className="flex min-h-screen w-full bg-primary p-4">
         <div className="w-80">
             <Story />
@@ -12,7 +13,7 @@ const DefaultDecorator = (Story: any) => (
     </div>
 );
 
-const WiderDecorator = (Story: any) => (
+const WiderDecorator = (Story: FC) => (
     <div className="flex min-h-screen w-full bg-primary p-4">
         <div className="w-100">
             <Story />

@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Inputs from "@/components/base/input/inputs.demo";
 
 export default {
     title: "Base components/Inputs",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full bg-primary p-4">
                 <Story />
             </div>
@@ -11,13 +12,13 @@ export default {
     ],
 };
 
-const DefaultDecorator = (Story: any) => (
+const DefaultDecorator = (Story: FC) => (
     <div className="w-full max-w-xs">
         <Story />
     </div>
 );
 
-const WiderDecorator = (Story: any) => (
+const WiderDecorator = (Story: FC) => (
     <div className="w-full max-w-100">
         <Story />
     </div>

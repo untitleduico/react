@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Carousels from "./carousel.demo";
 
 export default {
     title: "Application/Carousels",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen items-center justify-center bg-primary p-8">
                 <div>
                     <Story />

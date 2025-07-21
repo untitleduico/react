@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Avatar from "@/components/base/avatar/avatar.demo";
 
 export default {
     title: "Base components/Avatars",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full bg-primary p-4">
                 <Story />
             </div>

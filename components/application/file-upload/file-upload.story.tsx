@@ -1,10 +1,11 @@
+import type { FC } from "react";
 import { Draggable } from "./draggable";
 import * as FileUploads from "./file-upload.demo";
 
 export default {
     title: "Application/File upload",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div data-drag-constraint className="flex min-h-screen w-full flex-col items-center gap-12 bg-primary p-8">
                 <Story />
             </div>
