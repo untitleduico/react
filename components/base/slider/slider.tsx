@@ -32,7 +32,7 @@ export const Slider = ({ labelPosition = "default", minValue = 0, maxValue = 100
     return (
         <AriaSlider {...rest} {...{ minValue, maxValue }} formatOptions={formatOptions ?? defaultFormatOptions}>
             <AriaLabel />
-            <AriaSliderTrack className="relative h-2 w-full rounded-full bg-quaternary">
+            <AriaSliderTrack className="relative h-6 w-full">
                 {({ state: { values, getThumbValue, getThumbPercent, getFormattedValue } }) => {
                     const left = values.length === 1 ? 0 : getThumbPercent(0);
                     const width = values.length === 1 ? getThumbPercent(0) : getThumbPercent(1) - left;
@@ -40,7 +40,10 @@ export const Slider = ({ labelPosition = "default", minValue = 0, maxValue = 100
                     return (
                         <>
                             <span
-                                className="absolute z-10 h-2 w-full rounded-full bg-brand-solid"
+                                className="absolute top-1/2 -translate-y-1/2 h-2 w-full rounded-full bg-quaternary"
+                            />
+                            <span
+                                className="absolute top-1/2 -translate-y-1/2 h-2 w-full rounded-full bg-brand-solid"
                                 style={{
                                     left: `${left * 100}%`,
                                     width: `${width * 100}%`,
@@ -53,7 +56,7 @@ export const Slider = ({ labelPosition = "default", minValue = 0, maxValue = 100
                                         index={index}
                                         className={({ isFocusVisible, isDragging }) =>
                                             cx(
-                                                "absolute top-1/2 z-20 box-border size-6 cursor-grab rounded-full bg-slider-handle-bg shadow-md ring-2 ring-slider-handle-border ring-inset",
+                                                "top-1/2 box-border size-6 cursor-grab rounded-full bg-slider-handle-bg shadow-md ring-2 ring-slider-handle-border ring-inset",
                                                 isFocusVisible && "outline-2 outline-offset-2 outline-focus-ring",
                                                 isDragging && "cursor-grabbing",
                                             )
