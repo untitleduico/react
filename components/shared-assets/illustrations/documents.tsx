@@ -24,7 +24,7 @@ export const sm = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative h-[120px] w-[161px]", className)}>
+        <div {...otherProps} className={cx("relative h-30 w-40.25", className)}>
             <svg viewBox="0 0 161 120" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="27" cy="11" r="5" className="fill-utility-gray-100" />
                 <circle cx="24" cy="109" r="7" className="fill-utility-gray-100" />
@@ -191,7 +191,7 @@ export const md = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative h-[137px] w-[185px]", className)}>
+        <div {...otherProps} className={cx("relative h-34.25 w-46.25", className)}>
             <svg viewBox="0 0 185 137" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="95" cy="64" r="64" className="fill-utility-gray-100" />
                 <circle cx="29" cy="12" r="6" className="fill-utility-gray-100" />
@@ -363,7 +363,7 @@ export const lg = ({
     ...otherProps
 }: Omit<IllustrationProps, "size">) => {
     return (
-        <div {...otherProps} className={cx("relative h-[166px] w-[230px]", className)}>
+        <div {...otherProps} className={cx("relative h-41.5 w-57.5", className)}>
             <svg viewBox="0 0 230 166" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
                 <circle cx="118" cy="80" r="80" className="fill-utility-gray-100" />
                 <circle cx="34" cy="20" r="8" className="fill-utility-gray-100" />

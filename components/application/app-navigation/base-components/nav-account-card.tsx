@@ -140,7 +140,7 @@ const NavAccountCardMenuItem = ({
                 </div>
 
                 {shortcut && (
-                    <kbd className="flex rounded px-1 py-[1px] font-body text-xs font-medium text-tertiary ring-1 ring-secondary ring-inset">{shortcut}</kbd>
+                    <kbd className="flex rounded px-1 py-px font-body text-xs font-medium text-tertiary ring-1 ring-secondary ring-inset">{shortcut}</kbd>
                 )}
             </div>
         </button>
