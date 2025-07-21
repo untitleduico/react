@@ -44,6 +44,7 @@
     "motion": "^12.23.5",
     "next": "^15.3.5",
     "next-themes": "^0.4.6",
+    "qr-code-styling": "^1.9.2",
     "react": "^19.1.0",
     "react-aria": "^3.41.1",
     "react-aria-components": "^1.10.1",

@@ -8,6 +8,7 @@ build/
 dist/
 .next/
 storybook-static/
+tsconfig.tsbuildinfo
 
 # Development
 .env
