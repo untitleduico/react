@@ -126,44 +126,12 @@ export const Tooltip = ({
     );
 };
 
-type TooltipTriggerProps =
-    | (AriaButtonProps &
-          RefAttributes<HTMLButtonElement> & {
-              /**
-               * If true, the tooltip trigger props will be passed down to the child element
-               * instead of wrapping the child element in a button.
-               */
-              asChild?: never;
-          })
-    | {
-          /**
-           * If true, the tooltip trigger props will be passed down to the child element
-           * instead of wrapping the child element in a button.
-           */
-          asChild: true;
-          isDisabled?: boolean;
-          children: Omit<DetailedReactHTMLElement<any, any>, "ref">;
-      };
+interface TooltipTriggerProps extends AriaButtonProps {}
 
-export const TooltipTrigger = (props: TooltipTriggerProps) => {
-    if (props.asChild) {
-        const triggerRef = useRef<FocusableElement>(null);
-
-        const { focusableProps } = useFocusable(
-            {
-                isDisabled: props.isDisabled,
-            },
-            triggerRef,
-        );
-
-        return cloneElement(props.children, mergeProps(focusableProps, props.children.props, { ref: triggerRef }));
-    }
-
-    const { asChild: _, className, ...buttonProps } = props;
-
+export const TooltipTrigger = ({ children, className, ...buttonProps }: TooltipTriggerProps) => {
     return (
         <AriaButton {...buttonProps} className={(values) => cx("h-max w-max outline-hidden", typeof className === "function" ? className(values) : className)}>
-            {props.children}
+            {children}
         </AriaButton>
     );
 };
