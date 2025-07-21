@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import { CreditCard } from "./credit-card";
 
 export default {
     title: "Shared Assets/Miscellaneous assets/Credit Card",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="min-h-screen bg-secondary p-8">
                 <Story />
             </div>

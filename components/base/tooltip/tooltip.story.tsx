@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Tooltips from "@/components/base/tooltip/tooltip.demo";
 
 export default {
     title: "Base components/Tooltips",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen items-center justify-center bg-primary p-16">
                 <Story />
             </div>

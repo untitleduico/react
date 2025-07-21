@@ -1,10 +1,11 @@
+import type { FC } from "react";
 import * as Demos from "./progress-indicators.demo";
 
 export default {
     title: "Base components/Progress indicators",
 };
 
-const DefaultDecorator = (Story: any) => (
+const DefaultDecorator = (Story: FC) => (
     <div className="flex min-h-screen w-screen bg-primary p-16">
         <div className="w-full max-w-xs">
             <Story />
@@ -12,7 +13,7 @@ const DefaultDecorator = (Story: any) => (
     </div>
 );
 
-const WiderDecorator = (Story: any) => (
+const WiderDecorator = (Story: FC) => (
     <div className="flex min-h-screen w-full bg-primary p-16">
         <div className="w-100">
             <Story />

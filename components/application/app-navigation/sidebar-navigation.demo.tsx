@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import {
     Archive,
     BarChartSquare02,
@@ -93,7 +94,7 @@ const navItemsSimple: NavItemType[] = [
     },
 ];
 
-const navItemsDualTier: NavItemType[] = [
+const navItemsDualTier: (NavItemType & { icon: FC<{ className?: string }> })[] = [
     {
         label: "Home",
         href: "/",

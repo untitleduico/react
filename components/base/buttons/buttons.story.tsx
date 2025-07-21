@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Buttons from "@/components/base/buttons/buttons.demo";
 
 export default {
     title: "Base components/Buttons",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full bg-primary p-4">
                 <Story />
             </div>

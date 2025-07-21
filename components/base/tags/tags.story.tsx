@@ -1,9 +1,10 @@
+import type { FC } from "react";
 import * as Tags from "@/components/base/tags/tags.demo";
 
 export default {
     title: "Base components/Tags",
     decorators: [
-        (Story: any) => (
+        (Story: FC) => (
             <div className="flex min-h-screen w-full overflow-auto bg-primary p-4">
                 <Story />
             </div>

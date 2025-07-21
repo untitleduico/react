@@ -13,7 +13,7 @@ import { cx } from "@/utils/cx";
  * @param count - The number of items to select.
  * @returns The selected items.
  */
-export const selectEvenlySpacedItems = <T extends any>(dataArray: T[], count: number): T[] => {
+export const selectEvenlySpacedItems = <T extends unknown>(dataArray: T[], count: number): T[] => {
     if (!dataArray || dataArray.length === 0) {
         return [];
     }
@@ -68,15 +68,16 @@ export const ChartLegendContent = ({ reversed, payload, align, layout, className
     );
 };
 
-export const ChartTooltipContent = ({
-    active,
-    payload,
-    label,
-    isRadialChart,
-    isPieChart,
-    formatter,
-    labelFormatter,
-}: TooltipProps<ValueType, NameType> & { isRadialChart?: boolean; isPieChart?: boolean }) => {
+interface ChartTooltipContentProps extends TooltipProps<ValueType, NameType> {
+    isRadialChart?: boolean;
+    isPieChart?: boolean;
+    label?: string;
+    // We have to use `any` here because the `payload` prop is not typed correctly in the `recharts` library.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload?: any;
+}
+
+export const ChartTooltipContent = ({ active, payload, label, isRadialChart, isPieChart, formatter, labelFormatter }: ChartTooltipContentProps) => {
     const canRender = active && payload && payload.length;
 
     if (!canRender) {
@@ -117,7 +118,13 @@ export const ChartTooltipContent = ({
     );
 };
 
-export const ChartActiveDot = ({ cx = 0, cy = 0 }: DotProps & { payload?: any }) => {
+interface ChartActiveDotProps extends DotProps {
+    // We have to use `any` here because the `payload` prop is not typed correctly in the `recharts` library.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload?: any;
+}
+
+export const ChartActiveDot = ({ cx = 0, cy = 0 }: ChartActiveDotProps) => {
     const size = 12;
 
     return (

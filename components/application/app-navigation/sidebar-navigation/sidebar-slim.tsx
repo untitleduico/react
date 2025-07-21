@@ -1,5 +1,6 @@
 "use client";
 
+import type { FC } from "react";
 import { useState } from "react";
 import { LifeBuoy01, LogOut01, Settings01 } from "@untitledui/icons";
 import { AnimatePresence, motion } from "motion/react";
@@ -16,15 +17,15 @@ import { NavAccountMenu } from "../base-components/nav-account-card";
 import { NavItemBase } from "../base-components/nav-item";
 import { NavItemButton } from "../base-components/nav-item-button";
 import { NavList } from "../base-components/nav-list";
-import type { NavItemDividerType, NavItemType } from "../config";
+import type { NavItemType } from "../config";
 
 interface SidebarNavigationSlimProps {
     /** URL of the currently active item. */
     activeUrl?: string;
     /** List of items to display. */
-    items: (NavItemType | NavItemDividerType)[];
+    items: (NavItemType & { icon: FC<{ className?: string }> })[];
     /** List of footer items to display. */
-    footerItems?: (NavItemType | NavItemDividerType)[];
+    footerItems?: (NavItemType & { icon: FC<{ className?: string }> })[];
     /** Whether to hide the border. */
     hideBorder?: boolean;
     /** Whether to hide the right side border. */
