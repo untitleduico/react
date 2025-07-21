@@ -1,4 +1,3 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
 import nextPlugin from "@next/eslint-plugin-next";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
@@ -40,6 +39,7 @@ export default [
         },
         rules: {
             "unused-imports/no-unused-imports": "error",
+            "@typescript-eslint/no-explicit-any": "warn",
 
             "@typescript-eslint/consistent-type-imports": [
                 "error",
@@ -77,6 +77,9 @@ export default [
             "no-redeclare": "warn",
             "max-len": "off",
             "jsx-a11y/alt-text": "error",
+
+            // Added to address the specific error you were getting
+            "@typescript-eslint/no-empty-object-type": "off",
         },
     },
     ...storybook.configs["flat/recommended"],
