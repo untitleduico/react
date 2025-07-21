@@ -165,7 +165,7 @@ export const DarkModeDemo = () => {
     const [focusedValue, setFocusedValue] = useState<DateValue | null>(now);
 
     return (
-        <div className="relative h-[720px] w-full max-w-[720px] [--clip-boundary:50%]">
+        <div className="relative h-180 w-full max-w-180 [--clip-boundary:50%]">
             <div
                 style={{
                     clipPath: "polygon(0 0, var(--clip-boundary) 0, var(--clip-boundary) 100%, 0 100%)",

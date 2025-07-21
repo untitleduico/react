@@ -93,7 +93,7 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                         {(isHighlighted || isTodayDate) && (
                             <div
                                 className={cx(
-                                    "absolute bottom-1 left-1/2 size-[5px] -translate-x-1/2 rounded-full",
+                                    "absolute bottom-1 left-1/2 size-1.25 -translate-x-1/2 rounded-full",
                                     isDisabled ? "bg-fg-disabled" : markedAsSelected ? "bg-fg-white" : "bg-fg-brand-primary",
                                 )}
                             />

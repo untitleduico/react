@@ -54,8 +54,8 @@ export const TagList = AriaTagList;
 const styles = {
     sm: {
         root: {
-            base: "px-2 py-[3px] text-xs font-medium",
-            withCheckbox: "pl-[5px]",
+            base: "px-2 py-0.75 text-xs font-medium",
+            withCheckbox: "pl-1.25",
             withAvatar: "pl-1",
             withDot: "pl-1.5",
             withCount: "pr-1",
@@ -66,22 +66,22 @@ const styles = {
     },
     md: {
         root: {
-            base: "px-[9px] py-0.5 text-sm font-medium",
+            base: "px-2.25 py-0.5 text-sm font-medium",
             withCheckbox: "pl-1",
-            withAvatar: "pl-[5px]",
-            withDot: "pl-[7px]",
-            withCount: "pr-[3px]",
+            withAvatar: "pl-1.25",
+            withDot: "pl-1.75",
+            withCount: "pr-0.75",
             withClose: "pr-1",
         },
-        content: "gap-[5px]",
-        count: "px-[5px] text-xs font-medium",
+        content: "gap-1.25",
+        count: "px-1.25 text-xs font-medium",
     },
     lg: {
         root: {
             base: "px-2.5 py-1 text-sm font-medium",
-            withCheckbox: "pl-[5px]",
-            withAvatar: "pl-[7px]",
-            withDot: "pl-[9px]",
+            withCheckbox: "pl-1.25",
+            withAvatar: "pl-1.75",
+            withDot: "pl-2.25",
             withCount: "pr-1",
             withClose: "pr-1",
         },
@@ -119,7 +119,7 @@ export const Tag = ({
             textValue={typeof children === "string" ? children : undefined}
             className={(state) =>
                 cx(
-                    "flex cursor-default items-center gap-[3px] rounded-md bg-primary text-secondary ring-1 ring-primary ring-inset focus:outline-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring",
+                    "flex cursor-default items-center gap-0.75 rounded-md bg-primary text-secondary ring-1 ring-primary ring-inset focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring",
                     styles[context.size].root.base,
 
                     // With avatar

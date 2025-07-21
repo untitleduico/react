@@ -266,15 +266,15 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
         <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
             {!isSelectionEmpty &&
                 selectContext?.selectedItems?.items?.map((value) => (
-                    <span key={value.id} className="flex items-center rounded-md bg-primary py-0.5 pr-1 pl-[5px] ring-1 ring-primary ring-inset">
+                    <span key={value.id} className="flex items-center rounded-md bg-primary py-0.5 pr-1 pl-1.25 ring-1 ring-primary ring-inset">
                         <Avatar size="xxs" alt={value?.label} src={value?.avatarUrl} />
 
-                        <p className="ml-[5px] truncate text-sm font-medium whitespace-nowrap text-secondary select-none">{value?.label}</p>
+                        <p className="ml-1.25 truncate text-sm font-medium whitespace-nowrap text-secondary select-none">{value?.label}</p>
 
                         <TagCloseX
                             size="md"
                             isDisabled={isDisabled}
-                            className="ml-[3px]"
+                            className="ml-0.75"
                             // For workaround, onKeyDown is added to the button
                             onKeyDown={(event) => handleTagKeyDown(event, value.id)}
                             onPress={() => selectContext.onRemove(new Set([value.id]))}
