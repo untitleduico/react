@@ -67,7 +67,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 href={item.href}
                                 label={item.label || ""}
                                 icon={item.icon}
-                                onClick={(e) => setCurrentItem(item)}
+                                onClick={() => setCurrentItem(item)}
                             />
                         </li>
                     ))}
@@ -83,7 +83,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                         label={item.label || ""}
                                         href={item.href}
                                         icon={item.icon}
-                                        onClick={(e) => setCurrentItem(item)}
+                                        onClick={() => setCurrentItem(item)}
                                     />
                                 </li>
                             ))}
@@ -133,7 +133,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6 pb-5">
                         <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
                         <ul className="mt-2">
-                            {currentItem.items?.map((item, index) => (
+                            {currentItem.items?.map((item) => (
                                 <li key={item.label} className="py-0.5">
                                     <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                         {item.label}

@@ -32,7 +32,7 @@ export const ImagesOnlyDemo = () => {
             fileObject: file,
         }));
 
-        setUploadedFiles([...newFilesWithIds.map(({ fileObject, ...file }) => file), ...uploadedFiles]);
+        setUploadedFiles([...newFilesWithIds.map(({ fileObject: _, ...file }) => file), ...uploadedFiles]);
 
         newFilesWithIds.forEach(({ id, fileObject }) => {
             uploadFile(fileObject, (progress) => {
@@ -96,7 +96,7 @@ export const MaxSizeLimitDemo = () => {
             fileObject: file,
         }));
 
-        setUploadedFiles([...newFilesWithIds.map(({ fileObject, ...file }) => file), ...uploadedFiles]);
+        setUploadedFiles([...newFilesWithIds.map(({ fileObject: _, ...file }) => file), ...uploadedFiles]);
 
         newFilesWithIds.forEach(({ id, fileObject }) => {
             uploadFile(fileObject, (progress) => {
@@ -195,7 +195,7 @@ export const FileUploadProgressBar = (props: { isDisabled?: boolean }) => {
             fileObject: file,
         }));
 
-        setUploadedFiles([...newFilesWithIds.map(({ fileObject, ...file }) => file), ...uploadedFiles]);
+        setUploadedFiles([...newFilesWithIds.map(({ fileObject: _, ...file }) => file), ...uploadedFiles]);
 
         newFilesWithIds.forEach(({ id, fileObject }) => {
             uploadFile(fileObject, (progress) => {
@@ -250,7 +250,7 @@ export const FileUploadProgressFill = (props: { isDisabled?: boolean }) => {
             fileObject: file,
         }));
 
-        setUploadedFiles([...newFilesWithIds.map(({ fileObject, ...file }) => file), ...uploadedFiles]);
+        setUploadedFiles([...newFilesWithIds.map(({ fileObject: _, ...file }) => file), ...uploadedFiles]);
 
         newFilesWithIds.forEach(({ id, fileObject }) => {
             uploadFile(fileObject, (progress) => {

@@ -63,16 +63,17 @@ interface MultiSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "chil
 }
 
 export const MultiSelectBase = ({
-    name,
     items,
     children,
-    className,
     size = "sm",
     selectedItems,
     onItemCleared,
     onItemInserted,
     shortcut,
     placeholder = "Search",
+    // Omit these props to avoid conflicts with the `Select` component
+    name: _name,
+    className: _className,
     ...props
 }: MultiSelectProps) => {
     const { contains } = useFilter({ sensitivity: "base" });
@@ -314,11 +315,12 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
 
 export const MultiSelectTagsValue = ({
     size,
-    isDisabled,
     shortcut,
     placeholder,
     shortcutClassName,
     placeholderIcon: Icon = SearchLg,
+    // Omit this prop to avoid invalid HTML attribute warning
+    isDisabled: _isDisabled,
     ...otherProps
 }: ComboBoxValueProps) => {
     return (

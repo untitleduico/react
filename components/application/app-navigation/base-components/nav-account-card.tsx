@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC, HTMLAttributes } from "react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import type { Placement } from "@react-types/overlays";
 import { BookOpen01, ChevronSelectorVertical, LogOut01, Plus, Settings01, User01 } from "@untitledui/icons";
 import { useFocusManager } from "react-aria";
@@ -45,31 +45,38 @@ const placeholderAccounts: NavAccountType[] = [
 
 export const NavAccountMenu = ({
     className,
-    accounts = placeholderAccounts,
     selectedAccountId = "olivia",
     ...dialogProps
 }: AriaDialogProps & { className?: string; accounts?: NavAccountType[]; selectedAccountId?: string }) => {
     const focusManager = useFocusManager();
     const dialogRef = useRef<HTMLDivElement>(null);
 
-    const onKeyDown = (e: KeyboardEvent) => {
-        switch (e.key) {
-            case "ArrowDown":
-                focusManager?.focusNext({ tabbable: true, wrap: true });
-                break;
-            case "ArrowUp":
-                focusManager?.focusPrevious({ tabbable: true, wrap: true });
-                break;
-        }
-    };
+    const onKeyDown = useCallback(
+        (e: KeyboardEvent) => {
+            switch (e.key) {
+                case "ArrowDown":
+                    focusManager?.focusNext({ tabbable: true, wrap: true });
+                    break;
+                case "ArrowUp":
+                    focusManager?.focusPrevious({ tabbable: true, wrap: true });
+                    break;
+            }
+        },
+        [focusManager],
+    );
 
     useEffect(() => {
-        dialogRef.current?.addEventListener("keydown", onKeyDown);
+        const element = dialogRef.current;
+        if (element) {
+            element.addEventListener("keydown", onKeyDown);
+        }
 
         return () => {
-            dialogRef.current?.removeEventListener("keydown", onKeyDown);
+            if (element) {
+                element.removeEventListener("keydown", onKeyDown);
+            }
         };
-    }, []);
+    }, [onKeyDown]);
 
     return (
         <AriaDialog

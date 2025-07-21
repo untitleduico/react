@@ -10,7 +10,7 @@ interface IllustrationProps extends HTMLAttributes<HTMLDivElement> {
     childrenClassName?: string;
 }
 
-export const DocumentsIllustration = ({ size = "lg", svgClassName, childrenClassName, ...otherProps }: IllustrationProps) => {
+export const DocumentsIllustration = ({ size = "lg", ...otherProps }: IllustrationProps) => {
     const Pattern = sizes[size];
 
     return <Pattern {...otherProps} />;
@@ -175,7 +175,12 @@ export const sm = ({
             </svg>
 
             {children && (
-                <span className="absolute inset-x-13 bottom-2 z-10 flex size-12 items-center justify-center rounded-full bg-alpha-black/20 text-fg-white backdrop-blur-xs">
+                <span
+                    className={cx(
+                        "absolute inset-x-13 bottom-2 z-10 flex size-12 items-center justify-center rounded-full bg-alpha-black/20 text-fg-white backdrop-blur-xs",
+                        childrenClassName,
+                    )}
+                >
                     {children}
                 </span>
             )}

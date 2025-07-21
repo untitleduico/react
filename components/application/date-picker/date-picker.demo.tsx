@@ -88,7 +88,7 @@ export const RangeCalendarCardDemo = () => {
                 },
             },
         }),
-        [],
+        [locale],
     );
 
     return (

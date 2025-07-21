@@ -64,7 +64,7 @@ export const QRCode = ({ size = "md", value, options, className }: QRCodeProps) 
 
         setQrCode(qrCode);
         qrCode.append(ref.current);
-    }, []);
+    }, [options, size, value]);
 
     useEffect(() => {
         if (!qrCode) return;
