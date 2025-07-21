@@ -2,33 +2,33 @@
 
 Thank you for your interest in contributing! This guide will help you get started.
 
-## 🚀 Quick Start
+## 🚀 Quick start
 
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally
-3. **Install dependencies**: `npm install`
-4. **Start development**: `npm run storybook`
+3. **Install dependencies**: `bun install`
+4. **Start development**: `bun run storybook`
 5. **Make your changes**
 6. **Test thoroughly**
 7. **Submit a pull request**
 
-## 🎯 Contribution Types
+## 🎯 Contribution yypes
 
-### 🐛 Bug Fixes
+### 🐛 Bug fixes
 
 - Fix component functionality issues
 - Resolve accessibility problems
 - Correct styling inconsistencies
 - Address TypeScript errors
 
-### ✨ Component Enhancements
+### ✨ Component enhancements
 
 - Improve existing component APIs
 - Add missing component variants
 - Enhance accessibility features
 - Optimize performance
 
-### 🆕 New Components
+### 🆕 New components
 
 - Add components that fit our design system
 - Must be generally useful (not app-specific)
@@ -42,9 +42,9 @@ Thank you for your interest in contributing! This guide will help you get starte
 - Create usage examples
 - Fix typos and clarity issues
 
-## 📋 Component Guidelines
+## 📋 Component guidelines
 
-### Design Principles
+### Design principles
 
 - **Accessibility First** - WCAG 2.1 AA compliance
 - **Mobile-First** - Responsive by default
@@ -52,7 +52,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 - **Consistent** - Follow established patterns
 - **Minimal** - No unnecessary complexity
 
-### Technical Requirements
+### Technical requirements
 
 #### TypeScript
 
@@ -90,7 +90,7 @@ export type { ButtonProps };
 </div>
 ```
 
-#### Responsive Design
+#### Responsive design
 
 ```tsx
 // ✅ Good - Mobile-first responsive classes
@@ -121,7 +121,7 @@ import { cx } from "@/utils/cx";
 <button className={`base-classes ${variant === "primary" ? "primary-classes" : ""}`}>
 ```
 
-### Component Structure
+### Component structure
 
 ```
 components/category/component-name/
@@ -133,29 +133,29 @@ components/category/component-name/
     └── index.tsx
 ```
 
-### File Naming
+### File naming
 
 - **Components**: `kebab-case.tsx` (e.g., `date-picker.tsx`)
 - **Stories**: `component-name.story.tsx`
 - **Demos**: `component-name.demo.tsx`
 - **Types**: Export from main component file
 
-## 🔍 Code Review Process
+## 🔍 Code review process
 
-### Before Submitting
+### Before submitting
 
-1. **Run Tests**
+1. **Run tests**
 
     ```bash
-    npm run build      # TypeScript compilation
-    npm run lint       # ESLint checks
-    npm run prettier   # Code formatting
+    bun run build      # TypeScript compilation
+    bun run lint       # ESLint checks
+    bun run prettier   # Code formatting
     ```
 
 2. **Test in Storybook**
 
     ```bash
-    npm run storybook
+    bun run storybook
     # Navigate to your component and test all variants
     ```
 
@@ -165,7 +165,7 @@ components/category/component-name/
     - Check color contrast ratios
     - Ensure focus management
 
-### PR Requirements
+### PR requirements
 
 #### Title Format
 
@@ -176,7 +176,7 @@ docs: improve component documentation
 style: update component styling
 ```
 
-#### Description Template
+#### Description template
 
 ```markdown
 ## Changes
@@ -197,12 +197,12 @@ style: update component styling
 
 [Include before/after screenshots for UI changes]
 
-## Related Issues
+## Related issues
 
 Closes #123
 ```
 
-### Review Criteria
+### Review criteria
 
 - **Functionality** - Component works as expected
 - **Accessibility** - Meets WCAG 2.1 AA standards
@@ -211,9 +211,9 @@ Closes #123
 - **Documentation** - Clear stories and examples
 - **Code Quality** - TypeScript, ESLint, and Prettier compliant
 
-## 🎨 Design Guidelines
+## 🎨 Design guidelines
 
-### Color Usage
+### Color usage
 
 ```tsx
 // ✅ Use semantic color tokens
@@ -245,7 +245,7 @@ className = "text-[19px] font-[650] leading-[1.4]";
 
 ## 🧪 Testing
 
-### Manual Testing Checklist
+### Manual testing checklist
 
 - [ ] Component renders without errors
 - [ ] All props work as expected
@@ -255,7 +255,7 @@ className = "text-[19px] font-[650] leading-[1.4]";
 - [ ] Focus management works properly
 - [ ] No console errors or warnings
 
-### Accessibility Testing
+### Accessibility testing
 
 - Use **VoiceOver** (Mac) or **NVDA** (Windows)
 - Test with **keyboard only** navigation
@@ -263,9 +263,9 @@ className = "text-[19px] font-[650] leading-[1.4]";
 - Verify **color contrast** meets standards
 - Ensure **semantic markup** is used
 
-## 🚨 Common Issues
+## 🚨 Common issues
 
-### Import Paths
+### Import paths
 
 ```tsx
 // ✅ Correct - Use path aliases
@@ -277,7 +277,7 @@ import { Button } from "../../../base/buttons/button";
 import { cx } from "../../../utils/cx";
 ```
 
-### Component Props
+### Component props
 
 ```tsx
 // ✅ Good - Extend HTML attributes
@@ -292,7 +292,7 @@ interface ButtonProps {
 }
 ```
 
-### Default Props
+### Default props
 
 ```tsx
 // ✅ Good - Default parameters
@@ -309,7 +309,7 @@ Button.defaultProps = {
 };
 ```
 
-## 💬 Getting Help
+## 💬 Getting help
 
 - **GitHub Issues** - For bug reports and feature requests
 - **GitHub Discussions** - For questions and community help
