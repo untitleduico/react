@@ -13,6 +13,7 @@ export const DefaultDemo = () => {
 export const LineSimpleDemo = () => {
     return <LoadingIndicator type="line-simple" size="md" />;
 };
+
 export const LineSimpleWithLabelDemo = () => {
     return <LoadingIndicator type="line-simple" size="md" label="Loading..." />;
 };
@@ -20,6 +21,7 @@ export const LineSimpleWithLabelDemo = () => {
 export const LineSpinnerDemo = () => {
     return <LoadingIndicator type="line-spinner" size="md" />;
 };
+
 export const LineSpinnerWithLabelDemo = () => {
     return <LoadingIndicator type="line-spinner" size="md" label="Loading..." />;
 };

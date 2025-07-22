@@ -29,6 +29,7 @@ SidebarNavigationSlimDemo.parameters = {
         desktop: "1165-2013",
     },
 };
+
 export const SidebarSectionDividersDemo = () => <Demos.SidebarSectionDividersDemo />;
 SidebarSectionDividersDemo.storyName = "Sidebar sections dividers";
 SidebarSectionDividersDemo.parameters = {

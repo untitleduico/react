@@ -71,12 +71,12 @@ const sizes = {
 };
 
 // Styles for different types of horizontal tabs
-const getHorizontalStyles = ({ size, fullwidth }: { size?: "sm" | "md"; fullwidth?: boolean }) => ({
+const getHorizontalStyles = ({ size, fullWidth }: { size?: "sm" | "md"; fullWidth?: boolean }) => ({
     "button-brand": "gap-1",
     "button-gray": "gap-1",
     "button-border": cx("gap-1 rounded-[10px] bg-secondary_alt p-1 ring-1 ring-secondary ring-inset", size === "md" && "rounded-xl p-1.5"),
     "button-minimal": "gap-0.5 rounded-lg bg-secondary_alt ring-1 ring-inset ring-secondary",
-    underline: cx("gap-3", fullwidth && "w-full gap-4"),
+    underline: cx("gap-3", fullWidth && "w-full gap-4"),
     line: "gap-2",
 });
 
@@ -99,7 +99,7 @@ interface TabListComponentProps<T extends object, K extends Orientation> extends
     /** The items of the tab list. */
     items: T[];
     /** Whether the tab list is full width. */
-    fullwidth?: boolean;
+    fullWidth?: boolean;
 }
 
 const TabListContext = createContext<Omit<TabListComponentProps<TabComponentProps, Orientation>, "items">>({
@@ -111,7 +111,7 @@ export const TabList = <T extends Orientation>({
     size = "sm",
     type = "button-brand",
     orientation: orientationProp,
-    fullwidth,
+    fullWidth,
     className,
     children,
     ...otherProps
@@ -121,7 +121,7 @@ export const TabList = <T extends Orientation>({
     const orientation = orientationProp ?? context?.orientation ?? "horizontal";
 
     return (
-        <TabListContext.Provider value={{ size, type, orientation, fullwidth }}>
+        <TabListContext.Provider value={{ size, type, orientation, fullWidth }}>
             <AriaTabList
                 {...otherProps}
                 className={(state) =>
@@ -130,7 +130,7 @@ export const TabList = <T extends Orientation>({
 
                         getHorizontalStyles({
                             size,
-                            fullwidth,
+                            fullWidth,
                         })[type as HorizontalTypes],
 
                         orientation === "vertical" && "w-max flex-col",
@@ -175,7 +175,7 @@ interface TabComponentProps extends AriaTabProps {
 
 export const Tab = (props: TabComponentProps) => {
     const { label, children, badge, ...otherProps } = props;
-    const { size = "sm", type = "button-brand", fullwidth } = useContext(TabListContext);
+    const { size = "sm", type = "button-brand", fullWidth } = useContext(TabListContext);
 
     return (
         <AriaTab
@@ -184,7 +184,7 @@ export const Tab = (props: TabComponentProps) => {
                 cx(
                     "z-10 flex h-max cursor-pointer items-center justify-center gap-2 rounded-md whitespace-nowrap text-quaternary transition duration-100 ease-linear",
                     "group-orientation-vertical:justify-start",
-                    fullwidth && "w-full flex-1",
+                    fullWidth && "w-full flex-1",
                     sizes[size][type],
                     getTabStyles(prop)[type],
                     typeof props.className === "function" ? props.className(prop) : props.className,

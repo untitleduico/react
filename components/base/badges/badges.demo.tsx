@@ -61,6 +61,7 @@ export const BadgeColor = () => {
         </div>
     );
 };
+
 export const BadgeModern = () => {
     return (
         <div className="flex flex-col items-start gap-4">
