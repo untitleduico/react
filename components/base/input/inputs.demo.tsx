@@ -64,6 +64,7 @@ export const LeadingDropdownDemo = () => {
             hint="This is a hint text to help user."
             leadingAddon={
                 <NativeSelect
+                    aria-label="Country"
                     options={[
                         { value: "US", label: "US" },
                         { value: "CA", label: "CA" },
@@ -86,6 +87,7 @@ export const TrailingDropdownDemo = () => {
             hint="This is a hint text to help user."
             trailingAddon={
                 <NativeSelect
+                    aria-label="Country"
                     options={[
                         { value: "US", label: "US" },
                         { value: "CA", label: "CA" },
@@ -264,6 +266,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -281,6 +284,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -298,6 +302,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -317,6 +322,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -335,6 +341,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -353,6 +360,7 @@ export const LeadingDropdown = () => {
                     hint="This is a hint text to help user."
                     leadingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -379,6 +387,7 @@ export const TrailingDropdown = () => {
                     hint="This is a hint text to help user."
                     trailingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -397,6 +406,7 @@ export const TrailingDropdown = () => {
                     hint="This is a hint text to help user."
                     trailingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -415,6 +425,7 @@ export const TrailingDropdown = () => {
                     hint="This is a hint text to help user."
                     trailingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -454,6 +465,7 @@ export const TrailingDropdown = () => {
                     hint="This is a hint text to help user."
                     trailingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },
@@ -473,6 +485,7 @@ export const TrailingDropdown = () => {
                     hint="This is a hint text to help user."
                     trailingAddon={
                         <NativeSelect
+                            aria-label="Country"
                             options={[
                                 { value: "US", label: "US" },
                                 { value: "CA", label: "CA" },

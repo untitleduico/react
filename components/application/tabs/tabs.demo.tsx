@@ -21,6 +21,7 @@ export const ButtonBrandHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -41,6 +42,7 @@ export const ButtonBrandVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -61,6 +63,7 @@ export const ButtonGrayHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -81,6 +84,7 @@ export const ButtonGrayVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -101,6 +105,7 @@ export const UnderlineDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -121,6 +126,7 @@ export const LineDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -141,6 +147,7 @@ export const ButtonBorderHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -161,6 +168,7 @@ export const ButtonBorderVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -181,6 +189,7 @@ export const ButtonMinimalHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -201,6 +210,7 @@ export const ButtonMinimalVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
                 options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
@@ -226,6 +236,7 @@ const GenericTabs = (props: {
         <>
             <div className="md:hidden">
                 <NativeSelect
+                    aria-label="Tabs"
                     value={selectedTabIndex as string}
                     onChange={(event) => setSelectedTabIndex(event.target.value)}
                     options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
