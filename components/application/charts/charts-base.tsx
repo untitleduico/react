@@ -13,12 +13,12 @@ import { cx } from "@/utils/cx";
  * @param count - The number of items to select.
  * @returns The selected items.
  */
-export const selectEvenlySpacedItems = <T extends unknown>(dataArray: T[], count: number): T[] => {
+export const selectEvenlySpacedItems = <T extends readonly unknown[]>(dataArray: T, count: number): Array<T[number]> => {
     if (!dataArray || dataArray.length === 0) {
         return [];
     }
 
-    const selectedItems: T[] = [];
+    const selectedItems: Array<T[number]> = [];
 
     if (dataArray.length === 1) {
         for (let i = 0; i < count; i++) {
