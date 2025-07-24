@@ -5,6 +5,7 @@ import { ChartLegendContent, ChartTooltipContent } from "@/components/applicatio
 import { cx } from "@/utils/cx";
 
 const radialData = [
+    // collapse-start
     {
         name: "Series 3",
         value: 660,
@@ -20,6 +21,7 @@ const radialData = [
         value: 866,
         className: "text-utility-brand-700",
     },
+    // collapse-end
 ];
 
 const sizes = {
