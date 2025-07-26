@@ -129,11 +129,14 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
                     exit={{ width: 0, borderColor: "rgba(0,0,0,0)", transition: { borderColor: { type: "tween", delay: 0.05 } } }}
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
-                    className={cx("relative h-full overflow-y-auto bg-primary", !(hideBorder || hideRightBorder) && "border-r-[1.5px]")}
+                    className={cx(
+                        "relative h-full overflow-x-hidden overflow-y-auto bg-primary",
+                        !(hideBorder || hideRightBorder) && "box-content border-r-[1.5px]",
+                    )}
                 >
-                    <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6 pb-5">
+                    <div style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col px-4 pt-6">
                         <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
-                        <ul className="mt-2">
+                        <ul className="py-2">
                             {currentItem.items?.map((item) => (
                                 <li key={item.label} className="py-0.5">
                                     <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
@@ -142,7 +145,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 </li>
                             ))}
                         </ul>
-                        <div className="relative mt-auto flex justify-between border-t border-secondary px-2 pt-5">
+                        <div className="sticky bottom-0 mt-auto flex justify-between border-t border-secondary bg-primary px-2 py-5">
                             <div>
                                 <p className="text-sm font-semibold text-primary">Olivia Rhye</p>
                                 <p className="text-sm text-tertiary">olivia@untitledui.com</p>

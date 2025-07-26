@@ -108,9 +108,9 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                     animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
                     exit={{ width: 0, borderColor: "rgba(0,0,0,0)", transition: { borderColor: { type: "tween", delay: 0.05 } } }}
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
-                    className={cx("relative h-full overflow-y-auto bg-primary", !hideBorder && "border-r-[1.5px]")}
+                    className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary", !hideBorder && "box-content border-r-[1.5px]")}
                 >
-                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-6">
+                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 py-6">
                         {currentItem.items?.map((item) => (
                             <li key={item.label + item.href} className="py-0.5">
                                 <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
