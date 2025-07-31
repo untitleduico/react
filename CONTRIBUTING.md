@@ -12,7 +12,7 @@ Thank you for your interest in contributing! This guide will help you get starte
 6. **Test thoroughly**
 7. **Submit a pull request**
 
-## 🎯 Contribution yypes
+## 🎯 Contribution types
 
 ### 🐛 Bug fixes
 
