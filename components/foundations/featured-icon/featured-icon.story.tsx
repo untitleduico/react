@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import * as Demos from "./featured-icons.demo";
+import * as Demos from "./featured-icon.demo";
 
 export default {
     title: "Base components/Featured Icons",
