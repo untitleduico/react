@@ -6,6 +6,7 @@ import { cx } from "@/utils/cx";
 export const Grid = (props: Omit<SVGProps<SVGSVGElement>, "size"> & { size?: "sm" | "md" | "lg" }) => {
     const { size = "lg", className } = props;
     const Pattern = sizes[size];
+
     return <Pattern className={className} />;
 };
 

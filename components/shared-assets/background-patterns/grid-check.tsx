@@ -3,6 +3,7 @@ import type { SVGProps } from "react";
 export const GridCheck = (props: Omit<SVGProps<SVGSVGElement>, "size"> & { size?: "sm" | "md" }) => {
     const { size = "md", className } = props;
     const Pattern = sizes[size];
+
     return <Pattern className={className} />;
 };
 

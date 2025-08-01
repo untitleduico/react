@@ -22,5 +22,6 @@ export interface BackgroundPatternProps extends Omit<SVGProps<SVGSVGElement>, "s
 export const BackgroundPattern = (props: BackgroundPatternProps) => {
     const { pattern } = props;
     const Pattern = patterns[pattern];
+
     return <Pattern {...props} size={props.size as "sm" | "md"} className={cx("pointer-events-none", props.className)} />;
 };

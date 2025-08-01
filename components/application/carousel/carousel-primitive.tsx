@@ -42,7 +42,7 @@ type CarouselContextProps = CarouselProps & {
 
 export const CarouselContext = createContext<CarouselContextProps | null>(null);
 
-export function useCarousel() {
+export const useCarousel = () => {
     const context = useContext(CarouselContext);
 
     if (!context) {
@@ -50,7 +50,7 @@ export function useCarousel() {
     }
 
     return context;
-}
+};
 
 const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, className, children, ...props }: ComponentPropsWithRef<"div"> & CarouselProps) => {
     const [carouselRef, api] = useEmblaCarousel(

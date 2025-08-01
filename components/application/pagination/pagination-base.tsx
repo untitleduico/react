@@ -185,6 +185,7 @@ const PaginationRoot = ({ total, siblingCount = 1, page, onPageChange, children,
  */
 const range = (start: number, end: number): number[] => {
     const length = end - start + 1;
+
     return Array.from({ length }, (_, index) => index + start);
 };
 
