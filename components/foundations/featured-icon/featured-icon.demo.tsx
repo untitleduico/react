@@ -1,7 +1,7 @@
 "use client";
 
 import { CheckCircle } from "@untitledui/icons";
-import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icons";
+import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 
 export const DefaultDemo = () => {
     return (
