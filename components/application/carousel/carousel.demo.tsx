@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronLeft, ChevronRight } from "@untitledui/icons";
-import { Carousel, useCarousel } from "@/components/application/carousel/carousel-primitive";
+import { Carousel, useCarousel } from "@/components/application/carousel/carousel-base";
 import { PaginationDot } from "@/components/application/pagination/pagination-dot";
 
 export const CarouselIndicator = ({
