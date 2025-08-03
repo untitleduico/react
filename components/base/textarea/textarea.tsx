@@ -3,9 +3,8 @@
 import type { ReactNode, Ref } from "react";
 import React from "react";
 import type { TextAreaProps as AriaTextAreaProps, TextFieldProps as AriaTextFieldProps } from "react-aria-components";
-import { TextArea as AriaTextArea } from "react-aria-components";
+import { TextArea as AriaTextArea, TextField as AriaTextField } from "react-aria-components";
 import { HintText } from "@/components/base/input/hint-text";
-import { TextField } from "@/components/base/input/input";
 import { Label } from "@/components/base/input/label";
 import { cx } from "@/utils/cx";
 
@@ -49,52 +48,47 @@ export const TextAreaBase = ({ className, ...props }: TextAreaBaseProps) => {
 
 TextAreaBase.displayName = "TextAreaBase";
 
-interface TextFieldProps extends AriaTextAreaProps {
+interface TextFieldProps extends AriaTextFieldProps {
+    /** Label text for the textarea */
     label?: string;
+    /** Helper text displayed below the textarea */
     hint?: ReactNode;
+    /** Tooltip message displayed after the label. */
     tooltip?: string;
+    /** Class name for the textarea wrapper */
+    inputClassName?: TextAreaBaseProps["className"];
+    /** Ref for the textarea wrapper */
     ref?: Ref<HTMLDivElement>;
-    isInvalid?: AriaTextFieldProps["isInvalid"];
-    isDisabled?: AriaTextFieldProps["isDisabled"];
-    isRequired?: AriaTextFieldProps["isRequired"];
-    isReadOnly?: AriaTextFieldProps["isReadOnly"];
-    wrapperClassName?: AriaTextFieldProps["className"];
+    /** Ref for the textarea */
+    inputRef?: TextAreaBaseProps["ref"];
+    /** Whether to hide required indicator from label. */
+    hideRequiredIndicator?: boolean;
+    /** Placeholder text. */
+    placeholder?: string;
 }
 
-export const TextArea = ({
-    label,
-    hint,
-    wrapperClassName,
-    isDisabled,
-    isInvalid,
-    isRequired,
-    isReadOnly,
-    tooltip,
-    value,
-    defaultValue,
-    ref,
-    ...textAreaProps
-}: TextFieldProps) => {
+export const TextArea = ({ label, hint, tooltip, inputRef, hideRequiredIndicator, inputClassName, placeholder, className, ...props }: TextFieldProps) => {
     return (
-        <TextField
-            {...{ ref, isDisabled, isInvalid, isReadOnly, isRequired, className: wrapperClassName, "aria-label": textAreaProps["aria-label"] }}
-            value={value as string}
-            defaultValue={defaultValue as string}
+        <AriaTextField
+            {...props}
+            className={(state) =>
+                cx("group flex h-max w-full flex-col items-start justify-start gap-1.5", typeof className === "function" ? className(state) : className)
+            }
         >
             {({ isInvalid, isRequired }) => (
                 <>
                     {label && (
-                        <Label isRequired={isRequired} tooltip={tooltip}>
+                        <Label isRequired={hideRequiredIndicator ? !hideRequiredIndicator : isRequired} tooltip={tooltip}>
                             {label}
                         </Label>
                     )}
 
-                    <TextAreaBase {...textAreaProps} />
+                    <TextAreaBase placeholder={placeholder} className={inputClassName} ref={inputRef} />
 
                     {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
                 </>
             )}
-        </TextField>
+        </AriaTextField>
     );
 };
 
