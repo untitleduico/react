@@ -56,18 +56,34 @@ interface TextFieldProps extends AriaTextFieldProps {
     /** Tooltip message displayed after the label. */
     tooltip?: string;
     /** Class name for the textarea wrapper */
-    inputClassName?: TextAreaBaseProps["className"];
+    textAreaClassName?: TextAreaBaseProps["className"];
     /** Ref for the textarea wrapper */
     ref?: Ref<HTMLDivElement>;
     /** Ref for the textarea */
-    inputRef?: TextAreaBaseProps["ref"];
+    textAreaRef?: TextAreaBaseProps["ref"];
     /** Whether to hide required indicator from label. */
     hideRequiredIndicator?: boolean;
     /** Placeholder text. */
     placeholder?: string;
+    /** Visible height of textarea in rows . */
+    rows?: number;
+    /** Visible width of textarea in columns. */
+    cols?: number;
 }
 
-export const TextArea = ({ label, hint, tooltip, inputRef, hideRequiredIndicator, inputClassName, placeholder, className, ...props }: TextFieldProps) => {
+export const TextArea = ({
+    label,
+    hint,
+    tooltip,
+    textAreaRef,
+    hideRequiredIndicator,
+    textAreaClassName,
+    placeholder,
+    className,
+    rows,
+    cols,
+    ...props
+}: TextFieldProps) => {
     return (
         <AriaTextField
             {...props}
@@ -83,7 +99,7 @@ export const TextArea = ({ label, hint, tooltip, inputRef, hideRequiredIndicator
                         </Label>
                     )}
 
-                    <TextAreaBase placeholder={placeholder} className={inputClassName} ref={inputRef} />
+                    <TextAreaBase placeholder={placeholder} className={textAreaClassName} ref={textAreaRef} rows={rows} cols={cols} />
 
                     {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
                 </>
