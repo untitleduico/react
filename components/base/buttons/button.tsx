@@ -77,7 +77,7 @@ export const styles = sortCx({
         },
         "link-gray": {
             root: [
-                "justify-normal rounded-xs p-0! text-tertiary hover:text-tertiary_hover",
+                "justify-normal rounded p-0! text-tertiary hover:text-tertiary_hover",
                 // Inner text underline
                 "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-2 hover:*:data-text:decoration-current",
                 // Icon styles
@@ -86,7 +86,7 @@ export const styles = sortCx({
         },
         "link-color": {
             root: [
-                "justify-normal rounded-xs p-0! text-brand-secondary hover:text-brand-secondary_hover",
+                "justify-normal rounded p-0! text-brand-secondary hover:text-brand-secondary_hover",
                 // Inner text underline
                 "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-2 hover:*:data-text:decoration-current",
                 // Icon styles
@@ -122,7 +122,7 @@ export const styles = sortCx({
         },
         "link-destructive": {
             root: [
-                "justify-normal rounded-xs p-0! text-error-primary outline-error hover:text-error-primary_hover",
+                "justify-normal rounded p-0! text-error-primary outline-error hover:text-error-primary_hover",
                 // Inner text underline
                 "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-2 hover:*:data-text:decoration-current",
                 // Icon styles

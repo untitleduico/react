@@ -52,8 +52,8 @@
 
     /* RADIUS */
     --radius-none: 0px;
-    --radius-xs: 0.25rem;
-    --radius-sm: 0.125rem;
+    --radius-xs: 0.125rem;
+    --radius-sm: 0.25rem;
     --radius-DEFAULT: 0.25rem;
     --radius-md: 0.375rem;
     --radius-lg: 0.5rem;

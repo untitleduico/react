@@ -1015,7 +1015,7 @@ export const TableSomethingWentWrong = () => {
                             We had some trouble loading this page. Please refresh the page or{" "}
                             <a
                                 href="#"
-                                className="rounded-sm underline underline-offset-2 outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2"
+                                className="rounded-xs underline underline-offset-2 outline-focus-ring focus-visible:outline-2 focus-visible:outline-offset-2"
                             >
                                 get in touch
                             </a>{" "}
