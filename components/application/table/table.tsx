@@ -199,7 +199,7 @@ const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadP
 
                     {state.allowsSorting &&
                         (state.sortDirection ? (
-                            <ArrowDown className={cx("size-3 stroke-[3px] text-fg-quaternary", state.sortDirection === "descending" && "rotate-180")} />
+                            <ArrowDown className={cx("size-3 stroke-[3px] text-fg-quaternary", state.sortDirection === "ascending" && "rotate-180")} />
                         ) : (
                             <ChevronSelectorVertical size={12} strokeWidth={3} className="text-fg-quaternary" />
                         ))}
