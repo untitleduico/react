@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 "use client";
 
 import type { FocusEventHandler, KeyboardEvent, PointerEventHandler, RefAttributes, RefObject } from "react";
@@ -5,7 +6,7 @@ import { createContext, useCallback, useContext, useRef, useState } from "react"
 import { SearchLg } from "@untitledui/icons";
 import { FocusScope, useFilter, useFocusManager } from "react-aria";
 import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key } from "react-aria-components";
-import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox } from "react-aria-components";
+import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox, ComboBoxStateContext } from "react-aria-components";
 import type { ListData } from "react-stately";
 import { useListData } from "react-stately";
 import { Avatar } from "@/components/base/avatar/avatar";
@@ -107,6 +108,17 @@ export const MultiSelectBase = ({
 
             selectedItems.remove(key);
             onItemCleared?.(key);
+            setFieldState((prev) => {
+                // If the removed key is the current selectedKey, clear it
+                if (prev.selectedKey === key) {
+                    return { ...prev, selectedKey: null };
+                }
+                // If all items are removed, reset field state
+                if (selectedItems.items.length === 1) {
+                    return { inputValue: "", selectedKey: null };
+                }
+                return prev;
+            });
         },
         [selectedItems, onItemCleared],
     );
@@ -122,7 +134,7 @@ export const MultiSelectBase = ({
             return;
         }
 
-        if (!selectedKeys.includes(id as string)) {
+    if (!selectedKeys.includes(id as string)) {
             selectedItems.append(item);
             setFieldState({
                 inputValue: "",
@@ -215,6 +227,7 @@ export const MultiSelectBase = ({
 const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder }: Omit<MultiSelectProps, "selectedItems" | "children">) => {
     const focusManager = useFocusManager();
     const selectContext = useContext(ComboboxContext);
+    const comboBoxState = useContext(ComboBoxStateContext);
 
     const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         const isCaretAtStart = event.currentTarget.selectionStart === 0 && event.currentTarget.selectionEnd === 0;
@@ -234,11 +247,20 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
         }
     };
 
+    // Ensure dropdown opens on click even if input is already focused
+    const handleInputMouseDown = (_event: React.MouseEvent<HTMLInputElement>) => {
+        if (comboBoxState && !comboBoxState.isOpen) {
+            comboBoxState.open();
+        }
+    };
+
     const handleTagKeyDown = (event: KeyboardEvent<HTMLButtonElement>, value: Key) => {
-        event.preventDefault();
 
         const isFirstTag = selectContext?.selectedItems?.items?.[0]?.id === value;
-
+        if (event.key === "Tab") {
+            return;
+        }
+        event.preventDefault();
         switch (event.key) {
             case " ":
             case "Enter":
@@ -248,11 +270,11 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
                 } else {
                     focusManager?.focusPrevious({ wrap: false, tabbable: false });
                 }
-
+  
                 selectContext.onRemove(new Set([value]));
                 break;
-
-            case "ArrowLeft":
+  
+                case "ArrowLeft":
                 focusManager?.focusPrevious({ wrap: false, tabbable: false });
                 break;
             case "ArrowRight":
@@ -287,6 +309,7 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
                 <AriaInput
                     placeholder={placeholder}
                     onKeyDown={handleInputKeyDown}
+                    onMouseDown={handleInputMouseDown}
                     className="w-full flex-[1_0_0] appearance-none bg-transparent text-md text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed disabled:text-disabled disabled:placeholder:text-disabled"
                 />
 
