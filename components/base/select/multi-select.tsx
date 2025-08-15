@@ -91,14 +91,6 @@ export const MultiSelectBase = ({
         filter,
     });
 
-    const [fieldState, setFieldState] = useState<{
-        selectedKey: Key | null;
-        inputValue: string;
-    }>({
-        selectedKey: null,
-        inputValue: "",
-    });
-
     const onRemove = useCallback(
         (keys: Set<Key>) => {
             const key = keys.values().next().value;
@@ -107,17 +99,6 @@ export const MultiSelectBase = ({
 
             selectedItems.remove(key);
             onItemCleared?.(key);
-            setFieldState((prev) => {
-                // If the removed key is the current selectedKey, clear it
-                if (prev.selectedKey === key) {
-                    return { ...prev, selectedKey: null };
-                }
-                // If all items are removed, reset field state
-                if (selectedItems.items.length === 1) {
-                    return { inputValue: "", selectedKey: null };
-                }
-                return prev;
-            });
         },
         [selectedItems, onItemCleared],
     );
@@ -135,10 +116,6 @@ export const MultiSelectBase = ({
 
         if (!selectedKeys.includes(id as string)) {
             selectedItems.append(item);
-            setFieldState({
-                inputValue: "",
-                selectedKey: id,
-            });
             onItemInserted?.(id);
         }
 
@@ -146,11 +123,6 @@ export const MultiSelectBase = ({
     };
 
     const onInputChange = (value: string) => {
-        setFieldState((prev) => ({
-            inputValue: value,
-            selectedKey: value === "" ? null : prev.selectedKey,
-        }));
-
         accessibleList.setFilterText(value);
     };
 
@@ -185,8 +157,9 @@ export const MultiSelectBase = ({
                 menuTrigger="focus"
                 items={accessibleList.items}
                 onInputChange={onInputChange}
-                inputValue={fieldState.inputValue}
-                selectedKey={fieldState.selectedKey}
+                inputValue={accessibleList.filterText}
+                // This keeps the combobox popover open and the input value unchanged when an item is selected.
+                selectedKey={null}
                 onSelectionChange={onSelectionChange}
                 {...props}
             >
