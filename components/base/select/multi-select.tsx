@@ -255,6 +255,9 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
             case "ArrowRight":
                 focusManager?.focusNext({ wrap: false, tabbable: false });
                 break;
+            case "Escape":
+                comboBoxStateContext?.close();
+                break;
         }
     };
 
