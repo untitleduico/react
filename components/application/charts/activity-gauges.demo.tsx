@@ -101,7 +101,7 @@ export const ActivityGauge = ({ size = "sm", title = "1,000", subtitle = "Active
             >
                 <PolarAngleAxis tick={false} domain={[0, 1000]} type="number" reversed />
 
-                <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent reversed />} />
+                <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent />} />
 
                 <Tooltip content={<ChartTooltipContent isRadialChart />} />
 
