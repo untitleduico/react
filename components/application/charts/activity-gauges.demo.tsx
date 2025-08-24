@@ -24,53 +24,7 @@ const radialData = [
     // collapse-end
 ];
 
-const sizes = {
-    // collapse-start
-    xs: {
-        innerRadius: 52,
-        outerRadius: 86,
-
-        titleDY: "1.25em",
-        subtitleDY: "-1.175em",
-
-        title: "text-xl font-semibold",
-        subtitle: "text-xs font-medium",
-    },
-    sm: {
-        innerRadius: 61,
-        outerRadius: 110,
-
-        titleDY: "1.15em",
-        subtitleDY: "-1.35em",
-
-        title: "text-display-xs font-semibold",
-        subtitle: "text-xs font-medium",
-    },
-    md: {
-        innerRadius: 74,
-        outerRadius: 132,
-
-        titleDY: "1.075em",
-        subtitleDY: "-1.45em",
-
-        title: "text-display-sm font-semibold",
-        subtitle: "text-sm font-medium",
-    },
-    lg: {
-        innerRadius: 84,
-        outerRadius: 154,
-
-        titleDY: "1em",
-        subtitleDY: "-1.4em",
-
-        title: "text-display-md font-semibold",
-        subtitle: "text-sm font-medium",
-    },
-    // collapse-end
-};
-
 interface ActivityGaugeProps {
-    size?: "xs" | "sm" | "md" | "lg";
     title?: string;
     subtitle?: string;
     data?: {
@@ -80,14 +34,14 @@ interface ActivityGaugeProps {
     }[];
 }
 
-export const ActivityGauge = ({ size = "sm", title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
+export const ActivityGaugeXs = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
     return (
-        <ResponsiveContainer height={sizes[size].outerRadius * 2 + 48} className="w-full">
+        <ResponsiveContainer height={220}>
             <RadialBarChart
                 data={data}
                 accessibilityLayer
-                innerRadius={sizes[size].innerRadius}
-                outerRadius={sizes[size].outerRadius}
+                innerRadius={52}
+                outerRadius={86}
                 // This is needed to start the chart at the top and go clockwise
                 startAngle={90}
                 endAngle={360 + 90}
@@ -118,12 +72,12 @@ export const ActivityGauge = ({ size = "sm", title = "1,000", subtitle = "Active
                 {(title || subtitle) && (
                     <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
                         {subtitle && (
-                            <tspan x="50%" dy={title ? sizes[size].subtitleDY : "1%"} className={cx("fill-current text-tertiary", sizes[size].subtitle)}>
+                            <tspan x="50%" dy={title ? "-1.175em" : "1%"} className={cx("fill-current text-tertiary", "text-xs font-medium")}>
                                 {subtitle}
                             </tspan>
                         )}
                         {title && (
-                            <tspan x="50%" dy={subtitle ? sizes[size].titleDY : "1%"} className={cx("fill-current text-primary", sizes[size].title)}>
+                            <tspan x="50%" dy={subtitle ? "1.25em" : "1%"} className={cx("fill-current text-primary", "text-xl font-semibold")}>
                                 {title}
                             </tspan>
                         )}
@@ -134,7 +88,164 @@ export const ActivityGauge = ({ size = "sm", title = "1,000", subtitle = "Active
     );
 };
 
-export const ActivityGaugeXs = () => <ActivityGauge size="xs" />;
-export const ActivityGaugeSm = () => <ActivityGauge size="sm" />;
-export const ActivityGaugeMd = () => <ActivityGauge size="md" />;
-export const ActivityGaugeLg = () => <ActivityGauge size="lg" />;
+export const ActivityGaugeSm = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
+    return (
+        <ResponsiveContainer height={268}>
+            <RadialBarChart
+                data={data}
+                accessibilityLayer
+                innerRadius={61}
+                outerRadius={110}
+                // This is needed to start the chart at the top and go clockwise
+                startAngle={90}
+                endAngle={360 + 90}
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <PolarAngleAxis tick={false} domain={[0, 1000]} type="number" reversed />
+
+                <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent />} />
+
+                <Tooltip content={<ChartTooltipContent isRadialChart />} />
+
+                <RadialBar
+                    isAnimationActive={false}
+                    dataKey="value"
+                    cornerRadius={99}
+                    fill="currentColor"
+                    background={{
+                        className: "fill-utility-gray-100",
+                    }}
+                />
+
+                {(title || subtitle) && (
+                    <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        {subtitle && (
+                            <tspan x="50%" dy={title ? "-1.35em" : "1%"} className={cx("fill-current text-tertiary", "text-xs font-medium")}>
+                                {subtitle}
+                            </tspan>
+                        )}
+                        {title && (
+                            <tspan x="50%" dy={subtitle ? "1.15em" : "1%"} className={cx("fill-current text-primary", "text-display-xs font-semibold")}>
+                                {title}
+                            </tspan>
+                        )}
+                    </text>
+                )}
+            </RadialBarChart>
+        </ResponsiveContainer>
+    );
+};
+
+export const ActivityGaugeMd = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
+    return (
+        <ResponsiveContainer height={312}>
+            <RadialBarChart
+                data={data}
+                accessibilityLayer
+                innerRadius={74}
+                outerRadius={132}
+                // This is needed to start the chart at the top and go clockwise
+                startAngle={90}
+                endAngle={360 + 90}
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <PolarAngleAxis tick={false} domain={[0, 1000]} type="number" reversed />
+
+                <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent />} />
+
+                <Tooltip content={<ChartTooltipContent isRadialChart />} />
+
+                <RadialBar
+                    isAnimationActive={false}
+                    dataKey="value"
+                    cornerRadius={99}
+                    fill="currentColor"
+                    background={{
+                        className: "fill-utility-gray-100",
+                    }}
+                />
+
+                {(title || subtitle) && (
+                    <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        {subtitle && (
+                            <tspan x="50%" dy={title ? "-1.45em" : "1%"} className={cx("fill-current text-tertiary", "text-sm font-medium")}>
+                                {subtitle}
+                            </tspan>
+                        )}
+                        {title && (
+                            <tspan x="50%" dy={subtitle ? "1.075em" : "1%"} className={cx("fill-current text-primary", "text-display-sm font-semibold")}>
+                                {title}
+                            </tspan>
+                        )}
+                    </text>
+                )}
+            </RadialBarChart>
+        </ResponsiveContainer>
+    );
+};
+
+export const ActivityGaugeLg = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
+    return (
+        <ResponsiveContainer height={356}>
+            <RadialBarChart
+                data={data}
+                accessibilityLayer
+                innerRadius={84}
+                outerRadius={154}
+                // This is needed to start the chart at the top and go clockwise
+                startAngle={90}
+                endAngle={360 + 90}
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <PolarAngleAxis tick={false} domain={[0, 1000]} type="number" reversed />
+
+                <Legend verticalAlign="bottom" align="center" layout="horizontal" content={<ChartLegendContent />} />
+
+                <Tooltip content={<ChartTooltipContent isRadialChart />} />
+
+                <RadialBar
+                    isAnimationActive={false}
+                    dataKey="value"
+                    cornerRadius={99}
+                    fill="currentColor"
+                    background={{
+                        className: "fill-utility-gray-100",
+                    }}
+                />
+
+                {(title || subtitle) && (
+                    <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle">
+                        {subtitle && (
+                            <tspan x="50%" dy={title ? "-1.4em" : "1%"} className={cx("fill-current text-tertiary", "text-sm font-medium")}>
+                                {subtitle}
+                            </tspan>
+                        )}
+                        {title && (
+                            <tspan x="50%" dy={subtitle ? "1em" : "1%"} className={cx("fill-current text-primary", "text-display-md font-semibold")}>
+                                {title}
+                            </tspan>
+                        )}
+                    </text>
+                )}
+            </RadialBarChart>
+        </ResponsiveContainer>
+    );
+};

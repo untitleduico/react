@@ -14,14 +14,14 @@ export default {
     ],
 };
 
-export const ActivityGaugeXs = () => <Charts.ActivityGauge size="xs" />;
+export const ActivityGaugeXs = () => <Charts.ActivityGaugeXs />;
 ActivityGaugeXs.storyName = "Activity gauge xs";
 
-export const ActivityGaugeSm = () => <Charts.ActivityGauge />;
+export const ActivityGaugeSm = () => <Charts.ActivityGaugeSm />;
 ActivityGaugeSm.storyName = "Activity gauge sm";
 
-export const ActivityGaugeMd = () => <Charts.ActivityGauge size="md" />;
+export const ActivityGaugeMd = () => <Charts.ActivityGaugeMd />;
 ActivityGaugeMd.storyName = "Activity gauge md";
 
-export const ActivityGaugeLg = () => <Charts.ActivityGauge size="lg" />;
+export const ActivityGaugeLg = () => <Charts.ActivityGaugeLg />;
 ActivityGaugeLg.storyName = "Activity gauge lg";
