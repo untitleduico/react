@@ -14,37 +14,17 @@ export default {
     ],
 };
 
-export const PieChartXxs = () => (
-    <div className="h-30 w-full max-w-52.5">
-        <Charts.PieChart size="xxs" />
-    </div>
-);
+export const PieChartXxs = () => <Charts.PieChartXxs />;
 PieChartXxs.storyName = "Pie chart xxs";
 
-export const PieChartXs = () => (
-    <div className="h-40 w-full max-w-62.5">
-        <Charts.PieChart size="xs" />
-    </div>
-);
+export const PieChartXs = () => <Charts.PieChartXs />;
 PieChartXs.storyName = "Pie chart xs";
 
-export const PieChartSm = () => (
-    <div className="h-50 w-full max-w-72.5">
-        <Charts.PieChart />
-    </div>
-);
+export const PieChartSm = () => <Charts.PieChartSm />;
 PieChartSm.storyName = "Pie chart sm";
 
-export const PieChartMd = () => (
-    <div className="h-60 w-full max-w-96">
-        <Charts.PieChart size="md" />
-    </div>
-);
+export const PieChartMd = () => <Charts.PieChartMd />;
 PieChartMd.storyName = "Pie chart md";
 
-export const PieChartLg = () => (
-    <div className="h-70 w-full max-w-96">
-        <Charts.PieChart size="lg" />
-    </div>
-);
+export const PieChartLg = () => <Charts.PieChartLg />;
 PieChartLg.storyName = "Pie chart lg";

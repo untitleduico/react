@@ -33,40 +33,13 @@ const pieChartData = [
     // collapse-end
 ];
 
-const sizes = {
-    // collapse-start
-    xxs: {
-        innerRadius: 30,
-        outerRadius: 60,
-    },
-    xs: {
-        innerRadius: 40,
-        outerRadius: 80,
-    },
-    sm: {
-        innerRadius: 50,
-        outerRadius: 100,
-    },
-    md: {
-        innerRadius: 60,
-        outerRadius: 120,
-    },
-    lg: {
-        innerRadius: 70,
-        outerRadius: 140,
-    },
-    // collapse-end
-};
-
-export const PieChart = ({
-    size = "sm",
-    data = pieChartData,
-}: {
-    size?: "xxs" | "xs" | "sm" | "md" | "lg";
+interface PieChartProps {
     data?: { name: string; value: number; className?: string }[];
-}) => {
+}
+
+export const PieChartXxs = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer>
+        <ResponsiveContainer height={120} className="max-w-52.5">
             <RechartsPieChart
                 margin={{
                     left: 0,
@@ -87,16 +60,134 @@ export const PieChart = ({
                     dataKey="value"
                     nameKey="name"
                     fill="currentColor"
-                    innerRadius={sizes[size].innerRadius}
-                    outerRadius={sizes[size].outerRadius}
+                    innerRadius={30}
+                    outerRadius={60}
                 />
             </RechartsPieChart>
         </ResponsiveContainer>
     );
 };
 
-export const PieChartXxs = () => <PieChart size="xxs" />;
-export const PieChartXs = () => <PieChart size="xs" />;
-export const PieChartSm = () => <PieChart />;
-export const PieChartMd = () => <PieChart size="md" />;
-export const PieChartLg = () => <PieChart size="lg" />;
+export const PieChartXs = ({ data = pieChartData }: PieChartProps) => {
+    return (
+        <ResponsiveContainer height={160} className="max-w-62.5">
+            <RechartsPieChart
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <Legend verticalAlign="top" align="right" layout="vertical" content={ChartLegendContent} />
+                <Tooltip content={<ChartTooltipContent isPieChart />} />
+
+                <Pie
+                    isAnimationActive={false}
+                    startAngle={-270}
+                    endAngle={-630}
+                    stroke="none"
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    fill="currentColor"
+                    innerRadius={40}
+                    outerRadius={80}
+                />
+            </RechartsPieChart>
+        </ResponsiveContainer>
+    );
+};
+
+export const PieChartSm = ({ data = pieChartData }: PieChartProps) => {
+    return (
+        <ResponsiveContainer height={200} className="max-w-72.5">
+            <RechartsPieChart
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <Legend verticalAlign="top" align="right" layout="vertical" content={ChartLegendContent} />
+                <Tooltip content={<ChartTooltipContent isPieChart />} />
+
+                <Pie
+                    isAnimationActive={false}
+                    startAngle={-270}
+                    endAngle={-630}
+                    stroke="none"
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    fill="currentColor"
+                    innerRadius={50}
+                    outerRadius={100}
+                />
+            </RechartsPieChart>
+        </ResponsiveContainer>
+    );
+};
+
+export const PieChartMd = ({ data = pieChartData }: PieChartProps) => {
+    return (
+        <ResponsiveContainer height={240} className="max-w-96">
+            <RechartsPieChart
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <Legend verticalAlign="top" align="right" layout="vertical" content={ChartLegendContent} />
+                <Tooltip content={<ChartTooltipContent isPieChart />} />
+
+                <Pie
+                    isAnimationActive={false}
+                    startAngle={-270}
+                    endAngle={-630}
+                    stroke="none"
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    fill="currentColor"
+                    innerRadius={60}
+                    outerRadius={120}
+                />
+            </RechartsPieChart>
+        </ResponsiveContainer>
+    );
+};
+
+export const PieChartLg = ({ data = pieChartData }: PieChartProps) => {
+    return (
+        <ResponsiveContainer height={280} className="max-w-96">
+            <RechartsPieChart
+                margin={{
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                }}
+            >
+                <Legend verticalAlign="top" align="right" layout="vertical" content={ChartLegendContent} />
+                <Tooltip content={<ChartTooltipContent isPieChart />} />
+
+                <Pie
+                    isAnimationActive={false}
+                    startAngle={-270}
+                    endAngle={-630}
+                    stroke="none"
+                    data={data}
+                    dataKey="value"
+                    nameKey="name"
+                    fill="currentColor"
+                    innerRadius={70}
+                    outerRadius={140}
+                />
+            </RechartsPieChart>
+        </ResponsiveContainer>
+    );
+};
