@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import type { Placement } from "@react-types/overlays";
 import type {
     ButtonProps as AriaButtonProps,
     TooltipProps as AriaTooltipProps,
@@ -9,27 +8,6 @@ import type {
 } from "react-aria-components";
 import { Button as AriaButton, OverlayArrow as AriaOverlayArrow, Tooltip as AriaTooltip, TooltipTrigger as AriaTooltipTrigger } from "react-aria-components";
 import { cx } from "@/utils/cx";
-
-const transformOrigins: Partial<Record<Placement, string>> = {
-    top: "origin-bottom",
-    "top left": "origin-bottom-left",
-    "top right": "origin-bottom-right",
-    bottom: "origin-top",
-    "bottom left": "origin-top-left",
-    "bottom right": "origin-top-right",
-    left: "origin-right",
-    "left top": "origin-top-right",
-    "left bottom": "origin-bottom-right",
-    start: "origin-right",
-    "start top": "origin-top-left",
-    "start bottom": "origin-bottom-left",
-    right: "origin-left",
-    "right top": "origin-top-left",
-    "right bottom": "origin-bottom-left",
-    end: "origin-left",
-    "end top": "origin-top-left",
-    "end bottom": "origin-bottom-left",
-};
 
 interface TooltipProps extends AriaTooltipTriggerComponentProps, Omit<AriaTooltipProps, "children"> {
     /**
@@ -90,11 +68,8 @@ export const Tooltip = ({
                 {({ isEntering, isExiting }) => (
                     <div
                         className={cx(
-                            "z-50 flex max-w-xs flex-col items-start gap-1 rounded-lg bg-primary-solid px-3 shadow-lg will-change-transform",
+                            "z-50 flex max-w-xs origin-(--trigger-anchor-point) flex-col items-start gap-1 rounded-lg bg-primary-solid px-3 shadow-lg will-change-transform",
                             description ? "py-3" : "py-2",
-
-                            // Map placements to transform-origin
-                            transformOrigins[placement],
 
                             isEntering &&
                                 "ease-out animate-in fade-in zoom-in-95 in-placement-left:slide-in-from-right-0.5 in-placement-right:slide-in-from-left-0.5 in-placement-top:slide-in-from-bottom-0.5 in-placement-bottom:slide-in-from-top-0.5",
