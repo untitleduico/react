@@ -1279,9 +1279,11 @@
         --text-color-placeholder_subtle: var(--color-text-placeholder_subtle);
         --text-color-brand-primary: var(--color-text-brand-primary);
         --text-color-brand-secondary: var(--color-text-brand-secondary);
+        --text-color-brand-secondary_hover: var(--color-text-brand-secondary_hover);
         --text-color-brand-tertiary: var(--color-text-brand-tertiary);
         --text-color-brand-tertiary_alt: var(--color-text-brand-tertiary_alt);
         --text-color-error-primary: var(--color-text-error-primary);
+        --text-color-error-primary_hover: var(--color-text-error-primary_hover);
         --text-color-warning-primary: var(--color-text-warning-primary);
         --text-color-success-primary: var(--color-text-success-primary);
         --text-color-tooltip-supporting-text: var(--color-tooltip-supporting-text);
