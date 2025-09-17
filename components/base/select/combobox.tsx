@@ -53,7 +53,7 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
         >
             {({ isDisabled }) => (
                 <>
-                    <SearchIcon className="pointer-events-none size-5 text-fg-quaternary" />
+                    <SearchIcon className="pointer-events-none size-5 shrink-0 text-fg-quaternary" />
 
                     <div className="relative flex w-full items-center gap-2">
                         {inputValue && (
