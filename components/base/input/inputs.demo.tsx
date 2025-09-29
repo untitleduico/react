@@ -87,7 +87,7 @@ export const TrailingDropdownDemo = () => {
             hint="This is a hint text to help user."
             trailingAddon={
                 <NativeSelect
-                    aria-label="Country"
+                    aria-label="Sale amount"
                     options={[
                         { value: "USD", label: "USD" },
                         { value: "CAD", label: "CAD" },
