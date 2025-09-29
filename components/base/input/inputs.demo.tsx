@@ -83,15 +83,15 @@ export const TrailingDropdownDemo = () => {
         <InputGroup
             isRequired
             prefix="$"
-            label="Phone number"
+            label="Sale amount"
             hint="This is a hint text to help user."
             trailingAddon={
                 <NativeSelect
-                    aria-label="Country"
+                    aria-label="Sale amount"
                     options={[
-                        { value: "US", label: "US" },
-                        { value: "CA", label: "CA" },
-                        { value: "EU", label: "EU" },
+                        { value: "USD", label: "USD" },
+                        { value: "CAD", label: "CAD" },
+                        { value: "EUR", label: "EUR" },
                     ]}
                 />
             }
