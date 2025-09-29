@@ -83,7 +83,7 @@ export const TrailingDropdownDemo = () => {
         <InputGroup
             isRequired
             prefix="$"
-            label="Price"
+            label="Sale amount"
             hint="This is a hint text to help user."
             trailingAddon={
                 <NativeSelect
