@@ -1,3 +1,4 @@
+export * as FeaturedCardDemo from "./base-components/featured-cards.demo";
 export { MobileNavigationHeader } from "./base-components/mobile-header";
 export { NavAccountCard } from "./base-components/nav-account-card";
 export { NavItemButton } from "./base-components/nav-item-button";
