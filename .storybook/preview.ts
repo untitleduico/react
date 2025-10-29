@@ -94,7 +94,7 @@ export const parameters = {
         },
     },
     viewport: {
-        viewports: {
+        options: {
             ...customViewports,
         },
     },
