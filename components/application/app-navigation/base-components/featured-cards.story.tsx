@@ -1,7 +1,7 @@
 "use client";
 
 import { withOverlayAware } from "@/components/internal/decorators";
-import * as FeatureCard from "./featured-cards.demo";
+import * as FeatureCard from "./featured-cards";
 
 export default {
     title: "Application/Application navigation/Base components",
