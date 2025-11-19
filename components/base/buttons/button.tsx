@@ -198,11 +198,6 @@ export const Button = ({
             ...otherProps,
 
             href: disabled ? undefined : href,
-
-            // Since anchor elements do not support the `disabled` attribute and state,
-            // we need to specify `data-rac` and `data-disabled` in order to be able
-            // to use the `disabled:` selector in classes.
-            ...(disabled ? { "data-rac": true, "data-disabled": true } : {}),
         };
     } else {
         props = {
@@ -210,7 +205,6 @@ export const Button = ({
 
             type: otherProps.type || "button",
             isPending: loading,
-            isDisabled: disabled,
         };
     }
 
@@ -219,6 +213,7 @@ export const Button = ({
             data-loading={loading ? true : undefined}
             data-icon-only={isIcon ? true : undefined}
             {...props}
+            isDisabled={disabled}
             className={cx(
                 styles.common.root,
                 styles.sizes[size].root,
