@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import type { FC, ReactElement } from "react";
 import type { StoryContext, StoryFn } from "@storybook/nextjs";
 import { useGlobals } from "storybook/preview-api";
 
@@ -23,7 +23,7 @@ export declare type Globals = {
 
 export type Viewports = "desktop" | "mobile";
 
-type CustomRenderer = (Story: StoryFn, context: StoryContext) => ReactElement;
+type CustomRenderer = (Story: FC, context: StoryContext) => ReactElement;
 
 export const withOverlayAware = (customRenderer?: CustomRenderer) => (Story: StoryFn, context: StoryContext) => {
     const [{ overlay }] = useGlobals() as unknown as [Globals];
@@ -33,7 +33,7 @@ export const withOverlayAware = (customRenderer?: CustomRenderer) => (Story: Sto
     }
 
     if (customRenderer) {
-        return customRenderer(Story, context);
+        return customRenderer(Story as FC, context);
     }
 
     return Story(context, context);
