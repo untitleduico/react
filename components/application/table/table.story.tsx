@@ -6,7 +6,7 @@ import * as Tables from "./table.demo";
 export default {
     title: "Application/Tables",
     decorators: [
-        withOverlayAware((Story: any) => (
+        withOverlayAware((Story) => (
             <div className="min-h-screen bg-primary p-5">
                 <Story />
             </div>
