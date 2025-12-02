@@ -45,12 +45,16 @@ export const Primary = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button size="xs">Button CTA</Button>
                 <Button size="sm">Button CTA</Button>
                 <Button size="md">Button CTA</Button>
                 <Button size="lg">Button CTA</Button>
                 <Button size="xl">Button CTA</Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -66,6 +70,9 @@ export const Primary = () => {
             </div>
 
             <div className="mb-16 flex gap-8">
+                <Button isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -81,6 +88,9 @@ export const Primary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -95,6 +105,9 @@ export const Primary = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -109,6 +122,9 @@ export const Primary = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -124,18 +140,21 @@ export const Primary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button size="xs" iconLeading={Circle} />
                 <Button size="sm" iconLeading={Circle} />
                 <Button size="md" iconLeading={Circle} />
                 <Button size="lg" iconLeading={Circle} />
                 <Button size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button isDisabled size="xs" iconLeading={Circle} />
                 <Button isDisabled size="sm" iconLeading={Circle} />
                 <Button isDisabled size="md" iconLeading={Circle} />
                 <Button isDisabled size="lg" iconLeading={Circle} />
                 <Button isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -149,6 +168,9 @@ export const Secondary = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary" size="sm">
                     Button CTA
                 </Button>
@@ -163,6 +185,9 @@ export const Secondary = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -177,6 +202,9 @@ export const Secondary = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="secondary" isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button color="secondary" isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -192,6 +220,9 @@ export const Secondary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="secondary" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -206,6 +237,9 @@ export const Secondary = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -220,6 +254,9 @@ export const Secondary = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="secondary" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button color="secondary" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -235,18 +272,21 @@ export const Secondary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" size="xs" iconLeading={Circle} />
                 <Button color="secondary" size="sm" iconLeading={Circle} />
                 <Button color="secondary" size="md" iconLeading={Circle} />
                 <Button color="secondary" size="lg" iconLeading={Circle} />
                 <Button color="secondary" size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary" isDisabled size="xs" iconLeading={Circle} />
                 <Button color="secondary" isDisabled size="sm" iconLeading={Circle} />
                 <Button color="secondary" isDisabled size="md" iconLeading={Circle} />
                 <Button color="secondary" isDisabled size="lg" iconLeading={Circle} />
                 <Button color="secondary" isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button color="secondary" isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button color="secondary" isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button color="secondary" isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button color="secondary" isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -260,6 +300,9 @@ export const Tertiary = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary" size="sm">
                     Button CTA
                 </Button>
@@ -274,6 +317,9 @@ export const Tertiary = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -288,6 +334,9 @@ export const Tertiary = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="tertiary" isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button color="tertiary" isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -303,6 +352,9 @@ export const Tertiary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="tertiary" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -317,6 +369,9 @@ export const Tertiary = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -331,6 +386,9 @@ export const Tertiary = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="tertiary" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button color="tertiary" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -346,18 +404,21 @@ export const Tertiary = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" size="xs" iconLeading={Circle} />
                 <Button color="tertiary" size="sm" iconLeading={Circle} />
                 <Button color="tertiary" size="md" iconLeading={Circle} />
                 <Button color="tertiary" size="lg" iconLeading={Circle} />
                 <Button color="tertiary" size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button color="tertiary" isDisabled size="xs" iconLeading={Circle} />
                 <Button color="tertiary" isDisabled size="sm" iconLeading={Circle} />
                 <Button color="tertiary" isDisabled size="md" iconLeading={Circle} />
                 <Button color="tertiary" isDisabled size="lg" iconLeading={Circle} />
                 <Button color="tertiary" isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary" isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button color="tertiary" isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button color="tertiary" isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button color="tertiary" isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -371,6 +432,9 @@ export const LinkGray = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="link-gray" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-gray" size="sm">
                     Button CTA
                 </Button>
@@ -385,6 +449,9 @@ export const LinkGray = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-gray" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-gray" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -400,6 +467,9 @@ export const LinkGray = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="link-gray" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="link-gray" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -414,6 +484,9 @@ export const LinkGray = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-gray" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-gray" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -435,6 +508,9 @@ export const LinkColor = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="link-color" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-color" size="sm">
                     Button CTA
                 </Button>
@@ -449,6 +525,9 @@ export const LinkColor = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-color" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-color" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -464,6 +543,9 @@ export const LinkColor = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="link-color" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="link-color" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -478,6 +560,9 @@ export const LinkColor = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-color" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-color" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -499,6 +584,9 @@ export const PrimaryDestructive = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="primary-destructive" size="sm">
                     Button CTA
                 </Button>
@@ -513,6 +601,9 @@ export const PrimaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="primary-destructive" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -527,6 +618,9 @@ export const PrimaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="primary-destructive" isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button color="primary-destructive" isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -542,6 +636,9 @@ export const PrimaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="primary-destructive" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -556,6 +653,9 @@ export const PrimaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="primary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -570,6 +670,9 @@ export const PrimaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="primary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button color="primary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -585,18 +688,21 @@ export const PrimaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" size="xs" iconLeading={Circle} />
                 <Button color="primary-destructive" size="sm" iconLeading={Circle} />
                 <Button color="primary-destructive" size="md" iconLeading={Circle} />
                 <Button color="primary-destructive" size="lg" iconLeading={Circle} />
                 <Button color="primary-destructive" size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="primary-destructive" isDisabled size="xs" iconLeading={Circle} />
                 <Button color="primary-destructive" isDisabled size="sm" iconLeading={Circle} />
                 <Button color="primary-destructive" isDisabled size="md" iconLeading={Circle} />
                 <Button color="primary-destructive" isDisabled size="lg" iconLeading={Circle} />
                 <Button color="primary-destructive" isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button color="primary-destructive" isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button color="primary-destructive" isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button color="primary-destructive" isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button color="primary-destructive" isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -610,6 +716,9 @@ export const SecondaryDestructive = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary-destructive" size="sm">
                     Button CTA
                 </Button>
@@ -624,6 +733,9 @@ export const SecondaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary-destructive" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -638,6 +750,9 @@ export const SecondaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="secondary-destructive" isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button color="secondary-destructive" isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -653,6 +768,9 @@ export const SecondaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="secondary-destructive" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -667,6 +785,9 @@ export const SecondaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="secondary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -681,6 +802,9 @@ export const SecondaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="secondary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button color="secondary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -696,18 +820,21 @@ export const SecondaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" size="xs" iconLeading={Circle} />
                 <Button color="secondary-destructive" size="sm" iconLeading={Circle} />
                 <Button color="secondary-destructive" size="md" iconLeading={Circle} />
                 <Button color="secondary-destructive" size="lg" iconLeading={Circle} />
                 <Button color="secondary-destructive" size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="secondary-destructive" isDisabled size="xs" iconLeading={Circle} />
                 <Button color="secondary-destructive" isDisabled size="sm" iconLeading={Circle} />
                 <Button color="secondary-destructive" isDisabled size="md" iconLeading={Circle} />
                 <Button color="secondary-destructive" isDisabled size="lg" iconLeading={Circle} />
                 <Button color="secondary-destructive" isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button color="secondary-destructive" isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button color="secondary-destructive" isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button color="secondary-destructive" isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button color="secondary-destructive" isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -721,6 +848,9 @@ export const TertiaryDestructive = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary-destructive" size="sm">
                     Button CTA
                 </Button>
@@ -735,6 +865,9 @@ export const TertiaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary-destructive" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -749,6 +882,9 @@ export const TertiaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="tertiary-destructive" isLoading showTextWhileLoading size="xs">
+                    Submitting...
+                </Button>
                 <Button color="tertiary-destructive" isLoading showTextWhileLoading size="sm">
                     Submitting...
                 </Button>
@@ -764,6 +900,9 @@ export const TertiaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="tertiary-destructive" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -778,6 +917,9 @@ export const TertiaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="tertiary-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
@@ -792,6 +934,9 @@ export const TertiaryDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="tertiary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Submitting...
+                </Button>
                 <Button color="tertiary-destructive" isLoading showTextWhileLoading iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Submitting...
                 </Button>
@@ -807,18 +952,21 @@ export const TertiaryDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" size="xs" iconLeading={Circle} />
                 <Button color="tertiary-destructive" size="sm" iconLeading={Circle} />
                 <Button color="tertiary-destructive" size="md" iconLeading={Circle} />
                 <Button color="tertiary-destructive" size="lg" iconLeading={Circle} />
                 <Button color="tertiary-destructive" size="xl" iconLeading={Circle} />
             </div>
             <div className="mb-4 flex gap-8">
+                <Button color="tertiary-destructive" isDisabled size="xs" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isDisabled size="sm" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isDisabled size="md" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isDisabled size="lg" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isDisabled size="xl" iconLeading={Circle} />
             </div>
             <div className="flex gap-8">
+                <Button color="tertiary-destructive" isLoading aria-label="Loading" size="xs" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isLoading aria-label="Loading" size="sm" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isLoading aria-label="Loading" size="md" iconLeading={Circle} />
                 <Button color="tertiary-destructive" isLoading aria-label="Loading" size="lg" iconLeading={Circle} />
@@ -832,6 +980,9 @@ export const LinkDestructive = () => {
     return (
         <div>
             <div className="mb-4 flex gap-8">
+                <Button color="link-destructive" size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-destructive" size="sm">
                     Button CTA
                 </Button>
@@ -846,6 +997,9 @@ export const LinkDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-destructive" isDisabled size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-destructive" isDisabled size="sm">
                     Button CTA
                 </Button>
@@ -861,6 +1015,9 @@ export const LinkDestructive = () => {
             </div>
 
             <div className="mb-4 flex gap-8">
+                <Button color="link-destructive" size="xs" iconLeading={Circle} iconTrailing={Circle}>
+                    Button CTA
+                </Button>
                 <Button color="link-destructive" size="sm" iconLeading={Circle} iconTrailing={Circle}>
                     Button CTA
                 </Button>
@@ -875,6 +1032,9 @@ export const LinkDestructive = () => {
                 </Button>
             </div>
             <div className="mb-16 flex gap-8">
+                <Button color="link-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="xs">
+                    Button CTA
+                </Button>
                 <Button color="link-destructive" isDisabled iconLeading={Circle} iconTrailing={Circle} size="sm">
                     Button CTA
                 </Button>
