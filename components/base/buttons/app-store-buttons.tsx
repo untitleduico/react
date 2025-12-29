@@ -156,7 +156,7 @@ export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes
 export const GooglePlayWhiteButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
     return (
         <a
-            aria-label="Download on the App Store"
+            aria-label="Get it on Google Play"
             href="#"
             {...props}
             className={cx(
