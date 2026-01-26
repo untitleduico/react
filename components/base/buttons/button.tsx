@@ -27,29 +27,29 @@ export const styles = sortCx({
                 "in-data-input-wrapper:px-3.5 in-data-input-wrapper:py-2.5 in-data-input-wrapper:data-icon-only:p-2.5",
                 "*:data-icon:size-4",
             ].join(" "),
-            linkRoot: "gap-1",
+            linkRoot: "gap-1 *:data-text:underline-offset-3",
         },
         sm: {
             root: [
                 "gap-1 rounded-lg px-3 py-2 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2",
                 "in-data-input-wrapper:px-3.5 in-data-input-wrapper:py-2.5 in-data-input-wrapper:data-icon-only:p-2.5",
             ].join(" "),
-            linkRoot: "gap-1",
+            linkRoot: "gap-1 *:data-text:underline-offset-3",
         },
         md: {
             root: [
                 "gap-1 rounded-lg px-3.5 py-2.5 text-sm font-semibold before:rounded-[7px] data-icon-only:p-2.5",
                 "in-data-input-wrapper:gap-1.5 in-data-input-wrapper:px-4 in-data-input-wrapper:text-md in-data-input-wrapper:data-icon-only:p-3",
             ].join(" "),
-            linkRoot: "gap-1",
+            linkRoot: "gap-1 *:data-text:underline-offset-4",
         },
         lg: {
             root: "gap-1.5 rounded-lg px-4 py-2.5 text-md font-semibold before:rounded-[7px] data-icon-only:p-3",
-            linkRoot: "gap-1.5",
+            linkRoot: "gap-1.5 *:data-text:underline-offset-4",
         },
         xl: {
             root: "gap-1.5 rounded-lg px-4.5 py-3 text-md font-semibold before:rounded-[7px] data-icon-only:p-3.5",
-            linkRoot: "gap-1.5",
+            linkRoot: "gap-1.5 *:data-text:underline-offset-4",
         },
     },
 
@@ -81,7 +81,7 @@ export const styles = sortCx({
             root: [
                 "justify-normal rounded p-0! text-brand-secondary hover:text-brand-secondary_hover",
                 // Inner text underline
-                "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-3 hover:*:data-text:decoration-fg-brand-secondary_alt",
+                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-fg-brand-secondary_alt",
                 // Icon styles
                 "*:data-icon:text-fg-brand-secondary_alt hover:*:data-icon:text-fg-brand-secondary_hover",
             ].join(" "),
@@ -90,7 +90,7 @@ export const styles = sortCx({
             root: [
                 "justify-normal rounded p-0! text-tertiary hover:text-tertiary_hover",
                 // Inner text underline
-                "*:data-text:underline *:data-text:decoration-transparent *:data-text:underline-offset-3 hover:*:data-text:decoration-fg-quaternary",
+                "*:data-text:underline *:data-text:decoration-transparent hover:*:data-text:decoration-fg-quaternary",
                 // Icon styles
                 "*:data-icon:text-fg-quaternary hover:*:data-icon:text-fg-quaternary_hover",
             ].join(" "),
@@ -163,7 +163,7 @@ export interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonH
 /**
  * Props for the link variant (anchor tag)
  */
-interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {}
+interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> { }
 
 /** Union type of button and link props */
 export type Props = ButtonProps | LinkProps;

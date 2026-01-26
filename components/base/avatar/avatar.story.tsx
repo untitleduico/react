@@ -16,6 +16,9 @@ export const Group = () => <Avatar.Group />;
 
 export const Default = () => <Avatar.Default />;
 
+export const WithBorder = () => <Avatar.WithBorder />;
+WithBorder.storyName = "With border";
+
 export const Placeholder = () => <Avatar.Placeholder />;
 
 export const Initials = () => <Avatar.Initials />;

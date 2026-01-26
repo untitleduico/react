@@ -40,7 +40,7 @@ interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" |
 
 interface SelectValueProps {
     isOpen: boolean;
-    size: "sm" | "md";
+    size: "sm" | "md" | "lg";
     isFocused: boolean;
     isDisabled: boolean;
     placeholder?: string;
@@ -49,8 +49,9 @@ interface SelectValueProps {
 }
 
 export const sizes = {
-    sm: { root: "py-2 px-3", shortcut: "pr-2.5" },
-    md: { root: "py-2.5 px-3.5", shortcut: "pr-3" },
+    sm: { root: "py-2 px-3", text: "text-sm", shortcut: "pr-2.5" },
+    md: { root: "py-2 px-3", text: "text-md", shortcut: "pr-2.5" },
+    lg: { root: "py-2.5 px-3.5", text: "text-md", shortcut: "pr-3" },
 };
 
 const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeholderIcon, ref }: SelectValueProps) => {
@@ -60,7 +61,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
             className={cx(
                 "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                 (isFocused || isOpen) && "ring-2 ring-brand",
-                isDisabled && "cursor-not-allowed bg-disabled_subtle text-disabled",
+                isDisabled && "cursor-not-allowed opacity-50",
             )}
         >
             <AriaSelectValue<SelectItemType>
@@ -68,35 +69,37 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
                     "flex h-max w-full items-center justify-start gap-2 truncate text-left align-middle",
 
                     // Icon styles
-                    "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary in-disabled:*:data-icon:text-fg-disabled",
+                    "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
 
                     sizes[size].root,
                 )}
             >
                 {(state) => {
-                    const Icon = state.selectedItem?.icon || placeholderIcon;
+                    const selectedItem = state.selectedItems[0];
+                    const Icon = selectedItem?.icon || placeholderIcon;
+
                     return (
                         <>
-                            {state.selectedItem?.avatarUrl ? (
-                                <Avatar size="xs" src={state.selectedItem.avatarUrl} alt={state.selectedItem.label} />
+                            {selectedItem?.avatarUrl ? (
+                                <Avatar size="xs" src={selectedItem.avatarUrl} alt={selectedItem.label} />
                             ) : isReactComponent(Icon) ? (
                                 <Icon data-icon aria-hidden="true" />
                             ) : isValidElement(Icon) ? (
                                 Icon
                             ) : null}
 
-                            {state.selectedItem ? (
+                            {selectedItem ? (
                                 <section className="flex w-full gap-2 truncate">
-                                    <p className="truncate text-md font-medium text-primary">{state.selectedItem?.label}</p>
-                                    {state.selectedItem?.supportingText && <p className="text-md text-tertiary">{state.selectedItem?.supportingText}</p>}
+                                    <p className={cx("truncate font-medium text-primary", sizes[size].text)}>{selectedItem?.label}</p>
+                                    {selectedItem?.supportingText && <p className={cx("text-tertiary", sizes[size].text)}>{selectedItem?.supportingText}</p>}
                                 </section>
                             ) : (
-                                <p className={cx("text-md text-placeholder", isDisabled && "text-disabled")}>{placeholder}</p>
+                                <p className={cx("text-placeholder", sizes[size].text)}>{placeholder}</p>
                             )}
 
                             <ChevronDown
                                 aria-hidden="true"
-                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "sm" ? "size-4 stroke-[2.5px]" : "size-5")}
+                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.5px]")}
                             />
                         </>
                     );
@@ -106,7 +109,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
     );
 };
 
-export const SelectContext = createContext<{ size: "sm" | "md" }>({ size: "sm" });
+export const SelectContext = createContext<{ size: "sm" | "md" | "lg" }>({ size: "sm" });
 
 const Select = ({ placeholder = "Select", placeholderIcon, size = "sm", children, items, label, hint, tooltip, className, ...rest }: SelectProps) => {
     return (

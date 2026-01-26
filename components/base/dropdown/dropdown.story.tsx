@@ -2,7 +2,7 @@ import type { FC } from "react";
 import * as Dropdowns from "@/components/base/dropdown/dropdown.demo";
 
 export default {
-    title: "Base components/Dropdowns",
+    title: "Base components/Dropdown menus",
     decorators: [
         (Story: FC) => (
             <div className="flex min-h-screen w-full items-start justify-center bg-primary p-8">
@@ -13,10 +13,10 @@ export default {
 };
 
 export const DropdownButton = () => <Dropdowns.DropdownButton />;
-DropdownButton.storyName = "Dropdown button";
+DropdownButton.storyName = "Dropdown menu button";
 
 export const DropdownIcon = () => <Dropdowns.DropdownIcon />;
-DropdownIcon.storyName = "Dropdown icon";
+DropdownIcon.storyName = "Dropdown menu icon";
 
 export const DropdownAvatar = () => <Dropdowns.DropdownAvatar />;
-DropdownAvatar.storyName = "Dropdown avatar";
+DropdownAvatar.storyName = "Dropdown menu avatar";

@@ -10,7 +10,7 @@ const styles = {
     sm: {
         root: "size-18 p-0.75",
         rootWithPlaceholder: "p-1",
-        content: "",
+        content: "outline-[0.5px] -outline-offset-[0.5px] before:border",
         icon: "size-9",
         initials: "text-display-sm font-semibold",
         badge: "bottom-0.5 right-0.5",
@@ -18,7 +18,7 @@ const styles = {
     md: {
         root: "size-24 p-1",
         rootWithPlaceholder: "p-1.25",
-        content: "shadow-xl",
+        content: "shadow-xl outline-[0.75px] -outline-offset-[0.75px] before:border-[1.5px]",
         icon: "size-12",
         initials: "text-display-md font-semibold",
         badge: "bottom-1 right-1",
@@ -26,7 +26,7 @@ const styles = {
     lg: {
         root: "size-40 p-1.5",
         rootWithPlaceholder: "p-1.75",
-        content: "shadow-2xl",
+        content: "shadow-2xl outline-[0.75px] -outline-offset-[0.75px] before:border-[1.5px]",
         icon: "size-20",
         initials: "text-display-xl font-semibold",
         badge: "bottom-2 right-2",
@@ -44,7 +44,6 @@ interface AvatarProfilePhotoProps extends AvatarProps {
 }
 
 export const AvatarProfilePhoto = ({
-    contrastBorder = true,
     size = "md",
     src,
     alt,
@@ -61,22 +60,25 @@ export const AvatarProfilePhoto = ({
     const renderMainContent = () => {
         if (src && !isFailed) {
             return (
-                <img
-                    src={src}
-                    alt={alt}
-                    onError={() => setIsFailed(true)}
+                <div
                     className={cx(
-                        "size-full rounded-full object-cover",
-                        contrastBorder && "outline-1 -outline-offset-1 outline-avatar-contrast-border",
+                        "relative size-full overflow-hidden rounded-full outline-black/16 before:absolute before:inset-[0.5px] before:rounded-full before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
                         styles[size].content,
                     )}
-                />
+                >
+                    <img src={src} alt={alt} onError={() => setIsFailed(true)} className="size-full object-cover" />
+                </div>
             );
         }
 
         if (initials) {
             return (
-                <div className={cx("flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt", styles[size].content)}>
+                <div
+                    className={cx(
+                        "flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt outline-transparent before:hidden",
+                        styles[size].content,
+                    )}
+                >
                     <span className={cx("text-quaternary", styles[size].initials)}>{initials}</span>
                 </div>
             );
@@ -84,14 +86,24 @@ export const AvatarProfilePhoto = ({
 
         if (PlaceholderIcon) {
             return (
-                <div className={cx("flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt", styles[size].content)}>
+                <div
+                    className={cx(
+                        "flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt outline-transparent before:hidden",
+                        styles[size].content,
+                    )}
+                >
                     <PlaceholderIcon className={cx("text-fg-quaternary", styles[size].icon)} />
                 </div>
             );
         }
 
         return (
-            <div className={cx("flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt", styles[size].content)}>
+            <div
+                className={cx(
+                    "flex size-full items-center justify-center rounded-full bg-tertiary ring-1 ring-secondary_alt outline-transparent before:hidden",
+                    styles[size].content,
+                )}
+            >
                 {placeholder || <User01 className={cx("text-fg-quaternary", styles[size].icon)} />}
             </div>
         );

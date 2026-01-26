@@ -46,13 +46,12 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
                     className={cx(
                         "flex cursor-pointer items-center gap-2 rounded-md outline-hidden select-none",
                         state.isSelected && "bg-active",
-                        state.isDisabled && "cursor-not-allowed",
+                        state.isDisabled && "cursor-not-allowed opacity-50",
                         state.isFocused && "bg-primary_hover",
                         state.isFocusVisible && "ring-2 ring-focus-ring ring-inset",
 
                         // Icon styles
                         "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
-                        state.isDisabled && "*:data-icon:text-fg-disabled",
 
                         sizes[size],
                     )}
@@ -66,29 +65,19 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
                     ) : null}
 
                     <div className="flex w-full min-w-0 flex-1 flex-wrap gap-x-2">
-                        <AriaText
-                            slot="label"
-                            className={cx("truncate text-md font-medium whitespace-nowrap text-primary", state.isDisabled && "text-disabled")}
-                        >
+                        <AriaText slot="label" className="truncate text-md font-medium whitespace-nowrap text-primary">
                             {label || (typeof children === "function" ? children(state) : children)}
                         </AriaText>
 
                         {supportingText && (
-                            <AriaText slot="description" className={cx("text-md whitespace-nowrap text-tertiary", state.isDisabled && "text-disabled")}>
+                            <AriaText slot="description" className="text-md whitespace-nowrap text-tertiary">
                                 {supportingText}
                             </AriaText>
                         )}
                     </div>
 
                     {state.isSelected && (
-                        <Check
-                            aria-hidden="true"
-                            className={cx(
-                                "ml-auto text-fg-brand-primary",
-                                size === "sm" ? "size-4 stroke-[2.5px]" : "size-5",
-                                state.isDisabled && "text-fg-disabled",
-                            )}
-                        />
+                        <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", size === "sm" ? "size-4 stroke-[2.5px]" : "size-5")} />
                     )}
                 </div>
             )}

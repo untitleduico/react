@@ -10,7 +10,7 @@ import { cx } from "@/utils/cx";
 
 export const DropdownButton = () => (
     <Dropdown.Root>
-        <Button className="group" color="secondary" iconTrailing={ChevronDown}>
+        <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
             Account
         </Button>
 
