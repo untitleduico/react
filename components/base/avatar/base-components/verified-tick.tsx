@@ -3,7 +3,7 @@
 import { cx } from "@/utils/cx";
 
 const sizes = {
-    xs: { root: "size-2.5", tick: "size-[4.38px" },
+    xs: { root: "size-2.5", tick: "size-[4.38px]" },
     sm: { root: "size-3", tick: "size-[5.25px]" },
     md: { root: "size-3.5", tick: "size-[6.13px]" },
     lg: { root: "size-4", tick: "size-[7px]" },
