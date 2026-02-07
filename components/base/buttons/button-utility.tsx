@@ -3,7 +3,7 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
 import { isValidElement } from "react";
 import type { Placement } from "react-aria";
-import type { ButtonProps as AriaButtonProps } from "react-aria-components";
+import type { ButtonProps as AriaButtonProps, LinkProps as AriaLinkProps } from "react-aria-components";
 import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
 import { Tooltip } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
@@ -44,7 +44,10 @@ export interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonH
 /**
  * Props for the link variant (anchor tag)
  */
-interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {}
+interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {
+    /** Options for the configured client side router. */
+    routerOptions?: AriaLinkProps["routerOptions"];
+}
 
 /** Union type of button and link props */
 export type Props = ButtonProps | LinkProps;
