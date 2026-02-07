@@ -12,11 +12,29 @@ export default {
     ],
 };
 
-export const DropdownButton = () => <Dropdowns.DropdownButton />;
-DropdownButton.storyName = "Dropdown menu button";
+export const DropdownButtonSimple = () => <Dropdowns.DropdownButtonSimple />;
+DropdownButtonSimple.storyName = "Dropdown menu button simple";
 
-export const DropdownIcon = () => <Dropdowns.DropdownIcon />;
-DropdownIcon.storyName = "Dropdown menu icon";
+export const DropdownButtonAdvanced = () => <Dropdowns.DropdownButtonAdvanced />;
+DropdownButtonAdvanced.storyName = "Dropdown menu button advanced";
+
+export const DropdownIconSimple = () => <Dropdowns.DropdownIconSimple />;
+DropdownIconSimple.storyName = "Dropdown menu icon simple";
+
+export const DropdownIconAdvanced = () => <Dropdowns.DropdownIconAdvanced />;
+DropdownIconAdvanced.storyName = "Dropdown menu icon advanced";
+
+export const DropdownSearchSimple = () => <Dropdowns.DropdownSearchSimple />;
+DropdownSearchSimple.storyName = "Dropdown menu search simple";
+
+export const DropdownSearchAdvanced = () => <Dropdowns.DropdownSearchAdvanced />;
+DropdownSearchAdvanced.storyName = "Dropdown menu search advanced";
+
+export const DropdownAccountButton = () => <Dropdowns.DropdownAccountButton />;
+DropdownAccountButton.storyName = "Dropdown menu account button";
 
 export const DropdownAvatar = () => <Dropdowns.DropdownAvatar />;
 DropdownAvatar.storyName = "Dropdown menu avatar";
+
+export const DropdownAccountCard = () => <Dropdowns.DropdownAccountCard />;
+DropdownAccountCard.storyName = "Dropdown menu account card";
