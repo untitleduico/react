@@ -38,7 +38,7 @@
     "@react-stately/utils": "^3.11.0",
     "@tailwindcss/typography": "^0.5.19",
     "@untitledui/file-icons": "^0.0.9",
-    "@untitledui/icons": "^0.0.19",
+    "@untitledui/icons": "^0.0.21",
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "motion": "^12.29.0",
