@@ -50,3 +50,27 @@ PaymentInputs.storyName = "Payment inputs";
 export const TrailingButton = () => <Inputs.TrailingButton />;
 TrailingButton.decorators = [WiderDecorator];
 TrailingButton.storyName = "Trailing button";
+
+export const PasswordInputs = () => <Inputs.PasswordInputs />;
+PasswordInputs.decorators = [DefaultDecorator];
+PasswordInputs.storyName = "Password inputs";
+
+export const DateInputs = () => <Inputs.DateInputs />;
+DateInputs.decorators = [DefaultDecorator];
+DateInputs.storyName = "Date inputs";
+
+export const NumberInputsHorizontal = () => <Inputs.NumberInputsHorizontal />;
+NumberInputsHorizontal.decorators = [DefaultDecorator];
+NumberInputsHorizontal.storyName = "Number inputs horizontal";
+
+export const NumberInputsVertical = () => <Inputs.NumberInputsVertical />;
+NumberInputsVertical.decorators = [DefaultDecorator];
+NumberInputsVertical.storyName = "Number inputs vertical";
+
+export const Tags = () => <Inputs.TagInputs />;
+Tags.decorators = [WiderDecorator];
+Tags.storyName = "Tag inputs inner";
+
+export const TagsOuter = () => <Inputs.TagInputsOuter />;
+TagsOuter.decorators = [WiderDecorator];
+TagsOuter.storyName = "Tag inputs outer";

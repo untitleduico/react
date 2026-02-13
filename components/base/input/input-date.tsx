@@ -1,21 +1,32 @@
 "use client";
 
-import { type ComponentType, type HTMLAttributes, type ReactNode, type Ref, createContext, useContext, useState } from "react";
-import { Eye, EyeOff, HelpCircle, InfoCircle } from "@untitledui/icons";
-import type { InputProps as AriaInputProps, TextFieldProps as AriaTextFieldProps } from "react-aria-components";
-import { Button as AriaButton, Group as AriaGroup, Input as AriaInput, TextField as AriaTextField } from "react-aria-components";
-import { HintText } from "@/components/base/input/hint-text";
-import { Label } from "@/components/base/input/label";
-import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
+import { type ComponentType, type HTMLAttributes, type ReactNode, type Ref, createContext, useContext } from "react";
+import { HelpCircle, InfoCircle } from "@untitledui/icons";
+import type { DateInputProps as AriaDateInputProps } from "react-aria-components";
+import {
+    DateField as AriaDateField,
+    type DateFieldProps as AriaDateFieldProps,
+    DateInput as AriaDateInput,
+    DateSegment as AriaDateSegment,
+    Group as AriaGroup,
+    type DateValue,
+} from "react-aria-components";
 import { cx, sortCx } from "@/utils/cx";
+import { Tooltip, TooltipTrigger } from "../tooltip/tooltip";
+import { HintText } from "./hint-text";
+import { Label } from "./label";
 
-export interface InputBaseProps extends Omit<AriaInputProps, "size"> {
+const DateFieldContext = createContext<{
+    size?: "sm" | "md" | "lg";
+    wrapperClassName?: string;
+    iconClassName?: string;
+    tooltipClassName?: string;
+    inputClassName?: string;
+}>({});
+
+export interface InputDateBaseProps extends Omit<AriaDateInputProps, "children"> {
     /** Tooltip message on hover. */
     tooltip?: string;
-    /** Whether the input is invalid. */
-    isInvalid?: boolean;
-    /** Whether the input is disabled. */
-    isDisabled?: boolean;
     /**
      * Input size.
      * @default "sm"
@@ -25,8 +36,6 @@ export interface InputBaseProps extends Omit<AriaInputProps, "size"> {
     placeholder?: string;
     /** Class name for the icon. */
     iconClassName?: string;
-    /** Class name for the input. */
-    inputClassName?: string;
     /** Class name for the input wrapper. */
     wrapperClassName?: string;
     /** Class name for the tooltip. */
@@ -37,10 +46,11 @@ export interface InputBaseProps extends Omit<AriaInputProps, "size"> {
     groupRef?: Ref<HTMLDivElement>;
     /** Icon component to display on the left side of the input. */
     icon?: ComponentType<HTMLAttributes<HTMLOrSVGElement>>;
+    isInvalid?: boolean;
+    isDisabled?: boolean;
 }
 
-export const InputBase = ({
-    ref,
+export const InputDateBase = ({
     tooltip,
     shortcut,
     groupRef,
@@ -48,22 +58,17 @@ export const InputBase = ({
     isInvalid,
     isDisabled,
     icon: Icon,
-    placeholder,
     wrapperClassName,
     tooltipClassName,
-    inputClassName,
     iconClassName,
-    type = "text",
     ...inputProps
-}: InputBaseProps) => {
-    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+}: Omit<InputDateBaseProps, "label" | "hint">) => {
     // Check if the input has a leading icon or tooltip
     const hasTrailingIcon = tooltip || isInvalid;
     const hasLeadingIcon = Icon;
 
     // If the input is inside a `TextFieldContext`, use its context to simplify applying styles
-    const context = useContext(TextFieldContext);
+    const context = useContext(DateFieldContext);
 
     const inputSize = context?.size || size;
 
@@ -99,8 +104,8 @@ export const InputBase = ({
                     isFocusWithin && !isDisabled && "ring-2 ring-brand",
 
                     // Disabled state styles
-                    isDisabled && "cursor-not-allowed opacity-50",
-                    "group-disabled:cursor-not-allowed group-disabled:opacity-50",
+                    isDisabled && "cursor-not-allowed opacity-50 in-data-input-wrapper:opacity-100",
+                    "group-disabled:cursor-not-allowed group-disabled:opacity-50 in-data-input-wrapper:group-disabled:opacity-100",
 
                     // Invalid state styles
                     isInvalid && "ring-error_subtle",
@@ -121,25 +126,27 @@ export const InputBase = ({
             )}
 
             {/* Input field */}
-            <AriaInput
-                {...(inputProps as AriaInputProps)}
-                ref={ref}
-                type={type === "password" && isPasswordVisible ? "text" : type}
-                placeholder={placeholder}
-                className={cx(
-                    "m-0 w-full bg-transparent text-primary ring-0 outline-hidden placeholder:text-placeholder autofill:rounded-lg autofill:text-primary disabled:cursor-not-allowed",
-                    sizes[inputSize].root,
-                    context?.inputClassName,
-                    inputClassName,
+            <AriaDateInput {...inputProps} className={cx("flex w-full", sizes[size].root, typeof inputProps.className === "string" && inputProps.className)}>
+                {(segment) => (
+                    <AriaDateSegment
+                        segment={segment}
+                        className={cx(
+                            "rounded px-0.5 text-primary tabular-nums caret-transparent focus:bg-brand-solid focus:font-medium focus:text-white focus:outline-hidden",
+                            // The placeholder segment.
+                            segment.isPlaceholder && "text-placeholder uppercase",
+                            // The separator "/" segment.
+                            segment.type === "literal" && "text-fg-quaternary",
+                        )}
+                    />
                 )}
-            />
+            </AriaDateInput>
 
             {/* Tooltip and help icon */}
-            {tooltip && type !== "password" && (
+            {tooltip && (
                 <Tooltip title={tooltip} placement="top">
                     <TooltipTrigger
                         className={cx(
-                            "absolute cursor-pointer text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover in-invalid:hidden",
+                            "absolute cursor-pointer text-fg-quaternary transition duration-200 hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover in-invalid:hidden",
                             sizes[inputSize].iconTrailing,
                             context?.tooltipClassName,
                             tooltipClassName,
@@ -151,30 +158,14 @@ export const InputBase = ({
             )}
 
             {/* Invalid icon */}
-            {type !== "password" && (
-                <InfoCircle
-                    className={cx(
-                        "pointer-events-none absolute hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:block",
-                        sizes[inputSize].iconTrailing,
-                        context?.tooltipClassName,
-                        tooltipClassName,
-                    )}
-                />
-            )}
-
-            {/* Password visibility toggle */}
-            {type === "password" && (
-                <AriaButton
-                    aria-label="Toggle password visibility"
-                    onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                    className={cx(
-                        "absolute flex cursor-pointer items-center justify-center text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover focus:outline-none",
-                        sizes[inputSize].iconTrailing,
-                    )}
-                >
-                    {isPasswordVisible ? <EyeOff className="size-4 stroke-[2.25px]" /> : <Eye className="size-4 stroke-[2.25px]" />}
-                </AriaButton>
-            )}
+            <InfoCircle
+                className={cx(
+                    "pointer-events-none absolute hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:block",
+                    sizes[inputSize].iconTrailing,
+                    context?.tooltipClassName,
+                    tooltipClassName,
+                )}
+            />
 
             {/* Shortcut */}
             {shortcut && (
@@ -196,47 +187,12 @@ export const InputBase = ({
     );
 };
 
-InputBase.displayName = "InputBase";
-
-interface TextFieldContextProps extends Partial<Pick<InputBaseProps, "size" | "wrapperClassName" | "inputClassName" | "iconClassName" | "tooltipClassName">> {}
-
-const TextFieldContext = createContext<TextFieldContextProps>({});
-
-export interface TextFieldProps extends AriaTextFieldProps, TextFieldContextProps {}
-
-export const TextField = ({ className, size = "sm", ...props }: TextFieldProps) => {
-    return (
-        <TextFieldContext.Provider value={{ ...props, size }}>
-            <AriaTextField
-                {...props}
-                data-input-wrapper
-                data-input-size={size}
-                className={(state) =>
-                    cx("group flex h-max w-full flex-col items-start justify-start gap-1.5", typeof className === "function" ? className(state) : className)
-                }
-            />
-        </TextFieldContext.Provider>
-    );
-};
-
-TextField.displayName = "TextField";
-
-export interface InputProps
+interface InputProps
     extends
-        AriaTextFieldProps,
+        AriaDateFieldProps<DateValue>,
         Pick<
-            InputBaseProps,
-            | "ref"
-            | "placeholder"
-            | "icon"
-            | "shortcut"
-            | "tooltip"
-            | "groupRef"
-            | "size"
-            | "wrapperClassName"
-            | "inputClassName"
-            | "iconClassName"
-            | "tooltipClassName"
+            InputDateBaseProps,
+            "ref" | "size" | "placeholder" | "icon" | "shortcut" | "tooltip" | "groupRef" | "iconClassName" | "wrapperClassName" | "tooltipClassName"
         > {
     /** Label text for the input */
     label?: string;
@@ -244,9 +200,11 @@ export interface InputProps
     hint?: ReactNode;
     /** Whether to hide required indicator from label */
     hideRequiredIndicator?: boolean;
+    /** Class name for the input. */
+    inputClassName?: string;
 }
 
-export const Input = ({
+export const InputDate = ({
     size = "sm",
     placeholder,
     icon: Icon,
@@ -262,20 +220,24 @@ export const Input = ({
     inputClassName,
     wrapperClassName,
     tooltipClassName,
-    type = "text",
     ...props
 }: InputProps) => {
     return (
-        <TextField aria-label={!label ? placeholder : undefined} {...props} className={className}>
-            {({ isRequired, isInvalid }) => (
+        <AriaDateField
+            {...props}
+            className={(state) =>
+                cx("group flex h-max w-full flex-col items-start justify-start gap-1.5", typeof className === "function" ? className(state) : className)
+            }
+        >
+            {({ isInvalid, state }) => (
                 <>
                     {label && (
-                        <Label isRequired={hideRequiredIndicator ? !hideRequiredIndicator : isRequired} isInvalid={isInvalid}>
+                        <Label isRequired={hideRequiredIndicator ? !hideRequiredIndicator : state.isRequired} isInvalid={isInvalid}>
                             {label}
                         </Label>
                     )}
 
-                    <InputBase
+                    <InputDateBase
                         {...{
                             ref,
                             groupRef,
@@ -288,15 +250,16 @@ export const Input = ({
                             wrapperClassName,
                             tooltipClassName,
                             tooltip,
-                            type,
                         }}
                     />
 
-                    {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
+                    {hint && (
+                        <HintText isInvalid={isInvalid} className={cx(size === "sm" && "text-xs")}>
+                            {hint}
+                        </HintText>
+                    )}
                 </>
             )}
-        </TextField>
+        </AriaDateField>
     );
 };
-
-Input.displayName = "Input";

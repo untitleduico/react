@@ -20,7 +20,7 @@ export const TagAvatar = ({ src, alt, contrastBorder = true, className }: ImgHTM
     return (
         <div
             className={cx(
-                "relative inline-flex size-4 shrink-0 overflow-hidden rounded-full bg-tertiary",
+                "relative inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-tertiary",
                 contrastBorder && "outline-[0.5px] -outline-offset-[0.5px] outline-black/16",
                 className,
             )}
@@ -28,7 +28,7 @@ export const TagAvatar = ({ src, alt, contrastBorder = true, className }: ImgHTM
             {src && !isFailed ? (
                 <img data-avatar-img className="size-full object-cover" src={src} alt={alt} onError={() => setIsFailed(true)} />
             ) : (
-                <User01 className="size-3 text-fg-quaternary" />
+                <User01 className="size-3 stroke-[2.25px] text-fg-quaternary" />
             )}
         </div>
     );
@@ -139,7 +139,7 @@ export const Tag = ({
             textValue={typeof children === "string" ? children : undefined}
             className={(state) =>
                 cx(
-                    "flex cursor-default items-center gap-0.75 rounded-md bg-primary text-secondary ring-1 ring-primary ring-inset focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring",
+                    "flex cursor-default items-center gap-0.75 rounded-md bg-primary text-secondary ring-1 ring-primary transition duration-50 ease-linear ring-inset focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring",
                     styles[context.size].root.base,
 
                     // With avatar
@@ -175,7 +175,9 @@ export const Tag = ({
                         )}
                     </div>
 
-                    {(onClose || allowsRemoving) && <TagCloseX size={context.size} onPress={() => id && onClose?.(id.toString())} />}
+                    {(onClose || allowsRemoving) && (
+                        <TagCloseX size={context.size} excludeFromTabOrder={allowsRemoving} onPress={() => id && onClose?.(id.toString())} />
+                    )}
                 </>
             )}
         </AriaTag>

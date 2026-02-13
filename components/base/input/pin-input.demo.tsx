@@ -1,6 +1,6 @@
 "use client";
 
-import { PinInput } from "@/components/base/pin-input/pin-input";
+import { PinInput } from "@/components/base/input/pin-input";
 
 export const FourDigitsDemo = () => {
     return (
@@ -68,6 +68,49 @@ export const SizesDemo = () => {
                 <PinInput.Description>This is a hint text to help user.</PinInput.Description>
             </PinInput>
         </div>
+    );
+};
+
+export const InputOTPSM = () => {
+    return (
+        <PinInput size="xxxs">
+            <PinInput.Label isRequired>Verification code</PinInput.Label>
+            <PinInput.Group maxLength={4}>
+                <PinInput.Slot index={0} />
+                <PinInput.Slot index={1} />
+                <PinInput.Slot index={2} />
+                <PinInput.Slot index={3} />
+            </PinInput.Group>
+            <PinInput.Description>This is a hint text to help user.</PinInput.Description>
+        </PinInput>
+    );
+};
+export const InputOTPMD = () => {
+    return (
+        <PinInput size="xxs">
+            <PinInput.Label isRequired>Verification code</PinInput.Label>
+            <PinInput.Group maxLength={4}>
+                <PinInput.Slot index={0} />
+                <PinInput.Slot index={1} />
+                <PinInput.Slot index={2} />
+                <PinInput.Slot index={3} />
+            </PinInput.Group>
+            <PinInput.Description>This is a hint text to help user.</PinInput.Description>
+        </PinInput>
+    );
+};
+export const InputOTPLG = () => {
+    return (
+        <PinInput size="xs">
+            <PinInput.Label isRequired>Verification code</PinInput.Label>
+            <PinInput.Group maxLength={4}>
+                <PinInput.Slot index={0} />
+                <PinInput.Slot index={1} />
+                <PinInput.Slot index={2} />
+                <PinInput.Slot index={3} />
+            </PinInput.Group>
+            <PinInput.Description>This is a hint text to help user.</PinInput.Description>
+        </PinInput>
     );
 };
 

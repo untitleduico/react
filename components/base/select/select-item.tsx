@@ -11,8 +11,27 @@ import type { SelectItemType } from "./select";
 import { SelectContext } from "./select";
 
 const sizes = {
-    sm: "p-2 pr-2.5",
-    md: "p-2.5 pl-2",
+    sm: {
+        root: "p-2 pr-2.5 gap-1.5",
+        text: "text-sm",
+        textContainer: "gap-x-1.5",
+        check: "size-4 stroke-[2.25px]",
+        icon: "*:data-icon:size-4 *:data-icon:stroke-[2.25px]",
+    },
+    md: {
+        root: "p-2 pr-2.5 gap-2",
+        text: "text-md",
+        textContainer: "gap-x-2",
+        check: "size-5",
+        icon: "*:data-icon:size-5",
+    },
+    lg: {
+        root: "p-2.5 pl-2 gap-2",
+        text: "text-md",
+        textContainer: "gap-x-2",
+        check: "size-5",
+        icon: "*:data-icon:size-5",
+    },
 };
 
 interface SelectItemProps extends Omit<AriaListBoxItemProps<SelectItemType>, "id">, SelectItemType {}
@@ -44,7 +63,7 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
             {(state) => (
                 <div
                     className={cx(
-                        "flex cursor-pointer items-center gap-2 rounded-md outline-hidden select-none",
+                        "flex cursor-pointer items-center rounded-md outline-hidden select-none",
                         state.isSelected && "bg-active",
                         state.isDisabled && "cursor-not-allowed opacity-50",
                         state.isFocused && "bg-primary_hover",
@@ -53,32 +72,30 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
                         // Icon styles
                         "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
 
-                        sizes[size],
+                        sizes[size].root,
                     )}
                 >
                     {avatarUrl ? (
-                        <Avatar aria-hidden="true" size="xs" src={avatarUrl} alt={label} />
+                        <Avatar aria-hidden="true" size="xs" src={avatarUrl} alt={label} className={cx(size === "sm" && "size-5")} />
                     ) : isReactComponent(Icon) ? (
                         <Icon data-icon aria-hidden="true" />
                     ) : isValidElement(Icon) ? (
                         Icon
                     ) : null}
 
-                    <div className="flex w-full min-w-0 flex-1 flex-wrap gap-x-2">
-                        <AriaText slot="label" className="truncate text-md font-medium whitespace-nowrap text-primary">
+                    <div className={cx("flex w-full min-w-0 flex-1 flex-wrap", sizes[size].textContainer)}>
+                        <AriaText slot="label" className={cx("truncate font-medium whitespace-nowrap text-primary", sizes[size].text)}>
                             {label || (typeof children === "function" ? children(state) : children)}
                         </AriaText>
 
                         {supportingText && (
-                            <AriaText slot="description" className="text-md whitespace-nowrap text-tertiary">
+                            <AriaText slot="description" className={cx("whitespace-nowrap text-tertiary", sizes[size].text)}>
                                 {supportingText}
                             </AriaText>
                         )}
                     </div>
 
-                    {state.isSelected && (
-                        <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", size === "sm" ? "size-4 stroke-[2.5px]" : "size-5")} />
-                    )}
+                    {state.isSelected && <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", sizes[size].check)} />}
                 </div>
             )}
         </AriaListBoxItem>

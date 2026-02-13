@@ -55,7 +55,7 @@ export const WithArrowDemo = () => {
     return (
         <Tooltip arrow title="This is a tooltip">
             <TooltipTrigger className="group relative flex cursor-pointer flex-col items-center gap-2 text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                <HelpCircle className="size-4" />
+                <HelpCircle className="size-4 stroke-[2.25px]" />
             </TooltipTrigger>
         </Tooltip>
     );
@@ -68,7 +68,7 @@ export const WithSupportingTextDemo = () => {
             description="Tooltips are used to describe or identify an element. In most scenarios, tooltip help the user understand meaning, function or alt-text."
         >
             <TooltipTrigger className="group relative flex cursor-pointer flex-col items-center gap-2 text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                <HelpCircle className="size-4" />
+                <HelpCircle className="size-4 stroke-[2.25px]" />
             </TooltipTrigger>
         </Tooltip>
     );
@@ -80,7 +80,7 @@ export const TooltipDemo = () => (
             <div key={index} className="flex flex-col items-center justify-center gap-1 text-center">
                 <Tooltip placement={side.value} title="This is a tooltip">
                     <TooltipTrigger className="cursor-pointer text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                        <HelpCircle className="size-4" />
+                        <HelpCircle className="size-4 stroke-[2.25px]" />
                     </TooltipTrigger>
                 </Tooltip>
                 <span className="text-xs whitespace-nowrap text-secondary">{side.label}</span>
@@ -95,7 +95,7 @@ export const TooltipWithArrow = () => (
             <div key={side.value} className="flex flex-col items-center justify-center gap-1 text-center">
                 <Tooltip arrow placement={side.value} title="This is a tooltip">
                     <TooltipTrigger className="cursor-pointer text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                        <HelpCircle className="size-4" />
+                        <HelpCircle className="size-4 stroke-[2.25px]" />
                     </TooltipTrigger>
                 </Tooltip>
                 <span className="text-xs whitespace-nowrap text-secondary">{side.label}</span>
@@ -115,7 +115,7 @@ export const TooltipWithArrowSupportingText = () => (
                     description="Tooltips are used to describe or identify an element. In most scenarios, tooltip help the user understand meaning, function or alt-text."
                 >
                     <TooltipTrigger className="cursor-pointer text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                        <HelpCircle className="size-4" />
+                        <HelpCircle className="size-4 stroke-[2.25px]" />
                     </TooltipTrigger>
                 </Tooltip>
                 <span className="text-xs whitespace-nowrap text-secondary">{side.label}</span>

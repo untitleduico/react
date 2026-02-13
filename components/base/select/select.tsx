@@ -27,7 +27,7 @@ export interface CommonProps {
     hint?: string;
     label?: string;
     tooltip?: string;
-    size?: "sm" | "md";
+    size?: "sm" | "md" | "lg";
     placeholder?: string;
 }
 
@@ -49,9 +49,9 @@ interface SelectValueProps {
 }
 
 export const sizes = {
-    sm: { root: "py-2 px-3", text: "text-sm", shortcut: "pr-2.5" },
-    md: { root: "py-2 px-3", text: "text-md", shortcut: "pr-2.5" },
-    lg: { root: "py-2.5 px-3.5", text: "text-md", shortcut: "pr-3" },
+    sm: { root: "py-2 px-3 gap-1.5 *:data-icon:size-4 *:data-icon:stroke-[2.25px]", text: "text-sm", textContainer: "gap-x-1.5", shortcut: "pr-2.5" },
+    md: { root: "py-2 px-3 gap-2 *:data-icon:size-5", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-2.5" },
+    lg: { root: "py-2.5 px-3.5 gap-2 *:data-icon:size-5", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-3" },
 };
 
 const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeholderIcon, ref }: SelectValueProps) => {
@@ -66,10 +66,10 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
         >
             <AriaSelectValue<SelectItemType>
                 className={cx(
-                    "flex h-max w-full items-center justify-start gap-2 truncate text-left align-middle",
+                    "flex h-max w-full items-center justify-start truncate text-left align-middle",
 
                     // Icon styles
-                    "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
+                    "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
 
                     sizes[size].root,
                 )}
@@ -81,7 +81,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
                     return (
                         <>
                             {selectedItem?.avatarUrl ? (
-                                <Avatar size="xs" src={selectedItem.avatarUrl} alt={selectedItem.label} />
+                                <Avatar size="xs" src={selectedItem.avatarUrl} alt={selectedItem.label} className={cx(size === "sm" && "size-5")} />
                             ) : isReactComponent(Icon) ? (
                                 <Icon data-icon aria-hidden="true" />
                             ) : isValidElement(Icon) ? (
@@ -89,7 +89,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
                             ) : null}
 
                             {selectedItem ? (
-                                <section className="flex w-full gap-2 truncate">
+                                <section className={cx("flex w-full truncate", sizes[size].textContainer)}>
                                     <p className={cx("truncate font-medium text-primary", sizes[size].text)}>{selectedItem?.label}</p>
                                     {selectedItem?.supportingText && <p className={cx("text-tertiary", sizes[size].text)}>{selectedItem?.supportingText}</p>}
                                 </section>
@@ -99,7 +99,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
 
                             <ChevronDown
                                 aria-hidden="true"
-                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.5px]")}
+                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.25px]")}
                             />
                         </>
                     );
@@ -131,7 +131,11 @@ const Select = ({ placeholder = "Select", placeholderIcon, size = "sm", children
                             </AriaListBox>
                         </Popover>
 
-                        {hint && <HintText isInvalid={state.isInvalid}>{hint}</HintText>}
+                        {hint && (
+                            <HintText isInvalid={state.isInvalid} className={cx(size === "sm" && "text-xs")}>
+                                {hint}
+                            </HintText>
+                        )}
                     </>
                 )}
             </AriaSelect>

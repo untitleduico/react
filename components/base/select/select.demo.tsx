@@ -385,7 +385,7 @@ export const SearchDemo = () => {
 };
 
 export const TagsDemo = () => {
-    const selectedItems = useListData({
+    const selectedItems = useListData<SelectItemType>({
         initialItems: [],
     });
 
@@ -523,6 +523,39 @@ export const Default = () => {
                     )}
                 </Select>
             </div>
+            <div className="flex flex-col gap-4">
+                <Select
+                    isRequired
+                    size="lg"
+                    label="Team member"
+                    tooltip="This is a tooltip"
+                    hint="This is a hint text to help user."
+                    placeholder="Select team member"
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
+                >
+                    {(item) => (
+                        <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                            {item.label}
+                        </Select.Item>
+                    )}
+                </Select>
+                <Select
+                    isDisabled
+                    isRequired
+                    size="lg"
+                    label="Team member"
+                    tooltip="This is a tooltip"
+                    hint="This is a hint text to help user."
+                    placeholder="Select team member"
+                    items={items.map(({ avatarUrl: _, ...item }) => item)}
+                >
+                    {(item) => (
+                        <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                            {item.label}
+                        </Select.Item>
+                    )}
+                </Select>
+            </div>
         </div>
     );
 };
@@ -581,6 +614,41 @@ export const IconLeading = () => (
             </Select>
             <Select
                 size="md"
+                isRequired
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={User01}
+                isDisabled
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+        </div>
+        <div className="flex flex-col gap-4">
+            <Select
+                size="lg"
+                isRequired
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={User01}
+                items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+            <Select
+                size="lg"
                 isRequired
                 label="Team member"
                 tooltip="This is a tooltip"
@@ -670,6 +738,41 @@ export const AvatarLeading = () => (
                 )}
             </Select>
         </div>
+        <div className="flex flex-col gap-4">
+            <Select
+                size="lg"
+                isRequired
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={User01}
+                items={items}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+            <Select
+                size="lg"
+                isRequired
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={User01}
+                isDisabled
+                items={items}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+        </div>
     </div>
 );
 
@@ -682,10 +785,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (
@@ -701,10 +804,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (
@@ -738,6 +841,47 @@ export const DotLeading = () => (
                 isDisabled
                 isRequired
                 size="md"
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                items={items.map(({ avatarUrl: _, ...item }) => ({
+                    ...item,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                }))}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+        </div>
+        <div className="flex flex-col gap-4">
+            <Select
+                size="lg"
+                isRequired
+                label="Team member"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Select team member"
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                items={items.map(({ avatarUrl: _, ...item }) => ({
+                    ...item,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                }))}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select>
+            <Select
+                isDisabled
+                isRequired
+                size="lg"
                 label="Team member"
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
@@ -824,11 +968,44 @@ export const Search = () => (
                 )}
             </Select.ComboBox>
         </div>
+        <div className="flex flex-col gap-4">
+            <Select.ComboBox
+                size="lg"
+                isRequired
+                label="Search"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Search"
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select.ComboBox>
+            <Select.ComboBox
+                size="lg"
+                isRequired
+                label="Search"
+                tooltip="This is a tooltip"
+                hint="This is a hint text to help user."
+                placeholder="Search"
+                isDisabled
+                items={items.map(({ avatarUrl: _, ...item }) => item)}
+            >
+                {(item) => (
+                    <Select.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                        {item.label}
+                    </Select.Item>
+                )}
+            </Select.ComboBox>
+        </div>
     </div>
 );
 
 export const Tags = () => {
-    const selectedItems = useListData({
+    const selectedItems = useListData<SelectItemType>({
         initialItems: [],
     });
 
@@ -910,6 +1087,55 @@ export const Tags = () => {
                     shortcut
                     selectedItems={selectedItems}
                     size="md"
+                    isRequired
+                    label="Search"
+                    tooltip="This is a tooltip"
+                    hint="This is a hint text to help user."
+                    placeholder="Search"
+                    items={items}
+                    isDisabled
+                >
+                    {(item) => (
+                        <MultiSelect.Item
+                            id={item.id}
+                            supportingText={item.supportingText}
+                            isDisabled={item.isDisabled}
+                            icon={item.icon}
+                            avatarUrl={item.avatarUrl}
+                        >
+                            {item.label}
+                        </MultiSelect.Item>
+                    )}
+                </MultiSelect>
+            </div>
+            <div className="flex flex-col gap-4">
+                <MultiSelect
+                    shortcut
+                    selectedItems={selectedItems}
+                    size="lg"
+                    isRequired
+                    label="Search"
+                    tooltip="This is a tooltip"
+                    hint="This is a hint text to help user."
+                    items={items}
+                    placeholder="Search"
+                >
+                    {(item) => (
+                        <MultiSelect.Item
+                            id={item.id}
+                            supportingText={item.supportingText}
+                            isDisabled={item.isDisabled}
+                            icon={item.icon}
+                            avatarUrl={item.avatarUrl}
+                        >
+                            {item.label}
+                        </MultiSelect.Item>
+                    )}
+                </MultiSelect>
+                <MultiSelect
+                    shortcut
+                    selectedItems={selectedItems}
+                    size="lg"
                     isRequired
                     label="Search"
                     tooltip="This is a tooltip"

@@ -20,7 +20,7 @@ import { cx } from "@/utils/cx";
 import { SelectItem } from "./select-item";
 
 interface ComboBoxValueProps extends AriaGroupProps {
-    size: "sm" | "md";
+    size: "sm" | "md" | "lg";
     shortcut?: boolean;
     isDisabled?: boolean;
     placeholder?: string;
@@ -32,7 +32,7 @@ interface ComboBoxValueProps extends AriaGroupProps {
 }
 
 const ComboboxContext = createContext<{
-    size: "sm" | "md";
+    size: "sm" | "md" | "lg";
     selectedKeys: Key[];
     selectedItems: ListData<SelectItemType>;
     onRemove: (keys: Set<Key>) => void;
@@ -49,7 +49,7 @@ interface MultiSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "chil
     hint?: string;
     label?: string;
     tooltip?: string;
-    size?: "sm" | "md";
+    size?: "sm" | "md" | "lg";
     placeholder?: string;
     shortcut?: boolean;
     items?: SelectItemType[];
@@ -182,13 +182,17 @@ export const MultiSelectBase = ({
                             onPointerEnter={onResize}
                         />
 
-                        <Popover size={"md"} triggerRef={placeholderRef} style={{ width: popoverWidth }} className={props?.popoverClassName}>
+                        <Popover size={size} triggerRef={placeholderRef} style={{ width: popoverWidth }} className={props?.popoverClassName}>
                             <AriaListBox selectionMode="multiple" className="size-full outline-hidden">
                                 {children}
                             </AriaListBox>
                         </Popover>
 
-                        {props.hint && <HintText isInvalid={state.isInvalid}>{props.hint}</HintText>}
+                        {props.hint && (
+                            <HintText isInvalid={state.isInvalid} className={cx(size === "sm" && "text-xs")}>
+                                {props.hint}
+                            </HintText>
+                        )}
                     </div>
                 )}
             </AriaComboBox>
@@ -196,7 +200,7 @@ export const MultiSelectBase = ({
     );
 };
 
-const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder }: Omit<MultiSelectProps, "selectedItems" | "children">) => {
+const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, size = "sm" }: Omit<MultiSelectProps, "selectedItems" | "children">) => {
     const focusManager = useFocusManager();
     const comboBoxContext = useContext(ComboboxContext);
     const comboBoxStateContext = useContext(ComboBoxStateContext);
@@ -264,31 +268,50 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
     const isSelectionEmpty = comboBoxContext?.selectedItems?.items?.length === 0;
 
     return (
-        <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
-            {!isSelectionEmpty &&
-                comboBoxContext?.selectedItems?.items?.map((value) => (
-                    <span key={value.id} className="flex items-center rounded-md bg-primary py-0.5 pr-1 pl-1.25 ring-1 ring-primary ring-inset">
-                        <Avatar size="xxs" alt={value?.label} src={value?.avatarUrl} />
+        <div className={cx("relative flex w-full flex-1 flex-row flex-wrap items-center justify-start", size === "sm" ? "gap-1.5" : "gap-2")}>
+            {!isSelectionEmpty && (
+                <div className="flex flex-wrap items-center justify-start gap-1.5">
+                    {comboBoxContext?.selectedItems?.items?.map((value) => (
+                        <span
+                            key={value.id}
+                            className={cx(
+                                "flex items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
+                                size === "sm" ? "px-1 py-0.75" : "py-0.5 pr-1 pl-1.25",
+                            )}
+                        >
+                            <Avatar size="xs" alt={value?.label} src={value?.avatarUrl} className="size-4" />
 
-                        <p className="ml-1.25 truncate text-sm font-medium whitespace-nowrap text-secondary select-none">{value?.label}</p>
+                            <p
+                                className={cx(
+                                    "truncate font-medium whitespace-nowrap text-secondary select-none",
+                                    size === "sm" ? "ml-1 text-xs" : "ml-1.25 text-sm",
+                                )}
+                            >
+                                {value?.label}
+                            </p>
 
-                        <TagCloseX
-                            size="md"
-                            isDisabled={isDisabled}
-                            className="ml-0.75"
-                            // For workaround, onKeyDown is added to the button
-                            onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                            onPress={() => comboBoxContext.onRemove(new Set([value.id]))}
-                        />
-                    </span>
-                ))}
+                            <TagCloseX
+                                size={size === "sm" ? "sm" : "md"}
+                                isDisabled={isDisabled}
+                                className="ml-0.75"
+                                // For workaround, onKeyDown is added to the button
+                                onKeyDown={(event) => handleTagKeyDown(event, value.id)}
+                                onPress={() => comboBoxContext.onRemove(new Set([value.id]))}
+                            />
+                        </span>
+                    ))}
+                </div>
+            )}
 
             <div className={cx("relative flex min-w-[20%] flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
                 <AriaInput
                     placeholder={placeholder}
                     onKeyDown={handleInputKeyDown}
                     onMouseDown={handleInputMouseDown}
-                    className="w-full flex-[1_0_0] appearance-none bg-transparent text-md text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed disabled:text-disabled disabled:placeholder:text-disabled"
+                    className={cx(
+                        "w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
+                        sizes[size].text,
+                    )}
                 />
 
                 {shortcut && (
@@ -297,6 +320,7 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
                         className={cx(
                             "absolute inset-y-0.5 right-0.5 z-10 flex items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8",
                             shortcutClassName,
+                            sizes[size].shortcut,
                         )}
                     >
                         <span
@@ -315,7 +339,7 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
 };
 
 export const MultiSelectTagsValue = ({
-    size,
+    size = "sm",
     shortcut,
     placeholder,
     shortcutClassName,
@@ -329,16 +353,20 @@ export const MultiSelectTagsValue = ({
             {...otherProps}
             className={({ isFocusWithin, isDisabled }) =>
                 cx(
-                    "relative flex w-full items-center gap-2 rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
-                    isDisabled && "cursor-not-allowed bg-disabled_subtle",
+                    "relative flex w-full items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
+                    isDisabled && "cursor-not-allowed opacity-50",
                     isFocusWithin && "ring-2 ring-brand",
+
+                    // Icon styles
+                    "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
+
                     sizes[size].root,
                 )
             }
         >
             {({ isDisabled }) => (
                 <>
-                    {Icon && <Icon className="pointer-events-none size-5 text-fg-quaternary" />}
+                    {Icon && <Icon data-icon className="pointer-events-none" />}
                     <FocusScope contain={false} autoFocus={false} restoreFocus={false}>
                         <InnerMultiSelect
                             isDisabled={isDisabled}
