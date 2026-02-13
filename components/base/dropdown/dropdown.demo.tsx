@@ -35,7 +35,7 @@ import { InputBase } from "../input/input";
 
 export const DropdownButtonSimple = () => (
     <Dropdown.Root>
-        <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
+        <Button size="sm" className="group" color="secondary" iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!"/>} >
             Account
         </Button>
 
@@ -81,7 +81,7 @@ export const DropdownButtonAdvanced = () => {
 
     return (
         <Dropdown.Root>
-            <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
+            <Button size="sm" className="group" color="secondary" iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!"/>}>
                 Actions
             </Button>
 
@@ -287,7 +287,7 @@ export const DropdownSearchSimple = () => {
 
     return (
         <Dropdown.Root>
-            <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
+            <Button size="sm" className="group" color="secondary" iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!"/>}>
                 Manage access
             </Button>
 
@@ -337,7 +337,7 @@ export const DropdownSearchAdvanced = () => {
 
     return (
         <Dropdown.Root>
-            <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
+            <Button size="sm" className="group" color="secondary" iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!"/>}>
                 Manage access
             </Button>
 
@@ -418,7 +418,7 @@ export const DropdownAccountButton = () => {
 
     return (
         <Dropdown.Root>
-            <Button size="sm" className="group" color="secondary" iconTrailing={ChevronDown}>
+            <Button size="sm" className="group" color="secondary" iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!"/>}>
                 Account
             </Button>
 
