@@ -266,7 +266,7 @@ export const Input = ({
     ...props
 }: InputProps) => {
     return (
-        <TextField aria-label={!label ? placeholder : undefined} {...props} className={className}>
+        <TextField aria-label={!label ? placeholder : undefined} {...props} size={size} className={className}>
             {({ isRequired, isInvalid }) => (
                 <>
                     {label && (
