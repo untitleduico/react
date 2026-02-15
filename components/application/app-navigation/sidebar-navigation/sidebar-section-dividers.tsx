@@ -29,7 +29,7 @@ export const SidebarNavigationSectionDividers = ({ activeUrl, items }: SidebarNa
         >
             <div className="flex flex-col gap-5 px-4 lg:px-5">
                 <UntitledLogo className="h-8" />
-                <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                <Input shortcut size="md" aria-label="Search" placeholder="Search" icon={SearchLg} />
             </div>
 
             <NavList activeUrl={activeUrl} items={items} className="mt-5" />

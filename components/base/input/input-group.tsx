@@ -54,7 +54,7 @@ interface InputGroupProps extends TextFieldProps {
     hint?: ReactNode;
 }
 
-export const InputGroup = ({ size = "sm", prefix, leadingAddon, trailingAddon, label, hint, children, ...props }: InputGroupProps) => {
+export const InputGroup = ({ size = "md", prefix, leadingAddon, trailingAddon, label, hint, children, ...props }: InputGroupProps) => {
     const hasLeading = !!leadingAddon;
     const hasTrailing = !!trailingAddon;
 

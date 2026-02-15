@@ -294,7 +294,7 @@ export const DropdownSearchSimple = () => {
             <Dropdown.Popover className="w-60">
                 <Autocomplete filter={contains}>
                     <SearchField className="flex gap-3 border-b border-secondary p-3">
-                        <InputBase size="sm" placeholder="Search" icon={SearchLg} />
+                        <InputBase size="md" placeholder="Search" icon={SearchLg} />
                     </SearchField>
                     <Dropdown.Menu selectionMode="multiple" selectedKeys={selectedUsers} onSelectionChange={setSelectedUsers}>
                         <Dropdown.Item id="olivia" textValue="Olivia Rhye" selectionIndicator="checkbox">
@@ -344,7 +344,7 @@ export const DropdownSearchAdvanced = () => {
             <Dropdown.Popover className="w-60">
                 <Autocomplete filter={contains}>
                     <SearchField className="flex gap-3 border-b border-secondary p-3">
-                        <InputBase size="sm" placeholder="Search" icon={SearchLg} />
+                        <InputBase size="md" placeholder="Search" icon={SearchLg} />
                     </SearchField>
                     <Dropdown.Menu selectionMode="multiple" selectedKeys={selectedUsers} onSelectionChange={setSelectedUsers}>
                         <SubmenuTrigger>

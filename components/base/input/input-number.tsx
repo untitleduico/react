@@ -52,7 +52,7 @@ export interface InputNumberBaseProps extends AriaNumberFieldProps {
 export const InputNumberBase = ({
     ref,
     groupRef,
-    size = "sm",
+    size = "md",
     isInvalid,
     isDisabled,
     placeholder,
@@ -145,7 +145,7 @@ interface InputProps extends InputNumberBaseProps, Pick<AriaDateFieldProps<DateV
 }
 
 export const InputNumber = ({
-    size = "sm",
+    size = "md",
     placeholder,
     label,
     hint,
@@ -186,7 +186,7 @@ export const InputNumber = ({
                     />
 
                     {hint && (
-                        <HintText isInvalid={isInvalid} className={cx(size === "sm" && "text-xs")}>
+                        <HintText isInvalid={isInvalid} className={cx(size === "md" && "text-xs")}>
                             {hint}
                         </HintText>
                     )}

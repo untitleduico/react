@@ -54,7 +54,7 @@ export const InputDateBase = ({
     tooltip,
     shortcut,
     groupRef,
-    size = "sm",
+    size = "md",
     isInvalid,
     isDisabled,
     icon: Icon,
@@ -99,7 +99,7 @@ export const InputDateBase = ({
             ref={groupRef}
             className={({ isFocusWithin, isDisabled, isInvalid }) =>
                 cx(
-                    "relative flex w-full flex-row place-content-center place-items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary transition-shadow duration-100 ease-linear ring-inset",
+                    "group/input relative flex w-full flex-row place-content-center place-items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary transition-shadow duration-100 ease-linear ring-inset",
 
                     isFocusWithin && !isDisabled && "ring-2 ring-brand",
 
@@ -146,7 +146,7 @@ export const InputDateBase = ({
                 <Tooltip title={tooltip} placement="top">
                     <TooltipTrigger
                         className={cx(
-                            "absolute cursor-pointer text-fg-quaternary transition duration-200 hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover in-invalid:hidden",
+                            "absolute cursor-pointer text-fg-quaternary transition duration-200 group-invalid/input:hidden hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover",
                             sizes[inputSize].iconTrailing,
                             context?.tooltipClassName,
                             tooltipClassName,
@@ -160,7 +160,7 @@ export const InputDateBase = ({
             {/* Invalid icon */}
             <InfoCircle
                 className={cx(
-                    "pointer-events-none absolute hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:block",
+                    "pointer-events-none absolute hidden size-4 stroke-[2.25px] text-fg-error-secondary group-invalid/input:block",
                     sizes[inputSize].iconTrailing,
                     context?.tooltipClassName,
                     tooltipClassName,
@@ -205,7 +205,7 @@ interface InputProps
 }
 
 export const InputDate = ({
-    size = "sm",
+    size = "md",
     placeholder,
     icon: Icon,
     label,

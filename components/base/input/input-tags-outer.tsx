@@ -62,7 +62,7 @@ export interface InputTagsOuterProps {
 }
 
 export const InputTagsOuter = ({
-    size = "sm",
+    size = "md",
     label,
     hint,
     tooltip,
