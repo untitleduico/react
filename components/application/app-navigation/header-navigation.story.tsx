@@ -3,7 +3,13 @@ import * as Demos from "./header-navigation.demo";
 
 export default {
     title: "Application/Application navigation",
-    decorators: [withOverlayAware((Story, context) => <div className="min-h-screen w-full bg-primary">{Story(context, context)}</div>)],
+    decorators: [
+        withOverlayAware((Story) => (
+            <div className="min-h-screen w-full bg-primary">
+                <Story />
+            </div>
+        )),
+    ],
 };
 
 export const HeaderNavigationSimpleDemo = () => <Demos.HeaderNavigationSimpleDemo />;

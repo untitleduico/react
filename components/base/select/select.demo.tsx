@@ -385,7 +385,7 @@ export const SearchDemo = () => {
 };
 
 export const TagsDemo = () => {
-    const selectedItems = useListData({
+    const selectedItems = useListData<SelectItemType>({
         initialItems: [],
     });
 
@@ -828,7 +828,7 @@ export const Search = () => (
 );
 
 export const Tags = () => {
-    const selectedItems = useListData({
+    const selectedItems = useListData<SelectItemType>({
         initialItems: [],
     });
 
