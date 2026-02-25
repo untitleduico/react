@@ -1,6 +1,6 @@
 "use client";
 
-import type { FocusEventHandler, PointerEventHandler, RefAttributes, RefObject } from "react";
+import type { FocusEventHandler, MouseEventHandler, PointerEventHandler, RefAttributes, RefObject } from "react";
 import { useCallback, useContext, useRef, useState } from "react";
 import { SearchLg as SearchIcon } from "@untitledui/icons";
 import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps } from "react-aria-components";
@@ -39,6 +39,12 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
     const first = inputValue?.split(value?.supportingText)?.[0] || "";
     const last = inputValue?.split(first)[1];
 
+    const handleInputMouseDown: MouseEventHandler<HTMLInputElement> = () => {
+        if (state && !state.isOpen) {
+            state.open();
+        }
+    };
+
     return (
         <AriaGroup
             {...otherProps}
@@ -65,6 +71,7 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
 
                         <AriaInput
                             placeholder={placeholder}
+                            onMouseDown={handleInputMouseDown}
                             className="z-10 w-full appearance-none bg-transparent text-md text-transparent caret-alpha-black/90 placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed disabled:text-disabled disabled:placeholder:text-disabled"
                         />
                     </div>
