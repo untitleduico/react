@@ -26,11 +26,11 @@ export const sm = ({
     return (
         <div {...otherProps} className={cx("relative h-30 w-40.25", className)}>
             <svg viewBox="0 0 161 120" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="27" cy="11" r="5" className="fill-utility-gray-100" />
-                <circle cx="24" cy="109" r="7" className="fill-utility-gray-100" />
-                <circle cx="151" cy="35" r="7" className="fill-utility-gray-100" />
-                <circle cx="140" cy="8" r="4" className="fill-utility-gray-100" />
-                <circle cx="82" cy="52" r="52" className="fill-utility-gray-100" />
+                <circle cx="27" cy="11" r="5" className="fill-utility-neutral-100" />
+                <circle cx="24" cy="109" r="7" className="fill-utility-neutral-100" />
+                <circle cx="151" cy="35" r="7" className="fill-utility-neutral-100" />
+                <circle cx="140" cy="8" r="4" className="fill-utility-neutral-100" />
+                <circle cx="82" cy="52" r="52" className="fill-utility-neutral-100" />
                 <g filter="url(#documents-shadow-01-sm)">
                     <path
                         d="M47.7267 79.1102L80.9652 63.6108C82.634 62.8326 83.356 60.8489 82.5778 59.1801L62.9485 17.0849L49.6564 12.2469L22.4612 24.9282C20.7924 25.7064 20.0704 27.6901 20.8486 29.359L43.296 77.4975C44.0741 79.1663 46.0578 79.8883 47.7267 79.1102Z"
@@ -41,7 +41,7 @@ export const sm = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M49.6569 12.2471L62.949 17.085L53.884 21.3121L49.6569 12.2471Z" className="fill-utility-gray-200" />
+                    <path d="M49.6569 12.2471L62.949 17.085L53.884 21.3121L49.6569 12.2471Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-02-sm)">
                     <path
@@ -53,7 +53,7 @@ export const sm = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M93.6226 8L103.625 18.0022H93.6226V8Z" className="fill-utility-gray-200" />
+                    <path d="M93.6226 8L103.625 18.0022H93.6226V8Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-03-sm)">
                     <path
@@ -65,7 +65,7 @@ export const sm = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M134.936 22.0903L139.774 35.3825L130.708 31.1554L134.936 22.0903Z" className="fill-utility-gray-200" />
+                    <path d="M134.936 22.0903L139.774 35.3825L130.708 31.1554L134.936 22.0903Z" className="fill-utility-neutral-200" />
                 </g>
 
                 <defs>
@@ -160,16 +160,16 @@ export const sm = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_1182_1949" result="shape" />
                     </filter>
                     <linearGradient id="documents-gradient-01-sm" x1="45.7739" y1="79.2399" x2="19.2854" y2="31.4527" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-02-sm" x1="61.7915" y1="67.0755" x2="57.9806" y2="12.571" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-03-sm" x1="81.1199" y1="62.1785" x2="100.701" y2="11.17" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -198,11 +198,11 @@ export const md = ({
     return (
         <div {...otherProps} className={cx("relative h-34.25 w-46.25", className)}>
             <svg viewBox="0 0 185 137" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="95" cy="64" r="64" className="fill-utility-gray-100" />
-                <circle cx="29" cy="12" r="6" className="fill-utility-gray-100" />
-                <circle cx="26" cy="112" r="8" className="fill-utility-gray-100" />
-                <circle cx="173" cy="96" r="8" className="fill-utility-gray-100" />
-                <circle cx="158" cy="9" r="5" className="fill-utility-gray-100" />
+                <circle cx="95" cy="64" r="64" className="fill-utility-neutral-100" />
+                <circle cx="29" cy="12" r="6" className="fill-utility-neutral-100" />
+                <circle cx="26" cy="112" r="8" className="fill-utility-neutral-100" />
+                <circle cx="173" cy="96" r="8" className="fill-utility-neutral-100" />
+                <circle cx="158" cy="9" r="5" className="fill-utility-neutral-100" />
                 <g filter="url(#documents-shadow-01-md)">
                     <path
                         d="M53.9372 95.3137L93.8147 76.7185C95.8169 75.7848 96.6831 73.4049 95.7495 71.4028L72.1994 20.8995L56.2523 15.0953L23.6252 30.3095C21.6231 31.2431 20.7569 33.6231 21.6905 35.6252L48.6215 93.3789C49.5551 95.3811 51.935 96.2473 53.9372 95.3137Z"
@@ -213,7 +213,7 @@ export const md = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M56.2523 15.0952L72.1994 20.8995L61.3237 25.9709L56.2523 15.0952Z" className="fill-utility-gray-200" />
+                    <path d="M56.2523 15.0952L72.1994 20.8995L61.3237 25.9709L56.2523 15.0952Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-02-md)">
                     <path
@@ -225,7 +225,7 @@ export const md = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M109 10L121 22H109V10Z" className="fill-utility-gray-200" />
+                    <path d="M109 10L121 22H109V10Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-03-md)">
                     <path
@@ -237,7 +237,7 @@ export const md = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M158.564 26.9048L164.369 42.8519L153.493 37.7805L158.564 26.9048Z" className="fill-utility-gray-200" />
+                    <path d="M158.564 26.9048L164.369 42.8519L153.493 37.7805L158.564 26.9048Z" className="fill-utility-neutral-200" />
                 </g>
 
                 <defs>
@@ -332,16 +332,16 @@ export const md = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_1182_2009" result="shape" />
                     </filter>
                     <linearGradient id="documents-gradient-01-md" x1="51.5944" y1="95.4694" x2="19.8151" y2="38.1371" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-02-md" x1="70.8109" y1="80.8751" x2="66.2388" y2="15.484" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-03-md" x1="94.0001" y1="75" x2="117.492" y2="13.8032" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -370,12 +370,12 @@ export const lg = ({
     return (
         <div {...otherProps} className={cx("relative h-41.5 w-57.5", className)}>
             <svg viewBox="0 0 230 166" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="118" cy="80" r="80" className="fill-utility-gray-100" />
-                <circle cx="34" cy="20" r="8" className="fill-utility-gray-100" />
-                <circle cx="206" cy="126" r="6" className="fill-utility-gray-100" />
-                <circle cx="33" cy="138" r="10" className="fill-utility-gray-100" />
-                <circle cx="218" cy="38" r="10" className="fill-utility-gray-100" />
-                <circle cx="199" cy="11" r="7" className="fill-utility-gray-100" />
+                <circle cx="118" cy="80" r="80" className="fill-utility-neutral-100" />
+                <circle cx="34" cy="20" r="8" className="fill-utility-neutral-100" />
+                <circle cx="206" cy="126" r="6" className="fill-utility-neutral-100" />
+                <circle cx="33" cy="138" r="10" className="fill-utility-neutral-100" />
+                <circle cx="218" cy="38" r="10" className="fill-utility-neutral-100" />
+                <circle cx="199" cy="11" r="7" className="fill-utility-neutral-100" />
                 <g filter="url(#documents-shadow-01-lg)">
                     <path
                         d="M64.0781 124.214L116.529 99.7552C119.163 98.5272 120.302 95.3969 119.074 92.7634L88.0986 26.3361L67.1232 18.7017L24.2085 38.7132C21.5751 39.9412 20.4357 43.0715 21.6637 45.7049L57.0863 121.669C58.3143 124.302 61.4446 125.442 64.0781 124.214Z"
@@ -386,7 +386,7 @@ export const lg = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M67.123 18.7017L88.0984 26.3361L73.7935 33.0066L67.123 18.7017Z" className="fill-utility-gray-200" />
+                    <path d="M67.123 18.7017L88.0984 26.3361L73.7935 33.0066L67.123 18.7017Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-02-lg)">
                     <path
@@ -398,7 +398,7 @@ export const lg = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M136.503 12L152.286 27.7837H136.503V12Z" className="fill-utility-gray-200" />
+                    <path d="M136.503 12L152.286 27.7837H136.503V12Z" className="fill-utility-neutral-200" />
                 </g>
                 <g filter="url(#documents-shadow-03-lg)">
                     <path
@@ -410,7 +410,7 @@ export const lg = ({
                         className="stroke-border-secondary_alt"
                         strokeWidth="0.5"
                     />
-                    <path d="M201.695 34.2349L209.329 55.2102L195.024 48.5398L201.695 34.2349Z" className="fill-utility-gray-200" />
+                    <path d="M201.695 34.2349L209.329 55.2102L195.024 48.5398L201.695 34.2349Z" className="fill-utility-neutral-200" />
                 </g>
 
                 <defs>
@@ -505,16 +505,16 @@ export const lg = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect3_dropShadow_1182_2741" result="shape" />
                     </filter>
                     <linearGradient id="documents-gradient-01-lg" x1="60.9966" y1="124.418" x2="19.197" y2="49.0089" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-02-lg" x1="86.2723" y1="105.223" x2="80.2585" y2="19.2131" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="documents-gradient-03-lg" x1="116.773" y1="97.4951" x2="147.672" y2="17.0024" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>

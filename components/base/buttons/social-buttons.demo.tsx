@@ -368,63 +368,126 @@ export const SocialButtons = () => {
     );
 };
 
-export const SocialButtonGroups = () => {
+export const SocialButtonGroupsMD = () => {
+    return (
+        <div>
+            <div className="mb-4 flex items-start gap-8">
+                <div className="flex w-90 flex-col gap-2.5">
+                    <SocialButton social="google" theme="brand" size="md">
+                        Sign in with Google
+                    </SocialButton>
+                    <SocialButton social="facebook" theme="brand" size="md">
+                        Sign in with Facebook
+                    </SocialButton>
+                    <SocialButton social="apple" theme="brand" size="md">
+                        Sign in with Apple
+                    </SocialButton>
+                </div>
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="brand" size="md" />
+                    <SocialButton social="facebook" theme="brand" size="md" />
+                    <SocialButton social="apple" theme="brand" size="md" />
+                </div>
+            </div>
+
+            <div className="mb-4 flex items-start gap-8">
+                <div className="flex w-90 flex-col gap-2.5">
+                    <SocialButton social="google" theme="color" size="md">
+                        Sign in with Google
+                    </SocialButton>
+                    <SocialButton social="facebook" theme="color" size="md">
+                        Sign in with Facebook
+                    </SocialButton>
+                    <SocialButton social="apple" theme="color" size="md">
+                        Sign in with Apple
+                    </SocialButton>
+                </div>
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="color" size="md" />
+                    <SocialButton social="facebook" theme="color" size="md" />
+                    <SocialButton social="apple" theme="color" size="md" />
+                </div>
+            </div>
+
+            <div className="mb-4 flex items-start gap-8">
+                <div className="flex w-90 flex-col gap-2.5">
+                    <SocialButton social="google" theme="gray" size="md">
+                        Sign in with Google
+                    </SocialButton>
+                    <SocialButton social="facebook" theme="gray" size="md">
+                        Sign in with Facebook
+                    </SocialButton>
+                    <SocialButton social="apple" theme="gray" size="md">
+                        Sign in with Apple
+                    </SocialButton>
+                </div>
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="gray" size="md" />
+                    <SocialButton social="facebook" theme="gray" size="md" />
+                    <SocialButton social="apple" theme="gray" size="md" />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export const SocialButtonGroupsLG = () => {
     return (
         <div>
             <div className="mb-4 flex items-start gap-8">
                 <div className="flex w-90 flex-col gap-3">
-                    <SocialButton social="google" theme="brand">
+                    <SocialButton social="google" theme="brand" size="lg">
                         Sign in with Google
                     </SocialButton>
-                    <SocialButton social="facebook" theme="brand">
+                    <SocialButton social="facebook" theme="brand" size="lg">
                         Sign in with Facebook
                     </SocialButton>
-                    <SocialButton social="apple" theme="brand">
+                    <SocialButton social="apple" theme="brand" size="lg">
                         Sign in with Apple
                     </SocialButton>
                 </div>
-                <div className="grid w-90 grid-cols-3 justify-items-start gap-3">
-                    <SocialButton social="google" theme="brand" />
-                    <SocialButton social="facebook" theme="brand" />
-                    <SocialButton social="apple" theme="brand" />
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="brand" size="lg" />
+                    <SocialButton social="facebook" theme="brand" size="lg" />
+                    <SocialButton social="apple" theme="brand" size="lg" />
                 </div>
             </div>
 
             <div className="mb-4 flex items-start gap-8">
                 <div className="flex w-90 flex-col gap-3">
-                    <SocialButton social="google" theme="color">
+                    <SocialButton social="google" theme="color" size="lg">
                         Sign in with Google
                     </SocialButton>
-                    <SocialButton social="facebook" theme="color">
+                    <SocialButton social="facebook" theme="color" size="lg">
                         Sign in with Facebook
                     </SocialButton>
-                    <SocialButton social="apple" theme="color">
+                    <SocialButton social="apple" theme="color" size="lg">
                         Sign in with Apple
                     </SocialButton>
                 </div>
-                <div className="grid w-90 grid-cols-3 justify-items-start gap-3">
-                    <SocialButton social="google" theme="color" />
-                    <SocialButton social="facebook" theme="color" />
-                    <SocialButton social="apple" theme="color" />
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="color" size="lg" />
+                    <SocialButton social="facebook" theme="color" size="lg" />
+                    <SocialButton social="apple" theme="color" size="lg" />
                 </div>
             </div>
 
             <div className="mb-4 flex items-start gap-8">
                 <div className="flex w-90 flex-col gap-3">
-                    <SocialButton social="google" theme="gray">
+                    <SocialButton social="google" theme="gray" size="lg">
                         Sign in with Google
                     </SocialButton>
-                    <SocialButton social="facebook" theme="gray">
+                    <SocialButton social="facebook" theme="gray" size="lg">
                         Sign in with Facebook
                     </SocialButton>
-                    <SocialButton social="apple" theme="gray">
+                    <SocialButton social="apple" theme="gray" size="lg">
                         Sign in with Apple
                     </SocialButton>
                 </div>
-                <div className="grid w-90 grid-cols-3 justify-items-start gap-3">
-                    <SocialButton social="google" theme="gray" />
-                    <SocialButton social="facebook" theme="gray" />
-                    <SocialButton social="apple" theme="gray" />
+                <div className="grid w-90 grid-cols-3 gap-3">
+                    <SocialButton social="google" theme="gray" size="lg" />
+                    <SocialButton social="facebook" theme="gray" size="lg" />
+                    <SocialButton social="apple" theme="gray" size="lg" />
                 </div>
             </div>
         </div>

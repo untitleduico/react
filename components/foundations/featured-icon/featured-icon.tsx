@@ -46,7 +46,7 @@ const styles = sortCx({
     },
 
     dark: {
-        base: "text-fg-white shadow-xs-skeumorphic before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
+        base: "shadow-xs-skeuomorphic text-fg-white before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
         sizes: {
             sm: "size-8 rounded-md before:rounded-[5px]",
             md: "size-10 rounded-lg before:rounded-[7px]",
@@ -63,7 +63,7 @@ const styles = sortCx({
     },
 
     modern: {
-        base: "bg-primary shadow-xs-skeumorphic ring-1 ring-inset",
+        base: "shadow-xs-skeuomorphic bg-primary ring-1 ring-inset",
         sizes: {
             sm: "size-8 rounded-md",
             md: "size-10 rounded-lg",
