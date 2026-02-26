@@ -69,22 +69,22 @@ export const InputBase = ({
 
     const sizes = sortCx({
         sm: {
-            root: cx("px-3 py-2 text-sm", hasTrailingIcon && "pr-9", hasLeadingIcon && "pl-8.5"),
+            root: cx("px-3 py-2 text-sm", hasTrailingIcon && "pr-9", hasLeadingIcon && "pl-9"),
             iconLeading: "left-3 size-4 stroke-[2.25px]",
             iconTrailing: "right-3",
-            shortcut: "pr-2.5",
+            shortcut: "pr-1.5",
         },
         md: {
             root: cx("px-3 py-2 text-md", hasTrailingIcon && "pr-9", hasLeadingIcon && "pl-10"),
             iconLeading: "left-3 size-5",
             iconTrailing: "right-3",
-            shortcut: "pr-2.5",
+            shortcut: "pr-2",
         },
         lg: {
             root: cx("px-3.5 py-2.5 text-md", hasTrailingIcon && "pr-9.5", hasLeadingIcon && "pl-10.5"),
             iconLeading: "left-3.5 size-5",
             iconTrailing: "right-3.5",
-            shortcut: "pr-3",
+            shortcut: "pr-2.5",
         },
     });
 
