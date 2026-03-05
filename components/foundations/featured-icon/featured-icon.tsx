@@ -46,7 +46,7 @@ const styles = sortCx({
     },
 
     dark: {
-        base: "shadow-xs-skeuomorphic text-fg-white before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
+        base: "text-fg-white shadow-xs-skeuomorphic before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
         sizes: {
             sm: "size-8 rounded-md before:rounded-[5px]",
             md: "size-10 rounded-lg before:rounded-[7px]",
@@ -63,7 +63,7 @@ const styles = sortCx({
     },
 
     modern: {
-        base: "shadow-xs-skeuomorphic bg-primary ring-1 ring-inset",
+        base: "bg-primary shadow-xs-skeuomorphic ring-1 ring-primary ring-inset",
         sizes: {
             sm: "size-8 rounded-md",
             md: "size-10 rounded-lg",
@@ -71,11 +71,11 @@ const styles = sortCx({
             xl: "size-14 rounded-xl",
         },
         colors: {
-            brand: "",
-            gray: "text-fg-secondary ring-primary",
-            error: "",
-            warning: "",
-            success: "",
+            brand: "text-fg-brand-primary",
+            gray: "text-fg-secondary",
+            error: "text-fg-error-primary",
+            warning: "text-fg-warning-primary",
+            success: "text-fg-success-primary",
         },
     },
     "modern-neue": {
