@@ -37,6 +37,7 @@ const ComboboxContext = createContext<{
     selectedItems: ListData<SelectItemType>;
     onRemove: (keys: Set<Key>) => void;
     onInputChange: (value: string) => void;
+    valueFormatter?: (item: SelectItemType) => string;
 }>({
     size: "sm",
     selectedKeys: [],
@@ -60,6 +61,7 @@ interface MultiSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "chil
     children: AriaListBoxProps<SelectItemType>["children"];
     onItemCleared?: (key: Key) => void;
     onItemInserted?: (key: Key) => void;
+    valueFormatter?: (item: SelectItemType) => string;
 }
 
 export const MultiSelectBase = ({
@@ -69,8 +71,10 @@ export const MultiSelectBase = ({
     selectedItems,
     onItemCleared,
     onItemInserted,
+    valueFormatter,
     shortcut,
     placeholder = "Search",
+    placeholderIcon,
     // Omit these props to avoid conflicts with the `Select` component
     name: _name,
     className: _className,
@@ -150,6 +154,7 @@ export const MultiSelectBase = ({
                 selectedItems,
                 onInputChange,
                 onRemove,
+                valueFormatter,
             }}
         >
             <AriaComboBox
@@ -176,6 +181,7 @@ export const MultiSelectBase = ({
                             shortcut={shortcut}
                             ref={placeholderRef}
                             placeholder={placeholder}
+                            placeholderIcon={placeholderIcon}
                             // This is a workaround to correctly calculating the trigger width
                             // while using ResizeObserver wasn't 100% reliable.
                             onFocus={onResize}
@@ -268,42 +274,39 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
     const isSelectionEmpty = comboBoxContext?.selectedItems?.items?.length === 0;
 
     return (
-        <div className={cx("relative flex w-full flex-1 flex-row flex-wrap items-center justify-start", size === "sm" ? "gap-1.5" : "gap-2")}>
-            {!isSelectionEmpty && (
-                <div className="flex flex-wrap items-center justify-start gap-1.5">
-                    {comboBoxContext?.selectedItems?.items?.map((value) => (
-                        <span
-                            key={value.id}
+        <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
+            {!isSelectionEmpty &&
+                comboBoxContext?.selectedItems?.items?.map((value) => (
+                    <span
+                        key={value.id}
+                        className={cx(
+                            "flex items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
+                            size === "sm" ? "px-1 py-0.75" : "py-0.5 pr-1 pl-1.25",
+                        )}
+                    >
+                        <Avatar size="xs" alt={value?.label} src={value?.avatarUrl} className="size-4" />
+
+                        <p
                             className={cx(
-                                "flex items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
-                                size === "sm" ? "px-1 py-0.75" : "py-0.5 pr-1 pl-1.25",
+                                "truncate font-medium whitespace-nowrap text-secondary select-none",
+                                size === "sm" ? "ml-1 text-xs" : "ml-1.25 text-sm",
                             )}
                         >
-                            <Avatar size="xs" alt={value?.label} src={value?.avatarUrl} className="size-4" />
+                            {comboBoxContext.valueFormatter ? comboBoxContext.valueFormatter(value) : value?.label}
+                        </p>
 
-                            <p
-                                className={cx(
-                                    "truncate font-medium whitespace-nowrap text-secondary select-none",
-                                    size === "sm" ? "ml-1 text-xs" : "ml-1.25 text-sm",
-                                )}
-                            >
-                                {value?.label}
-                            </p>
+                        <TagCloseX
+                            size={size === "sm" ? "sm" : "md"}
+                            isDisabled={isDisabled}
+                            className="ml-0.75"
+                            // For workaround, onKeyDown is added to the button
+                            onKeyDown={(event) => handleTagKeyDown(event, value.id)}
+                            onPress={() => comboBoxContext.onRemove(new Set([value.id]))}
+                        />
+                    </span>
+                ))}
 
-                            <TagCloseX
-                                size={size === "sm" ? "sm" : "md"}
-                                isDisabled={isDisabled}
-                                className="ml-0.75"
-                                // For workaround, onKeyDown is added to the button
-                                onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                                onPress={() => comboBoxContext.onRemove(new Set([value.id]))}
-                            />
-                        </span>
-                    ))}
-                </div>
-            )}
-
-            <div className={cx("relative flex min-w-[20%] flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
+            <div className={cx("relative flex min-w-12 flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
                 <AriaInput
                     placeholder={placeholder}
                     onKeyDown={handleInputKeyDown}

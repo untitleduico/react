@@ -15,9 +15,10 @@ const getResizeHandleBg = (color: string) => {
 
 interface TextAreaBaseProps extends AriaTextAreaProps {
     ref?: Ref<HTMLTextAreaElement>;
+    size?: "sm" | "md";
 }
 
-export const TextAreaBase = ({ className, ...props }: TextAreaBaseProps) => {
+export const TextAreaBase = ({ className, size = "md", ...props }: TextAreaBaseProps) => {
     return (
         <AriaTextArea
             {...props}
@@ -29,13 +30,16 @@ export const TextAreaBase = ({ className, ...props }: TextAreaBaseProps) => {
             }
             className={(state) =>
                 cx(
-                    "w-full scroll-py-3 rounded-lg bg-primary px-3.5 py-3 text-md text-primary shadow-xs ring-1 ring-primary transition duration-100 ease-linear ring-inset placeholder:text-placeholder autofill:rounded-lg autofill:text-primary focus:outline-hidden",
+                    "w-full scroll-py-3 rounded-lg bg-primary text-primary shadow-xs ring-1 ring-primary transition duration-100 ease-linear ring-inset placeholder:text-placeholder autofill:rounded-lg autofill:text-primary focus:outline-hidden",
+
+                    size === "sm" && "p-3 text-sm",
+                    size === "md" && "px-3.5 py-3 text-md",
 
                     // Resize handle
                     "[&::-webkit-resizer]:bg-(image:--resize-handle-bg) [&::-webkit-resizer]:bg-contain dark:[&::-webkit-resizer]:bg-(image:--resize-handle-bg-dark)",
 
                     state.isFocused && !state.isDisabled && "ring-2 ring-brand",
-                    state.isDisabled && "cursor-not-allowed bg-disabled_subtle text-disabled ring-disabled",
+                    state.isDisabled && "cursor-not-allowed opacity-50",
                     state.isInvalid && "ring-error_subtle",
                     state.isInvalid && state.isFocused && "ring-2 ring-error",
 
@@ -55,6 +59,8 @@ interface TextFieldProps extends AriaTextFieldProps {
     hint?: ReactNode;
     /** Tooltip message displayed after the label. */
     tooltip?: string;
+    /** Textarea size. */
+    size?: TextAreaBaseProps["size"];
     /** Class name for the textarea wrapper */
     textAreaClassName?: TextAreaBaseProps["className"];
     /** Ref for the textarea wrapper */
@@ -82,6 +88,7 @@ export const TextArea = ({
     className,
     rows,
     cols,
+    size = "md",
     ...props
 }: TextFieldProps) => {
     return (
@@ -99,9 +106,13 @@ export const TextArea = ({
                         </Label>
                     )}
 
-                    <TextAreaBase placeholder={placeholder} className={textAreaClassName} ref={textAreaRef} rows={rows} cols={cols} />
+                    <TextAreaBase placeholder={placeholder} className={textAreaClassName} ref={textAreaRef} rows={rows} cols={cols} size={size} />
 
-                    {hint && <HintText isInvalid={isInvalid}>{hint}</HintText>}
+                    {hint && (
+                        <HintText isInvalid={isInvalid} size={size}>
+                            {hint}
+                        </HintText>
+                    )}
                 </>
             )}
         </AriaTextField>

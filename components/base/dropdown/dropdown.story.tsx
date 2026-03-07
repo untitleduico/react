@@ -36,5 +36,11 @@ DropdownAccountButton.storyName = "Dropdown menu account button";
 export const DropdownAvatar = () => <Dropdowns.DropdownAvatar />;
 DropdownAvatar.storyName = "Dropdown menu avatar";
 
-export const DropdownAccountCard = () => <Dropdowns.DropdownAccountCard />;
-DropdownAccountCard.storyName = "Dropdown menu account card";
+export const DropdownAccountCardXS = () => <Dropdowns.DropdownAccountCardXS />;
+DropdownAccountCardXS.storyName = "Dropdown menu account card xs";
+
+export const DropdownAccountCardSM = () => <Dropdowns.DropdownAccountCardSM />;
+DropdownAccountCardSM.storyName = "Dropdown menu account card sm";
+
+export const DropdownAccountCardMD = () => <Dropdowns.DropdownAccountCardMD />;
+DropdownAccountCardMD.storyName = "Dropdown menu account card md";

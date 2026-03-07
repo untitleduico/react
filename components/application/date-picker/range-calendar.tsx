@@ -18,6 +18,7 @@ import {
 } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
+import { cx } from "@/utils/cx";
 import { CalendarCell } from "./cell";
 import { DateInput } from "./date-input";
 
@@ -71,32 +72,38 @@ interface RangeCalendarProps extends AriaRangeCalendarProps<DateValue> {
     highlightedDates?: DateValue[];
     /** The date presets to display. */
     presets?: Record<string, { label: string; value: { start: DateValue; end: DateValue } }>;
+    /** Whether to show out of range dates. */
+    showOutOfRangeDates?: boolean;
+    /** Whether to show presets on desktop. */
+    showPresetsOnDesktop?: boolean;
 }
 
-export const RangeCalendar = ({ presets, ...props }: RangeCalendarProps) => {
+export const RangeCalendar = ({ presets, visibleDuration, showOutOfRangeDates = false, showPresetsOnDesktop = false, ...props }: RangeCalendarProps) => {
     const isDesktop = useBreakpoint("md");
     const context = useSlottedContext(RangeCalendarContext);
 
     const ContextWrapper = context ? Fragment : RangeCalendarContextProvider;
 
+    const visibleDurationMonths = visibleDuration?.months || (isDesktop ? 2 : 1);
+
     return (
         <ContextWrapper>
             <AriaRangeCalendar
-                className="flex items-start"
-                visibleDuration={{
-                    months: isDesktop ? 2 : 1,
-                }}
                 {...props}
+                className={(state) => cx("flex items-start", typeof props.className === "function" ? props.className(state) : props.className)}
+                visibleDuration={{
+                    months: visibleDurationMonths,
+                }}
             >
                 <div className="flex flex-col gap-3 px-6 py-5">
-                    <header className="relative flex items-center justify-between md:justify-start">
+                    <header className={cx("relative flex items-center", visibleDurationMonths > 1 ? "justify-start" : "justify-between")}>
                         <Button slot="previous" iconLeading={ChevronLeft} size="sm" color="tertiary" className="size-8" />
 
                         <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold text-fg-secondary">
                             <RangeCalendarTitle part="start" />
                         </h2>
 
-                        <Button slot="next" iconLeading={ChevronRight} size="sm" color="tertiary" className="size-8 md:hidden" />
+                        {visibleDurationMonths === 1 && <Button slot="next" iconLeading={ChevronRight} size="sm" color="tertiary" className="size-8" />}
                     </header>
 
                     {!isDesktop && (
@@ -107,8 +114,8 @@ export const RangeCalendar = ({ presets, ...props }: RangeCalendarProps) => {
                         </div>
                     )}
 
-                    {!isDesktop && presets && (
-                        <div className="mt-1 flex justify-between gap-3 px-2 md:hidden">
+                    {(showPresetsOnDesktop || !isDesktop) && presets && (
+                        <div className="mt-1 flex justify-between gap-3 px-2">
                             {Object.values(presets).map((preset) => (
                                 <MobilePresetButton key={preset.label} value={preset.value}>
                                     {preset.label}
@@ -126,12 +133,12 @@ export const RangeCalendar = ({ presets, ...props }: RangeCalendarProps) => {
                             )}
                         </AriaCalendarGridHeader>
                         <AriaCalendarGridBody className="[&_td]:p-0 [&_tr]:border-b-4 [&_tr]:border-transparent [&_tr:last-of-type]:border-none">
-                            {(date) => <CalendarCell date={date} />}
+                            {(date) => <CalendarCell date={date} showOutOfRangeDates={showOutOfRangeDates} />}
                         </AriaCalendarGridBody>
                     </AriaCalendarGrid>
                 </div>
 
-                {isDesktop && (
+                {visibleDurationMonths > 1 && (
                     <div className="flex flex-col gap-3 border-l border-secondary px-6 py-5">
                         <header className="relative flex items-center justify-end">
                             <h2 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm font-semibold text-fg-secondary">

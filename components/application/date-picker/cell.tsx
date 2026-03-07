@@ -10,9 +10,11 @@ interface CalendarCellProps extends AriaCalendarCellProps {
     isRangeCalendar?: boolean;
     /** Whether the cell is highlighted. */
     isHighlighted?: boolean;
+    /** Whether to show out of range dates. */
+    showOutOfRangeDates?: boolean;
 }
 
-export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProps) => {
+export const CalendarCell = ({ date, isHighlighted, showOutOfRangeDates = false, ...props }: CalendarCellProps) => {
     const { locale } = useLocale();
     const dayOfWeek = getDayOfWeek(date, locale);
     const rangeCalendarContext = useSlottedContext(RangeCalendarContext);
@@ -51,7 +53,8 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                     isSelected && isRangeCalendar && "bg-active",
                     isDisabled ? "pointer-events-none" : "cursor-pointer",
                     isFocusVisible ? "z-10" : "z-0",
-                    isRangeCalendar && isOutsideMonth && "hidden",
+                    isOutsideMonth && "opacity-50",
+                    isRangeCalendar && isOutsideMonth && !showOutOfRangeDates && "hidden",
 
                     // Show gradient on last day of month if it's within the selected range.
                     isLastDayOfMonth &&

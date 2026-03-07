@@ -7,7 +7,7 @@ import { Select, type SelectItemType } from "@/components/base/select/select";
 import { NativeSelect } from "@/components/base/select/select-native";
 import { Dot } from "@/components/foundations/dot-icon";
 
-const items = [
+const items: SelectItemType[] = [
     {
         label: "Phoenix Baker",
         id: "@phoenix",
@@ -389,7 +389,7 @@ export const TagsDemo = () => {
         initialItems: [],
     });
 
-    const items = [
+    const items: (SelectItemType & { disabled?: boolean })[] = [
         {
             label: "Phoenix Baker",
             id: "@phoenix",

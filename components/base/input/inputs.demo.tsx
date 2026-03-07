@@ -157,21 +157,37 @@ export const Default = () => {
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-                <Input isRequired label="Email" hint="This is a hint text to help user." placeholder="olivia@untitledui.com" tooltip="This is a tooltip" />
                 <Input
                     isRequired
-                    isDisabled
+                    size="sm"
                     label="Email"
                     hint="This is a hint text to help user."
                     placeholder="olivia@untitledui.com"
                     tooltip="This is a tooltip"
                 />
-                <Input isRequired isInvalid label="Email" hint="This is an error message." placeholder="olivia@untitledui.com" tooltip="This is a tooltip" />
+                <Input
+                    isRequired
+                    isDisabled
+                    size="sm"
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isInvalid
+                    size="sm"
+                    label="Email"
+                    hint="This is an error message."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
             </div>
             <div className="flex flex-col gap-4">
                 <Input
                     isRequired
-                    size="lg"
+                    size="md"
                     label="Email"
                     hint="This is a hint text to help user."
                     placeholder="olivia@untitledui.com"
@@ -179,7 +195,7 @@ export const Default = () => {
                 />
                 <Input
                     isRequired
-                    size="lg"
+                    size="md"
                     isDisabled
                     label="Email"
                     hint="This is a hint text to help user."
@@ -188,7 +204,7 @@ export const Default = () => {
                 />
                 <Input
                     isRequired
-                    size="lg"
+                    size="md"
                     isInvalid
                     label="Email"
                     hint="This is an error message."
@@ -234,6 +250,7 @@ export const LeadingIcon = () => {
             <div className="flex flex-col gap-4">
                 <Input
                     isRequired
+                    size="sm"
                     icon={Mail01}
                     label="Email"
                     hint="This is a hint text to help user."
@@ -243,6 +260,7 @@ export const LeadingIcon = () => {
                 <Input
                     isRequired
                     isDisabled
+                    size="sm"
                     icon={Mail01}
                     label="Email"
                     hint="This is a hint text to help user."
@@ -252,6 +270,7 @@ export const LeadingIcon = () => {
                 <Input
                     isRequired
                     isInvalid
+                    size="sm"
                     icon={Mail01}
                     label="Email"
                     hint="This is an error message."
@@ -262,7 +281,7 @@ export const LeadingIcon = () => {
             <div className="flex flex-col gap-4">
                 <Input
                     isRequired
-                    size="lg"
+                    size="md"
                     icon={Mail01}
                     label="Email"
                     hint="This is a hint text to help user."
@@ -272,7 +291,7 @@ export const LeadingIcon = () => {
                 <Input
                     isRequired
                     isDisabled
-                    size="lg"
+                    size="md"
                     icon={Mail01}
                     label="Email"
                     hint="This is a hint text to help user."
@@ -282,7 +301,7 @@ export const LeadingIcon = () => {
                 <Input
                     isRequired
                     isInvalid
-                    size="lg"
+                    size="md"
                     icon={Mail01}
                     label="Email"
                     hint="This is an error message."
@@ -331,6 +350,7 @@ export const LeadingDropdown = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
+                    size="sm"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -349,6 +369,7 @@ export const LeadingDropdown = () => {
                 <InputGroup
                     isRequired
                     isDisabled
+                    size="sm"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -367,6 +388,7 @@ export const LeadingDropdown = () => {
                 <InputGroup
                     isRequired
                     isInvalid
+                    size="sm"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -386,7 +408,7 @@ export const LeadingDropdown = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
-                    size="lg"
+                    size="md"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -405,7 +427,7 @@ export const LeadingDropdown = () => {
                 <InputGroup
                     isRequired
                     isDisabled
-                    size="lg"
+                    size="md"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -424,7 +446,7 @@ export const LeadingDropdown = () => {
                 <InputGroup
                     isRequired
                     isInvalid
-                    size="lg"
+                    size="md"
                     label="Phone number"
                     hint="This is a hint text to help user."
                     leadingAddon={
@@ -509,6 +531,7 @@ export const TrailingDropdown = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
+                    size="sm"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -528,6 +551,7 @@ export const TrailingDropdown = () => {
                 <InputGroup
                     isRequired
                     isDisabled
+                    size="sm"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -547,6 +571,7 @@ export const TrailingDropdown = () => {
                 <InputGroup
                     isRequired
                     isInvalid
+                    size="sm"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -567,7 +592,7 @@ export const TrailingDropdown = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
-                    size="lg"
+                    size="md"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -586,7 +611,7 @@ export const TrailingDropdown = () => {
                 <InputGroup
                     isRequired
                     isDisabled
-                    size="lg"
+                    size="md"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -606,7 +631,7 @@ export const TrailingDropdown = () => {
                 <InputGroup
                     isRequired
                     isInvalid
-                    size="lg"
+                    size="md"
                     prefix="$"
                     label="Phone number"
                     hint="This is a hint text to help user."
@@ -692,12 +717,19 @@ export const LeadingText = () => {
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-                <InputGroup isRequired label="Website" hint="This is a hint text to help user." leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}>
+                <InputGroup
+                    isRequired
+                    size="sm"
+                    label="Website"
+                    hint="This is a hint text to help user."
+                    leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
+                >
                     <InputBase placeholder="www.untitledui.com" tooltip="This is a tooltip" />
                 </InputGroup>
                 <InputGroup
                     isRequired
                     isDisabled
+                    size="sm"
                     label="Website"
                     hint="This is a hint text to help user."
                     leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
@@ -707,6 +739,7 @@ export const LeadingText = () => {
                 <InputGroup
                     isRequired
                     isInvalid
+                    size="sm"
                     label="Website"
                     hint="This is a hint text to help user."
                     leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
@@ -717,7 +750,7 @@ export const LeadingText = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
-                    size="lg"
+                    size="md"
                     label="Website"
                     hint="This is a hint text to help user."
                     leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
@@ -727,7 +760,7 @@ export const LeadingText = () => {
                 <InputGroup
                     isRequired
                     isDisabled
-                    size="lg"
+                    size="md"
                     label="Website"
                     hint="This is a hint text to help user."
                     leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
@@ -737,7 +770,7 @@ export const LeadingText = () => {
                 <InputGroup
                     isRequired
                     isInvalid
-                    size="lg"
+                    size="md"
                     label="Website"
                     hint="This is a hint text to help user."
                     leadingAddon={<InputGroup.Prefix>https://</InputGroup.Prefix>}
@@ -786,53 +819,25 @@ export const PaymentInputs = () => {
             <div className="flex flex-col gap-4">
                 <PaymentInput
                     isRequired
+                    size="sm"
                     label="Card number"
                     placeholder="0000 0000 0000 0000"
                     hint="This is a hint text to help user."
-                    size="sm"
                     tooltip="This is a tooltip"
                 />
                 <PaymentInput
                     isRequired
+                    isDisabled
+                    size="sm"
                     label="Card number"
                     placeholder="0000 0000 0000 0000"
                     hint="This is a hint text to help user."
-                    size="sm"
-                    isDisabled
                     tooltip="This is a tooltip"
                 />
                 <PaymentInput
                     isInvalid
                     isRequired
-                    label="Card number"
-                    placeholder="0000 0000 0000 0000"
-                    hint="This is an error message."
                     size="sm"
-                    tooltip="This is a tooltip"
-                />
-            </div>
-            <div className="flex flex-col gap-4">
-                <PaymentInput
-                    isRequired
-                    size="md"
-                    label="Card number"
-                    placeholder="0000 0000 0000 0000"
-                    hint="This is a hint text to help user."
-                    tooltip="This is a tooltip"
-                />
-                <PaymentInput
-                    isRequired
-                    size="md"
-                    label="Card number"
-                    placeholder="0000 0000 0000 0000"
-                    hint="This is a hint text to help user."
-                    isDisabled
-                    tooltip="This is a tooltip"
-                />
-                <PaymentInput
-                    isRequired
-                    size="md"
-                    isInvalid
                     label="Card number"
                     placeholder="0000 0000 0000 0000"
                     hint="This is an error message."
@@ -842,7 +847,7 @@ export const PaymentInputs = () => {
             <div className="flex flex-col gap-4">
                 <PaymentInput
                     isRequired
-                    size="lg"
+                    size="md"
                     label="Card number"
                     placeholder="0000 0000 0000 0000"
                     hint="This is a hint text to help user."
@@ -850,17 +855,45 @@ export const PaymentInputs = () => {
                 />
                 <PaymentInput
                     isRequired
-                    size="lg"
-                    label="Card number"
-                    placeholder="0000 0000 0000 0000"
-                    hint="This is a hint text to help user."
                     isDisabled
+                    size="md"
+                    label="Card number"
+                    placeholder="0000 0000 0000 0000"
+                    hint="This is a hint text to help user."
                     tooltip="This is a tooltip"
                 />
                 <PaymentInput
                     isRequired
-                    size="lg"
+                    size="md"
                     isInvalid
+                    label="Card number"
+                    placeholder="0000 0000 0000 0000"
+                    hint="This is an error message."
+                    tooltip="This is a tooltip"
+                />
+            </div>
+            <div className="flex flex-col gap-4">
+                <PaymentInput
+                    isRequired
+                    size="lg"
+                    label="Card number"
+                    placeholder="0000 0000 0000 0000"
+                    hint="This is a hint text to help user."
+                    tooltip="This is a tooltip"
+                />
+                <PaymentInput
+                    isRequired
+                    isDisabled
+                    size="lg"
+                    label="Card number"
+                    placeholder="0000 0000 0000 0000"
+                    hint="This is a hint text to help user."
+                    tooltip="This is a tooltip"
+                />
+                <PaymentInput
+                    isRequired
+                    isInvalid
+                    size="lg"
                     label="Card number"
                     placeholder="0000 0000 0000 0000"
                     hint="This is an error message."
@@ -885,11 +918,13 @@ export const TrailingButton = () => {
             <div className="flex flex-col gap-4">
                 <InputGroup
                     isRequired
+                    size="sm"
                     label="Website"
                     hint="This is a hint text to help user."
                     onChange={setInputValue1}
                     trailingAddon={
                         <Button
+                            size="sm"
                             color="secondary"
                             iconLeading={copied === "input-1" ? Check : Copy01}
                             onClick={() => copy(inputValue1 || "www.untitledui.com", "input-1")}
@@ -904,12 +939,14 @@ export const TrailingButton = () => {
                 <InputGroup
                     isRequired
                     isDisabled
+                    size="sm"
                     label="Website"
                     hint="This is a hint text to help user."
                     onChange={setInputValue2}
                     trailingAddon={
                         <Button
                             isDisabled
+                            size="sm"
                             color="secondary"
                             iconLeading={copied === "input-2" ? Check : Copy01}
                             onClick={() => copy(inputValue2 || "www.untitledui.com", "input-2")}
@@ -923,11 +960,13 @@ export const TrailingButton = () => {
                 <InputGroup
                     isRequired
                     isInvalid
+                    size="sm"
                     label="Website"
                     hint="This is an error message."
                     onChange={setInputValue3}
                     trailingAddon={
                         <Button
+                            size="sm"
                             color="secondary"
                             iconLeading={copied === "input-3" ? Check : Copy01}
                             onClick={() => copy(inputValue3 || "www.untitledui.com", "input-3")}
@@ -943,13 +982,13 @@ export const TrailingButton = () => {
                 <InputGroup
                     isRequired
                     label="Website"
-                    size="lg"
+                    size="md"
                     hint="This is a hint text to help user."
                     onChange={setInputValue4}
                     trailingAddon={
                         <Button
                             color="secondary"
-                            size="lg"
+                            size="md"
                             iconLeading={copied === "input-4" ? Check : Copy01}
                             onClick={() => copy(inputValue4 || "www.untitledui.com", "input-4")}
                         >
@@ -963,14 +1002,14 @@ export const TrailingButton = () => {
                     isRequired
                     isDisabled
                     label="Website"
-                    size="lg"
+                    size="md"
                     hint="This is a hint text to help user."
                     onChange={setInputValue5}
                     trailingAddon={
                         <Button
                             isDisabled
                             color="secondary"
-                            size="lg"
+                            size="md"
                             iconLeading={copied === "input-5" ? Check : Copy01}
                             onClick={() => copy(inputValue5 || "www.untitledui.com", "input-5")}
                         >
@@ -984,13 +1023,13 @@ export const TrailingButton = () => {
                     isRequired
                     isInvalid
                     label="Website"
-                    size="lg"
+                    size="md"
                     hint="This is an error message."
                     onChange={setInputValue6}
                     trailingAddon={
                         <Button
                             color="secondary"
-                            size="lg"
+                            size="md"
                             iconLeading={copied === "input-6" ? Check : Copy01}
                             onClick={() => copy(inputValue6 || "www.untitledui.com", "input-6")}
                         >
@@ -1072,6 +1111,50 @@ export const PasswordInputs = () => {
 
     return (
         <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+                <TextField isRequired size="sm" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
+                    <Label>Password</Label>
+                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
+                    <HintText className="flex items-center gap-1">
+                        <CheckCircle
+                            className={cx(
+                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
+                                password.length >= 8 && "text-fg-success-primary",
+                            )}
+                        />
+                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        Must be at least 8 characters.
+                    </HintText>
+                </TextField>
+                <TextField isRequired isDisabled size="sm" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
+                    <Label>Password</Label>
+                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
+                    <HintText className="flex items-center gap-1">
+                        <CheckCircle
+                            className={cx(
+                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
+                                password.length >= 8 && "text-fg-success-primary",
+                            )}
+                        />
+                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        Must be at least 8 characters.
+                    </HintText>
+                </TextField>
+                <TextField isRequired isInvalid size="sm" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
+                    <Label>Password</Label>
+                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
+                    <HintText className="flex items-center gap-1">
+                        <CheckCircle
+                            className={cx(
+                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
+                                password.length >= 8 && "text-fg-success-primary",
+                            )}
+                        />
+                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        Must be at least 8 characters.
+                    </HintText>
+                </TextField>
+            </div>
             <div className="flex flex-col gap-4">
                 <TextField isRequired size="md" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
                     <Label>Password</Label>
@@ -1160,50 +1243,6 @@ export const PasswordInputs = () => {
                     </HintText>
                 </TextField>
             </div>
-            <div className="flex flex-col gap-4">
-                <TextField isRequired size="lg" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
-                    <Label>Password</Label>
-                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
-                    <HintText className="flex items-center gap-1">
-                        <CheckCircle
-                            className={cx(
-                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
-                                password.length >= 8 && "text-fg-success-primary",
-                            )}
-                        />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
-                        Must be at least 8 characters.
-                    </HintText>
-                </TextField>
-                <TextField isRequired isDisabled size="lg" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
-                    <Label>Password</Label>
-                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
-                    <HintText className="flex items-center gap-1">
-                        <CheckCircle
-                            className={cx(
-                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
-                                password.length >= 8 && "text-fg-success-primary",
-                            )}
-                        />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
-                        Must be at least 8 characters.
-                    </HintText>
-                </TextField>
-                <TextField isRequired isInvalid size="lg" minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
-                    <Label>Password</Label>
-                    <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
-                    <HintText className="flex items-center gap-1">
-                        <CheckCircle
-                            className={cx(
-                                "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
-                                password.length >= 8 && "text-fg-success-primary",
-                            )}
-                        />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
-                        Must be at least 8 characters.
-                    </HintText>
-                </TextField>
-            </div>
         </div>
     );
 };
@@ -1218,7 +1257,7 @@ export const DateInputs = () => {
                     hint="This is a hint text to help user."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="md"
+                    size="sm"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1229,7 +1268,7 @@ export const DateInputs = () => {
                     hint="This is a hint text to help user."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="md"
+                    size="sm"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1240,7 +1279,7 @@ export const DateInputs = () => {
                     hint="This is an error message."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="md"
+                    size="sm"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1252,7 +1291,7 @@ export const DateInputs = () => {
                     hint="This is a hint text to help user."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="lg"
+                    size="md"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1263,7 +1302,7 @@ export const DateInputs = () => {
                     hint="This is a hint text to help user."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="lg"
+                    size="md"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1274,7 +1313,7 @@ export const DateInputs = () => {
                     hint="This is an error message."
                     placeholder="Select a date"
                     tooltip="This is a tooltip"
-                    size="lg"
+                    size="md"
                     granularity="minute"
                     icon={Calendar}
                 />
@@ -1321,6 +1360,19 @@ export const NumberInputsHorizontal = () => {
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
+                <InputNumber isRequired orientation="horizontal" label="Number" hint="This is a hint text to help user." placeholder="100" size="sm" />
+                <InputNumber
+                    isRequired
+                    orientation="horizontal"
+                    isDisabled
+                    label="Number"
+                    hint="This is a hint text to help user."
+                    placeholder="100"
+                    size="sm"
+                />
+                <InputNumber isRequired orientation="horizontal" isInvalid label="Number" hint="This is an error message." placeholder="100" size="sm" />
+            </div>
+            <div className="flex flex-col gap-4">
                 <InputNumber isRequired orientation="horizontal" label="Number" hint="This is a hint text to help user." placeholder="100" size="md" />
                 <InputNumber
                     isRequired
@@ -1346,19 +1398,6 @@ export const NumberInputsHorizontal = () => {
                 />
                 <InputNumber isRequired orientation="horizontal" isInvalid label="Number" hint="This is an error message." placeholder="100" size="lg" />
             </div>
-            <div className="flex flex-col gap-4">
-                <InputNumber isRequired orientation="horizontal" label="Number" hint="This is a hint text to help user." placeholder="100" size="lg" />
-                <InputNumber
-                    isRequired
-                    orientation="horizontal"
-                    isDisabled
-                    label="Number"
-                    hint="This is a hint text to help user."
-                    placeholder="100"
-                    size="lg"
-                />
-                <InputNumber isRequired orientation="horizontal" isInvalid label="Number" hint="This is an error message." placeholder="100" size="lg" />
-            </div>
         </div>
     );
 };
@@ -1367,14 +1406,14 @@ export const NumberInputsVertical = () => {
     return (
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
+                <InputNumber isRequired label="Number" hint="This is a hint text to help user." placeholder="100" size="sm" />
+                <InputNumber isRequired isDisabled label="Number" hint="This is a hint text to help user." placeholder="100" size="sm" />
+                <InputNumber isRequired isInvalid label="Number" hint="This is an error message." placeholder="100" size="sm" />
+            </div>
+            <div className="flex flex-col gap-4">
                 <InputNumber isRequired label="Number" hint="This is a hint text to help user." placeholder="100" size="md" />
                 <InputNumber isRequired isDisabled label="Number" hint="This is a hint text to help user." placeholder="100" size="md" />
                 <InputNumber isRequired isInvalid label="Number" hint="This is an error message." placeholder="100" size="md" />
-            </div>
-            <div className="flex flex-col gap-4">
-                <InputNumber isRequired label="Number" hint="This is a hint text to help user." placeholder="100" size="lg" />
-                <InputNumber isRequired isDisabled label="Number" hint="This is a hint text to help user." placeholder="100" size="lg" />
-                <InputNumber isRequired isInvalid label="Number" hint="This is an error message." placeholder="100" size="lg" />
             </div>
             <div className="flex flex-col gap-4">
                 <InputNumber isRequired label="Number" hint="This is a hint text to help user." placeholder="100" size="lg" />
@@ -1396,7 +1435,7 @@ export const TagInputs = () => {
                     tooltip="This is a tooltip."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="md"
+                    size="sm"
                 />
                 <InputTags
                     isRequired
@@ -1406,7 +1445,7 @@ export const TagInputs = () => {
                     tooltip="This is a tooltip."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="md"
+                    size="sm"
                 />
                 <InputTags
                     isRequired
@@ -1416,7 +1455,7 @@ export const TagInputs = () => {
                     hint="This is an error message."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="md"
+                    size="sm"
                 />
             </div>
             <div className="flex flex-col gap-4">
@@ -1427,7 +1466,7 @@ export const TagInputs = () => {
                     tooltip="This is a tooltip."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="lg"
+                    size="md"
                 />
                 <InputTags
                     isRequired
@@ -1437,7 +1476,7 @@ export const TagInputs = () => {
                     tooltip="This is a tooltip."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="lg"
+                    size="md"
                 />
                 <InputTags
                     isRequired
@@ -1447,7 +1486,7 @@ export const TagInputs = () => {
                     tooltip="This is a tooltip."
                     placeholder="Type and press Enter"
                     defaultValue={["Design", "Engineering"]}
-                    size="lg"
+                    size="md"
                 />
             </div>
             <div className="flex flex-col gap-4">
