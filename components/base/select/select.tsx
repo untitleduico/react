@@ -50,14 +50,14 @@ interface SelectValueProps {
 
 export const sizes = {
     sm: {
-        root: "py-2 px-2 gap-1.5 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
-        withIcon: "px-3",
+        root: "py-2 px-3 gap-1.5 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
+        withIcon: "",
         text: "text-sm",
         textContainer: "gap-x-1.5",
         shortcut: "pr-2.5",
     },
-    md: { root: "py-2 px-2 gap-2 *:data-icon:size-5", withIcon: "px-3", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-2.5" },
-    lg: { root: "py-2.5 px-3 gap-2 *:data-icon:size-5", withIcon: "px-3.5", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-3" },
+    md: { root: "py-2 px-3 gap-2 *:data-icon:size-5", withIcon: "", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-2.5" },
+    lg: { root: "py-2.5 px-3.5 gap-2 *:data-icon:size-5", withIcon: "", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-3" },
 };
 
 const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeholderIcon, ref }: SelectValueProps) => {

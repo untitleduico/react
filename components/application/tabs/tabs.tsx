@@ -89,15 +89,15 @@ const getColorStyles = ({ isSelected, isHovered }: Partial<AriaTabRenderProps>) 
     line: isSelected || isHovered ? "brand" : "gray",
 });
 
-interface TabListComponentProps<T extends object, K extends Orientation> extends AriaTabListProps<T> {
+interface TabListComponentProps<T extends object, K extends Orientation> extends Omit<AriaTabListProps<T>, "items"> {
     /** The size of the tab list. */
     size?: keyof typeof sizes;
     /** The type of the tab list. */
     type?: TabTypeColors<K>;
     /** The orientation of the tab list. */
     orientation?: K;
-    /** The items of the tab list. */
-    items: T[];
+    /** The items of the tab list. When provided, tabs are rendered automatically via the render function in children. */
+    items?: T[];
     /** Whether the tab list is full width. */
     fullWidth?: boolean;
 }
@@ -144,7 +144,7 @@ export const TabList = <T extends Orientation>({
                     )
                 }
             >
-                {children ?? ((item) => <Tab {...item}>{item.children}</Tab>)}
+                {children ?? (otherProps.items ? (item) => <Tab {...item}>{item.children}</Tab> : undefined)}
             </AriaTabList>
         </TabListContext.Provider>
     );

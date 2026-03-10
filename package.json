@@ -33,7 +33,7 @@
     "url": "https://github.com/untitleduico/react.git"
   },
   "dependencies": {
-    "@internationalized/date": "^3.10.1",
+    "@internationalized/date": "^3.11.0",
     "@react-aria/utils": "^3.33.0",
     "@react-stately/utils": "^3.11.0",
     "@tailwindcss/typography": "^0.5.19",

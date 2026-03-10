@@ -75,9 +75,9 @@ export const MultiSelectBase = ({
     shortcut,
     placeholder = "Search",
     placeholderIcon,
-    // Omit these props to avoid conflicts with the `Select` component
+    // Omit name to avoid conflicts with the `Select` component
     name: _name,
-    className: _className,
+    className,
     ...props
 }: MultiSelectProps) => {
     const { contains } = useFilter({ sensitivity: "base" });
@@ -166,10 +166,11 @@ export const MultiSelectBase = ({
                 // This keeps the combobox popover open and the input value unchanged when an item is selected.
                 selectedKey={null}
                 onSelectionChange={onSelectionChange}
+                className={(state) => cx("flex flex-col gap-1.5", typeof className === "function" ? className(state) : className)}
                 {...props}
             >
                 {(state) => (
-                    <div className="flex flex-col gap-1.5">
+                    <>
                         {props.label && (
                             <Label isRequired={state.isRequired} tooltip={props.tooltip}>
                                 {props.label}
@@ -199,7 +200,7 @@ export const MultiSelectBase = ({
                                 {props.hint}
                             </HintText>
                         )}
-                    </div>
+                    </>
                 )}
             </AriaComboBox>
         </ComboboxContext.Provider>
