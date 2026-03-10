@@ -60,3 +60,10 @@ input[type="number"] {
 input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: none;
 }
+
+/* Hide the default outline on chart elements. */
+.recharts-surface,
+.recharts-surface g,
+.recharts-surface path {
+    outline: none;
+}

@@ -29,12 +29,12 @@ export const withOverlayAware = (customRenderer?: CustomRenderer) => (Story: Sto
     const [{ overlay }] = useGlobals() as unknown as [Globals];
 
     if (overlay?.visible) {
-        return Story(context, context);
+        return Story(context.args, context) as ReactElement;
     }
 
     if (customRenderer) {
         return customRenderer(Story as FC, context);
     }
 
-    return Story(context, context);
+    return Story(context.args, context) as ReactElement;
 };

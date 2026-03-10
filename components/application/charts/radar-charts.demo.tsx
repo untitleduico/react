@@ -1,20 +1,21 @@
 "use client";
 
 import { Fragment, useEffect, useRef } from "react";
-import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart as RechartsRadarChart, ResponsiveContainer, Tooltip } from "recharts";
+import {
+    type BaseTickContentProps,
+    Legend,
+    PolarAngleAxis,
+    PolarGrid,
+    PolarRadiusAxis,
+    Radar,
+    RadarChart as RechartsRadarChart,
+    ResponsiveContainer,
+    Tooltip,
+} from "recharts";
 import { ChartLegendContent, ChartTooltipContent } from "@/components/application/charts/charts-base";
 import { cx } from "@/utils/cx";
 
-interface CustomRadarChartTickProps {
-    payload: { value: string };
-    x: number;
-    y: number;
-    textAnchor: string;
-    stroke: string;
-    radius: number;
-}
-
-export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke, radius }: CustomRadarChartTickProps) => {
+export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke }: BaseTickContentProps) => {
     const textRef = useRef<SVGTextElement>(null);
     const rectRef = useRef<SVGRectElement>(null);
 
@@ -30,20 +31,12 @@ export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke, radius
             rectRef.current.setAttribute("x", (textBoundingBox.x - EXTRA_WIDTH / 2).toString());
             rectRef.current.setAttribute("y", (textBoundingBox.y - EXTRA_HEIGHT / 2).toString());
         }
-    }, [x, y, radius]);
+    }, [x, y]);
 
     return (
         <Fragment>
             <rect ref={rectRef} x={x} y={y} rx={11} className="fill-utility-gray-50 stroke-utility-gray-200 stroke-1"></rect>
-            <text
-                ref={textRef}
-                x={x}
-                y={y + 5}
-                radius={radius}
-                stroke={stroke}
-                textAnchor={textAnchor}
-                className="recharts-text recharts-polar-angle-axis-tick-value"
-            >
+            <text ref={textRef} x={x} y={Number(y) + 5} stroke={stroke} textAnchor={textAnchor} className="recharts-text recharts-polar-angle-axis-tick-value">
                 <tspan x={x} dy="0em" className="fill-utility-gray-700 text-xs font-medium">
                     {payload.value}
                 </tspan>

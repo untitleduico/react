@@ -9,7 +9,7 @@
         "@react-stately/utils": "^3.11.0",
         "@tailwindcss/typography": "^0.5.19",
         "@untitledui/file-icons": "^0.0.9",
-        "@untitledui/icons": "^0.0.19",
+        "@untitledui/icons": "^0.0.21",
         "embla-carousel-react": "^8.6.0",
         "input-otp": "^1.4.2",
         "motion": "^12.29.0",
@@ -946,7 +946,7 @@
 
     "@untitledui/file-icons": ["@untitledui/file-icons@0.0.9", "", { "peerDependencies": { "react": ">= 18" } }, "sha512-wz3btNnSSv2hTujgyxEFL21oyjPtGTj3osU8ZEMe8nwdlmLQEILLe96NMg9b1ciiOC5UOWNDeYIt7IfxEM6qtg=="],
 
-    "@untitledui/icons": ["@untitledui/icons@0.0.19", "", { "peerDependencies": { "react": ">= 16" } }, "sha512-cZA7BBE5+piNpzO9CiXypbmGYSDqnT3WwHn6/TU7cUuYl7oUlwIn0AwW/kYDDkmJMPu/wRlnJDR1/OiXd4nqew=="],
+    "@untitledui/icons": ["@untitledui/icons@0.0.21", "", { "peerDependencies": { "react": ">= 16" } }, "sha512-+aVWUw/1se9PIJgwMD3qp5ohynGlVNu2oHSLzMwYpiSFp6bFcxv4kUGy685hQXB/hE4WAqnp7dIEVVMD0tfL7w=="],
 
     "@vitejs/plugin-react": ["@vitejs/plugin-react@5.1.2", "", { "dependencies": { "@babel/core": "^7.28.5", "@babel/plugin-transform-react-jsx-self": "^7.27.1", "@babel/plugin-transform-react-jsx-source": "^7.27.1", "@rolldown/pluginutils": "1.0.0-beta.53", "@types/babel__core": "^7.20.5", "react-refresh": "^0.18.0" }, "peerDependencies": { "vite": "^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-EcA07pHJouywpzsoTUqNh5NwGayl2PPVEJKUSinGGSxFGYn+shYbqMGBg6FXDqgXum9Ou/ecb+411ssw8HImJQ=="],
 
