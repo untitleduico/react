@@ -33,7 +33,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
 
     const isSecondarySidebarVisible = isHovering && Boolean(currentItem.items?.length);
 
-    const MAIN_SIDEBAR_WIDTH = 296;
+    const MAIN_SIDEBAR_WIDTH = 280;
     const SECONDARY_SIDEBAR_WIDTH = 256;
 
     const mainSidebar = (
@@ -50,8 +50,13 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                 )}
             >
                 <div className="flex flex-col gap-5 px-4 lg:px-5">
-                    <UntitledLogo className="h-8" />
-                    <Input shortcut size="md" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                    <UntitledLogo className="h-6" />
+
+                    {/* Mobile search input */}
+                    <Input size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} className="md:hidden" />
+
+                    {/* Desktop search input */}
+                    <Input shortcut size="md" aria-label="Search" placeholder="Search" icon={SearchLg} className="max-md:hidden" />
                 </div>
 
                 <NavList activeUrl={activeUrl} items={items} className="lg:hidden" />
@@ -110,7 +115,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
                     className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary", !hideBorder && "box-content border-r-[1.5px]")}
                 >
-                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 py-6">
+                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-5">
                         {currentItem.items?.map((item) => (
                             <li key={item.label + item.href} className="py-0.5">
                                 <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">

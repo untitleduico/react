@@ -143,7 +143,7 @@ const NavAccountCardMenuItem = ({
                 )}
             >
                 <div className="flex gap-2 text-sm font-semibold text-secondary group-hover/item:text-secondary_hover">
-                    {Icon && <Icon className="size-5 text-fg-quaternary" />} {label}
+                    {Icon && <Icon className="size-5 text-fg-quaternary group-hover/item:text-fg-quaternary_hover" />} {label}
                 </div>
 
                 {shortcut && (

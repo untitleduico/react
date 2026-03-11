@@ -20,7 +20,7 @@ export const NavList = ({ activeUrl, items, className }: NavListProps) => {
     const [currentItem, setCurrentItem] = useState(activeItem);
 
     return (
-        <ul className={cx("mt-4 flex flex-col px-2 lg:px-4", className)}>
+        <ul className={cx("flex flex-col px-4 pt-5", className)}>
             {items.map((item, index) => {
                 if (item.divider) {
                     return (
@@ -35,7 +35,7 @@ export const NavList = ({ activeUrl, items, className }: NavListProps) => {
                         <details
                             key={item.label}
                             open={activeItem?.href === item.href}
-                            className="appearance-none py-0.5"
+                            className="appearance-none py-0.25"
                             onToggle={(e) => {
                                 setOpen(e.currentTarget.open);
                                 setCurrentItem(item);
@@ -46,9 +46,9 @@ export const NavList = ({ activeUrl, items, className }: NavListProps) => {
                             </NavItemBase>
 
                             <dd>
-                                <ul className="py-0.5">
+                                <ul className="pb-1">
                                     {item.items.map((childItem) => (
-                                        <li key={childItem.label} className="py-0.5">
+                                        <li key={childItem.label} className="py-0.25">
                                             <NavItemBase
                                                 href={childItem.href}
                                                 badge={childItem.badge}
@@ -66,7 +66,7 @@ export const NavList = ({ activeUrl, items, className }: NavListProps) => {
                 }
 
                 return (
-                    <li key={item.label} className="py-0.5">
+                    <li key={item.label} className="py-0.25">
                         <NavItemBase
                             type="link"
                             badge={item.badge}

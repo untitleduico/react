@@ -25,14 +25,19 @@ export const SidebarNavigationSectionDividers = ({ activeUrl, items }: SidebarNa
                     "--width": `${MAIN_SIDEBAR_WIDTH}px`,
                 } as React.CSSProperties
             }
-            className="flex h-full w-full max-w-full flex-col justify-between overflow-auto border-secondary bg-primary pt-4 shadow-xs md:border-r lg:w-(--width) lg:rounded-xl lg:border lg:pt-5"
+            className="flex h-full w-full max-w-full flex-col justify-between overflow-auto bg-primary pt-4 shadow-xs ring-secondary ring-inset lg:w-(--width) lg:rounded-xl lg:pt-5 lg:ring-1"
         >
             <div className="flex flex-col gap-5 px-4 lg:px-5">
-                <UntitledLogo className="h-8" />
-                <Input shortcut size="md" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                <UntitledLogo className="h-6" />
+
+                {/* Mobile search input */}
+                <Input size="md" aria-label="Search" placeholder="Search" icon={SearchLg} className="md:hidden" />
+
+                {/* Desktop search input */}
+                <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} className="max-md:hidden" />
             </div>
 
-            <NavList activeUrl={activeUrl} items={items} className="mt-5" />
+            <NavList activeUrl={activeUrl} items={items} />
 
             <div className="mt-auto flex flex-col gap-5 px-2 py-4 lg:gap-6 lg:px-4 lg:py-4">
                 <NavAccountCard />
