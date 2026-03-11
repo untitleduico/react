@@ -845,7 +845,10 @@ export const DropdownAccountBreadcrumb = () => {
         <Dropdown.Root>
             <AriaButton
                 className={({ isPressed, isFocusVisible }) =>
-                    cx("flex cursor-pointer items-center gap-1.5 rounded-lg outline-offset-4 outline-focus-ring", (isPressed || isFocusVisible) && "outline-2")
+                    cx(
+                        "flex cursor-pointer items-center gap-1.5 rounded-lg outline-0 outline-offset-2 outline-focus-ring",
+                        (isPressed || isFocusVisible) && "outline-2",
+                    )
                 }
             >
                 <div className="flex rounded-lg bg-primary p-0.5 ring-[0.5px] ring-secondary ring-inset">
@@ -858,6 +861,7 @@ export const DropdownAccountBreadcrumb = () => {
 
             <Dropdown.Popover className="w-62" placement="bottom left">
                 <Dropdown.Menu
+                    disallowEmptySelection
                     selectionMode="single"
                     selectedKeys={new Set([selectedAccountKey])}
                     onSelectionChange={(keys) => setSelectedAccountKey(Array.from(keys).join())}
