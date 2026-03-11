@@ -38,7 +38,7 @@ interface DropdownItemProps extends AriaMenuItemProps {
     /** Avatar URL to be displayed on the left side of the item. */
     avatarUrl?: string;
     /** The selection indicator to be displayed on the item. */
-    selectionIndicator?: "checkmark" | "checkbox" | "radio" | "toggle";
+    selectionIndicator?: "checkmark" | "checkbox" | "radio" | "toggle" | "none";
 }
 
 const DropdownItem = ({ label, children, addon, icon: Icon, avatarUrl, unstyled, selectionIndicator = "checkmark", ...props }: DropdownItemProps) => {

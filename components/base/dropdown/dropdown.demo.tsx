@@ -36,12 +36,7 @@ import { RadioButtonBase } from "../radio-buttons/radio-buttons";
 
 export const DropdownButtonSimple = () => (
     <Dropdown.Root>
-        <Button
-            size="sm"
-            className="group"
-            color="secondary"
-            iconTrailing={(props) => <ChevronDown data-icon="trailing" {...props} className="size-4! stroke-[2.25px]!" />}
-        >
+        <Button size="sm" color="secondary" iconTrailing={ChevronDown} className="group *:data-icon:size-4 *:data-icon:stroke-[2.25px]!">
             Account
         </Button>
 
@@ -863,7 +858,7 @@ export const DropdownAccountBreadcrumb = () => {
                 <Dropdown.Menu
                     disallowEmptySelection
                     selectionMode="single"
-                    selectedKeys={new Set([selectedAccountKey])}
+                    selectedKeys={[selectedAccountKey]}
                     onSelectionChange={(keys) => setSelectedAccountKey(Array.from(keys).join())}
                     className="flex flex-col gap-1 px-1.5 py-1.5"
                 >
