@@ -50,7 +50,7 @@ interface SelectValueProps {
 
 export const sizes = {
     sm: {
-        root: "py-2 px-3 gap-1.5 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
+        root: "py-2 px-3 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
         withIcon: "",
         text: "text-sm",
         textContainer: "gap-x-1.5",

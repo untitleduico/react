@@ -1,12 +1,13 @@
 "use client";
 
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { PinInput } from "@/components/base/input/pin-input";
 
 export const FourDigitsDemo = () => {
     return (
         <PinInput>
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group maxLength={4}>
+            <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -21,7 +22,7 @@ export const DisabledDemo = () => {
     return (
         <PinInput disabled>
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group maxLength={4}>
+            <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -37,7 +38,7 @@ export const SizesDemo = () => {
         <div className="flex flex-col gap-8">
             <PinInput size="sm">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group maxLength={4}>
+                <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -48,7 +49,7 @@ export const SizesDemo = () => {
 
             <PinInput size="md">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group maxLength={4}>
+                <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -59,7 +60,7 @@ export const SizesDemo = () => {
 
             <PinInput size="lg">
                 <PinInput.Label>Secure code</PinInput.Label>
-                <PinInput.Group maxLength={4}>
+                <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                     <PinInput.Slot index={0} />
                     <PinInput.Slot index={1} />
                     <PinInput.Slot index={2} />
@@ -75,7 +76,7 @@ export const InputOTPSM = () => {
     return (
         <PinInput size="xxxs">
             <PinInput.Label isRequired>Verification code</PinInput.Label>
-            <PinInput.Group maxLength={4}>
+            <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -89,7 +90,7 @@ export const InputOTPMD = () => {
     return (
         <PinInput size="xxs">
             <PinInput.Label isRequired>Verification code</PinInput.Label>
-            <PinInput.Group maxLength={4}>
+            <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -103,7 +104,7 @@ export const InputOTPLG = () => {
     return (
         <PinInput size="xs">
             <PinInput.Label isRequired>Verification code</PinInput.Label>
-            <PinInput.Group maxLength={4}>
+            <PinInput.Group maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -118,7 +119,7 @@ export const VerificationCodeInputSM = () => {
     return (
         <PinInput size="sm">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group maxLength={6}>
+            <PinInput.Group maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -136,7 +137,7 @@ export const VerificationCodeInputMD = () => {
     return (
         <PinInput size="md">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group maxLength={6}>
+            <PinInput.Group maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />
@@ -154,7 +155,7 @@ export const VerificationCodeInputLG = () => {
     return (
         <PinInput size="lg">
             <PinInput.Label>Secure code</PinInput.Label>
-            <PinInput.Group maxLength={6}>
+            <PinInput.Group maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
                 <PinInput.Slot index={0} />
                 <PinInput.Slot index={1} />
                 <PinInput.Slot index={2} />

@@ -13,12 +13,14 @@ type PinInputContextType = {
     size: PinInputSize;
     disabled: boolean;
     id: string;
+    invalid: boolean;
 };
 
 const PinInputContext = createContext<PinInputContextType>({
     size: "sm",
     id: "",
     disabled: false,
+    invalid: false,
 });
 
 export const usePinInputContext = () => {
@@ -34,13 +36,14 @@ export const usePinInputContext = () => {
 interface RootProps extends ComponentPropsWithRef<"div"> {
     size?: PinInputSize;
     disabled?: boolean;
+    invalid?: boolean;
 }
 
-const Root = ({ className, size = "md", disabled = false, ...props }: RootProps) => {
+const Root = ({ className, size = "md", disabled = false, invalid = false, ...props }: RootProps) => {
     const id = useId();
 
     return (
-        <PinInputContext.Provider value={{ size, disabled, id }}>
+        <PinInputContext.Provider value={{ size, disabled, id, invalid }}>
             <div role="group" className={cx("flex h-max flex-col gap-1.5", className)} {...props} />
         </PinInputContext.Provider>
     );
@@ -82,20 +85,23 @@ const Group = ({ inputClassName, containerClassName, width, maxLength = 4, ...pr
 Group.displayName = "Group";
 
 const Slot = ({ index, className, ...props }: ComponentPropsWithRef<"div"> & { index: number }) => {
-    const { size, disabled } = usePinInputContext();
+    const { size, disabled, invalid } = usePinInputContext();
     const { slots, isFocused } = useContext(OTPInputContext);
+
     const slot = slots[index];
 
     return (
         <div
             {...props}
+            aria-invalid={invalid}
             aria-label={"Enter digit " + (index + 1) + " of " + slots.length}
             className={cx(
                 "relative flex items-center justify-center rounded-xl bg-primary text-center text-placeholder/40 shadow-xs ring-1 ring-primary transition-[box-shadow,background-color] duration-100 ease-linear ring-inset",
                 styles[size].slot,
                 isFocused && slot?.isActive && "ring-2 ring-brand outline-2 outline-offset-2 outline-brand",
                 slot?.char && "text-brand-tertiary_alt ring-2 ring-brand",
-                disabled && "bg-disabled_subtle text-fg-disabled_subtle ring-disabled",
+                disabled && "opacity-50",
+                invalid && "text-error-primary ring-error_subtle",
                 className,
             )}
         >

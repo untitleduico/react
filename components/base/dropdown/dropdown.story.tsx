@@ -44,3 +44,6 @@ DropdownAccountCardSM.storyName = "Dropdown menu account card sm";
 
 export const DropdownAccountCardMD = () => <Dropdowns.DropdownAccountCardMD />;
 DropdownAccountCardMD.storyName = "Dropdown menu account card md";
+
+export const DropdownAccountBreadcrumb = () => <Dropdowns.DropdownAccountBreadcrumb />;
+DropdownAccountBreadcrumb.storyName = "Dropdown menu account breadcrumb";

@@ -12,25 +12,22 @@ import { SelectContext } from "./select";
 
 const sizes = {
     sm: {
-        root: "p-2 pr-2.5 gap-1.5",
+        root: "p-2 pr-2.5 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
         text: "text-sm",
         textContainer: "gap-x-1.5",
         check: "size-4 stroke-[2.25px]",
-        icon: "*:data-icon:size-4 *:data-icon:stroke-[2.25px]",
     },
     md: {
-        root: "p-2 pr-2.5 gap-2",
+        root: "p-2 pr-2.5 gap-2 *:data-icon:size-5",
         text: "text-md",
         textContainer: "gap-x-2",
         check: "size-5",
-        icon: "*:data-icon:size-5",
     },
     lg: {
-        root: "p-2.5 pl-2 gap-2",
+        root: "p-2.5 pl-2 gap-2 *:data-icon:size-5",
         text: "text-md",
         textContainer: "gap-x-2",
         check: "size-5",
-        icon: "*:data-icon:size-5",
     },
 };
 
@@ -58,7 +55,9 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
             textValue={textValue}
             isDisabled={isDisabled}
             {...props}
-            className={(state) => cx("w-full px-1.5 py-px outline-hidden", typeof className === "function" ? className(state) : className)}
+            className={(state) =>
+                cx("w-full py-px outline-hidden", size === "sm" ? "px-1" : "px-1.5", typeof className === "function" ? className(state) : className)
+            }
         >
             {(state) => (
                 <div
@@ -70,7 +69,7 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
                         state.isFocusVisible && "ring-2 ring-focus-ring ring-inset",
 
                         // Icon styles
-                        "*:data-icon:size-5 *:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
+                        "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
 
                         sizes[size].root,
                     )}

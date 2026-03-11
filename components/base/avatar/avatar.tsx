@@ -9,6 +9,10 @@ import { AvatarCount } from "./base-components/avatar-count";
 export interface AvatarProps {
     size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     className?: string;
+    /**
+     * The class name for the main child of the avatar.
+     */
+    contentClassName?: string;
     src?: string | null;
     alt?: string;
     /**
@@ -82,6 +86,7 @@ export const Avatar = ({
     count,
     focusable = false,
     className,
+    contentClassName,
 }: AvatarProps) => {
     const [isFailed, setIsFailed] = useState(false);
 
@@ -138,6 +143,7 @@ export const Avatar = ({
                     canShowImage &&
                         size !== "xs" &&
                         "before:absolute before:inset-0 before:rounded-full before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                    contentClassName,
                 )}
             >
                 {renderMainContent()}

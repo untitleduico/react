@@ -98,7 +98,7 @@ export const NavAccountMenu = ({
                             <button
                                 key={account.id}
                                 className={cx(
-                                    "relative w-full cursor-pointer rounded-md px-2 py-1.5 text-left outline-focus-ring hover:bg-primary_hover focus:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
+                                    "relative w-full cursor-pointer rounded-md px-2 py-1.5 text-left outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover focus:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
                                     account.id === selectedAccountId && "bg-primary_hover",
                                 )}
                             >
