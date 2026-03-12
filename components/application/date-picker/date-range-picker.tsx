@@ -8,10 +8,9 @@ import { useDateFormatter } from "react-aria";
 import type { DateRangePickerProps as AriaDateRangePickerProps, DateValue } from "react-aria-components";
 import { DateRangePicker as AriaDateRangePicker, Dialog as AriaDialog, Group as AriaGroup, Popover as AriaPopover, useLocale } from "react-aria-components";
 import { Button, type ButtonProps } from "@/components/base/buttons/button";
+import { InputDateBase } from "@/components/base/input/input-date";
 import { cx } from "@/utils/cx";
-import { DateInput } from "./date-input";
-import { RangeCalendar } from "./range-calendar";
-import { RangePresetButton } from "./range-preset";
+import { RangeCalendar, RangePresetButton } from "./range-calendar";
 
 const now = today(getLocalTimeZone());
 
@@ -25,7 +24,7 @@ interface DateRangePickerProps extends AriaDateRangePickerProps<DateValue> {
     onCancel?: () => void;
 }
 
-export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onApply, onCancel, size = "md", ...props }: DateRangePickerProps) => {
+export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onApply, onCancel, size = "sm", ...props }: DateRangePickerProps) => {
     const { locale } = useLocale();
     const formatter = useDateFormatter({
         month: "short",
@@ -126,14 +125,14 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                                     }}
                                 />
                                 <div className="flex justify-between gap-3 border-t border-secondary p-4">
-                                    <div className="hidden items-center gap-3 md:flex">
-                                        <DateInput slot="start" className="w-36" />
+                                    <div className="hidden items-center gap-2 md:flex">
+                                        <InputDateBase slot="start" size="sm" />
                                         <div className="text-md text-quaternary">–</div>
-                                        <DateInput slot="end" className="w-36" />
+                                        <InputDateBase slot="end" size="sm" />
                                     </div>
                                     <div className="grid w-full grid-cols-2 gap-3 md:flex md:w-auto">
                                         <Button
-                                            size="md"
+                                            size="sm"
                                             color="secondary"
                                             onClick={() => {
                                                 onCancel?.();
@@ -143,7 +142,7 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                                             Cancel
                                         </Button>
                                         <Button
-                                            size="md"
+                                            size="sm"
                                             color="primary"
                                             onClick={() => {
                                                 onApply?.();

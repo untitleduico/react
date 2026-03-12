@@ -1,18 +1,40 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { endOfMonth, endOfWeek, getLocalTimeZone, startOfMonth, startOfWeek, today } from "@internationalized/date";
-import type { DateValue } from "react-aria-components";
-import { DatePicker as AriaDatePicker, DateRangePicker as AriaDateRangePicker, Dialog as AriaDialog, useLocale } from "react-aria-components";
+import { endOfMonth, endOfWeek, getLocalTimeZone, startOfMonth, startOfWeek, toCalendarDateTime, today } from "@internationalized/date";
+import { Calendar as CalendarIcon, Clock } from "@untitledui/icons";
+import { useDateFormatter } from "react-aria";
+import type { DateValue, Key } from "react-aria-components";
+import {
+    DatePicker as AriaDatePicker,
+    DateRangePicker as AriaDateRangePicker,
+    Dialog as AriaDialog,
+    Group as AriaGroup,
+    Popover as AriaPopover,
+    DateField,
+    useLocale,
+} from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
+import { InputDateBase } from "@/components/base/input/input-date";
+import { Select } from "@/components/base/select/select";
+import { cx } from "@/utils/cx";
 import { Calendar } from "./calendar";
-import { DateInput } from "./date-input";
 import { DatePicker } from "./date-picker";
 import { DateRangePicker } from "./date-range-picker";
-import { RangeCalendar } from "./range-calendar";
-import { RangePresetButton } from "./range-preset";
+import { RangeCalendar, RangePresetButton } from "./range-calendar";
 
 const now = today(getLocalTimeZone());
+
+/** 27 slots = 9:00 AM to 10:00 PM in 30-min intervals */
+const TIME_SLOTS = Array.from({ length: 27 }, (_, i) => {
+    const totalMinutes = 9 * 60 + i * 30; // Start at 9:00 AM (540 min), step by 30
+    const hour = Math.floor(totalMinutes / 60);
+    const minute = totalMinutes % 60;
+    const period = hour >= 12 ? "PM" : "AM";
+    const h12 = hour % 12 || 12; // Convert 24h to 12h format
+    const label = `${h12}:${String(minute).padStart(2, "0")} ${period}`;
+    return { id: `${hour}:${String(minute).padStart(2, "0")}`, hour, minute, label };
+});
 
 export const CalendarDemo = () => <Calendar aria-label="Calendar" />;
 
@@ -23,10 +45,10 @@ export const CalendarCardDemo = () => (
                 <Calendar />
             </div>
             <div className="grid grid-cols-2 gap-3 border-t border-secondary p-4">
-                <Button size="md" color="secondary">
+                <Button size="sm" color="secondary">
                     Cancel
                 </Button>
-                <Button size="md" color="primary">
+                <Button size="sm" color="primary">
                     Apply
                 </Button>
             </div>
@@ -42,11 +64,141 @@ export const DatePickerControlledDemo = () => {
     return <DatePicker aria-label="Date picker" value={value} onChange={setValue} />;
 };
 
+export const DateTimePickerDemo = () => {
+    const [value, setValue] = useState<DateValue | null>(() => toCalendarDateTime(today(getLocalTimeZone())));
+    const [focusedValue, setFocusedValue] = useState<DateValue | null>(() => toCalendarDateTime(today(getLocalTimeZone())));
+    const dateFormatter = useDateFormatter({ month: "short", day: "numeric", year: "numeric" });
+    const timeFormatter = useDateFormatter({ hour: "numeric", minute: "numeric" });
+
+    const handleTodayClick = () => {
+        const t = today(getLocalTimeZone());
+
+        // Preserve the existing time when jumping to today
+        const date = value && "hour" in value ? toCalendarDateTime(t).set({ hour: value.hour, minute: value.minute }) : toCalendarDateTime(t);
+
+        setValue(date);
+        setFocusedValue(date);
+    };
+
+    const handleTimeClick = (key: Key | null) => {
+        const slot = TIME_SLOTS.find((s) => s.id === key);
+        if (!slot) return;
+
+        const date = value ?? toCalendarDateTime(today(getLocalTimeZone()));
+        setValue(date.set({ hour: slot.hour, minute: slot.minute }));
+    };
+
+    return (
+        <AriaDatePicker shouldCloseOnSelect={false} aria-label="Calendar card" value={value} onChange={setValue}>
+            <AriaGroup>
+                <Button size="sm" color="secondary" iconLeading={CalendarIcon}>
+                    {value ? (
+                        <>
+                            {dateFormatter.format(value.toDate(getLocalTimeZone()))}{" "}
+                            <span className="text-quaternary">{timeFormatter.format(value.toDate(getLocalTimeZone()))}</span>
+                        </>
+                    ) : (
+                        "Select date"
+                    )}
+                </Button>
+            </AriaGroup>
+            <AriaPopover
+                offset={8}
+                placement="bottom right"
+                className={({ isEntering, isExiting }) =>
+                    cx(
+                        "origin-(--trigger-anchor-point) will-change-transform",
+                        isEntering &&
+                            "duration-150 ease-out animate-in fade-in placement-right:slide-in-from-left-0.5 placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
+                        isExiting &&
+                            "duration-100 ease-in animate-out fade-out placement-right:slide-out-to-left-0.5 placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
+                    )
+                }
+            >
+                <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+                    <div className="flex">
+                        <div className="flex px-6 py-5">
+                            <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue}>
+                                <div className="flex flex-wrap gap-3 md:hidden">
+                                    <div className="flex flex-1 gap-3">
+                                        <DateField granularity="day" className="flex-1">
+                                            <InputDateBase size="sm" className="flex-1" />
+                                        </DateField>
+                                        <Button slot={null} size="sm" color="secondary" onClick={handleTodayClick}>
+                                            Today
+                                        </Button>
+                                    </div>
+                                    <Select
+                                        aria-label="Time"
+                                        size="sm"
+                                        placeholder="Time"
+                                        placeholderIcon={Clock}
+                                        items={TIME_SLOTS}
+                                        value={value && "hour" in value ? `${value.hour}:${String(value.minute).padStart(2, "0")}` : null}
+                                        onChange={handleTimeClick}
+                                        className="flex-1"
+                                    >
+                                        {(slot) => (
+                                            <Select.Item id={slot.id} icon={Clock}>
+                                                {slot.label}
+                                            </Select.Item>
+                                        )}
+                                    </Select>
+                                </div>
+                            </Calendar>
+                        </div>
+                        <div className="relative hidden min-h-0 w-50 flex-col gap-4 md:flex">
+                            <div className="px-5 pt-6.5 text-center text-sm font-semibold text-fg-secondary">Available times</div>
+                            <div className="relative h-full w-full">
+                                <ul className="absolute inset-0 flex min-h-0 flex-col gap-1.5 overflow-y-auto mask-b-from-80% mask-b-to-98% px-5 pb-5">
+                                    {TIME_SLOTS.map((slot) => {
+                                        const isSelected = value && "hour" in value && value.hour === slot.hour && value.minute === slot.minute;
+                                        return (
+                                            <li key={slot.id} className="flex-1">
+                                                <Button
+                                                    size="xs"
+                                                    color="secondary"
+                                                    className={cx("w-full", isSelected && "bg-primary_hover")}
+                                                    onClick={() => handleTimeClick(slot.id)}
+                                                >
+                                                    {slot.label}
+                                                </Button>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex gap-3 border-t border-secondary p-4">
+                        <div className="mr-auto hidden gap-3 md:flex">
+                            <DateField granularity="day" className="flex-1">
+                                <InputDateBase size="sm" />
+                            </DateField>
+                            <Button size="sm" color="secondary" onClick={handleTodayClick}>
+                                Today
+                            </Button>
+                        </div>
+
+                        <Button size="sm" color="secondary" className="max-md:flex-1">
+                            Cancel
+                        </Button>
+                        <Button size="sm" color="primary" className="max-md:flex-1">
+                            Apply
+                        </Button>
+                    </div>
+                </AriaDialog>
+            </AriaPopover>
+        </AriaDatePicker>
+    );
+};
+
 export const RangeCalendarDemo = () => <RangeCalendar aria-label="Range calendar" />;
 
 export const RangeCalendarCardDemo = () => {
     const { locale } = useLocale();
     const [focusedValue, setFocusedValue] = useState<DateValue | null>(null);
+    const now = useMemo(() => toCalendarDateTime(today(getLocalTimeZone())), []);
     const [value, setValue] = useState<{ start: DateValue; end: DateValue } | null>({
         start: now.subtract({ days: 7 }),
         end: now,
@@ -88,7 +240,7 @@ export const RangeCalendarCardDemo = () => {
                 },
             },
         }),
-        [locale],
+        [locale, now],
     );
 
     return (
@@ -119,16 +271,16 @@ export const RangeCalendarCardDemo = () => {
                         }}
                     />
                     <div className="flex justify-between gap-3 border-t border-secondary p-4">
-                        <div className="hidden items-center gap-3 md:flex">
-                            <DateInput slot="start" className="w-36" />
+                        <div className="hidden items-center gap-2 md:flex">
+                            <InputDateBase slot="start" size="sm" />
                             <div className="text-md text-quaternary">–</div>
-                            <DateInput slot="end" className="w-36" />
+                            <InputDateBase slot="end" size="sm" />
                         </div>
                         <div className="grid w-full grid-cols-2 gap-3 md:flex md:w-auto">
-                            <Button size="md" color="secondary">
+                            <Button size="sm" color="secondary">
                                 Cancel
                             </Button>
-                            <Button size="md" color="primary">
+                            <Button size="sm" color="primary">
                                 Apply
                             </Button>
                         </div>
@@ -140,6 +292,8 @@ export const RangeCalendarCardDemo = () => {
 };
 
 export const DateRangePickerDemo = () => {
+    const now = useMemo(() => toCalendarDateTime(today(getLocalTimeZone())), []);
+
     return (
         <DateRangePicker
             aria-label="Date range picker"
@@ -179,10 +333,10 @@ export const DarkModeDemo = () => {
                             <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue} />
                         </div>
                         <div className="grid grid-cols-2 gap-3 border-t border-secondary p-4">
-                            <Button size="md" color="secondary">
+                            <Button size="sm" color="secondary">
                                 Cancel
                             </Button>
-                            <Button size="md" color="primary">
+                            <Button size="sm" color="primary">
                                 Apply
                             </Button>
                         </div>
@@ -202,10 +356,10 @@ export const DarkModeDemo = () => {
                             <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue} />
                         </div>
                         <div className="grid grid-cols-2 gap-3 border-t border-secondary p-4">
-                            <Button size="md" color="secondary">
+                            <Button size="sm" color="secondary">
                                 Cancel
                             </Button>
-                            <Button size="md" color="primary">
+                            <Button size="sm" color="primary">
                                 Apply
                             </Button>
                         </div>

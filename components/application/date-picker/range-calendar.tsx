@@ -17,10 +17,10 @@ import {
     useSlottedContext,
 } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
+import { InputDateBase } from "@/components/base/input/input-date";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
 import { cx } from "@/utils/cx";
 import { CalendarCell } from "./cell";
-import { DateInput } from "./date-input";
 
 export const RangeCalendarContextProvider = ({ children }: PropsWithChildren) => {
     const [value, onChange] = useState<{ start: DateValue; end: DateValue } | null>(null);
@@ -46,6 +46,29 @@ const RangeCalendarTitle = ({ part }: { part: "start" | "end" }) => {
     return part === "start"
         ? formatter.format(context.visibleRange.start.toDate(context.timeZone))
         : formatter.format(context.visibleRange.end.toDate(context.timeZone));
+};
+
+interface RangePresetButtonProps extends HTMLAttributes<HTMLButtonElement> {
+    value: { start: DateValue; end: DateValue };
+}
+
+export const RangePresetButton = ({ value, className, children, ...props }: RangePresetButtonProps) => {
+    const context = useSlottedContext(RangeCalendarContext);
+
+    const isSelected = context?.value?.start?.compare(value.start) === 0 && context?.value?.end?.compare(value.end) === 0;
+
+    return (
+        <button
+            {...props}
+            className={cx(
+                "cursor-pointer rounded-md px-3 py-2 text-left text-sm font-medium outline-focus-ring transition duration-100 ease-linear focus-visible:outline-2 focus-visible:outline-offset-2",
+                isSelected ? "bg-active text-secondary_hover hover:bg-secondary_hover" : "text-secondary hover:bg-primary_hover hover:text-secondary_hover",
+                className,
+            )}
+        >
+            {children}
+        </button>
+    );
 };
 
 const MobilePresetButton = ({ value, children, ...props }: HTMLAttributes<HTMLButtonElement> & { value: { start: DateValue; end: DateValue } }) => {
@@ -95,7 +118,7 @@ export const RangeCalendar = ({ presets, visibleDuration, showOutOfRangeDates = 
                     months: visibleDurationMonths,
                 }}
             >
-                <div className="flex flex-col gap-3 px-6 py-5">
+                <div className="flex flex-col gap-3 px-6 py-5 md:gap-2">
                     <header className={cx("relative flex items-center", visibleDurationMonths > 1 ? "justify-start" : "justify-between")}>
                         <Button slot="previous" iconLeading={ChevronLeft} size="sm" color="tertiary" className="size-8" />
 
@@ -108,9 +131,9 @@ export const RangeCalendar = ({ presets, visibleDuration, showOutOfRangeDates = 
 
                     {!isDesktop && (
                         <div className="flex items-center gap-2 md:hidden">
-                            <DateInput slot="start" className="flex-1" />
+                            <InputDateBase slot="start" size="sm" className="flex-1" />
                             <div className="text-md text-quaternary">–</div>
-                            <DateInput slot="end" className="flex-1" />
+                            <InputDateBase slot="end" size="sm" className="flex-1" />
                         </div>
                     )}
 

@@ -22,6 +22,9 @@ CalendarDemo.storyName = "Calendar";
 export const CalendarCardDemo = () => <Demos.CalendarCardDemo />;
 CalendarCardDemo.storyName = "Calendar card";
 
+export const DateTimePickerDemo = () => <Demos.DateTimePickerDemo />;
+DateTimePickerDemo.storyName = "Date time picker";
+
 export const DatePickerDemo = () => <Demos.DatePickerDemo />;
 DatePickerDemo.storyName = "Date picker";
 
