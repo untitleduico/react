@@ -31,7 +31,7 @@ export interface CommonProps {
     placeholder?: string;
 }
 
-interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
+export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
     items?: SelectItemType[];
     popoverClassName?: string;
     placeholderIcon?: FC | ReactNode;

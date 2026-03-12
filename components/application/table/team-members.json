@@ -8,11 +8,11 @@
             "email": "olivia@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" },
-                { "name": "Engineering", "color": "yellow" },
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" },
+                { "name": "Engineering", "color": "warning" },
                 { "name": "Finance", "color": "orange" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80&w=100"
@@ -25,11 +25,11 @@
             "email": "phoenix@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" },
-                { "name": "Engineering", "color": "yellow" },
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" },
+                { "name": "Engineering", "color": "warning" },
                 { "name": "Finance", "color": "orange" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/phoenix-baker?fm=webp&q=80&w=100"
@@ -42,10 +42,10 @@
             "email": "lana@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" }
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/lana-steiner?fm=webp&q=80&w=100"
         },
@@ -57,9 +57,9 @@
             "email": "demi@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Support", "color": "green" }
+                { "name": "Support", "color": "success" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/demi-wilkinson?fm=webp&q=80&w=100"
         },
@@ -71,10 +71,10 @@
             "email": "candice@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" }
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/candice-wu"
         },
@@ -86,10 +86,10 @@
             "email": "natali@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" }
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/natali-craig?fm=webp&q=80&w=100"
         },
@@ -101,11 +101,11 @@
             "email": "drew@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" },
-                { "name": "Engineering", "color": "yellow" },
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" },
+                { "name": "Engineering", "color": "warning" },
                 { "name": "Finance", "color": "orange" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/drew-cano"
@@ -118,11 +118,11 @@
             "email": "orlando@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" },
-                { "name": "Engineering", "color": "yellow" },
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" },
+                { "name": "Engineering", "color": "warning" },
                 { "name": "Finance", "color": "orange" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/orlando-diggs?fm=webp&q=80&w=100"
@@ -135,11 +135,11 @@
             "email": "andi@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" },
-                { "name": "Engineering", "color": "yellow" },
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" },
+                { "name": "Engineering", "color": "warning" },
                 { "name": "Finance", "color": "orange" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/andi-lane?fm=webp&q=80&w=100"
@@ -152,10 +152,10 @@
             "email": "kate@untitledui.com",
             "teams": [
                 { "name": "Design", "color": "purple" },
-                { "name": "Product", "color": "blue-light" },
+                { "name": "Product", "color": "sky" },
                 { "name": "Marketing", "color": "indigo" },
-                { "name": "Sales", "color": "red" },
-                { "name": "Support", "color": "green" }
+                { "name": "Sales", "color": "error" },
+                { "name": "Support", "color": "success" }
             ],
             "avatarUrl": "https://www.untitledui.com/images/avatars/kate-morrison?fm=webp&q=80&w=100"
         }
