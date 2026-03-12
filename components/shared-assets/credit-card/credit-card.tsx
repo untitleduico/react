@@ -29,23 +29,23 @@ const styles = sortCx({
     },
     "brand-light": {
         root: "bg-brand-100 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-black/10 before:ring-inset",
-        company: "text-gray-700",
-        footerText: "text-gray-700",
+        company: "text-neutral-700",
+        footerText: "text-neutral-700",
         paypassIcon: "text-white",
         cardTypeRoot: "bg-white",
     },
     "gray-dark": {
-        root: "bg-linear-to-tr from-gray-900 to-gray-700 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
+        root: "bg-linear-to-tr from-neutral-900 to-neutral-700 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
         company: "text-white",
         footerText: "text-white",
         paypassIcon: "text-white",
         cardTypeRoot: "bg-white/10",
     },
     "gray-light": {
-        root: "bg-gray-100 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-black/10 before:ring-inset",
-        company: "text-gray-700",
-        footerText: "text-gray-700",
-        paypassIcon: "text-gray-400",
+        root: "bg-neutral-100 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-black/10 before:ring-inset",
+        company: "text-neutral-700",
+        footerText: "text-neutral-700",
+        paypassIcon: "text-neutral-400",
         cardTypeRoot: "bg-white",
     },
 
@@ -58,10 +58,10 @@ const styles = sortCx({
         cardTypeRoot: "bg-white/10",
     },
     "gray-strip": {
-        root: "bg-gray-100 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
-        company: "text-gray-700",
+        root: "bg-neutral-100 before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
+        company: "text-neutral-700",
         footerText: "text-white",
-        paypassIcon: "text-gray-400",
+        paypassIcon: "text-neutral-400",
         cardTypeRoot: "bg-white/10",
     },
     "gradient-strip": {
@@ -73,7 +73,7 @@ const styles = sortCx({
     },
     "salmon-strip": {
         root: "bg-[#F4D9D0] before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
-        company: "text-gray-700",
+        company: "text-neutral-700",
         footerText: "text-white",
         paypassIcon: "text-white",
         cardTypeRoot: "bg-white/10",
@@ -84,7 +84,7 @@ const styles = sortCx({
         root: "bg-linear-to-br from-white/30 to-transparent before:pointer-events-none before:absolute before:inset-0 before:z-1 before:rounded-[inherit] before:mask-linear-135 before:mask-linear-to-white/20 before:ring-1 before:ring-white/30 before:ring-inset",
         company: "text-white",
         footerText: "text-white",
-        paypassIcon: "text-gray-400",
+        paypassIcon: "text-neutral-400",
         cardTypeRoot: "bg-white/10",
     },
     "gradient-strip-vertical": {
@@ -177,11 +177,11 @@ export const CreditCard = ({
             >
                 {/* Horizontal strip */}
                 {STRIP_TYPES.includes(type as (typeof STRIP_TYPES)[number]) && (
-                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-1/2 bg-gray-800"></div>
+                    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-1/2 bg-neutral-800"></div>
                 )}
                 {/* Vertical stripe */}
                 {VERTICAL_STRIP_TYPES.includes(type as (typeof VERTICAL_STRIP_TYPES)[number]) && (
-                    <div className="pointer-events-none absolute inset-y-0 right-22 left-0 z-0 bg-gray-800"></div>
+                    <div className="pointer-events-none absolute inset-y-0 right-22 left-0 z-0 bg-neutral-800"></div>
                 )}
                 {/* Gradient diffusor */}
                 {type === "transparent-gradient" && (
@@ -189,7 +189,7 @@ export const CreditCard = ({
                         <div className="size-20 rounded-tl-full bg-pink-500 opacity-30 mix-blend-normal" />
                         <div className="size-20 rounded-tr-full bg-orange-500 opacity-50 mix-blend-normal" />
                         <div className="size-20 rounded-bl-full bg-blue-500 opacity-30 mix-blend-normal" />
-                        <div className="size-20 rounded-br-full bg-success-500 opacity-30 mix-blend-normal" />
+                        <div className="bg-success-500 size-20 rounded-br-full opacity-30 mix-blend-normal" />
                     </div>
                 )}
 

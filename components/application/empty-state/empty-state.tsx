@@ -53,7 +53,7 @@ interface FileTypeIconProps extends ComponentPropsWithRef<"div"> {
 
 const FileTypeIcon = ({ type = "folder", theme = "solid", ...props }: FileTypeIconProps) => {
     return (
-        <div {...props} className={cx("relative z-10 flex rounded-full bg-linear-to-b from-gray-50 to-gray-200 p-8", props.className)}>
+        <div {...props} className={cx("relative z-10 flex rounded-full bg-linear-to-b from-neutral-50 to-neutral-200 p-8", props.className)}>
             <FileIcon type={type} variant={theme} className="size-10 drop-shadow-sm" />
         </div>
     );

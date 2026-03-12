@@ -89,7 +89,7 @@ const withPillTypes = {
         styles: {
             gray: {
                 root: "bg-primary text-secondary ring-primary",
-                addon: "text-gray-500",
+                addon: "text-neutral-500",
                 addonButton: "hover:bg-utility-neutral-100 text-utility-neutral-400 hover:text-utility-neutral-500",
             },
         },

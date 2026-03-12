@@ -1081,7 +1081,7 @@ export const CloseX = () => {
                 <CloseButton size="lg" theme="light" />
             </div>
 
-            <div className="flex items-start gap-3 rounded-2xl bg-gray-950 p-12">
+            <div className="flex items-start gap-3 rounded-2xl bg-neutral-950 p-12">
                 <CloseButton size="sm" theme="dark" />
                 <CloseButton size="md" theme="dark" />
                 <CloseButton size="lg" theme="dark" />
