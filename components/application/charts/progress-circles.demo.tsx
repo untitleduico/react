@@ -76,7 +76,7 @@ export const ProgressCircle = ({ size = "sm", title, subtitle }: { size?: "xs" |
                         fill="currentColor"
                         cornerRadius={99}
                         background={{
-                            className: "fill-utility-gray-200",
+                            className: "fill-utility-neutral-200",
                         }}
                     />
 

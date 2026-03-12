@@ -19,7 +19,7 @@ const baseClasses: Record<Theme, { root?: string; addon?: string; icon?: string 
     modern: {
         root: "rounded-[10px] bg-primary text-secondary shadow-xs ring-1 ring-inset ring-primary hover:bg-secondary",
         addon: "flex items-center rounded-md bg-primary shadow-xs ring-1 ring-inset ring-primary",
-        icon: "text-utility-gray-500",
+        icon: "text-utility-neutral-500",
     },
 };
 
@@ -65,12 +65,12 @@ const colorClasses: Record<Theme, Record<Color, { root?: string; addon?: string;
         },
         gray: {
             root: "bg-utility-neutral-50 text-utility-neutral-700 ring-utility-neutral-200 hover:bg-utility-neutral-100",
-            addon: "ring-utility-neutral-200 bg-primary text-current",
+            addon: "bg-primary text-current ring-utility-neutral-200",
             icon: "text-utility-neutral-500",
         },
         error: {
             root: "bg-utility-red-50 text-utility-red-700 ring-utility-red-200 hover:bg-utility-red-100",
-            addon: "ring-utility-red-200 bg-primary text-current",
+            addon: "bg-primary text-current ring-utility-red-200",
             icon: "text-utility-red-500",
         },
         warning: {
@@ -89,10 +89,10 @@ const colorClasses: Record<Theme, Record<Color, { root?: string; addon?: string;
             dot: "bg-utility-brand-500 outline-3 -outline-offset-1 outline-utility-brand-100",
         },
         gray: {
-            dot: "bg-utility-neutral-500 outline-utility-neutral-100 outline-3 -outline-offset-1",
+            dot: "bg-utility-neutral-500 outline-3 -outline-offset-1 outline-utility-neutral-100",
         },
         error: {
-            dot: "bg-utility-red-500 outline-utility-red-100 outline-3 -outline-offset-1",
+            dot: "bg-utility-red-500 outline-3 -outline-offset-1 outline-utility-red-100",
         },
         warning: {
             dot: "bg-utility-yellow-500 outline-3 -outline-offset-1 outline-utility-yellow-100",

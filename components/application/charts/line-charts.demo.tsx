@@ -109,7 +109,7 @@ export const LineChart01 = () => {
                         </linearGradient>
                     </defs>
 
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <Legend
                         align="right"
@@ -237,7 +237,7 @@ export const LineChart02 = () => {
                         </linearGradient>
                     </defs>
 
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <Legend
                         verticalAlign="top"
@@ -364,17 +364,17 @@ export const LineChart03 = () => {
                 >
                     <defs>
                         <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="currentColor" className="text-utility-gray-500" stopOpacity="0.8" />
-                            <stop offset="80%" stopColor="currentColor" className="text-utility-gray-500" stopOpacity="0" />
+                            <stop offset="0%" stopColor="currentColor" className="text-utility-neutral-500" stopOpacity="0.8" />
+                            <stop offset="80%" stopColor="currentColor" className="text-utility-neutral-500" stopOpacity="0" />
                         </linearGradient>
 
                         <pattern id="verticalLines" width="8" height="100%" fill="url(#gradient)" patternUnits="userSpaceOnUse">
-                            <line x1="0" y1="0" x2="0" y2="100%" stroke="currentColor" className="text-utility-gray-200" strokeWidth="1.5" />
+                            <line x1="0" y1="0" x2="0" y2="100%" stroke="currentColor" className="text-utility-neutral-200" strokeWidth="1.5" />
                             <rect width="100%" height="100%" fill="url(#gradient)" fillOpacity={0.15} />
                         </pattern>
                     </defs>
 
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <Legend
                         verticalAlign="top"
@@ -479,8 +479,8 @@ export const LineChart04 = () => {
 
     const colors: Record<string, string> = {
         A: "text-utility-brand-600",
-        B: "text-utility-gray-500",
-        C: "text-utility-gray-400",
+        B: "text-utility-neutral-500",
+        C: "text-utility-neutral-400",
     };
 
     return (
@@ -498,12 +498,12 @@ export const LineChart04 = () => {
                 >
                     <defs>
                         <linearGradient id="gradient" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="currentColor" className="text-utility-gray-500" stopOpacity="0.7" />
-                            <stop offset="95%" stopColor="currentColor" className="text-utility-gray-500" stopOpacity="0" />
+                            <stop offset="5%" stopColor="currentColor" className="text-utility-neutral-500" stopOpacity="0.7" />
+                            <stop offset="95%" stopColor="currentColor" className="text-utility-neutral-500" stopOpacity="0" />
                         </linearGradient>
                     </defs>
 
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <Legend
                         verticalAlign="top"

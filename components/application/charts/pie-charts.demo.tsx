@@ -28,7 +28,7 @@ const pieChartData = [
     {
         name: "Series 5",
         value: 230,
-        className: "text-utility-gray-200",
+        className: "text-utility-neutral-200",
     },
     // collapse-end
 ];

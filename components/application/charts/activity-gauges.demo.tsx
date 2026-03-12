@@ -45,7 +45,7 @@ export const ActivityGaugeXs = ({ title = "1,000", subtitle = "Active users", da
                 // This is needed to start the chart at the top and go clockwise
                 startAngle={90}
                 endAngle={360 + 90}
-                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
@@ -65,7 +65,7 @@ export const ActivityGaugeXs = ({ title = "1,000", subtitle = "Active users", da
                     cornerRadius={99}
                     fill="currentColor"
                     background={{
-                        className: "fill-utility-gray-100",
+                        className: "fill-utility-neutral-100",
                     }}
                 />
 
@@ -99,7 +99,7 @@ export const ActivityGaugeSm = ({ title = "1,000", subtitle = "Active users", da
                 // This is needed to start the chart at the top and go clockwise
                 startAngle={90}
                 endAngle={360 + 90}
-                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
@@ -119,7 +119,7 @@ export const ActivityGaugeSm = ({ title = "1,000", subtitle = "Active users", da
                     cornerRadius={99}
                     fill="currentColor"
                     background={{
-                        className: "fill-utility-gray-100",
+                        className: "fill-utility-neutral-100",
                     }}
                 />
 
@@ -153,7 +153,7 @@ export const ActivityGaugeMd = ({ title = "1,000", subtitle = "Active users", da
                 // This is needed to start the chart at the top and go clockwise
                 startAngle={90}
                 endAngle={360 + 90}
-                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
@@ -173,7 +173,7 @@ export const ActivityGaugeMd = ({ title = "1,000", subtitle = "Active users", da
                     cornerRadius={99}
                     fill="currentColor"
                     background={{
-                        className: "fill-utility-gray-100",
+                        className: "fill-utility-neutral-100",
                     }}
                 />
 
@@ -207,7 +207,7 @@ export const ActivityGaugeLg = ({ title = "1,000", subtitle = "Active users", da
                 // This is needed to start the chart at the top and go clockwise
                 startAngle={90}
                 endAngle={360 + 90}
-                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                className="font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
@@ -227,7 +227,7 @@ export const ActivityGaugeLg = ({ title = "1,000", subtitle = "Active users", da
                     cornerRadius={99}
                     fill="currentColor"
                     background={{
-                        className: "fill-utility-gray-100",
+                        className: "fill-utility-neutral-100",
                     }}
                 />
 

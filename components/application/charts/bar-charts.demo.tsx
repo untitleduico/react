@@ -87,7 +87,7 @@ export const BarChart = () => {
     const colors: Record<string, string> = {
         A: "text-utility-brand-700",
         B: "text-utility-brand-500",
-        C: "text-utility-gray-200",
+        C: "text-utility-neutral-200",
     };
 
     return (
@@ -102,7 +102,7 @@ export const BarChart = () => {
                     bottom: 18,
                 }}
             >
-                <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                 <Legend
                     verticalAlign="top"
@@ -145,7 +145,7 @@ export const BarChart = () => {
                     formatter={(value) => Number(value).toLocaleString()}
                     labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                     cursor={{
-                        className: "fill-utility-gray-200/20",
+                        className: "fill-utility-neutral-200/20",
                     }}
                 />
 
@@ -261,7 +261,7 @@ export const BarChart02 = () => {
                     }}
                     className="text-tertiary [&_.recharts-text]:text-xs"
                 >
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <XAxis
                         fill="currentColor"
@@ -311,7 +311,7 @@ export const BarChart02 = () => {
                             return `${date.toLocaleDateString(undefined, { month: "short", day: "numeric" })} - ${endDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`;
                         }}
                         cursor={{
-                            className: "fill-utility-gray-200/20",
+                            className: "fill-utility-neutral-200/20",
                         }}
                     />
 
@@ -421,7 +421,7 @@ export const BarChart03 = () => {
                     }}
                     className="text-tertiary [&_.recharts-text]:text-xs"
                 >
-                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-gray-100" />
+                    <CartesianGrid vertical={false} stroke="currentColor" className="text-utility-neutral-100" />
 
                     <XAxis
                         fill="currentColor"
@@ -471,7 +471,7 @@ export const BarChart03 = () => {
                             return `${date.toLocaleDateString(undefined, { month: "short", day: "numeric" })} - ${endDate.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`;
                         }}
                         cursor={{
-                            className: "fill-utility-gray-200/20",
+                            className: "fill-utility-neutral-200/20",
                         }}
                     />
 
