@@ -171,7 +171,7 @@ export const Table01AlternatingFills = () => {
                 </Table.Header>
                 <Table.Body items={sortedItems}>
                     {(item) => (
-                        <Table.Row id={item.username} className="odd:bg-secondary_subtle">
+                        <Table.Row id={item.username} className="odd:bg-secondary">
                             <Table.Cell>
                                 <div className="flex items-center gap-3">
                                     <Avatar src={item.avatarUrl} alt={item.name} size="md" />
@@ -493,7 +493,7 @@ export const Table02AlternatingFills = () => {
                 </Table.Header>
                 <Table.Body items={sortedItems}>
                     {(item) => (
-                        <Table.Row id={item.name} className="odd:bg-secondary_subtle">
+                        <Table.Row id={item.name} className="odd:bg-secondary">
                             <Table.Cell>
                                 <div className="flex items-center gap-3">
                                     <Avatar src={item.logoUrl} alt={item.name} size="md" />
@@ -714,7 +714,7 @@ export const Table03AlternatingFills = () => {
                 </Table.Header>
                 <Table.Body items={sortedItems}>
                     {(item) => (
-                        <Table.Row id={item.id} className="odd:bg-secondary_subtle">
+                        <Table.Row id={item.id} className="odd:bg-secondary">
                             <Table.Cell className="font-medium text-primary">#{item.id}</Table.Cell>
                             <Table.Cell className="whitespace-nowrap">{item.date}</Table.Cell>
                             <Table.Cell>
@@ -846,7 +846,7 @@ export const Table04AlternatingFills = () => {
                 </Table.Header>
                 <Table.Body items={uploadedFiles.items}>
                     {(item) => (
-                        <Table.Row id={item.name} className="odd:bg-secondary_subtle">
+                        <Table.Row id={item.name} className="odd:bg-secondary">
                             <Table.Cell>
                                 <div className="flex items-center gap-3">
                                     <FileIcon type={item.name.split(".")[1]} theme="light" className="size-10 dark:hidden" />
