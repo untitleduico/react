@@ -59,6 +59,31 @@ export const PaginationButtonGroupLeftAligned = () => {
     return <Paginations.PaginationButtonGroup align="left" page={currentPage} onPageChange={setCurrentPage} />;
 };
 
+export const PaginationCardAdvanced = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    return (
+        <Paginations.PaginationCardAdvanced page={currentPage} total={10} pageSize={pageSize} onPageChange={setCurrentPage} onPageSizeChange={setPageSize} />
+    );
+};
+
+export const PaginationCardAdvancedCenter = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    return (
+        <Paginations.PaginationCardAdvanced
+            align="center"
+            page={currentPage}
+            total={10}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={setPageSize}
+        />
+    );
+};
+
 export const PaginationDotMd = () => {
     const [currentPage, setCurrentPage] = useState(1);
 

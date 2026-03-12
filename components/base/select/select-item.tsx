@@ -31,9 +31,24 @@ const sizes = {
     },
 };
 
-interface SelectItemProps extends Omit<AriaListBoxItemProps<SelectItemType>, "id">, SelectItemType {}
+interface SelectItemProps extends Omit<AriaListBoxItemProps<SelectItemType>, "id">, SelectItemType {
+    /** The selection indicator to be displayed on the item. */
+    selectionIndicator?: "checkmark" | "none";
+}
 
-export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisabled, icon: Icon, className, children, ...props }: SelectItemProps) => {
+export const SelectItem = ({
+    label,
+    id,
+    value,
+    avatarUrl,
+    supportingText,
+    isDisabled,
+    icon: Icon,
+    className,
+    children,
+    selectionIndicator = "checkmark",
+    ...props
+}: SelectItemProps) => {
     const { size } = useContext(SelectContext);
 
     const labelOrChildren = label || (typeof children === "string" ? children : "");
@@ -94,7 +109,9 @@ export const SelectItem = ({ label, id, value, avatarUrl, supportingText, isDisa
                         )}
                     </div>
 
-                    {state.isSelected && <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", sizes[size].check)} />}
+                    {state.isSelected && selectionIndicator === "checkmark" && (
+                        <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", sizes[size].check)} />
+                    )}
                 </div>
             )}
         </AriaListBoxItem>

@@ -7,7 +7,7 @@ export default {
     title: "Application/Pagination",
     decorators: [
         (Story: FC) => (
-            <div className="min-h-screen bg-secondary p-8">
+            <div className="min-h-screen bg-primary p-8 dark:bg-secondary">
                 <Story />
             </div>
         ),
@@ -40,6 +40,12 @@ PaginationButtonGroupCenterAligned.storyName = "Pagination button group center a
 
 export const PaginationButtonGroupLeftAligned = () => <Demos.PaginationButtonGroupLeftAligned />;
 PaginationButtonGroupLeftAligned.storyName = "Pagination button group left aligned";
+
+export const PaginationCardAdvanced = () => <Demos.PaginationCardAdvanced />;
+PaginationCardAdvanced.storyName = "Pagination card advanced";
+
+export const PaginationCardAdvancedCenter = () => <Demos.PaginationCardAdvancedCenter />;
+PaginationCardAdvancedCenter.storyName = "Pagination card advanced center";
 
 export const PaginationDotMd = () => <Demos.PaginationDotMd />;
 PaginationDotMd.storyName = "Pagination dot md";

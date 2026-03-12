@@ -15,7 +15,7 @@ import { Popover } from "./popover";
 import { SelectItem } from "./select-item";
 
 export type SelectItemType = {
-    id: string;
+    id: string | number;
     label?: string;
     avatarUrl?: string;
     isDisabled?: boolean;
