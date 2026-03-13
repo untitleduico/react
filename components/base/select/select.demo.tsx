@@ -282,61 +282,61 @@ export const DotLeadingDemo = () => {
             label: "Phoenix Baker",
             id: "@phoenix",
             supportingText: "@phoenix",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Olivia Rhye",
             id: "@olivia",
             supportingText: "@olivia",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Lana Steiner",
             id: "@lana",
             supportingText: "@lana",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Demi Wilkinson",
             id: "@demi",
             supportingText: "@demi",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Candice Wu",
             id: "@candice",
             supportingText: "@candice",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Natali Craig",
             id: "@natali",
             supportingText: "@natali",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Abraham Baker",
             id: "@abraham",
             supportingText: "@abraham",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Adem Lane",
             id: "@adem",
             supportingText: "@adem",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Jackson Reed",
             id: "@jackson",
             supportingText: "@jackson",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
         {
             label: "Jessie Meyton",
             id: "@jessie",
             supportingText: "@jessie",
-            icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+            icon: <Dot className="size-2.5 text-fg-success-secondary" />,
         },
     ];
 
@@ -347,7 +347,7 @@ export const DotLeadingDemo = () => {
             tooltip="This is a tooltip"
             hint="This is a hint text to help user."
             placeholder="Select team member"
-            placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+            placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
             items={items}
         >
             {(item) => (
@@ -825,10 +825,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (
@@ -845,10 +845,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (
@@ -866,10 +866,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (
@@ -886,10 +886,10 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
+                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
-                    icon: <Dot className="size-2.5 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />,
+                    icon: <Dot className="size-2.5 text-fg-success-secondary" />,
                 }))}
             >
                 {(item) => (

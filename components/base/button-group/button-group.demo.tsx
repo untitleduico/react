@@ -30,13 +30,13 @@ export const LeadingIcon = () => (
 
 export const ButtonGroupDot = () => (
     <ButtonGroup selectedKeys={["archive"]}>
-        <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
             Text
         </ButtonGroupItem>
-        <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
             Text
         </ButtonGroupItem>
-        <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+        <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
             Text
         </ButtonGroupItem>
     </ButtonGroup>
@@ -107,17 +107,13 @@ export const AllSmall = () => (
         </ButtonGroup>
 
         <ButtonGroup size="sm" selectedKeys={["archive"]}>
-            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Archive
             </ButtonGroupItem>
-            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Edit
             </ButtonGroupItem>
-            <ButtonGroupItem
-                id="delete"
-                isDisabled
-                iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-            >
+            <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Delete
             </ButtonGroupItem>
         </ButtonGroup>
@@ -153,17 +149,13 @@ export const All = () => (
         </ButtonGroup>
 
         <ButtonGroup selectedKeys={["archive"]}>
-            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="archive" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Archive
             </ButtonGroupItem>
-            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}>
+            <ButtonGroupItem id="edit" iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Edit
             </ButtonGroupItem>
-            <ButtonGroupItem
-                id="delete"
-                isDisabled
-                iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary in-disabled:text-fg-disabled_subtle" />}
-            >
+            <ButtonGroupItem id="delete" isDisabled iconLeading={<Dot className="mx-0.75 size-2 text-fg-success-secondary" />}>
                 Delete
             </ButtonGroupItem>
         </ButtonGroup>

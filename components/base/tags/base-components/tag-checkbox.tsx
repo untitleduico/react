@@ -19,7 +19,8 @@ export const TagCheckbox = ({ className, isFocused, isSelected, isDisabled, size
                 size === "md" && "size-4",
                 size === "lg" && "size-4.5",
                 isSelected && "bg-brand-solid ring-brand-solid",
-                isDisabled && "cursor-not-allowed bg-disabled_subtle ring-disabled",
+                isDisabled && "cursor-not-allowed opacity-50",
+                isDisabled && !isSelected && "bg-tertiary",
                 isFocused && "outline-2 outline-offset-2 outline-focus-ring",
                 className,
             )}
@@ -34,7 +35,6 @@ export const TagCheckbox = ({ className, isFocused, isSelected, isDisabled, size
                     size === "md" && "size-3",
                     size === "lg" && "size-3.5",
                     isSelected && "opacity-100",
-                    isDisabled && "text-fg-disabled_subtle",
                 )}
             >
                 <path d="M11.6666 3.5L5.24992 9.91667L2.33325 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />

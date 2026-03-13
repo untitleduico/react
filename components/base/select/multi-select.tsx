@@ -322,7 +322,7 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
                     <div
                         aria-hidden="true"
                         className={cx(
-                            "absolute inset-y-0.5 right-0.5 z-10 flex items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8",
+                            "absolute inset-y-0.5 right-0.5 z-10 hidden items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8 md:flex",
                             shortcutClassName,
                             sizes[size].shortcut,
                         )}
@@ -330,7 +330,7 @@ const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder
                         <span
                             className={cx(
                                 "pointer-events-none rounded px-1 py-px text-xs font-medium text-quaternary ring-1 ring-secondary select-none ring-inset",
-                                isDisabled && "bg-transparent text-disabled",
+                                isDisabled && "bg-transparent",
                             )}
                         >
                             ⌘K
