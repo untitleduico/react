@@ -153,6 +153,75 @@ export const TrailingButtonDemo = () => {
     );
 };
 
+export const PasswordInputDemo = () => {
+    const [password, setPassword] = useState("");
+
+    return (
+        <TextField isRequired minLength={8} name="password" autoComplete="new-password" onChange={setPassword}>
+            <Label>Password</Label>
+            <InputBase icon={Lock03} type="password" placeholder="••••••••••••" />
+            <HintText className="flex items-center gap-1">
+                <CheckCircle
+                    className={cx(
+                        "size-4 stroke-[2.25px] text-fg-quaternary transition duration-100 ease-linear in-invalid:hidden",
+                        password.length >= 8 && "text-fg-success-primary",
+                    )}
+                />
+                <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                Must be at least 8 characters.
+            </HintText>
+        </TextField>
+    );
+};
+
+export const DateInputDemo = () => {
+    return (
+        <InputDate
+            isRequired
+            label="Date"
+            hint="This is a hint text to help user."
+            placeholder="Select a date"
+            tooltip="This is a tooltip"
+            granularity="minute"
+            icon={Calendar}
+        />
+    );
+};
+
+export const NumberInputHorizontalDemo = () => {
+    return <InputNumber isRequired orientation="horizontal" label="Number" hint="This is a hint text to help user." placeholder="100" />;
+};
+
+export const NumberInputVerticalDemo = () => {
+    return <InputNumber isRequired label="Number" hint="This is a hint text to help user." placeholder="100" />;
+};
+
+export const TagInputDemo = () => {
+    return (
+        <InputTags
+            isRequired
+            label="Tags"
+            hint="This is a hint text to help user."
+            tooltip="This is a tooltip."
+            placeholder="Type and press Enter"
+            defaultValue={["Design", "Engineering"]}
+        />
+    );
+};
+
+export const TagInputOuterDemo = () => {
+    return (
+        <InputTagsOuter
+            isRequired
+            label="Tags"
+            hint="This is a hint text to help user."
+            tooltip="This is a tooltip."
+            placeholder="Add tag"
+            defaultValue={["Design", "Marketing"]}
+        />
+    );
+};
+
 export const Default = () => {
     return (
         <div className="flex flex-col gap-8">
