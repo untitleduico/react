@@ -186,7 +186,7 @@ export const InputNumber = ({
                     />
 
                     {hint && (
-                        <HintText isInvalid={isInvalid} className={cx(size === "md" && "text-xs")}>
+                        <HintText isInvalid={isInvalid} className={cx(size === "sm" && "text-xs")}>
                             {hint}
                         </HintText>
                     )}
