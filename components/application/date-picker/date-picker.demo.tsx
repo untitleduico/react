@@ -116,77 +116,81 @@ export const DateTimePickerDemo = () => {
                 }
             >
                 <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
-                    <div className="flex">
-                        <div className="flex px-6 py-5">
-                            <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue}>
-                                <div className="flex flex-wrap gap-3 md:hidden">
-                                    <div className="flex flex-1 gap-3">
-                                        <DateField granularity="day" className="flex-1">
-                                            <InputDateBase size="sm" className="flex-1" />
-                                        </DateField>
-                                        <Button slot={null} size="sm" color="secondary" onClick={handleTodayClick}>
-                                            Today
-                                        </Button>
-                                    </div>
-                                    <Select
-                                        aria-label="Time"
-                                        size="sm"
-                                        placeholder="Time"
-                                        placeholderIcon={Clock}
-                                        items={TIME_SLOTS}
-                                        value={value && "hour" in value ? `${value.hour}:${String(value.minute).padStart(2, "0")}` : null}
-                                        onChange={handleTimeClick}
-                                        className="flex-1"
-                                    >
-                                        {(slot) => (
-                                            <Select.Item id={slot.id} icon={Clock}>
-                                                {slot.label}
-                                            </Select.Item>
-                                        )}
-                                    </Select>
-                                </div>
-                            </Calendar>
-                        </div>
-                        <div className="relative hidden min-h-0 w-50 flex-col gap-4 md:flex">
-                            <div className="px-5 pt-6.5 text-center text-sm font-semibold text-fg-secondary">Available times</div>
-                            <div className="relative h-full w-full">
-                                <ul className="absolute inset-0 flex min-h-0 flex-col gap-1.5 overflow-y-auto mask-b-from-80% mask-b-to-98% px-5 pb-5">
-                                    {TIME_SLOTS.map((slot) => {
-                                        const isSelected = value && "hour" in value && value.hour === slot.hour && value.minute === slot.minute;
-                                        return (
-                                            <li key={slot.id} className="flex-1">
-                                                <Button
-                                                    size="xs"
-                                                    color="secondary"
-                                                    className={cx("w-full", isSelected && "bg-primary_hover")}
-                                                    onClick={() => handleTimeClick(slot.id)}
-                                                >
-                                                    {slot.label}
+                    {({ close }) => (
+                        <>
+                            <div className="flex">
+                                <div className="flex px-6 py-5">
+                                    <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue}>
+                                        <div className="flex flex-wrap gap-3 md:hidden">
+                                            <div className="flex flex-1 gap-3">
+                                                <DateField granularity="day" className="flex-1">
+                                                    <InputDateBase size="sm" className="flex-1" />
+                                                </DateField>
+                                                <Button slot={null} size="sm" color="secondary" onClick={handleTodayClick}>
+                                                    Today
                                                 </Button>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
+                                            </div>
+                                            <Select
+                                                aria-label="Time"
+                                                size="sm"
+                                                placeholder="Time"
+                                                placeholderIcon={Clock}
+                                                items={TIME_SLOTS}
+                                                value={value && "hour" in value ? `${value.hour}:${String(value.minute).padStart(2, "0")}` : null}
+                                                onChange={handleTimeClick}
+                                                className="flex-1"
+                                            >
+                                                {(slot) => (
+                                                    <Select.Item id={slot.id} icon={Clock}>
+                                                        {slot.label}
+                                                    </Select.Item>
+                                                )}
+                                            </Select>
+                                        </div>
+                                    </Calendar>
+                                </div>
+                                <div className="relative hidden min-h-0 w-50 flex-col gap-4 md:flex">
+                                    <div className="px-5 pt-6.5 text-center text-sm font-semibold text-fg-secondary">Available times</div>
+                                    <div className="relative h-full w-full">
+                                        <ul className="absolute inset-0 flex min-h-0 flex-col gap-1.5 overflow-y-auto mask-b-from-80% mask-b-to-98% px-5 pb-5">
+                                            {TIME_SLOTS.map((slot) => {
+                                                const isSelected = value && "hour" in value && value.hour === slot.hour && value.minute === slot.minute;
+                                                return (
+                                                    <li key={slot.id} className="flex-1">
+                                                        <Button
+                                                            size="xs"
+                                                            color="secondary"
+                                                            className={cx("w-full", isSelected && "bg-primary_hover")}
+                                                            onClick={() => handleTimeClick(slot.id)}
+                                                        >
+                                                            {slot.label}
+                                                        </Button>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="flex gap-3 border-t border-secondary p-4">
-                        <div className="mr-auto hidden gap-3 md:flex">
-                            <DateField granularity="day" className="flex-1">
-                                <InputDateBase size="sm" />
-                            </DateField>
-                            <Button size="sm" color="secondary" onClick={handleTodayClick}>
-                                Today
-                            </Button>
-                        </div>
+                            <div className="flex gap-3 border-t border-secondary p-4">
+                                <div className="mr-auto hidden gap-3 md:flex">
+                                    <DateField granularity="day" className="flex-1">
+                                        <InputDateBase size="sm" />
+                                    </DateField>
+                                    <Button size="sm" color="secondary" onClick={handleTodayClick}>
+                                        Today
+                                    </Button>
+                                </div>
 
-                        <Button size="sm" color="secondary" className="max-md:flex-1">
-                            Cancel
-                        </Button>
-                        <Button size="sm" color="primary" className="max-md:flex-1">
-                            Apply
-                        </Button>
-                    </div>
+                                <Button size="sm" color="secondary" className="max-md:flex-1" onClick={close}>
+                                    Cancel
+                                </Button>
+                                <Button size="sm" color="primary" className="max-md:flex-1" onClick={close}>
+                                    Apply
+                                </Button>
+                            </div>
+                        </>
+                    )}
                 </AriaDialog>
             </AriaPopover>
         </AriaDatePicker>
