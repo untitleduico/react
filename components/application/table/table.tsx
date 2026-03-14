@@ -85,12 +85,12 @@ const TableCardHeader = ({ title, badge, description, contentTrailing, className
         >
             <div className="flex flex-1 flex-col gap-0.5">
                 <div className="flex items-center gap-2">
-                    <h2 className={cx("font-semibold text-primary", size === "sm" ? "text-md" : "text-lg")}>{title}</h2>
+                    <h2 className="text-md font-semibold text-primary">{title}</h2>
                     {badge ? (
                         isValidElement(badge) ? (
                             badge
                         ) : (
-                            <Badge color="brand" size="sm">
+                            <Badge color="gray" size="sm" type="modern">
                                 {badge}
                             </Badge>
                         )
@@ -121,8 +121,7 @@ const TableRoot = ({ className, size = "md", ...props }: TableRootProps) => {
 TableRoot.displayName = "Table";
 
 interface TableHeaderProps<T extends object>
-    extends AriaTableHeaderProps<T>,
-        Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
+    extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
     bordered?: boolean;
 }
 
@@ -211,8 +210,7 @@ const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadP
 TableHead.displayName = "TableHead";
 
 interface TableRowProps<T extends object>
-    extends AriaRowProps<T>,
-        Omit<ComponentPropsWithRef<"tr">, "children" | "className" | "onClick" | "slot" | "style" | "id"> {
+    extends AriaRowProps<T>, Omit<ComponentPropsWithRef<"tr">, "children" | "className" | "onClick" | "slot" | "style" | "id"> {
     highlightSelectedRow?: boolean;
 }
 

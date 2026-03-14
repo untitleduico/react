@@ -102,18 +102,42 @@ TableNoVendorsFound.parameters = {
     },
 };
 
-export const TableStartByUploadingFile = () => <Tables.TableStartByUploadingFile />;
-TableStartByUploadingFile.storyName = "Table start by uploading file";
-TableStartByUploadingFile.parameters = {
-    design: {
-        desktop: "2219-470358",
-    },
-};
-
 export const TableSomethingWentWrong = () => <Tables.TableSomethingWentWrong />;
 TableSomethingWentWrong.storyName = "Table something went wrong";
 TableSomethingWentWrong.parameters = {
     design: {
         desktop: "2219-472490",
+    },
+};
+
+export const TableNoUsersFound = () => <Tables.TableNoUsersFound />;
+TableNoUsersFound.storyName = "Table no users found";
+TableNoUsersFound.parameters = {
+    design: {
+        desktop: "12201-544557",
+    },
+};
+
+export const TableAddFirstIntegration = () => <Tables.TableAddFirstIntegration />;
+TableAddFirstIntegration.storyName = "Table add first integration";
+TableAddFirstIntegration.parameters = {
+    design: {
+        desktop: "12201-544970",
+    },
+};
+
+export const TableInviteFirstUser = () => <Tables.TableInviteFirstUser />;
+TableInviteFirstUser.storyName = "Table invite first user";
+TableInviteFirstUser.parameters = {
+    design: {
+        desktop: "2219-470358",
+    },
+};
+
+export const TableOffline = () => <Tables.TableOffline />;
+TableOffline.storyName = "Table offline";
+TableOffline.parameters = {
+    design: {
+        desktop: "12201-545323",
     },
 };

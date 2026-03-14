@@ -221,7 +221,7 @@ const AvatarRow = ({ avatars = [], children, ...props }: AvatarRowProps) => {
         <div
             aria-hidden="true"
             {...props}
-            className={cx("flex items-center justify-center p-1", sizeKey === "sm" ? "gap-4" : sizeKey === "md" ? "gap-5" : "gap-6", props.className)}
+            className={cx("-m-1 flex items-center justify-center p-1", sizeKey === "sm" ? "gap-4" : sizeKey === "md" ? "gap-5" : "gap-6", props.className)}
             style={{
                 maskImage: "radial-gradient(circle, black 5%, transparent 105%)",
                 WebkitMaskImage: "radial-gradient(circle, black 5%, transparent 105%)",

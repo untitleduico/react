@@ -2,8 +2,24 @@
 
 import { useMemo, useState } from "react";
 import { FileIcon } from "@untitledui/file-icons";
-import { AlertCircle, Check, Edit01, FilterLines, Plus, ReverseLeft, SearchLg, Trash01, UploadCloud02, X } from "@untitledui/icons";
-import type { SortDescriptor } from "react-aria-components";
+import {
+    AlertCircle,
+    Check,
+    ChevronDown,
+    DownloadCloud02,
+    Edit01,
+    FilterLines,
+    Link03,
+    Plus,
+    RefreshCw05,
+    ReverseLeft,
+    SearchLg,
+    Trash01,
+    UploadCloud02,
+    UsersPlus,
+    X,
+} from "@untitledui/icons";
+import type { Key, SortDescriptor } from "react-aria-components";
 import { EmptyState } from "@/components/application/empty-state/empty-state";
 import { PaginationCardMinimal, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import customers from "@/components/application/table/customers.json";
@@ -14,11 +30,12 @@ import uploadedFiles from "@/components/application/table/uploaded-files.json";
 import { Avatar } from "@/components/base/avatar/avatar";
 import type { BadgeTypes } from "@/components/base/badges/badge-types";
 import { Badge, type BadgeColor, BadgeWithDot, BadgeWithIcon } from "@/components/base/badges/badges";
-import { ButtonGroup, ButtonGroupItem } from "@/components/base/button-group/button-group";
 import { Button } from "@/components/base/buttons/button";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { Input } from "@/components/base/input/input";
 import { ProgressBar } from "@/components/base/progress-indicators/progress-indicators";
+import { DateRangePicker } from "../date-picker/date-range-picker";
+import { TabList, Tabs } from "../tabs/tabs";
 
 export const Table01DividerLine = () => {
     const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
@@ -769,10 +786,10 @@ export const Table04DividerLine = () => {
                 className="pb-5"
                 contentTrailing={
                     <div className="flex items-center gap-3">
-                        <Button size="md" color="secondary">
+                        <Button size="sm" color="secondary">
                             Download all
                         </Button>
-                        <Button size="md" iconLeading={UploadCloud02}>
+                        <Button size="sm" iconLeading={UploadCloud02}>
                             Upload
                         </Button>
                     </div>
@@ -823,13 +840,12 @@ export const Table04AlternatingFills = () => {
         <TableCard.Root>
             <TableCard.Header
                 title="Files uploaded"
-                badge="10/20 seats"
                 contentTrailing={
                     <div className="flex items-center gap-3">
-                        <Button size="md" color="secondary">
+                        <Button size="sm" color="secondary">
                             Download all
                         </Button>
-                        <Button size="md" iconLeading={UploadCloud02}>
+                        <Button size="sm" iconLeading={UploadCloud02}>
                             Upload
                         </Button>
                     </div>
@@ -875,7 +891,15 @@ export const Table04AlternatingFills = () => {
     );
 };
 
+const viewTabs = [
+    { id: "all", label: "View all" },
+    { id: "active", label: "Active" },
+    { id: "archived", label: "Archived" },
+];
+
 export const TableNoVendorsFound = () => {
+    const [selectedTab, setSelectedTab] = useState<Key>("all");
+
     return (
         <TableCard.Root>
             <TableCard.Header
@@ -885,10 +909,10 @@ export const TableNoVendorsFound = () => {
                 contentTrailing={
                     <>
                         <div className="flex gap-3 md:pr-9">
-                            <Button color="secondary" size="md" iconLeading={UploadCloud02}>
+                            <Button color="secondary" size="sm" iconLeading={UploadCloud02}>
                                 Import
                             </Button>
-                            <Button size="md" iconLeading={Plus}>
+                            <Button size="sm" iconLeading={Plus}>
                                 Add vendor
                             </Button>
                         </div>
@@ -899,24 +923,24 @@ export const TableNoVendorsFound = () => {
                 }
             />
 
-            <div className="flex justify-between gap-4 border-b border-secondary px-4 py-3 md:px-6">
-                <ButtonGroup defaultSelectedKeys={["all"]}>
-                    <ButtonGroupItem id="all">View all</ButtonGroupItem>
-                    <ButtonGroupItem id="monitored">Monitored</ButtonGroupItem>
-                    <ButtonGroupItem id="unmonitored">Unmonitored</ButtonGroupItem>
-                </ButtonGroup>
-
-                <div className="hidden gap-3 md:flex">
-                    <Input icon={SearchLg} aria-label="Search" placeholder="Search" className="w-70" />
-                    <Button size="md" color="secondary" iconLeading={FilterLines}>
+            <div className="flex flex-wrap gap-3 border-b border-secondary px-4 py-3 max-md:flex-col md:px-6">
+                <div className="flex min-w-0 flex-1 flex-wrap gap-3">
+                    <Tabs selectedKey={selectedTab} onSelectionChange={setSelectedTab} className="w-auto">
+                        <TabList size="sm" type="button-minimal" items={viewTabs} />
+                    </Tabs>
+                </div>
+                <div className="flex shrink-0 items-center gap-3 max-md:w-full">
+                    <Input shortcut className="min-w-0 max-md:flex-1 md:w-70" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                    <Button color="secondary" size="sm" iconLeading={FilterLines} className="max-md:hidden">
                         Filters
                     </Button>
+                    <Button aria-label="Filters" color="secondary" size="sm" iconLeading={FilterLines} className="md:hidden" />
                 </div>
             </div>
 
-            <div className="flex items-center justify-center overflow-hidden px-8 pt-10 pb-12">
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
                 <EmptyState size="sm">
-                    <EmptyState.Header pattern="circle">
+                    <EmptyState.Header pattern="none">
                         <EmptyState.FeaturedIcon color="gray" theme="modern-neue" />
                     </EmptyState.Header>
 
@@ -928,64 +952,17 @@ export const TableNoVendorsFound = () => {
                     </EmptyState.Content>
 
                     <EmptyState.Footer>
-                        <Button size="md" color="secondary">
+                        <Button size="sm" color="secondary">
                             Clear search
                         </Button>
-                        <Button size="md" iconLeading={Plus}>
+                        <Button size="sm" iconLeading={Plus}>
                             New project
                         </Button>
                     </EmptyState.Footer>
                 </EmptyState>
             </div>
 
-            <div className="flex items-center justify-between border-t border-secondary px-6 pt-3 pb-4">
-                <span className="text-sm">Page 1 of 10</span>
-                <div className="flex gap-3">
-                    <Button color="secondary">Previous</Button>
-                    <Button color="secondary">Next</Button>
-                </div>
-            </div>
-        </TableCard.Root>
-    );
-};
-
-export const TableStartByUploadingFile = () => {
-    return (
-        <TableCard.Root>
-            <TableCard.Header
-                title="Files uploaded"
-                contentTrailing={
-                    <div className="flex items-center">
-                        <Button size="md" iconLeading={UploadCloud02}>
-                            Upload
-                        </Button>
-                    </div>
-                }
-            />
-
-            <div className="flex items-center justify-center overflow-hidden px-8 pt-10 pb-12">
-                <EmptyState size="sm">
-                    <EmptyState.Header pattern="grid">
-                        <EmptyState.Illustration type="cloud">
-                            <UploadCloud02 />
-                        </EmptyState.Illustration>
-                    </EmptyState.Header>
-
-                    <EmptyState.Content>
-                        <EmptyState.Title>Start by uploading a file</EmptyState.Title>
-                        <EmptyState.Description>
-                            Any assets used in projects will live here. <br />
-                            Start creating by uploading your files.
-                        </EmptyState.Description>
-                    </EmptyState.Content>
-
-                    <EmptyState.Footer>
-                        <Button size="md" iconLeading={Plus}>
-                            New project
-                        </Button>
-                    </EmptyState.Footer>
-                </EmptyState>
-            </div>
+            <PaginationCardMinimal align="right" />
         </TableCard.Root>
     );
 };
@@ -1003,9 +980,9 @@ export const TableSomethingWentWrong = () => {
                 }
             />
 
-            <div className="flex items-center justify-center overflow-hidden px-8 pt-10 pb-12">
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
                 <EmptyState size="sm">
-                    <EmptyState.Header pattern="circle">
+                    <EmptyState.Header pattern="none">
                         <EmptyState.FeaturedIcon color="error" theme="light" icon={AlertCircle} />
                     </EmptyState.Header>
 
@@ -1024,11 +1001,233 @@ export const TableSomethingWentWrong = () => {
                     </EmptyState.Content>
 
                     <EmptyState.Footer>
-                        <Button size="md" color="secondary">
+                        <Button size="sm">Try again</Button>
+                    </EmptyState.Footer>
+                </EmptyState>
+            </div>
+        </TableCard.Root>
+    );
+};
+
+const avatarRadiusData = [
+    { src: "https://www.untitledui.com/images/avatars/sienna-hewitt?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/ammar-foley?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/mathilde-lewis?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/caitlyn-king?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/lily-rose-chedjou?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/olly-schroeder?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/fleur-cook?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/julius-vaughan?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/amelie-laurent?fm=webp&q=80" },
+];
+
+export const TableNoUsersFound = () => {
+    return (
+        <TableCard.Root>
+            <TableCard.Header
+                title="Users"
+                badge="128 online"
+                description="Keep track of vendor and their security ratings."
+                contentTrailing={
+                    <>
+                        <div className="flex gap-3 md:pr-9">
+                            <Button color="secondary" size="sm" iconLeading={UploadCloud02}>
+                                Import
+                            </Button>
+                            <Button size="sm" iconLeading={Plus}>
+                                Add vendor
+                            </Button>
+                        </div>
+                        <div className="absolute top-5 right-4 md:right-6">
+                            <TableRowActionsDropdown />
+                        </div>
+                    </>
+                }
+            />
+
+            <div className="flex flex-wrap gap-3 border-b border-secondary px-4 py-3 md:px-6">
+                <div className="flex min-w-0 flex-1 flex-wrap gap-3">
+                    <Input shortcut className="min-w-0 flex-1 sm:max-w-70" size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                </div>
+                <div className="flex shrink-0 items-center gap-3">
+                    <DateRangePicker aria-label="Select dates" size="sm" className="max-md:hidden" />
+                    <Button color="secondary" size="sm" iconLeading={FilterLines} iconTrailing={ChevronDown}>
+                        Filters
+                    </Button>
+                </div>
+            </div>
+
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
+                <EmptyState size="sm">
+                    <EmptyState.Header pattern="none" className="my-16">
+                        <EmptyState.AvatarRadius avatars={avatarRadiusData} />
+                        <EmptyState.FeaturedIcon icon={SearchLg} color="gray" theme="modern" size="md" className="text-fg-quaternary" />
+                    </EmptyState.Header>
+
+                    <EmptyState.Content>
+                        <EmptyState.Title>No users found</EmptyState.Title>
+                        <EmptyState.Description>Your search did not match any users.</EmptyState.Description>
+                    </EmptyState.Content>
+
+                    <EmptyState.Footer>
+                        <Button size="sm" color="secondary">
                             Clear search
                         </Button>
-                        <Button size="md" iconLeading={Plus}>
-                            New project
+                        <Button size="sm" iconLeading={Plus}>
+                            Add user
+                        </Button>
+                    </EmptyState.Footer>
+                </EmptyState>
+            </div>
+
+            <PaginationCardMinimal />
+        </TableCard.Root>
+    );
+};
+
+const avatarGridData = [
+    { src: "https://www.untitledui.com/logos/images/Boltshift.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Catalog.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Layers.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Sisyphus.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Ephemeral.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Watchtower.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Leapyear.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Warpspeed.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Boltshift.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Catalog.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Layers.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Sisyphus.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Ephemeral.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Watchtower.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Leapyear.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Warpspeed.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Boltshift.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Catalog.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Layers.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Sisyphus.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Ephemeral.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Watchtower.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Leapyear.jpg" },
+    { src: "https://www.untitledui.com/logos/images/Warpspeed.jpg" },
+];
+
+export const TableAddFirstIntegration = () => {
+    return (
+        <TableCard.Root>
+            <TableCard.Header
+                title="Integrations"
+                description="Manage custom integrations and workflows."
+                contentTrailing={
+                    <div className="flex items-center">
+                        <Button color="secondary" size="sm" iconLeading={Plus}>
+                            New integration
+                        </Button>
+                    </div>
+                }
+            />
+
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
+                <EmptyState size="sm">
+                    <EmptyState.Header pattern="none" className="mb-6">
+                        <EmptyState.AvatarGrid avatars={avatarGridData} />
+                    </EmptyState.Header>
+
+                    <EmptyState.Content>
+                        <EmptyState.Title>Add your first integration</EmptyState.Title>
+                        <EmptyState.Description>Connect the tools you use every day to automate workflows and keep your data in sync.</EmptyState.Description>
+                    </EmptyState.Content>
+
+                    <EmptyState.Footer>
+                        <Button size="sm" color="secondary" iconLeading={Plus}>
+                            New integration
+                        </Button>
+                    </EmptyState.Footer>
+                </EmptyState>
+            </div>
+        </TableCard.Root>
+    );
+};
+
+const avatarRowData = [
+    { src: "https://www.untitledui.com/images/avatars/marco-kelly?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/lily-rose-chedjou?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/ammar-foley?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/sienna-hewitt?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/caitlyn-king?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/mathilde-lewis?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/zahra-christensen?fm=webp&q=80" },
+    { src: "https://www.untitledui.com/images/avatars/olly-schroeder?fm=webp&q=80" },
+];
+
+export const TableInviteFirstUser = () => {
+    return (
+        <TableCard.Root>
+            <TableCard.Header
+                title="Users"
+                description="Manage team members, external users, and their access."
+                contentTrailing={
+                    <div className="flex gap-3">
+                        <Button color="secondary" size="sm" iconLeading={DownloadCloud02}>
+                            Export CSV
+                        </Button>
+                        <Button size="sm" iconLeading={Plus}>
+                            Add user
+                        </Button>
+                    </div>
+                }
+            />
+
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
+                <EmptyState size="sm">
+                    <EmptyState.Header pattern="none" className="mb-6">
+                        <EmptyState.AvatarRow avatars={avatarRowData}>
+                            <EmptyState.FeaturedIcon icon={UsersPlus} color="gray" theme="modern-neue" size="lg" className="text-fg-quaternary" />
+                        </EmptyState.AvatarRow>
+                    </EmptyState.Header>
+
+                    <EmptyState.Content>
+                        <EmptyState.Title>Invite your first user</EmptyState.Title>
+                        <EmptyState.Description>Add your team members and external users.</EmptyState.Description>
+                    </EmptyState.Content>
+
+                    <EmptyState.Footer>
+                        <Button size="sm" color="secondary" iconLeading={Link03}>
+                            Create link
+                        </Button>
+                        <Button size="sm" iconLeading={Plus}>
+                            Add user
+                        </Button>
+                    </EmptyState.Footer>
+                </EmptyState>
+            </div>
+        </TableCard.Root>
+    );
+};
+
+export const TableOffline = () => {
+    return (
+        <TableCard.Root>
+            <TableCard.Header title="My orders" />
+
+            <div className="flex items-center justify-center overflow-hidden px-8 py-20">
+                <EmptyState size="sm">
+                    <EmptyState.Header pattern="none">
+                        <EmptyState.Illustration type="cloud">
+                            <UploadCloud02 />
+                        </EmptyState.Illustration>
+                    </EmptyState.Header>
+
+                    <EmptyState.Content>
+                        <EmptyState.Title>You're offline</EmptyState.Title>
+                        <EmptyState.Description>
+                            Please check your internet connection and try again. If the issue continues, contact support.
+                        </EmptyState.Description>
+                    </EmptyState.Content>
+
+                    <EmptyState.Footer>
+                        <Button size="sm" color="secondary" iconLeading={RefreshCw05}>
+                            Refresh page
                         </Button>
                     </EmptyState.Footer>
                 </EmptyState>
