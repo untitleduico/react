@@ -26,7 +26,7 @@ const getTabStyles = ({ isFocusVisible, isSelected, isHovered }: AriaTabRenderPr
         "outline-focus-ring *:data-icon:text-fg-quaternary",
         isHovered && "bg-primary_hover text-secondary *:data-icon:text-fg-secondary_hover",
         isFocusVisible && "outline-2 -outline-offset-2",
-        isSelected && "bg-active text-secondary *:data-icon:text-fg-secondary_hover",
+        isSelected && "bg-primary_hover text-secondary *:data-icon:text-fg-secondary_hover",
     ),
     "button-border": cx(
         "outline-focus-ring *:data-icon:text-fg-quaternary",

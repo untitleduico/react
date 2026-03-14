@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC, ReactNode, Ref, RefAttributes } from "react";
-import { createContext, isValidElement } from "react";
+import { isValidElement } from "react";
 import { ChevronDown } from "@untitledui/icons";
 import type { SelectProps as AriaSelectProps } from "react-aria-components";
 import { Button as AriaButton, ListBox as AriaListBox, Select as AriaSelect, SelectValue as AriaSelectValue } from "react-aria-components";
@@ -13,23 +13,9 @@ import { isReactComponent } from "@/utils/is-react-component";
 import { ComboBox } from "./combobox";
 import { Popover } from "./popover";
 import { SelectItem } from "./select-item";
+import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
 
-export type SelectItemType = {
-    id: string | number;
-    label?: string;
-    avatarUrl?: string;
-    isDisabled?: boolean;
-    supportingText?: string;
-    icon?: FC | ReactNode;
-};
-
-export interface CommonProps {
-    hint?: string;
-    label?: string;
-    tooltip?: string;
-    size?: "sm" | "md" | "lg";
-    placeholder?: string;
-}
+export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./select-shared";
 
 export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
     items?: SelectItemType[];
@@ -47,18 +33,6 @@ interface SelectValueProps {
     ref?: Ref<HTMLButtonElement>;
     placeholderIcon?: FC | ReactNode;
 }
-
-export const sizes = {
-    sm: {
-        root: "py-2 px-3 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]",
-        withIcon: "",
-        text: "text-sm",
-        textContainer: "gap-x-1.5",
-        shortcut: "pr-2.5",
-    },
-    md: { root: "py-2 px-3 gap-2 *:data-icon:size-5", withIcon: "", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-2.5" },
-    lg: { root: "py-2.5 px-3.5 gap-2 *:data-icon:size-5", withIcon: "", text: "text-md", textContainer: "gap-x-2", shortcut: "pr-3" },
-};
 
 const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeholderIcon, ref }: SelectValueProps) => {
     return (
@@ -119,8 +93,6 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
         </AriaButton>
     );
 };
-
-export const SelectContext = createContext<{ size: "sm" | "md" | "lg" }>({ size: "sm" });
 
 const Select = ({ placeholder = "Select", placeholderIcon, size = "sm", children, items, label, hint, tooltip, className, ...rest }: SelectProps) => {
     return (

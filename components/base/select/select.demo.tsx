@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { User01 } from "@untitledui/icons";
+import type { Selection } from "react-aria-components";
 import { useListData } from "react-stately";
 import { MultiSelect } from "@/components/base/select/multi-select";
 import { Select, type SelectItemType } from "@/components/base/select/select";
 import { NativeSelect } from "@/components/base/select/select-native";
+import { TagSelect } from "@/components/base/select/tag-select";
 import { Dot } from "@/components/foundations/dot-icon";
 
 const items: SelectItemType[] = [
@@ -419,7 +422,7 @@ export const TagsDemo = () => {
     ];
 
     return (
-        <MultiSelect
+        <TagSelect
             isRequired
             selectedItems={selectedItems}
             label="Search"
@@ -429,11 +432,11 @@ export const TagsDemo = () => {
             items={items}
         >
             {(item) => (
-                <MultiSelect.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
+                <TagSelect.Item id={item.id} supportingText={item.supportingText} isDisabled={item.isDisabled} icon={item.icon} avatarUrl={item.avatarUrl}>
                     {item.label}
-                </MultiSelect.Item>
+                </TagSelect.Item>
             )}
-        </MultiSelect>
+        </TagSelect>
     );
 };
 
@@ -1012,7 +1015,7 @@ export const Tags = () => {
     return (
         <div className="flex flex-col gap-16">
             <div className="flex flex-col gap-4">
-                <MultiSelect
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     isRequired
@@ -1023,7 +1026,7 @@ export const Tags = () => {
                     items={items}
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1031,11 +1034,11 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
+                </TagSelect>
 
-                <MultiSelect
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     isRequired
@@ -1047,7 +1050,7 @@ export const Tags = () => {
                     isDisabled
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1055,12 +1058,12 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
+                </TagSelect>
             </div>
             <div className="flex flex-col gap-4">
-                <MultiSelect
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     size="md"
@@ -1072,7 +1075,7 @@ export const Tags = () => {
                     placeholder="Search"
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1080,10 +1083,10 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
-                <MultiSelect
+                </TagSelect>
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     size="md"
@@ -1096,7 +1099,7 @@ export const Tags = () => {
                     isDisabled
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1104,12 +1107,12 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
+                </TagSelect>
             </div>
             <div className="flex flex-col gap-4">
-                <MultiSelect
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     size="lg"
@@ -1121,7 +1124,7 @@ export const Tags = () => {
                     placeholder="Search"
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1129,10 +1132,10 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
-                <MultiSelect
+                </TagSelect>
+                <TagSelect
                     shortcut
                     selectedItems={selectedItems}
                     size="lg"
@@ -1145,7 +1148,7 @@ export const Tags = () => {
                     isDisabled
                 >
                     {(item) => (
-                        <MultiSelect.Item
+                        <TagSelect.Item
                             id={item.id}
                             supportingText={item.supportingText}
                             isDisabled={item.isDisabled}
@@ -1153,10 +1156,126 @@ export const Tags = () => {
                             avatarUrl={item.avatarUrl}
                         >
                             {item.label}
-                        </MultiSelect.Item>
+                        </TagSelect.Item>
                     )}
-                </MultiSelect>
+                </TagSelect>
             </div>
         </div>
     );
 };
+
+const teamItems: SelectItemType[] = [
+    { id: "engineering", label: "Engineering", supportingText: "12 users" },
+    { id: "design", label: "Design", supportingText: "10 users" },
+    { id: "product", label: "Product", supportingText: "6 users" },
+    { id: "marketing", label: "Marketing", supportingText: "8 users" },
+    { id: "sales", label: "Sales", supportingText: "12 users" },
+    { id: "customer-success", label: "Customer Success", supportingText: "4 users" },
+    { id: "operations", label: "Operations", supportingText: "2 users" },
+    { id: "finance", label: "Finance", supportingText: "2 users" },
+];
+
+const getSelectedUserCount = (selectedKeys: Selection) => {
+    if (selectedKeys === "all") return teamItems.reduce((sum, t) => sum + parseInt(t.supportingText?.split(" ")[0] || "0"), 0);
+    const selected = teamItems.filter((t) => (selectedKeys as Set<string | number>).has(t.id));
+    return selected.reduce((sum, t) => sum + parseInt(t.supportingText?.split(" ")[0] || "0"), 0);
+};
+
+export const MultiSelectSmDemo = () => {
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["design", "product"]));
+
+    return (
+        <MultiSelect
+            isRequired
+            size="sm"
+            label="Teams"
+            tooltip="This is a tooltip"
+            hint="This is a hint text to help user."
+            placeholder="Select teams"
+            items={teamItems}
+            selectedKeys={selectedKeys}
+            onSelectionChange={setSelectedKeys}
+            supportingText={`${getSelectedUserCount(selectedKeys)} users`}
+            onReset={() => setSelectedKeys(new Set())}
+            onSelectAll={() => setSelectedKeys(new Set(teamItems.map((t) => t.id)))}
+        >
+            {(item) => (
+                <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                    {item.label}
+                </MultiSelect.Item>
+            )}
+        </MultiSelect>
+    );
+};
+
+export const MultiSelectMdDemo = () => {
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["design", "product"]));
+
+    return (
+        <MultiSelect
+            isRequired
+            size="md"
+            label="Teams"
+            tooltip="This is a tooltip"
+            hint="This is a hint text to help user."
+            placeholder="Select teams"
+            items={teamItems}
+            selectedKeys={selectedKeys}
+            onSelectionChange={setSelectedKeys}
+            supportingText={`${getSelectedUserCount(selectedKeys)} users`}
+            onReset={() => setSelectedKeys(new Set())}
+            onSelectAll={() => setSelectedKeys(new Set(teamItems.map((t) => t.id)))}
+        >
+            {(item) => (
+                <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                    {item.label}
+                </MultiSelect.Item>
+            )}
+        </MultiSelect>
+    );
+};
+
+export const MultiSelectLgDemo = () => {
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["design", "product"]));
+
+    return (
+        <MultiSelect
+            isRequired
+            size="lg"
+            label="Teams"
+            tooltip="This is a tooltip"
+            hint="This is a hint text to help user."
+            placeholder="Select teams"
+            items={teamItems}
+            selectedKeys={selectedKeys}
+            onSelectionChange={setSelectedKeys}
+            supportingText={`${getSelectedUserCount(selectedKeys)} users`}
+            onReset={() => setSelectedKeys(new Set())}
+            onSelectAll={() => setSelectedKeys(new Set(teamItems.map((t) => t.id)))}
+        >
+            {(item) => (
+                <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                    {item.label}
+                </MultiSelect.Item>
+            )}
+        </MultiSelect>
+    );
+};
+
+export const MultiSelectDisabledDemo = () => (
+    <MultiSelect
+        size="sm"
+        label="Teams"
+        tooltip="This is a tooltip"
+        hint="This is a hint text to help user."
+        placeholder="Select teams"
+        items={teamItems}
+        isDisabled
+    >
+        {(item) => (
+            <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                {item.label}
+            </MultiSelect.Item>
+        )}
+    </MultiSelect>
+);

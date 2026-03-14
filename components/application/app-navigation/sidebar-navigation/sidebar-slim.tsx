@@ -64,7 +64,6 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     {items.map((item) => (
                         <li key={item.label}>
                             <NavButton
-                                size="md"
                                 current={currentItem.href === item.href}
                                 href={item.href}
                                 label={item.label || ""}
@@ -80,7 +79,6 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                             {footerItems.map((item) => (
                                 <li key={item.label}>
                                     <NavButton
-                                        size="md"
                                         current={currentItem.href === item.href}
                                         label={item.label || ""}
                                         href={item.href}

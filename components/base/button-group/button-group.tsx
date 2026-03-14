@@ -19,7 +19,7 @@ export const styles = sortCx({
             // Disabled styles
             "disabled:cursor-not-allowed disabled:text-secondary/50 disabled:*:opacity-50",
             // Selected styles
-            "selected:bg-active selected:text-secondary_hover",
+            "selected:bg-primary_hover selected:text-secondary_hover",
         ].join(" "),
         icon: "pointer-events-none text-fg-quaternary transition-[inherit] group-hover/button-group:text-fg-quaternary_hover",
     },

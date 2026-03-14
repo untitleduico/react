@@ -5,13 +5,6 @@ import { Pressable } from "react-aria-components";
 import { Tooltip } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
 
-const styles = {
-    md: {
-        root: "size-10",
-        icon: "size-5",
-    },
-};
-
 interface NavButtonProps {
     /** Whether the collapsible nav item is open. */
     open?: boolean;
@@ -45,7 +38,7 @@ export const NavButton = ({ current, label, href, icon: Icon, className, tooltip
                     onClick={onClick}
                     className={cx(
                         "group/item relative flex w-full cursor-pointer items-center justify-center gap-1 rounded-md bg-primary outline-focus-ring transition duration-100 ease-linear select-none hover:bg-primary_hover focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
-                        current && "bg-active hover:bg-secondary_hover",
+                        current && "bg-secondary hover:bg-secondary_hover",
                         iconOnly ? "size-9" : "px-2 py-1.5",
                         className,
                     )}
@@ -54,7 +47,7 @@ export const NavButton = ({ current, label, href, icon: Icon, className, tooltip
                         <Icon
                             aria-hidden="true"
                             className={cx(
-                                "size-5 shrink-0 text-fg-quaternary transition transition-inherit-all duration-100 ease-linear group-hover/item:text-fg-quaternary_hover",
+                                "size-5 shrink-0 text-fg-quaternary transition-inherit-all group-hover/item:text-fg-quaternary_hover",
                                 current && "text-fg-quaternary_hover",
                             )}
                         />

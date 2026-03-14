@@ -16,6 +16,8 @@ export interface InputBaseProps extends Omit<AriaInputProps, "size"> {
     isInvalid?: boolean;
     /** Whether the input is disabled. */
     isDisabled?: boolean;
+    /** Whether the input is required. */
+    isRequired?: boolean;
     /**
      * Input size.
      * @default "sm"
@@ -47,6 +49,7 @@ export const InputBase = ({
     size = "md",
     isInvalid,
     isDisabled,
+    isRequired,
     icon: Icon,
     placeholder,
     wrapperClassName,
@@ -124,6 +127,7 @@ export const InputBase = ({
             <AriaInput
                 {...(inputProps as AriaInputProps)}
                 ref={ref}
+                required={isRequired}
                 type={type === "password" && isPasswordVisible ? "text" : type}
                 placeholder={placeholder}
                 className={cx(

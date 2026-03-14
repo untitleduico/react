@@ -1,395 +1,328 @@
 "use client";
 
-import type { FocusEventHandler, KeyboardEvent, PointerEventHandler, RefAttributes, RefObject } from "react";
-import { createContext, useCallback, useContext, useRef, useState } from "react";
-import { SearchLg } from "@untitledui/icons";
-import { FocusScope, useFilter, useFocusManager } from "react-aria";
-import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key } from "react-aria-components";
-import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox, ComboBoxStateContext } from "react-aria-components";
-import type { ListData } from "react-stately";
-import { useListData } from "react-stately";
-import { Avatar } from "@/components/base/avatar/avatar";
-import type { IconComponentType } from "@/components/base/badges/badge-types";
+import type { ReactNode, RefAttributes } from "react";
+import { useCallback, useRef, useState } from "react";
+import { ChevronDown, SearchLg } from "@untitledui/icons";
+import { useFilter } from "react-aria";
+import type { Selection } from "react-aria-components";
+import {
+    Autocomplete as AriaAutocomplete,
+    Button as AriaButton,
+    Dialog as AriaDialog,
+    DialogTrigger as AriaDialogTrigger,
+    Input as AriaInput,
+    ListBox as AriaListBox,
+    Popover as AriaPopover,
+    SearchField as AriaSearchField,
+} from "react-aria-components";
+import { Button } from "@/components/base/buttons/button";
 import { HintText } from "@/components/base/input/hint-text";
 import { Label } from "@/components/base/input/label";
-import { Popover } from "@/components/base/select/popover";
-import { type SelectItemType, sizes } from "@/components/base/select/select";
-import { TagCloseX } from "@/components/base/tags/base-components/tag-close-x";
-import { useResizeObserver } from "@/hooks/use-resize-observer";
+import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 import { cx } from "@/utils/cx";
 import { SelectItem } from "./select-item";
+import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
 
-interface ComboBoxValueProps extends AriaGroupProps {
-    size: "sm" | "md" | "lg";
-    shortcut?: boolean;
-    isDisabled?: boolean;
-    placeholder?: string;
-    shortcutClassName?: string;
-    placeholderIcon?: IconComponentType | null;
-    ref?: RefObject<HTMLDivElement | null>;
-    onFocus?: FocusEventHandler;
-    onPointerEnter?: PointerEventHandler;
-}
-
-const ComboboxContext = createContext<{
-    size: "sm" | "md" | "lg";
-    selectedKeys: Key[];
-    selectedItems: ListData<SelectItemType>;
-    onRemove: (keys: Set<Key>) => void;
-    onInputChange: (value: string) => void;
-    valueFormatter?: (item: SelectItemType) => string;
-}>({
-    size: "sm",
-    selectedKeys: [],
-    selectedItems: {} as ListData<SelectItemType>,
-    onRemove: () => {},
-    onInputChange: () => {},
-});
-
-interface MultiSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement> {
-    hint?: string;
-    label?: string;
-    tooltip?: string;
-    size?: "sm" | "md" | "lg";
-    placeholder?: string;
-    shortcut?: boolean;
-    items?: SelectItemType[];
-    popoverClassName?: string;
-    shortcutClassName?: string;
-    selectedItems: ListData<SelectItemType>;
-    placeholderIcon?: IconComponentType | null;
-    children: AriaListBoxProps<SelectItemType>["children"];
-    onItemCleared?: (key: Key) => void;
-    onItemInserted?: (key: Key) => void;
-    valueFormatter?: (item: SelectItemType) => string;
-}
-
-export const MultiSelectBase = ({
-    items,
-    children,
-    size = "sm",
-    selectedItems,
-    onItemCleared,
-    onItemInserted,
-    valueFormatter,
-    shortcut,
-    placeholder = "Search",
-    placeholderIcon,
-    // Omit name to avoid conflicts with the `Select` component
-    name: _name,
-    className,
-    ...props
-}: MultiSelectProps) => {
-    const { contains } = useFilter({ sensitivity: "base" });
-    const selectedKeys = selectedItems.items.map((item) => item.id);
-
-    const filter = useCallback(
-        (item: SelectItemType, filterText: string) => {
-            return !selectedKeys.includes(item.id) && contains(item.label || item.supportingText || "", filterText);
-        },
-        [contains, selectedKeys],
-    );
-
-    const accessibleList = useListData({
-        initialItems: items,
-        filter,
-    });
-
-    const onRemove = useCallback(
-        (keys: Set<Key>) => {
-            const key = keys.values().next().value;
-
-            if (!key) return;
-
-            selectedItems.remove(key);
-            onItemCleared?.(key);
-        },
-        [selectedItems, onItemCleared],
-    );
-
-    const onSelectionChange = (id: Key | null) => {
-        if (!id) {
-            return;
-        }
-
-        const item = accessibleList.getItem(id);
-
-        if (!item) {
-            return;
-        }
-
-        if (!selectedKeys.includes(id as string)) {
-            selectedItems.append(item);
-            onItemInserted?.(id);
-        }
-
-        accessibleList.setFilterText("");
-    };
-
-    const onInputChange = (value: string) => {
-        accessibleList.setFilterText(value);
-    };
-
-    const placeholderRef = useRef<HTMLDivElement>(null);
-    const [popoverWidth, setPopoverWidth] = useState("");
-
-    // Resize observer for popover width
-    const onResize = useCallback(() => {
-        if (!placeholderRef.current) return;
-        let divRect = placeholderRef.current?.getBoundingClientRect();
-        setPopoverWidth(divRect.width + "px");
-    }, [placeholderRef, setPopoverWidth]);
-
-    useResizeObserver({
-        ref: placeholderRef,
-        onResize: onResize,
-        box: "border-box",
-    });
-
-    return (
-        <ComboboxContext.Provider
-            value={{
-                size,
-                selectedKeys,
-                selectedItems,
-                onInputChange,
-                onRemove,
-                valueFormatter,
-            }}
-        >
-            <AriaComboBox
-                allowsEmptyCollection
-                menuTrigger="focus"
-                items={accessibleList.items}
-                onInputChange={onInputChange}
-                inputValue={accessibleList.filterText}
-                // This keeps the combobox popover open and the input value unchanged when an item is selected.
-                selectedKey={null}
-                onSelectionChange={onSelectionChange}
-                className={(state) => cx("flex flex-col gap-1.5", typeof className === "function" ? className(state) : className)}
-                {...props}
-            >
-                {(state) => (
-                    <>
-                        {props.label && (
-                            <Label isRequired={state.isRequired} tooltip={props.tooltip}>
-                                {props.label}
-                            </Label>
-                        )}
-
-                        <MultiSelectTagsValue
-                            size={size}
-                            shortcut={shortcut}
-                            ref={placeholderRef}
-                            placeholder={placeholder}
-                            placeholderIcon={placeholderIcon}
-                            // This is a workaround to correctly calculating the trigger width
-                            // while using ResizeObserver wasn't 100% reliable.
-                            onFocus={onResize}
-                            onPointerEnter={onResize}
-                        />
-
-                        <Popover size={size} triggerRef={placeholderRef} style={{ width: popoverWidth }} className={props?.popoverClassName}>
-                            <AriaListBox selectionMode="multiple" className="size-full outline-hidden">
-                                {children}
-                            </AriaListBox>
-                        </Popover>
-
-                        {props.hint && (
-                            <HintText isInvalid={state.isInvalid} className={cx(size === "sm" && "text-xs")}>
-                                {props.hint}
-                            </HintText>
-                        )}
-                    </>
-                )}
-            </AriaComboBox>
-        </ComboboxContext.Provider>
-    );
+const searchSizes = {
+    sm: { wrapper: "py-1", root: "px-3 py-2 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]", text: "text-sm" },
+    md: { wrapper: "py-0.5", root: "px-3 py-2 gap-2 *:data-icon:size-5", text: "text-md" },
+    lg: { wrapper: "py-0.5", root: "px-3.5 py-2.5 gap-2 *:data-icon:size-5", text: "text-md" },
 };
 
-const InnerMultiSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, size = "sm" }: Omit<MultiSelectProps, "selectedItems" | "children">) => {
-    const focusManager = useFocusManager();
-    const comboBoxContext = useContext(ComboboxContext);
-    const comboBoxStateContext = useContext(ComboBoxStateContext);
+const footerButtonSize = {
+    sm: "xs" as const,
+    md: "sm" as const,
+    lg: "sm" as const,
+};
 
-    const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-        const isCaretAtStart = event.currentTarget.selectionStart === 0 && event.currentTarget.selectionEnd === 0;
+const popoverMaxHeights = {
+    sm: "max-h-68",
+    md: "max-h-76",
+    lg: "max-h-92",
+};
 
-        if (!isCaretAtStart && event.currentTarget.value !== "") {
-            return;
-        }
+interface MultiSelectFooterProps {
+    /**
+     * The size of the footer buttons.
+     * @default "sm"
+     */
+    size?: "sm" | "md" | "lg";
+    /** Handler that is called when the reset button is clicked. */
+    onReset?: () => void;
+    /** Handler that is called when the select all button is clicked. */
+    onSelectAll?: () => void;
+    /** Additional class name. */
+    className?: string;
+}
 
-        switch (event.key) {
-            case "Backspace":
-            case "ArrowLeft":
-                focusManager?.focusPrevious({ wrap: false, tabbable: false });
-                break;
-            case "ArrowRight":
-                focusManager?.focusNext({ wrap: false, tabbable: false });
-                break;
-        }
-    };
-
-    // Ensure dropdown opens on click even if input is already focused
-    const handleInputMouseDown = (_event: React.MouseEvent<HTMLInputElement>) => {
-        if (comboBoxStateContext && !comboBoxStateContext.isOpen) {
-            comboBoxStateContext.open();
-        }
-    };
-
-    const handleTagKeyDown = (event: KeyboardEvent<HTMLButtonElement>, value: Key) => {
-        // Do nothing when tab is clicked to move focus from the tag to the input element.
-        if (event.key === "Tab") {
-            return;
-        }
-
-        event.preventDefault();
-
-        const isFirstTag = comboBoxContext?.selectedItems?.items?.[0]?.id === value;
-
-        switch (event.key) {
-            case " ":
-            case "Enter":
-            case "Backspace":
-                if (isFirstTag) {
-                    focusManager?.focusNext({ wrap: false, tabbable: false });
-                } else {
-                    focusManager?.focusPrevious({ wrap: false, tabbable: false });
-                }
-
-                comboBoxContext.onRemove(new Set([value]));
-                break;
-
-            case "ArrowLeft":
-                focusManager?.focusPrevious({ wrap: false, tabbable: false });
-                break;
-            case "ArrowRight":
-                focusManager?.focusNext({ wrap: false, tabbable: false });
-                break;
-            case "Escape":
-                comboBoxStateContext?.close();
-                break;
-        }
-    };
-
-    const isSelectionEmpty = comboBoxContext?.selectedItems?.items?.length === 0;
+const MultiSelectFooter = ({ size = "sm", onReset, onSelectAll, className }: MultiSelectFooterProps) => {
+    const btnSize = footerButtonSize[size];
 
     return (
-        <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
-            {!isSelectionEmpty &&
-                comboBoxContext?.selectedItems?.items?.map((value) => (
-                    <span
-                        key={value.id}
-                        className={cx(
-                            "flex items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
-                            size === "sm" ? "px-1 py-0.75" : "py-0.5 pr-1 pl-1.25",
-                        )}
-                    >
-                        <Avatar size="xs" alt={value?.label} src={value?.avatarUrl} className="size-4" />
-
-                        <p
-                            className={cx(
-                                "truncate font-medium whitespace-nowrap text-secondary select-none",
-                                size === "sm" ? "ml-1 text-xs" : "ml-1.25 text-sm",
-                            )}
-                        >
-                            {comboBoxContext.valueFormatter ? comboBoxContext.valueFormatter(value) : value?.label}
-                        </p>
-
-                        <TagCloseX
-                            size={size === "sm" ? "sm" : "md"}
-                            isDisabled={isDisabled}
-                            className="ml-0.75"
-                            // For workaround, onKeyDown is added to the button
-                            onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                            onPress={() => comboBoxContext.onRemove(new Set([value.id]))}
-                        />
-                    </span>
-                ))}
-
-            <div className={cx("relative flex min-w-12 flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
-                <AriaInput
-                    placeholder={placeholder}
-                    onKeyDown={handleInputKeyDown}
-                    onMouseDown={handleInputMouseDown}
-                    className={cx(
-                        "w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
-                        sizes[size].text,
-                    )}
-                />
-
-                {shortcut && (
-                    <div
-                        aria-hidden="true"
-                        className={cx(
-                            "absolute inset-y-0.5 right-0.5 z-10 hidden items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8 md:flex",
-                            shortcutClassName,
-                            sizes[size].shortcut,
-                        )}
-                    >
-                        <span
-                            className={cx(
-                                "pointer-events-none rounded px-1 py-px text-xs font-medium text-quaternary ring-1 ring-secondary select-none ring-inset",
-                                isDisabled && "bg-transparent",
-                            )}
-                        >
-                            ⌘K
-                        </span>
-                    </div>
-                )}
-            </div>
+        <div className={cx("flex items-center justify-between border-t border-secondary p-3", className)}>
+            <Button size={btnSize} color="secondary" onClick={onReset}>
+                Reset
+            </Button>
+            <Button size={btnSize} color="secondary" onClick={onSelectAll}>
+                Select all
+            </Button>
         </div>
     );
 };
 
-export const MultiSelectTagsValue = ({
+interface MultiSelectEmptyStateProps {
+    /**
+     * The title to display.
+     * @default "No results found"
+     */
+    title?: string;
+    /**
+     * The description to display.
+     * @default "Please try a different search term."
+     */
+    description?: string;
+    /** Handler that is called when the clear search button is clicked. */
+    onClearSearch?: () => void;
+    /** Additional class name. */
+    className?: string;
+}
+
+const MultiSelectEmptyState = ({
+    title = "No results found",
+    description = "Please try a different search term.",
+    onClearSearch,
+    className,
+}: MultiSelectEmptyStateProps) => (
+    <div className={cx("flex flex-col items-center gap-3 px-4 py-4", className)}>
+        <div className="flex flex-col items-center gap-3">
+            <FeaturedIcon icon={SearchLg} size="sm" color="gray" theme="modern" />
+            <div className="flex flex-col items-center gap-0.5 text-center text-sm">
+                <p className="font-semibold text-primary">{title}</p>
+                <p className="text-tertiary">{description}</p>
+            </div>
+        </div>
+        {onClearSearch && (
+            <Button size="sm" color="link-color" onClick={onClearSearch}>
+                Clear search
+            </Button>
+        )}
+    </div>
+);
+
+interface MultiSelectProps extends RefAttributes<HTMLDivElement>, CommonProps {
+    /** The items to display in the listbox. */
+    items?: SelectItemType[];
+    /** The children to render for each item. */
+    children: ReactNode | ((item: SelectItemType) => ReactNode);
+    /** The currently selected keys (controlled). */
+    selectedKeys?: Selection;
+    /** The initial selected keys (uncontrolled). */
+    defaultSelectedKeys?: Selection;
+    /** Handler that is called when the selection changes. */
+    onSelectionChange?: (keys: Selection) => void;
+    /** Whether the select is disabled. */
+    isDisabled?: boolean;
+    /** Whether the select is required. */
+    isRequired?: boolean;
+    /** Whether the select is in an invalid state. */
+    isInvalid?: boolean;
+    /** Additional class name for the popover. */
+    popoverClassName?: string;
+    /** Additional class name for the root element. */
+    className?: string;
+    /** Handler that is called when the reset button is clicked. */
+    onReset?: () => void;
+    /** Handler that is called when the select all button is clicked. */
+    onSelectAll?: () => void;
+    /**
+     * Whether to show the footer with reset and select all buttons.
+     * @default true
+     */
+    showFooter?: boolean;
+    /**
+     * Whether to show the search input in the popover.
+     * @default true
+     */
+    showSearch?: boolean;
+    /** The title to display when no items match the search. */
+    emptyStateTitle?: string;
+    /** The description to display when no items match the search. */
+    emptyStateDescription?: string;
+    /** Custom formatter for the selected count text in the trigger. */
+    selectedCountFormatter?: (count: number) => ReactNode;
+    /** Supporting text displayed next to the selected count in the trigger. */
+    supportingText?: ReactNode;
+}
+
+const MultiSelectRoot = ({
+    items,
+    children,
     size = "sm",
-    shortcut,
-    placeholder,
-    shortcutClassName,
-    placeholderIcon: Icon = SearchLg,
-    // Omit this prop to avoid invalid HTML attribute warning
-    isDisabled: _isDisabled,
-    ...otherProps
-}: ComboBoxValueProps) => {
+    selectedKeys,
+    defaultSelectedKeys,
+    onSelectionChange,
+    isDisabled,
+    isRequired,
+    isInvalid,
+    placeholder = "Select",
+    label,
+    hint,
+    tooltip,
+    popoverClassName,
+    className,
+    onReset,
+    onSelectAll,
+    showFooter = true,
+    showSearch = true,
+    emptyStateTitle,
+    emptyStateDescription,
+    selectedCountFormatter,
+    supportingText,
+}: MultiSelectProps) => {
+    const { contains } = useFilter({ sensitivity: "base" });
+    const [searchValue, setSearchValue] = useState("");
+
+    const triggerRef = useRef<HTMLButtonElement>(null);
+    const [popoverWidth, setPopoverWidth] = useState("");
+
+    const onResize = useCallback(() => {
+        if (!triggerRef.current) return;
+        const rect = triggerRef.current.getBoundingClientRect();
+        setPopoverWidth(rect.width + "px");
+    }, []);
+
+    const selectedCount = selectedKeys instanceof Set ? selectedKeys.size : selectedKeys === "all" ? (items?.length ?? 0) : 0;
+    const hasSelection = selectedCount > 0;
+
+    const handleClearSearch = useCallback(() => {
+        setSearchValue("");
+    }, []);
+
     return (
-        <AriaGroup
-            {...otherProps}
-            className={({ isFocusWithin, isDisabled }) =>
-                cx(
-                    "relative flex w-full items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
-                    isDisabled && "cursor-not-allowed opacity-50",
-                    isFocusWithin && "ring-2 ring-brand",
+        <SelectContext.Provider value={{ size }}>
+            <div className={cx("flex flex-col gap-1.5", className)}>
+                {label && (
+                    <Label isRequired={isRequired} isInvalid={isInvalid} tooltip={tooltip}>
+                        {label}
+                    </Label>
+                )}
 
-                    // Icon styles
-                    "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
+                <AriaDialogTrigger>
+                    <AriaButton
+                        ref={triggerRef}
+                        isDisabled={isDisabled}
+                        onClick={onResize}
+                        className={(state) =>
+                            cx(
+                                "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
+                                (state.isFocusVisible || state.isPressed) && "ring-2 ring-brand",
+                                state.isDisabled && "cursor-not-allowed opacity-50",
+                            )
+                        }
+                    >
+                        <span
+                            className={cx(
+                                "flex w-full items-center truncate text-left",
+                                sizes[size].root,
+                                "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
+                            )}
+                        >
+                            {hasSelection ? (
+                                <span className={cx("flex items-center", sizes[size].textContainer)}>
+                                    <span className={cx("font-medium text-primary", sizes[size].text)}>
+                                        {selectedCountFormatter ? selectedCountFormatter(selectedCount) : `${selectedCount} selected`}
+                                    </span>
+                                    {supportingText && <span className={cx("text-tertiary", sizes[size].text)}>{supportingText}</span>}
+                                </span>
+                            ) : (
+                                <span className={cx("text-placeholder", sizes[size].text)}>{placeholder}</span>
+                            )}
 
-                    sizes[size].root,
-                )
-            }
-        >
-            {({ isDisabled }) => (
-                <>
-                    {Icon && <Icon data-icon className="pointer-events-none" />}
-                    <FocusScope contain={false} autoFocus={false} restoreFocus={false}>
-                        <InnerMultiSelect
-                            isDisabled={isDisabled}
-                            size={size}
-                            shortcut={shortcut}
-                            shortcutClassName={shortcutClassName}
-                            placeholder={placeholder}
-                        />
-                    </FocusScope>
-                </>
-            )}
-        </AriaGroup>
+                            <ChevronDown
+                                aria-hidden="true"
+                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.25px]")}
+                            />
+                        </span>
+                    </AriaButton>
+
+                    <AriaPopover
+                        placement="bottom"
+                        offset={4}
+                        containerPadding={0}
+                        style={{ width: popoverWidth || undefined }}
+                        className={(state) =>
+                            cx(
+                                "w-(--trigger-width) origin-(--trigger-anchor-point) overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary_alt outline-hidden will-change-transform",
+                                state.isEntering &&
+                                    "duration-150 ease-out animate-in fade-in placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
+                                state.isExiting &&
+                                    "duration-100 ease-in animate-out fade-out placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
+                                popoverClassName,
+                            )
+                        }
+                    >
+                        <AriaDialog className="outline-hidden">
+                            <AriaAutocomplete filter={contains} inputValue={searchValue} onInputChange={setSearchValue}>
+                                {showSearch && (
+                                    <div className={cx("border-b border-secondary", searchSizes[size].wrapper)}>
+                                        <AriaSearchField aria-label="Search" value={searchValue} onChange={setSearchValue} autoFocus>
+                                            <div className={cx("flex items-center", searchSizes[size].root)}>
+                                                <SearchLg data-icon aria-hidden="true" className="shrink-0 text-fg-quaternary" />
+                                                <AriaInput
+                                                    placeholder="Search"
+                                                    className={cx(
+                                                        "w-full appearance-none bg-transparent text-primary caret-alpha-black/90 outline-hidden placeholder:text-placeholder",
+                                                        searchSizes[size].text,
+                                                    )}
+                                                />
+                                            </div>
+                                        </AriaSearchField>
+                                    </div>
+                                )}
+
+                                <AriaListBox
+                                    aria-label={label || "Options"}
+                                    items={items}
+                                    selectionMode="multiple"
+                                    selectedKeys={selectedKeys}
+                                    defaultSelectedKeys={defaultSelectedKeys}
+                                    onSelectionChange={onSelectionChange}
+                                    renderEmptyState={() => (
+                                        <MultiSelectEmptyState
+                                            title={emptyStateTitle}
+                                            description={emptyStateDescription}
+                                            onClearSearch={searchValue ? handleClearSearch : undefined}
+                                        />
+                                    )}
+                                    className={cx("overflow-y-auto py-1 outline-hidden", popoverMaxHeights[size])}
+                                >
+                                    {children}
+                                </AriaListBox>
+                            </AriaAutocomplete>
+
+                            {showFooter && <MultiSelectFooter size={size} onReset={onReset} onSelectAll={onSelectAll} />}
+                        </AriaDialog>
+                    </AriaPopover>
+                </AriaDialogTrigger>
+
+                {hint && (
+                    <HintText isInvalid={isInvalid} className={cx(size === "sm" && "text-xs")}>
+                        {hint}
+                    </HintText>
+                )}
+            </div>
+        </SelectContext.Provider>
     );
 };
 
-const MultiSelect = MultiSelectBase as typeof MultiSelectBase & {
+const MultiSelect = MultiSelectRoot as typeof MultiSelectRoot & {
     Item: typeof SelectItem;
+    Footer: typeof MultiSelectFooter;
+    EmptyState: typeof MultiSelectEmptyState;
 };
 
 MultiSelect.Item = SelectItem;
+MultiSelect.Footer = MultiSelectFooter;
+MultiSelect.EmptyState = MultiSelectEmptyState;
 
-export { MultiSelect as MultiSelect };
+export { MultiSelect };

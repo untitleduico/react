@@ -5,10 +5,11 @@ import { Check } from "@untitledui/icons";
 import type { ListBoxItemProps as AriaListBoxItemProps } from "react-aria-components";
 import { ListBoxItem as AriaListBoxItem, Text as AriaText } from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
+import { CheckboxBase } from "@/components/base/checkbox/checkbox";
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
-import type { SelectItemType } from "./select";
-import { SelectContext } from "./select";
+import type { SelectItemType } from "./select-shared";
+import { SelectContext } from "./select-shared";
 
 const sizes = {
     sm: {
@@ -16,24 +17,29 @@ const sizes = {
         text: "text-sm",
         textContainer: "gap-x-1.5",
         check: "size-4 stroke-[2.25px]",
+        checkbox: "sm" as const,
     },
     md: {
         root: "p-2 pr-2.5 gap-2 *:data-icon:size-5",
         text: "text-md",
         textContainer: "gap-x-2",
         check: "size-5",
+        checkbox: "sm" as const,
     },
     lg: {
         root: "p-2.5 pl-2 gap-2 *:data-icon:size-5",
         text: "text-md",
         textContainer: "gap-x-2",
         check: "size-5",
+        checkbox: "md" as const,
     },
 };
 
 interface SelectItemProps extends Omit<AriaListBoxItemProps<SelectItemType>, "id">, SelectItemType {
     /** The selection indicator to be displayed on the item. */
-    selectionIndicator?: "checkmark" | "none";
+    selectionIndicator?: "checkmark" | "checkbox" | "none";
+    /** The alignment of the selection indicator. */
+    selectionIndicatorAlign?: "left" | "right";
 }
 
 export const SelectItem = ({
@@ -47,12 +53,15 @@ export const SelectItem = ({
     className,
     children,
     selectionIndicator = "checkmark",
+    selectionIndicatorAlign = "right",
     ...props
 }: SelectItemProps) => {
     const { size } = useContext(SelectContext);
 
     const labelOrChildren = label || (typeof children === "string" ? children : "");
     const textValue = supportingText ? labelOrChildren + " " + supportingText : labelOrChildren;
+
+    const isLeft = selectionIndicatorAlign === "left";
 
     return (
         <AriaListBoxItem
@@ -78,9 +87,8 @@ export const SelectItem = ({
                 <div
                     className={cx(
                         "flex cursor-pointer items-center rounded-md outline-hidden select-none",
-                        state.isSelected && "bg-active",
+                        (state.isFocused || state.isHovered || (state.isSelected && selectionIndicator !== "checkbox")) && "bg-primary_hover",
                         state.isDisabled && "cursor-not-allowed opacity-50",
-                        state.isFocused && "bg-primary_hover",
                         state.isFocusVisible && "ring-2 ring-focus-ring ring-inset",
 
                         // Icon styles
@@ -89,6 +97,10 @@ export const SelectItem = ({
                         sizes[size].root,
                     )}
                 >
+                    {isLeft && selectionIndicator === "checkbox" && (
+                        <CheckboxBase size={sizes[size].checkbox} isSelected={state.isSelected} isDisabled={state.isDisabled} />
+                    )}
+
                     {avatarUrl ? (
                         <Avatar aria-hidden="true" size="xs" src={avatarUrl} alt={label} className={cx(size === "sm" && "size-5")} />
                     ) : isReactComponent(Icon) ? (
@@ -111,6 +123,10 @@ export const SelectItem = ({
 
                     {state.isSelected && selectionIndicator === "checkmark" && (
                         <Check aria-hidden="true" className={cx("ml-auto text-fg-brand-primary", sizes[size].check)} />
+                    )}
+
+                    {!isLeft && selectionIndicator === "checkbox" && (
+                        <CheckboxBase size={sizes[size].checkbox} isSelected={state.isSelected} isDisabled={state.isDisabled} className="ml-auto" />
                     )}
                 </div>
             )}

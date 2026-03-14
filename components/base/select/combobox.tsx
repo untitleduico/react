@@ -8,7 +8,7 @@ import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListB
 import { HintText } from "@/components/base/input/hint-text";
 import { Label } from "@/components/base/input/label";
 import { Popover } from "@/components/base/select/popover";
-import { type CommonProps, SelectContext, type SelectItemType, sizes } from "@/components/base/select/select";
+import { type CommonProps, SelectContext, type SelectItemType, sizes } from "@/components/base/select/select-shared";
 import { useResizeObserver } from "@/hooks/use-resize-observer";
 import { cx } from "@/utils/cx";
 
@@ -55,47 +55,40 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
                 )
             }
         >
-            {({ isDisabled }) => (
-                <>
-                    <SearchIcon data-icon className="pointer-events-none" />
+            <SearchIcon data-icon className="pointer-events-none" />
 
-                    <div className="relative flex w-full items-center">
-                        {inputValue && (
-                            <span
-                                className={cx("absolute top-1/2 z-0 inline-flex w-full -translate-y-1/2 truncate", sizes[size].textContainer)}
-                                aria-hidden="true"
-                            >
-                                <p className={cx("font-medium text-primary", sizes[size].text)}>{first}</p>
-                                {last && <p className={cx("-ml-0.75 text-tertiary", sizes[size].text)}>{last}</p>}
-                            </span>
-                        )}
+            <div className="relative flex w-full items-center">
+                {inputValue && (
+                    <span className={cx("absolute top-1/2 z-0 inline-flex w-full -translate-y-1/2 truncate", sizes[size].textContainer)} aria-hidden="true">
+                        <p className={cx("font-medium text-primary", sizes[size].text)}>{first}</p>
+                        {last && <p className={cx("-ml-0.75 text-tertiary", sizes[size].text)}>{last}</p>}
+                    </span>
+                )}
 
-                        <AriaInput
-                            placeholder={placeholder}
-                            className={cx(
-                                "z-10 w-full appearance-none bg-transparent text-transparent caret-alpha-black/90 placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
-                                sizes[size].text,
-                            )}
-                        />
-                    </div>
-
-                    {shortcut && (
-                        <div
-                            className={cx(
-                                "absolute inset-y-0.5 right-0.5 z-10 hidden items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8 md:flex",
-                                sizes[size].shortcut,
-                                shortcutClassName,
-                            )}
-                        >
-                            <span
-                                className="pointer-events-none rounded px-1 py-px text-xs font-medium text-quaternary ring-1 ring-secondary select-none ring-inset"
-                                aria-hidden="true"
-                            >
-                                ⌘K
-                            </span>
-                        </div>
+                <AriaInput
+                    placeholder={placeholder}
+                    className={cx(
+                        "z-10 w-full appearance-none bg-transparent text-transparent caret-alpha-black/90 placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
+                        sizes[size].text,
                     )}
-                </>
+                />
+            </div>
+
+            {shortcut && (
+                <div
+                    className={cx(
+                        "absolute inset-y-0.5 right-0.5 z-10 hidden items-center rounded-r-[inherit] bg-linear-to-r from-transparent to-bg-primary to-40% pl-8 md:flex",
+                        sizes[size].shortcut,
+                        shortcutClassName,
+                    )}
+                >
+                    <span
+                        className="pointer-events-none rounded px-1 py-px text-xs font-medium text-quaternary ring-1 ring-secondary select-none ring-inset"
+                        aria-hidden="true"
+                    >
+                        ⌘K
+                    </span>
+                </div>
             )}
         </AriaGroup>
     );
