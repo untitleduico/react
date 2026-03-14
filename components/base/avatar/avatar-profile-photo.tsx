@@ -62,7 +62,7 @@ export const AvatarProfilePhoto = ({
             return (
                 <div
                     className={cx(
-                        "relative size-full overflow-hidden rounded-full outline-black/16 before:absolute before:inset-[0.5px] before:rounded-full before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                        "relative size-full overflow-hidden rounded-full outline-black/16 before:absolute before:inset-0 before:rounded-full before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
                         styles[size].content,
                     )}
                 >
