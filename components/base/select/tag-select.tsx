@@ -352,6 +352,10 @@ export const TagSelectTagsValue = ({
     isDisabled: _isDisabled,
     ...otherProps
 }: TagSelectValueProps) => {
+    const tagSelectContext = useContext(TagSelectContext);
+
+    const selectedItemsCount = tagSelectContext.selectedKeys.length;
+
     return (
         <AriaGroup
             {...otherProps}
@@ -365,6 +369,10 @@ export const TagSelectTagsValue = ({
                     "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
 
                     sizes[size].root,
+
+                    // Overwrite vertical padding for small size when there are selected items
+                    // to prevent height jump because the tags are taller than the input text.
+                    size === "sm" && selectedItemsCount > 0 && "py-1.5",
                 )
             }
         >
