@@ -16,7 +16,7 @@ interface SidebarNavigationSectionsSubheadingsProps {
 }
 
 export const SidebarNavigationSectionsSubheadings = ({ activeUrl = "/", items }: SidebarNavigationSectionsSubheadingsProps) => {
-    const MAIN_SIDEBAR_WIDTH = 280;
+    const MAIN_SIDEBAR_WIDTH = 276;
 
     const content = (
         <aside
@@ -25,9 +25,9 @@ export const SidebarNavigationSectionsSubheadings = ({ activeUrl = "/", items }:
                     "--width": `${MAIN_SIDEBAR_WIDTH}px`,
                 } as React.CSSProperties
             }
-            className="flex h-full w-full max-w-full flex-col justify-between overflow-auto bg-primary pt-4 shadow-xs ring-secondary ring-inset lg:w-(--width) lg:rounded-xl lg:pt-5 lg:ring-1"
+            className="flex h-full w-full max-w-full flex-col justify-between overflow-auto bg-primary pt-4 shadow-xs ring-secondary ring-inset lg:w-(--width) lg:rounded-xl lg:ring-1"
         >
-            <div className="flex items-center justify-between gap-5 px-4 lg:px-5">
+            <div className="flex items-center justify-between gap-5 px-4 lg:pl-5">
                 <UntitledLogo className="h-6" />
                 <ButtonUtility size="xs" color="tertiary" tooltip="Search" icon={SearchLg} />
             </div>

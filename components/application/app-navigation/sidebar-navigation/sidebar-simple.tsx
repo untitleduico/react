@@ -64,7 +64,7 @@ export const SidebarNavigationSimple = ({
 
             <NavList activeUrl={activeUrl} items={items} />
 
-            <div className="mt-auto flex flex-col gap-3 px-2 py-4 lg:py-5">
+            <div className="mt-auto flex flex-col gap-3 px-4 py-4 lg:py-5">
                 {footerItems.length > 0 && (
                     <ul className="flex flex-col">
                         {footerItems.map((item) => (

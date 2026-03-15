@@ -16,7 +16,7 @@ interface SidebarNavigationSectionDividersProps {
 }
 
 export const SidebarNavigationSectionDividers = ({ activeUrl, items }: SidebarNavigationSectionDividersProps) => {
-    const MAIN_SIDEBAR_WIDTH = 292;
+    const MAIN_SIDEBAR_WIDTH = 276;
 
     const content = (
         <aside
