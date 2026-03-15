@@ -18,6 +18,9 @@ DropdownButtonSimple.storyName = "Dropdown menu button simple";
 export const DropdownButtonAdvanced = () => <Dropdowns.DropdownButtonAdvanced />;
 DropdownButtonAdvanced.storyName = "Dropdown menu button advanced";
 
+export const DropdownButtonLink = () => <Dropdowns.DropdownButtonLink />;
+DropdownButtonLink.storyName = "Dropdown menu button link";
+
 export const DropdownIconSimple = () => <Dropdowns.DropdownIconSimple />;
 DropdownIconSimple.storyName = "Dropdown menu icon simple";
 
