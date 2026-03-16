@@ -31,7 +31,7 @@ const sizes = sortCx({
         radius: 90,
         valueClass: "text-display-sm font-semibold text-primary",
         labelClass: "text-xs font-medium text-tertiary",
-        halfCircleTextPosition: "absolute bottom-1 text-center",
+        halfCircleTextPosition: "absolute bottom-2 text-center",
     },
     md: {
         strokeWidth: 24,

@@ -20,6 +20,11 @@ export interface AvatarProps {
      */
     contrastBorder?: boolean;
     /**
+     * Whether the avatar should be rounded.
+     * @default true
+     */
+    rounded?: boolean;
+    /**
      * Display an outer border around the avatar.
      */
     border?: boolean;
@@ -85,6 +90,7 @@ export const Avatar = ({
     verified,
     count,
     focusable = false,
+    rounded = true,
     className,
     contentClassName,
 }: AvatarProps) => {
@@ -128,7 +134,8 @@ export const Avatar = ({
         <div
             data-avatar
             className={cx(
-                "relative inline-flex shrink-0 rounded-full",
+                "relative inline-flex shrink-0 rounded-[7px]",
+                rounded && "rounded-full",
                 // Focus styles
                 focusable && "outline-transparent group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-focus-ring",
                 border && "ring-1 ring-secondary_alt",
@@ -139,10 +146,11 @@ export const Avatar = ({
         >
             <div
                 className={cx(
-                    "relative inline-flex size-full shrink-0 items-center justify-center overflow-hidden rounded-full bg-tertiary outline-[0.5px] -outline-offset-[0.5px] outline-black/16 before:inset-[0.5px]",
+                    "relative inline-flex size-full shrink-0 items-center justify-center overflow-hidden rounded-md bg-tertiary outline-[0.5px] -outline-offset-[0.5px] outline-black/16 before:inset-[0.5px]",
+                    rounded && "rounded-full",
                     canShowImage &&
                         size !== "xs" &&
-                        "before:absolute before:inset-0 before:rounded-full before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                        "before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
                     contentClassName,
                 )}
             >

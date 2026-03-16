@@ -60,7 +60,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     <UntitledLogoMinimal className="size-6" />
                 </div>
 
-                <ul className="mt-4 flex flex-col gap-0.5 px-3">
+                <ul className="mt-5 flex flex-col gap-0.5 px-3.5">
                     {items.map((item) => (
                         <li key={item.label}>
                             <NavButton
@@ -73,7 +73,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                         </li>
                     ))}
                 </ul>
-                <div className="mt-auto flex flex-col gap-4 px-3 py-5">
+                <div className="mt-auto flex flex-col items-center gap-3 px-3 py-4">
                     {footerItems.length > 0 && (
                         <ul className="flex flex-col gap-0.5">
                             {footerItems.map((item) => (
@@ -96,7 +96,13 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 cx("group relative inline-flex rounded-full", (isPressed || isFocused) && "outline-2 outline-offset-2 outline-focus-ring")
                             }
                         >
-                            <Avatar status="online" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" size="md" alt="Olivia Rhye" />
+                            <Avatar
+                                border
+                                status="online"
+                                src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
+                                size="md"
+                                alt="Olivia Rhye"
+                            />
                         </AriaButton>
                         <AriaPopover
                             placement="right bottom"

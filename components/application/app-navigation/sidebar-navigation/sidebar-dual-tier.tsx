@@ -8,7 +8,7 @@ import { Input } from "@/components/base/input/input";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { cx } from "@/utils/cx";
 import { MobileNavigationHeader } from "../base-components/mobile-header";
-import { NavAccountCard } from "../base-components/nav-account-card";
+import { NavAccountCard, type NavAccountType } from "../base-components/nav-account-card";
 import { NavItemBase } from "../base-components/nav-item";
 import { NavList } from "../base-components/nav-list";
 import type { NavItemType } from "../config";
@@ -24,9 +24,21 @@ interface SidebarNavigationDualTierProps {
     footerItems?: NavItemType[];
     /** Whether to hide the right side border. */
     hideBorder?: boolean;
+    /** The selected account ID of the nav account card. */
+    selectedAccountId?: string;
+    /** The items of the nav account card. */
+    accountItems?: NavAccountType[];
 }
 
-export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footerItems = [], featureCard }: SidebarNavigationDualTierProps) => {
+export const SidebarNavigationDualTier = ({
+    activeUrl,
+    hideBorder,
+    items,
+    footerItems = [],
+    featureCard,
+    selectedAccountId,
+    accountItems,
+}: SidebarNavigationDualTierProps) => {
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
     const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
     const [isHovering, setIsHovering] = useState(false);
@@ -45,7 +57,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                     } as React.CSSProperties
                 }
                 className={cx(
-                    "relative flex w-full flex-col border-r border-secondary pt-4 transition duration-300 lg:w-(--width) lg:pt-6",
+                    "relative flex w-full flex-col border-r border-secondary pt-4 transition duration-300 lg:w-(--width) lg:pt-5",
                     hideBorder && !isSecondarySidebarVisible && "border-transparent",
                 )}
             >
@@ -61,9 +73,9 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
 
                 <NavList activeUrl={activeUrl} items={items} className="lg:hidden" />
 
-                <ul className="mt-4 hidden flex-col px-4 lg:flex">
+                <ul className="mt-5 hidden flex-col gap-0.5 px-4 lg:flex">
                     {items.map((item) => (
-                        <li key={item.label + item.href} className="py-0.5">
+                        <li key={item.label + item.href}>
                             <NavItemBase
                                 current={currentItem.href === item.href}
                                 href={item.href}
@@ -77,11 +89,11 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                         </li>
                     ))}
                 </ul>
-                <div className="mt-auto flex flex-col gap-4 px-2 py-4 lg:px-4 lg:py-6">
+                <div className="mt-auto flex flex-col gap-3 px-2 py-4 lg:px-4 lg:py-6">
                     {footerItems.length > 0 && (
-                        <ul className="flex flex-col">
+                        <ul className="flex flex-col gap-0.5">
                             {footerItems.map((item) => (
-                                <li key={item.label + item.href} className="py-0.5">
+                                <li key={item.label + item.href}>
                                     <NavItemBase
                                         current={currentItem.href === item.href}
                                         href={item.href}
@@ -99,7 +111,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
 
                     {featureCard}
 
-                    <NavAccountCard />
+                    <NavAccountCard selectedAccountId={selectedAccountId} items={accountItems} />
                 </div>
             </div>
         </aside>

@@ -8,73 +8,73 @@ import { cx } from "@/utils/cx";
 const lineData = [
     // collapse-start
     {
-        date: new Date(2025, 0, 1),
+        date: new Date(2026, 0, 1),
         A: 600,
         B: 400,
         C: 100,
     },
     {
-        date: new Date(2025, 1, 1),
+        date: new Date(2026, 1, 1),
         A: 620,
         B: 405,
         C: 160,
     },
     {
-        date: new Date(2025, 2, 1),
+        date: new Date(2026, 2, 1),
         A: 630,
         B: 400,
         C: 170,
     },
     {
-        date: new Date(2025, 3, 1),
+        date: new Date(2026, 3, 1),
         A: 650,
         B: 410,
         C: 190,
     },
     {
-        date: new Date(2025, 4, 1),
+        date: new Date(2026, 4, 1),
         A: 600,
         B: 320,
         C: 200,
     },
     {
-        date: new Date(2025, 5, 1),
+        date: new Date(2026, 5, 1),
         A: 650,
         B: 430,
         C: 230,
     },
     {
-        date: new Date(2025, 6, 1),
+        date: new Date(2026, 6, 1),
         A: 620,
         B: 400,
         C: 200,
     },
     {
-        date: new Date(2025, 7, 1),
+        date: new Date(2026, 7, 1),
         A: 750,
         B: 540,
         C: 300,
     },
     {
-        date: new Date(2025, 8, 1),
+        date: new Date(2026, 8, 1),
         A: 780,
         B: 490,
         C: 390,
     },
     {
-        date: new Date(2025, 9, 1),
+        date: new Date(2026, 9, 1),
         A: 750,
         B: 450,
         C: 300,
     },
     {
-        date: new Date(2025, 10, 1),
+        date: new Date(2026, 10, 1),
         A: 780,
         B: 480,
         C: 340,
     },
     {
-        date: new Date(2025, 11, 1),
+        date: new Date(2026, 11, 1),
         A: 820,
         B: 500,
         C: 450,
@@ -128,7 +128,7 @@ export const LineChart01 = () => {
                         padding={{ left: 10, right: 10 }}
                     >
                         {isDesktop && (
-                            <Label fill="currentColor" className="!text-xs font-medium max-lg:hidden" position="bottom">
+                            <Label fill="currentColor" className="text-xs! font-medium max-lg:hidden" position="bottom">
                                 Month
                             </Label>
                         )}
@@ -144,7 +144,7 @@ export const LineChart01 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"
@@ -256,7 +256,7 @@ export const LineChart02 = () => {
                         padding={{ left: 10, right: 10 }}
                     >
                         {isDesktop && (
-                            <Label fill="currentColor" className="!text-xs font-medium max-lg:hidden" position="bottom">
+                            <Label fill="currentColor" className="text-xs! font-medium max-lg:hidden" position="bottom">
                                 Month
                             </Label>
                         )}
@@ -272,7 +272,7 @@ export const LineChart02 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"
@@ -394,7 +394,7 @@ export const LineChart03 = () => {
                         tickFormatter={(value) => value.toLocaleDateString(undefined, { month: "short" })}
                     >
                         {isDesktop && (
-                            <Label fill="currentColor" className="!text-xs font-medium max-lg:hidden" position="bottom">
+                            <Label fill="currentColor" className="text-xs! font-medium max-lg:hidden" position="bottom">
                                 Month
                             </Label>
                         )}
@@ -410,7 +410,7 @@ export const LineChart03 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"
@@ -523,7 +523,7 @@ export const LineChart04 = () => {
                         padding={{ left: 10, right: 10 }}
                     >
                         {isDesktop && (
-                            <Label fill="currentColor" className="!text-xs font-medium max-lg:hidden" position="bottom">
+                            <Label fill="currentColor" className="text-xs! font-medium max-lg:hidden" position="bottom">
                                 Month
                             </Label>
                         )}
@@ -539,7 +539,7 @@ export const LineChart04 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"

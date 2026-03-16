@@ -26,6 +26,8 @@ interface SidebarNavigationProps {
     hideBorder?: boolean;
     /** Additional CSS classes to apply to the sidebar. */
     className?: string;
+    /** Whether to round the account card avatar. */
+    avatarRounded?: boolean;
 }
 
 export const SidebarNavigationSimple = ({
@@ -68,7 +70,7 @@ export const SidebarNavigationSimple = ({
                 {footerItems.length > 0 && (
                     <ul className="flex flex-col">
                         {footerItems.map((item) => (
-                            <li key={item.label} className="py-0.5">
+                            <li key={item.label} className="py-px">
                                 <NavItemBase badge={item.badge} icon={item.icon} href={item.href} type="link" current={item.href === activeUrl}>
                                     {item.label}
                                 </NavItemBase>

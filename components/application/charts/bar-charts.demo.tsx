@@ -7,73 +7,73 @@ import { useBreakpoint } from "@/hooks/use-breakpoint";
 const barData = [
     // collapse-start
     {
-        month: new Date(2025, 0, 1),
+        month: new Date(2026, 0, 1),
         A: 300,
         B: 200,
         C: 350,
     },
     {
-        month: new Date(2025, 1, 1),
+        month: new Date(2026, 1, 1),
         A: 320,
         B: 300,
         C: 300,
     },
     {
-        month: new Date(2025, 2, 1),
+        month: new Date(2026, 2, 1),
         A: 300,
         B: 200,
         C: 240,
     },
     {
-        month: new Date(2025, 3, 1),
+        month: new Date(2026, 3, 1),
         A: 240,
         B: 300,
         C: 280,
     },
     {
-        month: new Date(2025, 4, 1),
+        month: new Date(2026, 4, 1),
         A: 320,
         B: 280,
         C: 100,
     },
     {
-        month: new Date(2025, 5, 1),
+        month: new Date(2026, 5, 1),
         A: 330,
         B: 300,
         C: 130,
     },
     {
-        month: new Date(2025, 6, 1),
+        month: new Date(2026, 6, 1),
         A: 300,
         B: 200,
         C: 100,
     },
     {
-        month: new Date(2025, 7, 1),
+        month: new Date(2026, 7, 1),
         A: 350,
         B: 300,
         C: 200,
     },
     {
-        month: new Date(2025, 8, 1),
+        month: new Date(2026, 8, 1),
         A: 300,
         B: 200,
         C: 100,
     },
     {
-        month: new Date(2025, 9, 1),
+        month: new Date(2026, 9, 1),
         A: 200,
         B: 300,
         C: 280,
     },
     {
-        month: new Date(2025, 10, 1),
+        month: new Date(2026, 10, 1),
         A: 240,
         B: 300,
         C: 300,
     },
     {
-        month: new Date(2025, 11, 1),
+        month: new Date(2026, 11, 1),
         A: 200,
         B: 400,
         C: 350,
@@ -120,7 +120,7 @@ export const BarChart = () => {
                     dataKey="month"
                     tickFormatter={(value) => value.toLocaleDateString(undefined, { month: "short" })}
                 >
-                    <Label value="Month" fill="currentColor" className="!text-xs font-medium" position="bottom" />
+                    <Label value="Month" fill="currentColor" className="text-xs! font-medium" position="bottom" />
                 </XAxis>
 
                 <YAxis
@@ -133,7 +133,7 @@ export const BarChart = () => {
                     <Label
                         value="Active users"
                         fill="currentColor"
-                        className="!text-xs font-medium"
+                        className="text-xs! font-medium"
                         style={{ textAnchor: "middle" }}
                         angle={-90}
                         position="insideLeft"
@@ -273,7 +273,7 @@ export const BarChart02 = () => {
                         tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: "short" })}
                         ticks={selectEvenlySpacedItems(data, 12).map((item) => item.date)}
                     >
-                        <Label value="Month" fill="currentColor" className="!text-xs font-medium" position="bottom" />
+                        <Label value="Month" fill="currentColor" className="text-xs! font-medium" position="bottom" />
                     </XAxis>
 
                     <YAxis
@@ -286,7 +286,7 @@ export const BarChart02 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"
@@ -433,7 +433,7 @@ export const BarChart03 = () => {
                         tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: "short" })}
                         ticks={selectEvenlySpacedItems(data, 12).map((item) => item.date)}
                     >
-                        <Label value="Month" fill="currentColor" className="!text-xs font-medium" position="bottom" />
+                        <Label value="Month" fill="currentColor" className="text-xs! font-medium" position="bottom" />
                     </XAxis>
 
                     <YAxis
@@ -446,7 +446,7 @@ export const BarChart03 = () => {
                         <Label
                             value="Active users"
                             fill="currentColor"
-                            className="!text-xs font-medium"
+                            className="text-xs! font-medium"
                             style={{ textAnchor: "middle" }}
                             angle={-90}
                             position="insideLeft"

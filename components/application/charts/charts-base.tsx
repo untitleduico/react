@@ -60,7 +60,12 @@ export const ChartLegendContent = ({ reversed, payload, align, layout, className
         >
             {payload?.map((entry, index) => (
                 <li className="flex items-center gap-2 text-sm text-tertiary" key={index}>
-                    <span className={cx("h-2 w-2 rounded-full bg-current", (entry.payload as { className?: string })?.className)} />
+                    <span
+                        className={cx(
+                            "block size-2 rounded-full bg-current ring-[0.5px] ring-black/10 ring-inset",
+                            (entry.payload as { className?: string })?.className,
+                        )}
+                    />
                     {entry.value}
                 </li>
             ))}
