@@ -33,6 +33,9 @@ DropdownSearchSimple.storyName = "Dropdown menu search simple";
 export const DropdownSearchAdvanced = () => <Dropdowns.DropdownSearchAdvanced />;
 DropdownSearchAdvanced.storyName = "Dropdown menu search advanced";
 
+export const DropdownIntegration = () => <Dropdowns.DropdownIntegration />;
+DropdownIntegration.storyName = "Dropdown menu integration";
+
 export const DropdownAccountButton = () => <Dropdowns.DropdownAccountButton />;
 DropdownAccountButton.storyName = "Dropdown menu account button";
 
