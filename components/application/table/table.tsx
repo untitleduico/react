@@ -123,11 +123,14 @@ TableRoot.displayName = "Table";
 interface TableHeaderProps<T extends object>
     extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
     bordered?: boolean;
+    size?: "sm" | "md";
 }
 
-const TableHeader = <T extends object>({ columns, children, bordered = true, className, ...props }: TableHeaderProps<T>) => {
-    const { size } = useContext(TableContext);
+const TableHeader = <T extends object>({ columns, children, bordered = true, className, size: sizeProp, ...props }: TableHeaderProps<T>) => {
+    const context = useContext(TableContext);
     const { selectionBehavior, selectionMode } = useTableOptions();
+
+    const size = sizeProp ?? context.size;
 
     return (
         <AriaTableHeader
@@ -149,7 +152,7 @@ const TableHeader = <T extends object>({ columns, children, bordered = true, cla
                 <AriaColumn className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6")}>
                     {selectionMode === "multiple" && (
                         <div className="flex items-start">
-                            <Checkbox slot="selection" size={size} />
+                            <Checkbox slot="selection" size="md" />
                         </div>
                     )}
                 </AriaColumn>
@@ -212,11 +215,14 @@ TableHead.displayName = "TableHead";
 interface TableRowProps<T extends object>
     extends AriaRowProps<T>, Omit<ComponentPropsWithRef<"tr">, "children" | "className" | "onClick" | "slot" | "style" | "id"> {
     highlightSelectedRow?: boolean;
+    size?: "sm" | "md";
 }
 
-const TableRow = <T extends object>({ columns, children, className, highlightSelectedRow = true, ...props }: TableRowProps<T>) => {
-    const { size } = useContext(TableContext);
+const TableRow = <T extends object>({ columns, children, className, highlightSelectedRow = true, size: sizeProp, ...props }: TableRowProps<T>) => {
+    const context = useContext(TableContext);
     const { selectionBehavior } = useTableOptions();
+
+    const size = sizeProp ?? context.size;
 
     return (
         <AriaRow
@@ -237,7 +243,7 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
             {selectionBehavior === "toggle" && (
                 <AriaCell className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "md:pl-5" : "md:pl-6")}>
                     <div className="flex items-end">
-                        <Checkbox slot="selection" size={size} />
+                        <Checkbox slot="selection" size="md" />
                     </div>
                 </AriaCell>
             )}
@@ -250,11 +256,14 @@ TableRow.displayName = "TableRow";
 
 interface TableCellProps extends AriaCellProps, Omit<TdHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
     ref?: Ref<HTMLTableCellElement>;
+    size?: "sm" | "md";
 }
 
-const TableCell = ({ className, children, ...props }: TableCellProps) => {
-    const { size } = useContext(TableContext);
+const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellProps) => {
+    const context = useContext(TableContext);
     const { selectionBehavior } = useTableOptions();
+
+    const size = sizeProp ?? context.size;
 
     return (
         <AriaCell

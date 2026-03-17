@@ -73,9 +73,9 @@ export const SidebarNavigationDualTier = ({
 
                 <NavList activeUrl={activeUrl} items={items} className="lg:hidden" />
 
-                <ul className="mt-5 hidden flex-col gap-0.5 px-4 lg:flex">
+                <ul className="mt-5 hidden flex-col px-4 lg:flex">
                     {items.map((item) => (
-                        <li key={item.label + item.href}>
+                        <li key={item.label + item.href} className="py-px">
                             <NavItemBase
                                 current={currentItem.href === item.href}
                                 href={item.href}
@@ -91,9 +91,9 @@ export const SidebarNavigationDualTier = ({
                 </ul>
                 <div className="mt-auto flex flex-col gap-3 px-2 py-4 lg:px-4 lg:py-6">
                     {footerItems.length > 0 && (
-                        <ul className="flex flex-col gap-0.5">
+                        <ul className="flex flex-col">
                             {footerItems.map((item) => (
-                                <li key={item.label + item.href}>
+                                <li key={item.label + item.href} className="py-px">
                                     <NavItemBase
                                         current={currentItem.href === item.href}
                                         href={item.href}
@@ -129,7 +129,7 @@ export const SidebarNavigationDualTier = ({
                 >
                     <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-5">
                         {currentItem.items?.map((item) => (
-                            <li key={item.label + item.href} className="py-0.5">
+                            <li key={item.label + item.href} className="py-px">
                                 <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                     {item.label}
                                 </NavItemBase>

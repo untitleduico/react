@@ -21,7 +21,7 @@ export const styles = sortCx({
             // Selected styles
             "selected:bg-primary_hover selected:text-secondary_hover",
         ].join(" "),
-        icon: "pointer-events-none text-fg-quaternary transition-[inherit] group-hover/button-group:text-fg-quaternary_hover",
+        icon: "pointer-events-none text-fg-quaternary transition-[inherit] group-hover/button-group:text-fg-quaternary_hover group-selected/button-group:text-fg-quaternary_hover",
     },
 
     sizes: {

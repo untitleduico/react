@@ -143,7 +143,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                         <h3 className="text-sm font-semibold text-brand-secondary">{currentItem.label}</h3>
                         <ul className="py-2">
                             {currentItem.items?.map((item) => (
-                                <li key={item.label} className="py-0.5">
+                                <li key={item.label} className="py-px">
                                     <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                         {item.label}
                                     </NavItemBase>
