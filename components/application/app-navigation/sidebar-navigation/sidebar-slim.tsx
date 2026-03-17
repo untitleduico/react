@@ -150,7 +150,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 </li>
                             ))}
                         </ul>
-                        <div className="sticky bottom-0 mt-auto flex justify-between bg-primary px-2 pb-5">
+                        <div className="sticky bottom-0 mt-auto flex justify-between bg-primary pb-5">
                             <div>
                                 <p className="text-sm font-semibold text-primary">Olivia Rhye</p>
                                 <p className="text-sm text-tertiary">olivia@untitledui.com</p>
