@@ -117,7 +117,7 @@ const FakeCaret = ({ size = "md" }: { size?: PinInputSize }) => {
 
 const Separator = (props: ComponentPropsWithRef<"div">) => {
     return (
-        <div role="separator" {...props} className={cx("text-utility-neutral-300 text-center text-display-xl font-medium", props.className)}>
+        <div role="separator" {...props} className={cx("text-center text-display-xl font-medium text-utility-neutral-300", props.className)}>
             -
         </div>
     );

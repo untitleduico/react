@@ -24,7 +24,7 @@ import { EmptyState } from "@/components/application/empty-state/empty-state";
 import { PaginationCardMinimal, PaginationPageMinimalCenter } from "@/components/application/pagination/pagination";
 import customers from "@/components/application/table/customers.json";
 import invoices from "@/components/application/table/invoices.json";
-import { Table, TableCard, TableRowActionsDropdown } from "@/components/application/table/table";
+import { Table, TableCard } from "@/components/application/table/table";
 import teamMembers from "@/components/application/table/team-members.json";
 import uploadedFiles from "@/components/application/table/uploaded-files.json";
 import { Avatar } from "@/components/base/avatar/avatar";
@@ -32,6 +32,7 @@ import type { BadgeTypes } from "@/components/base/badges/badge-types";
 import { Badge, type BadgeColor, BadgeWithDot, BadgeWithIcon } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
+import { DropdownIconSimple } from "@/components/base/dropdown/dropdown-icon-simple";
 import { Input } from "@/components/base/input/input";
 import { ProgressBar } from "@/components/base/progress-indicators/progress-indicators";
 import { DateRangePicker } from "../date-picker/date-range-picker";
@@ -73,7 +74,7 @@ export const Table01DividerLine = () => {
                 badge="100 users"
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -173,7 +174,7 @@ export const Table01AlternatingFills = () => {
                 badge="100 users"
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -272,7 +273,7 @@ export const Table01DividerLineSm = () => {
                 badge="100 users"
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -369,7 +370,7 @@ export const Table02DividerLine = () => {
                 description="These companies have purchased in the last 12 months."
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -448,7 +449,7 @@ export const Table02DividerLine = () => {
                             </Table.Cell>
                             <Table.Cell className="px-4">
                                 <div className="flex items-center justify-end">
-                                    <TableRowActionsDropdown />
+                                    <DropdownIconSimple />
                                 </div>
                             </Table.Cell>
                         </Table.Row>
@@ -495,7 +496,7 @@ export const Table02AlternatingFills = () => {
                 description="These companies have purchased in the last 12 months."
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -573,7 +574,7 @@ export const Table02AlternatingFills = () => {
                             </Table.Cell>
                             <Table.Cell className="px-4">
                                 <div className="flex items-center justify-end">
-                                    <TableRowActionsDropdown />
+                                    <DropdownIconSimple />
                                 </div>
                             </Table.Cell>
                         </Table.Row>
@@ -824,7 +825,7 @@ export const Table04DividerLine = () => {
                             <Table.Cell className="whitespace-nowrap">{item.uploadedBy}</Table.Cell>
                             <Table.Cell className="px-4">
                                 <div className="flex items-center justify-end">
-                                    <TableRowActionsDropdown />
+                                    <DropdownIconSimple />
                                 </div>
                             </Table.Cell>
                         </Table.Row>
@@ -880,7 +881,7 @@ export const Table04AlternatingFills = () => {
                             <Table.Cell className="whitespace-nowrap">{item.uploadedBy}</Table.Cell>
                             <Table.Cell className="px-4">
                                 <div className="flex items-center justify-end">
-                                    <TableRowActionsDropdown />
+                                    <DropdownIconSimple />
                                 </div>
                             </Table.Cell>
                         </Table.Row>
@@ -917,7 +918,7 @@ export const TableNoVendorsFound = () => {
                             </Button>
                         </div>
                         <div className="absolute top-5 right-4 md:right-6">
-                            <TableRowActionsDropdown />
+                            <DropdownIconSimple />
                         </div>
                     </>
                 }
@@ -975,7 +976,7 @@ export const TableSomethingWentWrong = () => {
                 badge="100 users"
                 contentTrailing={
                     <div className="absolute top-5 right-4 md:right-6">
-                        <TableRowActionsDropdown />
+                        <DropdownIconSimple />
                     </div>
                 }
             />
@@ -1039,7 +1040,7 @@ export const TableNoUsersFound = () => {
                             </Button>
                         </div>
                         <div className="absolute top-5 right-4 md:right-6">
-                            <TableRowActionsDropdown />
+                            <DropdownIconSimple />
                         </div>
                     </>
                 }

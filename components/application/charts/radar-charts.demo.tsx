@@ -106,7 +106,7 @@ export const RadarChart = () => {
                 cy="50%"
                 outerRadius="80%"
                 data={radarData}
-                className="[&_.recharts-polar-grid]:text-utility-neutral-100 size-full font-medium text-tertiary [&_.recharts-text]:text-sm"
+                className="size-full font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
