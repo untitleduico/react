@@ -36,7 +36,7 @@ interface ActivityGaugeProps {
 
 export const ActivityGaugeXs = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
     return (
-        <ResponsiveContainer height={220}>
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={220}>
             <RadialBarChart
                 data={data}
                 accessibilityLayer
@@ -90,7 +90,7 @@ export const ActivityGaugeXs = ({ title = "1,000", subtitle = "Active users", da
 
 export const ActivityGaugeSm = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
     return (
-        <ResponsiveContainer height={268}>
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={268}>
             <RadialBarChart
                 data={data}
                 accessibilityLayer
@@ -144,7 +144,7 @@ export const ActivityGaugeSm = ({ title = "1,000", subtitle = "Active users", da
 
 export const ActivityGaugeMd = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
     return (
-        <ResponsiveContainer height={312}>
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={312}>
             <RadialBarChart
                 data={data}
                 accessibilityLayer
@@ -198,7 +198,7 @@ export const ActivityGaugeMd = ({ title = "1,000", subtitle = "Active users", da
 
 export const ActivityGaugeLg = ({ title = "1,000", subtitle = "Active users", data = radialData }: ActivityGaugeProps) => {
     return (
-        <ResponsiveContainer height={356}>
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={356}>
             <RadialBarChart
                 data={data}
                 accessibilityLayer

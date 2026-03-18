@@ -96,7 +96,7 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                     )
                 }
             >
-                <AriaDialog className="flex rounded-2xl bg-primary shadow-xl ring ring-secondary_alt focus:outline-hidden">
+                <AriaDialog aria-label="Date range picker" className="flex rounded-2xl bg-primary shadow-xl ring ring-secondary_alt focus:outline-hidden">
                     {({ close }) => (
                         <>
                             <div className="hidden w-38 flex-col gap-0.5 border-r border-solid border-secondary p-3 lg:flex">

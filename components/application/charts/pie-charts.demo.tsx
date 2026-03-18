@@ -39,7 +39,7 @@ interface PieChartProps {
 
 export const PieChartXxs = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer height={120} className="max-w-52.5">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={120} className="max-w-52.5">
             <RechartsPieChart
                 margin={{
                     left: 0,
@@ -70,7 +70,7 @@ export const PieChartXxs = ({ data = pieChartData }: PieChartProps) => {
 
 export const PieChartXs = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer height={160} className="max-w-62.5">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={160} className="max-w-62.5">
             <RechartsPieChart
                 margin={{
                     left: 0,
@@ -101,7 +101,7 @@ export const PieChartXs = ({ data = pieChartData }: PieChartProps) => {
 
 export const PieChartSm = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer height={200} className="max-w-72.5">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={200} className="max-w-72.5">
             <RechartsPieChart
                 margin={{
                     left: 0,
@@ -132,7 +132,7 @@ export const PieChartSm = ({ data = pieChartData }: PieChartProps) => {
 
 export const PieChartMd = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer height={240} className="max-w-96">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={240} className="max-w-96">
             <RechartsPieChart
                 margin={{
                     left: 0,
@@ -163,7 +163,7 @@ export const PieChartMd = ({ data = pieChartData }: PieChartProps) => {
 
 export const PieChartLg = ({ data = pieChartData }: PieChartProps) => {
     return (
-        <ResponsiveContainer height={280} className="max-w-96">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={280} className="max-w-96">
             <RechartsPieChart
                 margin={{
                     left: 0,

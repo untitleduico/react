@@ -100,7 +100,7 @@ export const RadarChart = () => {
     };
 
     return (
-        <ResponsiveContainer height={500} width="100%">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={500} width="100%">
             <RechartsRadarChart
                 cx="50%"
                 cy="50%"

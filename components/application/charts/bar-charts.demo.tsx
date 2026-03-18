@@ -91,7 +91,7 @@ export const BarChart = () => {
     };
 
     return (
-        <ResponsiveContainer className="h-60!">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-60!">
             <RechartsBarChart
                 data={barData}
                 className="text-tertiary [&_.recharts-text]:text-xs"
@@ -250,7 +250,7 @@ export const BarChart02 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <ComposedChart
                     data={data}
                     margin={{
@@ -410,7 +410,7 @@ export const BarChart03 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <ComposedChart
                     data={data}
                     margin={{

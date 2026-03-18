@@ -31,7 +31,7 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
     const formattedDate = value ? formatter.format(value.toDate(getLocalTimeZone())) : "Select date";
 
     return (
-        <AriaDatePicker shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
+        <AriaDatePicker aria-label="Date picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
                 <Button size={size} color="secondary" iconLeading={CalendarIcon}>
                     {formattedDate}
@@ -50,7 +50,7 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
                     )
                 }
             >
-                <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+                <AriaDialog aria-label="Date picker" className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
                     {({ close }) => (
                         <>
                             <div className="flex px-6 py-5">

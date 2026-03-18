@@ -123,7 +123,7 @@ export const DateTimePickerDemo = () => {
                                     <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue}>
                                         <div className="flex flex-wrap gap-3 md:hidden">
                                             <div className="flex flex-1 gap-3">
-                                                <DateField granularity="day" className="flex-1">
+                                                <DateField aria-label="Date" granularity="day" className="flex-1">
                                                     <InputDateBase size="sm" className="flex-1" />
                                                 </DateField>
                                                 <Button slot={null} size="sm" color="secondary" onClick={handleTodayClick}>
@@ -174,7 +174,7 @@ export const DateTimePickerDemo = () => {
                             </div>
                             <div className="flex gap-3 border-t border-secondary p-4">
                                 <div className="mr-auto hidden gap-3 md:flex">
-                                    <DateField granularity="day" className="flex-1">
+                                    <DateField aria-label="Date" granularity="day" className="flex-1">
                                         <InputDateBase size="sm" />
                                     </DateField>
                                     <Button size="sm" color="secondary" onClick={handleTodayClick}>

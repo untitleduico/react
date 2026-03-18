@@ -51,6 +51,7 @@ interface DialogProps extends AriaDialogProps, RefAttributes<HTMLElement> {}
 export const Dialog = (props: DialogProps) => (
     <AriaDialog
         role="dialog"
+        aria-label="Slideout menu"
         {...props}
         className={cx(
             "relative flex size-full flex-col items-start gap-6 overflow-y-auto bg-primary ring-1 ring-secondary_alt outline-hidden",

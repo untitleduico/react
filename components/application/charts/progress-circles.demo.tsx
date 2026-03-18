@@ -58,7 +58,7 @@ export const ProgressCircle = ({ size = "sm", title, subtitle }: { size?: "xs" |
 
     return (
         <div className="h-100 w-full">
-            <ResponsiveContainer>
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }}>
                 <RadialBarChart
                     data={progressCircleData}
                     accessibilityLayer

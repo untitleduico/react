@@ -93,7 +93,7 @@ export const LineChart01 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <AreaChart
                     data={lineData}
                     className="text-tertiary [&_.recharts-text]:text-xs"
@@ -219,7 +219,7 @@ export const LineChart02 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <AreaChart
                     data={lineData}
                     className="text-tertiary [&_.recharts-text]:text-xs"
@@ -351,7 +351,7 @@ export const LineChart03 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <AreaChart
                     data={lineData}
                     className="text-tertiary [&_.recharts-text]:text-xs"
@@ -485,7 +485,7 @@ export const LineChart04 = () => {
 
     return (
         <div className="flex h-60 flex-col gap-2">
-            <ResponsiveContainer className="h-full">
+            <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} className="h-full">
                 <AreaChart
                     data={lineData}
                     className="text-tertiary [&_.recharts-text]:text-xs"
