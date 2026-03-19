@@ -15,12 +15,13 @@ interface AvatarLabelGroupProps extends AvatarProps {
     rounded?: boolean;
     title: string | ReactNode;
     subtitle: string | ReactNode;
+    avatarClassName?: string;
 }
 
-export const AvatarLabelGroup = ({ title, subtitle, className, rounded, ...props }: AvatarLabelGroupProps) => {
+export const AvatarLabelGroup = ({ title, subtitle, className, rounded, avatarClassName, ...props }: AvatarLabelGroupProps) => {
     return (
         <figure className={cx("group flex min-w-0 flex-1 items-center gap-2", className)}>
-            <Avatar border rounded={rounded} {...props} />
+            <Avatar border rounded={rounded} className={avatarClassName} {...props} />
             <figcaption className="min-w-0 flex-1">
                 <p className={cx("font-semibold text-primary", styles[props.size].title)}>{title}</p>
                 <p className={cx("truncate text-tertiary", styles[props.size].subtitle)}>{subtitle}</p>
