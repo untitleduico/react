@@ -157,7 +157,7 @@ interface MultiSelectProps extends RefAttributes<HTMLDivElement>, CommonProps {
 const MultiSelectRoot = ({
     items,
     children,
-    size = "sm",
+    size = "md",
     selectedKeys,
     defaultSelectedKeys,
     onSelectionChange,
@@ -168,6 +168,7 @@ const MultiSelectRoot = ({
     label,
     hint,
     tooltip,
+    hideRequiredIndicator,
     popoverClassName,
     className,
     onReset,
@@ -202,7 +203,7 @@ const MultiSelectRoot = ({
         <SelectContext.Provider value={{ size }}>
             <div className={cx("flex flex-col gap-1.5", className)}>
                 {label && (
-                    <Label isRequired={isRequired} isInvalid={isInvalid} tooltip={tooltip}>
+                    <Label isRequired={hideRequiredIndicator ? false : isRequired} isInvalid={isInvalid} tooltip={tooltip}>
                         {label}
                     </Label>
                 )}

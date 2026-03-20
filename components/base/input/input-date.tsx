@@ -238,6 +238,7 @@ export const InputDate = ({
                     )}
 
                     <InputDateBase
+                        className={inputClassName}
                         {...{
                             ref,
                             groupRef,
@@ -246,7 +247,6 @@ export const InputDate = ({
                             icon: Icon,
                             shortcut,
                             iconClassName,
-                            inputClassName,
                             wrapperClassName,
                             tooltipClassName,
                             tooltip,

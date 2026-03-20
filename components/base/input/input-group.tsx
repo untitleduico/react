@@ -52,9 +52,11 @@ interface InputGroupProps extends TextFieldProps {
     label?: string;
     /** Helper text displayed below the input */
     hint?: ReactNode;
+    /** Whether to hide the required indicator from the label. */
+    hideRequiredIndicator?: boolean;
 }
 
-export const InputGroup = ({ size = "md", prefix, leadingAddon, trailingAddon, label, hint, children, ...props }: InputGroupProps) => {
+export const InputGroup = ({ size = "md", prefix, leadingAddon, trailingAddon, label, hint, hideRequiredIndicator, children, ...props }: InputGroupProps) => {
     const hasLeading = !!leadingAddon;
     const hasTrailing = !!trailingAddon;
 
@@ -103,7 +105,7 @@ export const InputGroup = ({ size = "md", prefix, leadingAddon, trailingAddon, l
         >
             {({ isDisabled, isInvalid, isRequired }) => (
                 <>
-                    {label && <Label isRequired={isRequired}>{label}</Label>}
+                    {label && <Label isRequired={hideRequiredIndicator ? false : isRequired}>{label}</Label>}
 
                     <div
                         // Used to apply styles based on the size of the input group within children

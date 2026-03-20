@@ -208,9 +208,9 @@ const TextFieldContext = createContext<TextFieldContextProps>({});
 
 export interface TextFieldProps extends AriaTextFieldProps, TextFieldContextProps {}
 
-export const TextField = ({ className, size = "md", ...props }: TextFieldProps) => {
+export const TextField = ({ className, size = "md", inputClassName, wrapperClassName, iconClassName, tooltipClassName, ...props }: TextFieldProps) => {
     return (
-        <TextFieldContext.Provider value={{ ...props, size }}>
+        <TextFieldContext.Provider value={{ inputClassName, wrapperClassName, iconClassName, tooltipClassName, size }}>
             <AriaTextField
                 {...props}
                 data-input-wrapper

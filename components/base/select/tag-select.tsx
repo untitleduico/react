@@ -25,7 +25,7 @@ interface TagSelectValueProps extends AriaGroupProps {
     isDisabled?: boolean;
     placeholder?: string;
     shortcutClassName?: string;
-    placeholderIcon?: IconComponentType | null;
+    icon?: IconComponentType | null;
     ref?: RefObject<HTMLDivElement | null>;
     onFocus?: FocusEventHandler;
     onPointerEnter?: PointerEventHandler;
@@ -57,7 +57,7 @@ interface TagSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "childr
     popoverClassName?: string;
     shortcutClassName?: string;
     selectedItems: ListData<SelectItemType>;
-    placeholderIcon?: IconComponentType | null;
+    icon?: IconComponentType | null;
     children: AriaListBoxProps<SelectItemType>["children"];
     onItemCleared?: (key: Key) => void;
     onItemInserted?: (key: Key) => void;
@@ -74,7 +74,7 @@ export const TagSelectBase = ({
     valueFormatter,
     shortcut,
     placeholder = "Search",
-    placeholderIcon,
+    icon,
     // Omit name to avoid conflicts with the `Select` component
     name: _name,
     className,
@@ -182,7 +182,7 @@ export const TagSelectBase = ({
                             shortcut={shortcut}
                             ref={placeholderRef}
                             placeholder={placeholder}
-                            placeholderIcon={placeholderIcon}
+                            icon={icon}
                             // This is a workaround to correctly calculating the trigger width
                             // while using ResizeObserver wasn't 100% reliable.
                             onFocus={onResize}
@@ -347,7 +347,7 @@ export const TagSelectTagsValue = ({
     shortcut,
     placeholder,
     shortcutClassName,
-    placeholderIcon: Icon = SearchLg,
+    icon: Icon = SearchLg,
     // Omit this prop to avoid invalid HTML attribute warning
     isDisabled: _isDisabled,
     ...otherProps

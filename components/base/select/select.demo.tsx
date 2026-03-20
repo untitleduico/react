@@ -188,7 +188,7 @@ export const IconLeadingDemo = () => {
             tooltip="This is a tooltip"
             hint="This is a hint text to help user."
             placeholder="Select team member"
-            placeholderIcon={User01}
+            icon={User01}
             items={items}
         >
             {(item) => (
@@ -267,7 +267,7 @@ export const AvatarLeadingDemo = () => {
             tooltip="This is a tooltip"
             hint="This is a hint text to help user."
             placeholder="Select team member"
-            placeholderIcon={User01}
+            icon={User01}
             items={items}
         >
             {(item) => (
@@ -350,7 +350,7 @@ export const DotLeadingDemo = () => {
             tooltip="This is a tooltip"
             hint="This is a hint text to help user."
             placeholder="Select team member"
-            placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
+            icon={<Dot className="size-2.5 text-fg-success-secondary" />}
             items={items}
         >
             {(item) => (
@@ -572,7 +572,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
@@ -587,7 +587,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
@@ -606,7 +606,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
@@ -622,7 +622,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
@@ -641,7 +641,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
                 {(item) => (
@@ -657,7 +657,7 @@ export const IconLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items.map(({ avatarUrl: _, ...item }) => ({ ...item, icon: User01 }))}
             >
@@ -680,7 +680,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items}
             >
                 {(item) => (
@@ -695,7 +695,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items}
             >
@@ -714,7 +714,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items}
             >
                 {(item) => (
@@ -730,7 +730,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items}
             >
@@ -749,7 +749,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 items={items}
             >
                 {(item) => (
@@ -765,7 +765,7 @@ export const AvatarLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={User01}
+                icon={User01}
                 isDisabled
                 items={items}
             >
@@ -788,7 +788,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2 text-fg-success-secondary" />}
+                icon={<Dot className="size-2 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2 text-fg-success-secondary" />,
@@ -807,7 +807,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2 text-fg-success-secondary" />}
+                icon={<Dot className="size-2 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2 text-fg-success-secondary" />,
@@ -828,7 +828,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
+                icon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary" />,
@@ -848,7 +848,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
+                icon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary" />,
@@ -869,7 +869,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
+                icon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary" />,
@@ -889,7 +889,7 @@ export const DotLeading = () => (
                 tooltip="This is a tooltip"
                 hint="This is a hint text to help user."
                 placeholder="Select team member"
-                placeholderIcon={<Dot className="size-2.5 text-fg-success-secondary" />}
+                icon={<Dot className="size-2.5 text-fg-success-secondary" />}
                 items={items.map(({ avatarUrl: _, ...item }) => ({
                     ...item,
                     icon: <Dot className="size-2.5 text-fg-success-secondary" />,

@@ -20,7 +20,7 @@ export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./s
 export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
     items?: SelectItemType[];
     popoverClassName?: string;
-    placeholderIcon?: FC | ReactNode;
+    icon?: FC | ReactNode;
     children: ReactNode | ((item: SelectItemType) => ReactNode);
 }
 
@@ -31,10 +31,10 @@ interface SelectValueProps {
     isDisabled: boolean;
     placeholder?: string;
     ref?: Ref<HTMLButtonElement>;
-    placeholderIcon?: FC | ReactNode;
+    icon?: FC | ReactNode;
 }
 
-const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeholderIcon, ref }: SelectValueProps) => {
+const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, ref }: SelectValueProps) => {
     return (
         <AriaButton
             ref={ref}
@@ -52,7 +52,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
                         sizes[size].root,
 
                         // With icon
-                        (state.selectedItems[0]?.icon || placeholderIcon) && sizes[size].withIcon,
+                        (state.selectedItems[0]?.icon || icon) && sizes[size].withIcon,
 
                         // Icon styles
                         "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
@@ -61,7 +61,7 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
             >
                 {(state) => {
                     const selectedItem = state.selectedItems[0];
-                    const Icon = selectedItem?.icon || placeholderIcon;
+                    const Icon = selectedItem?.icon || icon;
 
                     return (
                         <>
@@ -94,19 +94,19 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, placeho
     );
 };
 
-const Select = ({ placeholder = "Select", placeholderIcon, size = "sm", children, items, label, hint, tooltip, className, ...rest }: SelectProps) => {
+const Select = ({ placeholder = "Select", icon, size = "md", children, items, label, hint, tooltip, hideRequiredIndicator, className, ...rest }: SelectProps) => {
     return (
         <SelectContext.Provider value={{ size }}>
             <AriaSelect {...rest} className={(state) => cx("flex flex-col gap-1.5", typeof className === "function" ? className(state) : className)}>
                 {(state) => (
                     <>
                         {label && (
-                            <Label isRequired={state.isRequired} tooltip={tooltip}>
+                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} tooltip={tooltip}>
                                 {label}
                             </Label>
                         )}
 
-                        <SelectValue {...state} {...{ size, placeholder }} placeholderIcon={placeholderIcon} />
+                        <SelectValue {...state} {...{ size, placeholder }} icon={icon} />
 
                         <Popover size={size} className={rest.popoverClassName}>
                             <AriaListBox items={items} className="size-full outline-hidden">

@@ -1,8 +1,8 @@
 "use client";
 
-import type { FocusEventHandler, PointerEventHandler, RefAttributes, RefObject } from "react";
-import { useCallback, useContext, useRef, useState } from "react";
-import { SearchLg as SearchIcon } from "@untitledui/icons";
+import type { FC, FocusEventHandler, PointerEventHandler, ReactNode, RefAttributes, RefObject } from "react";
+import { isValidElement, useCallback, useContext, useRef, useState } from "react";
+import { SearchLg } from "@untitledui/icons";
 import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps } from "react-aria-components";
 import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox, ComboBoxStateContext } from "react-aria-components";
 import { HintText } from "@/components/base/input/hint-text";
@@ -11,12 +11,15 @@ import { Popover } from "@/components/base/select/popover";
 import { type CommonProps, SelectContext, type SelectItemType, sizes } from "@/components/base/select/select-shared";
 import { useResizeObserver } from "@/hooks/use-resize-observer";
 import { cx } from "@/utils/cx";
+import { isReactComponent } from "@/utils/is-react-component";
 
 interface ComboBoxProps extends Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
     shortcut?: boolean;
     items?: SelectItemType[];
     popoverClassName?: string;
     shortcutClassName?: string;
+    /** Leading icon component displayed before the input. */
+    icon?: FC | ReactNode;
     children: AriaListBoxProps<SelectItemType>["children"];
 }
 
@@ -25,12 +28,13 @@ interface ComboBoxValueProps extends AriaGroupProps {
     shortcut: boolean;
     placeholder?: string;
     shortcutClassName?: string;
+    icon?: FC | ReactNode;
     onFocus?: FocusEventHandler;
     onPointerEnter?: PointerEventHandler;
     ref?: RefObject<HTMLDivElement | null>;
 }
 
-const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...otherProps }: ComboBoxValueProps) => {
+const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: IconProp, ...otherProps }: ComboBoxValueProps) => {
     const state = useContext(ComboBoxStateContext);
 
     const value = state?.selectedItem?.value || null;
@@ -55,7 +59,13 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
                 )
             }
         >
-            <SearchIcon data-icon className="pointer-events-none" />
+            {isReactComponent(IconProp) ? (
+                <IconProp data-icon className="pointer-events-none" aria-hidden="true" />
+            ) : isValidElement(IconProp) ? (
+                IconProp
+            ) : (
+                <SearchLg data-icon className="pointer-events-none" aria-hidden="true" />
+            )}
 
             <div className="relative flex w-full items-center">
                 {inputValue && (
@@ -94,7 +104,17 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, ...othe
     );
 };
 
-export const ComboBox = ({ placeholder = "Search", shortcut = true, size = "sm", children, items, shortcutClassName, ...otherProps }: ComboBoxProps) => {
+export const ComboBox = ({
+    placeholder = "Search",
+    shortcut = true,
+    size = "md",
+    children,
+    items,
+    shortcutClassName,
+    icon,
+    hideRequiredIndicator,
+    ...otherProps
+}: ComboBoxProps) => {
     const placeholderRef = useRef<HTMLDivElement>(null);
     const [popoverWidth, setPopoverWidth] = useState("");
 
@@ -119,7 +139,7 @@ export const ComboBox = ({ placeholder = "Search", shortcut = true, size = "sm",
                 {(state) => (
                     <div className="flex flex-col gap-1.5">
                         {otherProps.label && (
-                            <Label isRequired={state.isRequired} tooltip={otherProps.tooltip}>
+                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} tooltip={otherProps.tooltip}>
                                 {otherProps.label}
                             </Label>
                         )}
@@ -129,6 +149,7 @@ export const ComboBox = ({ placeholder = "Search", shortcut = true, size = "sm",
                             placeholder={placeholder}
                             shortcut={shortcut}
                             shortcutClassName={shortcutClassName}
+                            icon={icon}
                             size={size}
                             // This is a workaround to correctly calculating the trigger width
                             // while using ResizeObserver wasn't 100% reliable.

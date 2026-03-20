@@ -134,7 +134,7 @@ export const DateTimePickerDemo = () => {
                                                 aria-label="Time"
                                                 size="sm"
                                                 placeholder="Time"
-                                                placeholderIcon={Clock}
+                                                icon={Clock}
                                                 items={TIME_SLOTS}
                                                 value={value && "hour" in value ? `${value.hour}:${String(value.minute).padStart(2, "0")}` : null}
                                                 onChange={handleTimeClick}
