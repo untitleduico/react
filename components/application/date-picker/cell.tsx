@@ -46,7 +46,7 @@ export const CalendarCell = ({ date, isHighlighted, showOutOfRangeDates = false,
                 const isRoundedRight = isSelectionEnd || dayOfWeek === 6;
 
                 return cx(
-                    "relative size-10 focus:outline-none",
+                    "relative size-10 focus:outline-hidden",
                     isRoundedLeft && "rounded-l-full",
                     isRoundedRight && "rounded-r-full",
                     isInRange && isDisabled && "bg-active",

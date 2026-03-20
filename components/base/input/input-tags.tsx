@@ -285,7 +285,7 @@ export const InputTags = ({
                                     placeholder={isEmpty ? placeholder : undefined}
                                     onChange={(e) => setInputValue(e.target.value)}
                                     onKeyDown={handleInputKeyDown}
-                                    className="w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed"
+                                    className="w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-hidden placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed"
                                 />
                             </div>
                         </div>

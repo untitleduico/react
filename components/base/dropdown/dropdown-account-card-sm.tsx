@@ -5,7 +5,6 @@ import { ChevronDown, HelpCircle, LogOut01, Moon01, Plus, Settings01, User01 } f
 import type { Selection } from "react-aria-components";
 import { Button as AriaButton, SubmenuTrigger } from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
-import { Button } from "@/components/base/buttons/button";
 import { Dropdown } from "@/components/base/dropdown/dropdown";
 import { cx } from "@/utils/cx";
 

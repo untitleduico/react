@@ -313,7 +313,7 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
                     onKeyDown={handleInputKeyDown}
                     onMouseDown={handleInputMouseDown}
                     className={cx(
-                        "w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-none placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
+                        "w-full flex-[1_0_0] appearance-none bg-transparent text-ellipsis text-primary caret-alpha-black/90 outline-hidden placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
                         sizes[size].text,
                     )}
                 />
