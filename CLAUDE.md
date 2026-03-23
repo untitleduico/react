@@ -2,8 +2,8 @@
 
 This is an **Untitled UI React** component library project built with:
 
-- **React 19.1.1** with TypeScript
-- **Tailwind CSS v4.1** for styling
+- **React 19** with TypeScript
+- **Tailwind CSS v4.2** for styling
 - **React Aria Components** as the foundation for accessibility and behavior
 
 ## Key Architecture Principles
@@ -133,9 +133,9 @@ interface ButtonProps extends CommonProps, HTMLButtonElement {
 
 ## Styling Guidelines
 
-### Tailwind CSS v4.1
+### Tailwind CSS v4.2
 
-- Uses the latest Tailwind CSS v4.1 features
+- Uses the latest Tailwind CSS v4.2 features
 - Custom design tokens defined in theme configuration
 - Consistent spacing, colors, and typography scales
 
@@ -272,6 +272,18 @@ This provides a snappy 100ms linear transition that feels responsive without bei
 - Built-in loading spinners
 - Proper disabled states during loading
 
+### Disabled states
+
+All components use `opacity-50` for disabled states instead of individual disabled color tokens:
+
+```typescript
+// Correct (v8)
+"disabled:cursor-not-allowed disabled:opacity-50"
+
+// Incorrect (v7 pattern, do not use)
+"disabled:bg-disabled_subtle disabled:text-disabled disabled:ring-disabled"
+```
+
 ## Common Patterns
 
 ### Compound Components
@@ -345,7 +357,7 @@ import { Button } from "@/components/base/buttons/button";
 
 **Common Props:**
 
-- `size`: `"sm" | "md" | "lg" | "xl"` - Button size (default: `"sm"`)
+- `size`: `"xs" | "sm" | "md" | "lg" | "xl"` - Button size (default: `"sm"`)
 - `color`: `"primary" | "secondary" | "tertiary" | "link-gray" | "link-color" | "primary-destructive" | "secondary-destructive" | "tertiary-destructive" | "link-destructive"` - Button color variant (default: `"primary"`)
 - `iconLeading`: `FC | ReactNode` - Icon or component to display before text
 - `iconTrailing`: `FC | ReactNode` - Icon or component to display after text
@@ -383,7 +395,7 @@ import { InputGroup } from "@/components/base/input/input-group";
 
 **Common Props:**
 
-- `size`: `"sm" | "md"` - Input size (default: `"sm"`)
+- `size`: `"sm" | "md" | "lg"` - Input size (default: `"md"`)
 - `label`: `string` - Field label
 - `placeholder`: `string` - Placeholder text
 - `hint`: `string` - Helper text below input
@@ -427,7 +439,7 @@ import { Select } from "@/components/base/select/select";
 
 **Common Props:**
 
-- `size`: `"sm" | "md"` - Select size (default: `"sm"`)
+- `size`: `"sm" | "md" | "lg"` - Select size (default: `"md"`)
 - `label`: `string` - Field label
 - `placeholder`: `string` - Placeholder text
 - `hint`: `string` - Helper text
@@ -435,7 +447,7 @@ import { Select } from "@/components/base/select/select";
 - `items`: `Array` - Data items to display
 - `isRequired`: `boolean` - Required field
 - `isDisabled`: `boolean` - Disabled state
-- `placeholderIcon`: `FC | ReactNode` - Icon for placeholder
+- `icon`: `FC | ReactNode` - Icon for placeholder
 
 **Item Props:**
 
@@ -463,7 +475,7 @@ import { Select } from "@/components/base/select/select";
 </Select.ComboBox>
 
 // With avatars
-<Select items={users} placeholderIcon={User01}>
+<Select items={users} icon={User01}>
   {(item) => (
     <Select.Item avatarUrl={item.avatar} supportingText={item.role}>
       {item.name}
@@ -520,7 +532,7 @@ import { Badge, BadgeWithDot, BadgeWithIcon } from "@/components/base/badges/bad
 **Common Props:**
 
 - `size`: `"sm" | "md" | "lg"` - Badge size
-- `color`: `"gray" | "brand" | "error" | "warning" | "success" | "blue-gray" | "blue-light" | "blue" | "indigo" | "purple" | "pink" | "rose" | "orange"` - Color theme
+- `color`: `"gray" | "brand" | "error" | "warning" | "success" | "slate" | "sky" | "blue" | "indigo" | "purple" | "pink" | "rose" | "orange"` - Color theme
 - `type`: `"pill-color" | "color" | "modern"` - Badge style variant
 
 **Examples:**
@@ -549,11 +561,11 @@ import { AvatarLabelGroup } from "@/components/base/avatar/avatar-label-group";
 
 **Common Props:**
 
-- `size`: `"xs" | "sm" | "md" | "lg" | "xl" | "2xl"` - Avatar size
+- `size`: `"xs" | "sm" | "md" | "lg" | "xl" | "2xl"` - Avatar size (note: `"xxs"` was removed in v8)
 - `src`: `string` - Image URL
 - `alt`: `string` - Alt text for accessibility
 - `initials`: `string` - Text initials when no image
-- `placeholderIcon`: `FC` - Icon when no image
+- `icon`: `FC` - Icon when no image
 - `status`: `"online" | "offline"` - Status indicator
 - `verified`: `boolean` - Verification badge
 - `badge`: `ReactNode` - Custom badge element
@@ -715,9 +727,7 @@ Use text color variables to manage all text fill colors in your designs across l
 | text-quaternary            | Quaternary text for more subtle and lower-contrast text, such as footer column headings.                                                                             |
 | text-quaternary_on-brand   | Quaternary text when used on solid brand color backgrounds. Commonly used for brand theme website sections (e.g. footers).                                           |
 | text-white                 | Text that is always white, regardless of the mode.                                                                                                                   |
-| text-disabled              | Default color for disabled text such as disabled input fields or buttons. This can be changed to gray-400, but gray-500 is higher contrast and more accessible.      |
 | text-placeholder           | Default color for placeholder text such as input field placeholders. This can be changed to gray-400, but gray-500 is more accessible because it is higher contrast. |
-| text-placeholder_subtle    | A more subtle (lower contrast) alternative placeholder text. Useful for components such as verification code input fields.                                           |
 | text-brand-primary         | Primary brand text useful for headings (e.g. cards in pricing page headers).                                                                                         |
 | text-brand-secondary       | Secondary brand text for brand buttons, as well as accented text, highlights, and subheadings (e.g. subheadings in blog post cards).                                 |
 | text-brand-secondary_hover | Secondary brand text when in hover state (e.g. brand buttons).                                                                                                       |
@@ -731,18 +741,16 @@ Use text color variables to manage all text fill colors in your designs across l
 
 Use border color variables to manage all stroke colors in your designs across light and dark modes. You can use the same values for `ring-` and `outline-` as well (i.e. `ring-primary` `outline-secondary`).
 
-| Name                   | Usage                                                                                                                                                                                   |
-| :--------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| border-primary         | High contrast borders. These are used for components such as input fields, button groups, and checkboxes.                                                                               |
-| border-secondary       | Medium contrast borders. This is the most commonly used border color and is the default for most components (e.g. file uploaders), cards (such as tables), and content dividers.        |
-| border-secondary_alt   | An alternative to secondary border that uses alpha transparency. This is used exclusively for floating menus such as input dropdowns and notifications to create sharper bottom border. |
-| border-tertiary        | Low contrast borders useful for very subtle dividers and borders such as line and bar chart axis dividers.                                                                              |
-| border-disabled        | Default disabled border color for disabled states in components such as input fields and checkboxes.                                                                                    |
-| border-disabled_subtle | A more subtle (lower contrast) alternative for disabled borders such as disabled buttons.                                                                                               |
-| border-brand           | Default brand border color. Useful for active states in components such as input fields.                                                                                                |
-| border-brand_alt       | An brand border color that switches to gray when in dark mode. Useful for components such as brand-style variants of banners and footers.                                               |
-| border-error           | Default error state semantic border color. Useful for error states in components such as input fields and file uploaders.                                                               |
-| border-error_subtle    | A more subtle (lower contrast) alternative for error state semantic borders such as error state input fields.                                                                           |
+| Name                 | Usage                                                                                                                                                                                   |
+| :------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| border-primary       | High contrast borders. These are used for components such as input fields, button groups, and checkboxes.                                                                               |
+| border-secondary     | Medium contrast borders. This is the most commonly used border color and is the default for most components (e.g. file uploaders), cards (such as tables), and content dividers.        |
+| border-secondary_alt | An alternative to secondary border that uses alpha transparency. This is used exclusively for floating menus such as input dropdowns and notifications to create sharper bottom border. |
+| border-tertiary      | Low contrast borders useful for very subtle dividers and borders such as line and bar chart axis dividers.                                                                              |
+| border-brand         | Default brand border color. Useful for active states in components such as input fields.                                                                                                |
+| border-brand_alt     | An brand border color that switches to gray when in dark mode. Useful for components such as brand-style variants of banners and footers.                                               |
+| border-error         | Default error state semantic border color. Useful for error states in components such as input fields and file uploaders.                                                               |
+| border-error_subtle  | A more subtle (lower contrast) alternative for error state semantic borders such as error state input fields.                                                                           |
 
 ### Foreground Color
 
@@ -758,8 +766,6 @@ Use foreground color variables to manage all non-text foreground elements in you
 | fg-quaternary          | Low contrast non-text foreground elements such as icons in buttons, help icons and icons used in input fields.                                                |
 | fg-quaternary_hover    | Quaternary foreground elements when in hover state, such as help icons.                                                                                       |
 | fg-white               | Foreground elements that are always white, regardless of the mode.                                                                                            |
-| fg-disabled            | Default color for disabled non-text foreground elements such as icons in disabled button group buttons and input dropdown menu items.                         |
-| fg-disabled_subtle     | A more subtle (lower contrast) alternative for non-text disabled foreground elements such as disabled active checkboxes and tag checkboxes.                   |
 | fg-brand-primary       | Primary brand color non-text foreground elements such as featured icons and progress bars.                                                                    |
 | fg-brand-primary_alt   | An alternative for primary brand color non-text foreground elements that switches to gray when in dark mode such as active horizontal tabs.                   |
 | fg-brand-secondary     | Secondary brand color non-text foreground elements such as accents and arrows in marketing site sections (e.g. hero header sections).                         |
@@ -789,8 +795,6 @@ Use background color variables to manage all fill colors for elements in your de
 | bg-tertiary             | The tertiary background color used to create contrast against light backgrounds such as toggles.                                                                                              |
 | bg-quaternary           | The quaternary background color used to create contrast against light backgrounds, such as sliders and progress bars.                                                                         |
 | bg-active               | Default active background color for components such as selected menu items in input dropdowns.                                                                                                |
-| bg-disabled             | Default disabled background color for components such as disabled primary buttons and toggles.                                                                                                |
-| bg-disabled_subtle      | An alternative disabled background color that is more subtle. This is useful for components such as disabled input fields and checkboxes.                                                     |
 | bg-overlay              | Default background color for background overlays. These are useful for overlay components such as modals.                                                                                     |
 | bg-brand-primary        | The primary brand background color. Useful for components such as check icons.                                                                                                                |
 | bg-brand-primary_alt    | An alternative primary brand background color that switches to bg-secondary when in dark mode. Useful for components such as active horizontal tabs.                                          |
