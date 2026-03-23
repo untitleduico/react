@@ -8,6 +8,7 @@ import { Input, InputBase, TextField } from "@/components/base/input/input";
 import { InputGroup } from "@/components/base/input/input-group";
 import { PaymentInput } from "@/components/base/input/input-payment";
 import { InputTags } from "@/components/base/input/input-tags";
+import { InputFile } from "@/components/base/input/input-file";
 import { InputTagsOuter } from "@/components/base/input/input-tags-outer";
 import { NativeSelect } from "@/components/base/select/select-native";
 import { useClipboard } from "@/hooks/use-clipboard";
@@ -1588,6 +1589,40 @@ export const TagInputs = () => {
                     defaultValue={["Design", "Engineering"]}
                     size="lg"
                 />
+            </div>
+        </div>
+    );
+};
+
+export const FileUploadInputDemo = ({ size = "sm" as "sm" | "md" | "lg" }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleChange = (files: FileList | null) => {
+        if (!files || files.length === 0) return;
+        setIsLoading(true);
+        setTimeout(() => setIsLoading(false), 3000);
+    };
+
+    return <InputFile isRequired size={size} label="Upload file" hint="SVG, PNG, JPG or GIF (max. 800x400px)." onChange={handleChange} isLoading={isLoading} />;
+};
+
+export const FileUploadInputs = () => {
+    return (
+        <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+                <FileUploadInputDemo size="sm" />
+                <InputFile isRequired isDisabled size="sm" label="Upload file" hint="This is a hint text to help user." />
+                <InputFile isRequired isInvalid size="sm" label="Upload file" hint="This is an error message." />
+            </div>
+            <div className="flex flex-col gap-4">
+                <FileUploadInputDemo size="md" />
+                <InputFile isRequired isDisabled size="md" label="Upload file" hint="This is a hint text to help user." />
+                <InputFile isRequired isInvalid size="md" label="Upload file" hint="This is an error message." />
+            </div>
+            <div className="flex flex-col gap-4">
+                <FileUploadInputDemo size="lg" />
+                <InputFile isRequired isDisabled size="lg" label="Upload file" hint="This is a hint text to help user." />
+                <InputFile isRequired isInvalid size="lg" label="Upload file" hint="This is an error message." />
             </div>
         </div>
     );

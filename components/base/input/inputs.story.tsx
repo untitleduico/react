@@ -67,6 +67,10 @@ export const NumberInputsVertical = () => <Inputs.NumberInputsVertical />;
 NumberInputsVertical.decorators = [DefaultDecorator];
 NumberInputsVertical.storyName = "Number inputs vertical";
 
+export const FileUploadInput = () => <Inputs.FileUploadInputs />;
+FileUploadInput.decorators = [WiderDecorator];
+FileUploadInput.storyName = "File upload input";
+
 export const Tags = () => <Inputs.TagInputs />;
 Tags.decorators = [WiderDecorator];
 Tags.storyName = "Tag inputs inner";
