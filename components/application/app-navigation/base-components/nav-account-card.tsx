@@ -13,7 +13,7 @@ import { RadioButtonBase } from "@/components/base/radio-buttons/radio-buttons";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
 import { cx } from "@/utils/cx";
 
-type NavAccountType = {
+export type NavAccountType = {
     /** Unique identifier for the nav item. */
     id: string;
     /** Name of the account holder. */
@@ -28,10 +28,10 @@ type NavAccountType = {
 
 const placeholderAccounts: NavAccountType[] = [
     {
-        id: "olivia",
-        name: "Olivia Rhye",
-        email: "olivia@untitledui.com",
-        avatar: "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80",
+        id: "caitlyn",
+        name: "Caitlyn King",
+        email: "caitlyn@untitledui.com",
+        avatar: "https://www.untitledui.com/images/avatars/caitlyn-king?fm=webp&q=80",
         status: "online",
     },
     {
@@ -98,7 +98,7 @@ export const NavAccountMenu = ({
                             <button
                                 key={account.id}
                                 className={cx(
-                                    "relative w-full cursor-pointer rounded-md px-2 py-1.5 text-left outline-focus-ring hover:bg-primary_hover focus:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
+                                    "relative w-full cursor-pointer rounded-md px-2 py-1.5 text-left outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover focus:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
                                     account.id === selectedAccountId && "bg-primary_hover",
                                 )}
                             >
@@ -143,7 +143,7 @@ const NavAccountCardMenuItem = ({
                 )}
             >
                 <div className="flex gap-2 text-sm font-semibold text-secondary group-hover/item:text-secondary_hover">
-                    {Icon && <Icon className="size-5 text-fg-quaternary" />} {label}
+                    {Icon && <Icon className="size-5 text-fg-quaternary group-hover/item:text-fg-quaternary_hover" />} {label}
                 </div>
 
                 {shortcut && (
@@ -156,17 +156,19 @@ const NavAccountCardMenuItem = ({
 
 export const NavAccountCard = ({
     popoverPlacement,
-    selectedAccountId = "olivia",
+    selectedAccountId = "caitlyn",
     items = placeholderAccounts,
+    avatarRounded,
 }: {
     popoverPlacement?: Placement;
     selectedAccountId?: string;
     items?: NavAccountType[];
+    avatarRounded?: boolean;
 }) => {
     const triggerRef = useRef<HTMLDivElement>(null);
     const isDesktop = useBreakpoint("lg");
 
-    const selectedAccount = placeholderAccounts.find((account) => account.id === selectedAccountId);
+    const selectedAccount = items.find((account) => account.id === selectedAccountId);
 
     if (!selectedAccount) {
         console.warn(`Account with ID ${selectedAccountId} not found in <NavAccountCard />`);
@@ -181,31 +183,30 @@ export const NavAccountCard = ({
                 title={selectedAccount.name}
                 subtitle={selectedAccount.email}
                 status={selectedAccount.status}
+                rounded={avatarRounded}
             />
 
-            <div className="absolute top-1.5 right-1.5">
-                <AriaDialogTrigger>
-                    <AriaButton className="flex cursor-pointer items-center justify-center rounded-md p-1.5 text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-fg-quaternary_hover focus-visible:outline-2 focus-visible:outline-offset-2 pressed:bg-primary_hover pressed:text-fg-quaternary_hover">
-                        <ChevronSelectorVertical className="size-4 shrink-0" />
-                    </AriaButton>
-                    <AriaPopover
-                        placement={popoverPlacement ?? (isDesktop ? "right bottom" : "top right")}
-                        triggerRef={triggerRef}
-                        offset={8}
-                        className={({ isEntering, isExiting }) =>
-                            cx(
-                                "origin-(--trigger-anchor-point) will-change-transform",
-                                isEntering &&
-                                    "duration-150 ease-out animate-in fade-in placement-right:slide-in-from-left-0.5 placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
-                                isExiting &&
-                                    "duration-100 ease-in animate-out fade-out placement-right:slide-out-to-left-0.5 placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
-                            )
-                        }
-                    >
-                        <NavAccountMenu selectedAccountId={selectedAccountId} accounts={items} />
-                    </AriaPopover>
-                </AriaDialogTrigger>
-            </div>
+            <AriaDialogTrigger>
+                <AriaButton className="absolute top-2 right-2 flex cursor-pointer items-center justify-center rounded-md p-1.5 text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-fg-quaternary_hover focus-visible:outline-2 focus-visible:outline-offset-2 pressed:bg-primary_hover pressed:text-fg-quaternary_hover">
+                    <ChevronSelectorVertical className="size-4 shrink-0 stroke-[2.25px]" />
+                </AriaButton>
+                <AriaPopover
+                    placement={popoverPlacement ?? (isDesktop ? "right bottom" : "top right")}
+                    triggerRef={triggerRef}
+                    offset={8}
+                    className={({ isEntering, isExiting }) =>
+                        cx(
+                            "origin-(--trigger-anchor-point) will-change-transform",
+                            isEntering &&
+                                "duration-150 ease-out animate-in fade-in placement-right:slide-in-from-left-0.5 placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
+                            isExiting &&
+                                "duration-100 ease-in animate-out fade-out placement-right:slide-out-to-left-0.5 placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
+                        )
+                    }
+                >
+                    <NavAccountMenu selectedAccountId={selectedAccountId} accounts={items} />
+                </AriaPopover>
+            </AriaDialogTrigger>
         </div>
     );
 };

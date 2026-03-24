@@ -35,9 +35,9 @@ export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke }: Base
 
     return (
         <Fragment>
-            <rect ref={rectRef} x={x} y={y} rx={11} className="fill-utility-gray-50 stroke-utility-gray-200 stroke-1"></rect>
+            <rect ref={rectRef} x={x} y={y} rx={11} className="fill-utility-neutral-50 stroke-border-secondary_alt stroke-1"></rect>
             <text ref={textRef} x={x} y={Number(y) + 5} stroke={stroke} textAnchor={textAnchor} className="recharts-text recharts-polar-angle-axis-tick-value">
-                <tspan x={x} dy="0em" className="fill-utility-gray-700 text-xs font-medium">
+                <tspan x={x} dy="0em" className="fill-utility-neutral-700 text-xs font-medium">
                     {payload.value}
                 </tspan>
             </text>
@@ -96,17 +96,17 @@ export const RadarChart = () => {
     const colors: Record<string, string> = {
         A: "text-utility-brand-600",
         B: "text-utility-pink-500",
-        C: "text-utility-blue-light-500",
+        C: "text-utility-sky-500",
     };
 
     return (
-        <ResponsiveContainer height={500} width="100%">
+        <ResponsiveContainer initialDimension={{ width: 1, height: 1 }} height={500} width="100%">
             <RechartsRadarChart
                 cx="50%"
                 cy="50%"
                 outerRadius="80%"
                 data={radarData}
-                className="size-full font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-gray-100 [&_.recharts-text]:text-sm"
+                className="size-full font-medium text-tertiary [&_.recharts-polar-grid]:text-utility-neutral-100 [&_.recharts-text]:text-sm"
                 margin={{
                     left: 0,
                     right: 0,
@@ -116,7 +116,7 @@ export const RadarChart = () => {
             >
                 <Legend verticalAlign="bottom" align="center" layout="horizontal" content={ChartLegendContent} />
 
-                <PolarGrid stroke="currentColor" className="text-utility-gray-100" />
+                <PolarGrid stroke="currentColor" className="text-utility-neutral-100" />
                 <PolarAngleAxis
                     dataKey="subject"
                     stroke="currentColor"
@@ -128,7 +128,7 @@ export const RadarChart = () => {
                             {...props}
                             className={cx("recharts-text recharts-polar-angle-axis-tick-value", props.className)}
                         >
-                            <tspan dy="0em" className="fill-utility-gray-700 text-xs font-medium">
+                            <tspan dy="0em" className="fill-utility-neutral-700 text-xs font-medium">
                                 {payload.value}
                             </tspan>
                         </text>

@@ -41,3 +41,19 @@ Search.decorators = [DefaultDecorator];
 
 export const Tags = () => <Selects.Tags />;
 Tags.decorators = [WiderDecorator];
+
+export const MultiSelectSm = () => <Selects.MultiSelectSmDemo />;
+MultiSelectSm.decorators = [DefaultDecorator];
+MultiSelectSm.storyName = "Multi select (sm)";
+
+export const MultiSelectMd = () => <Selects.MultiSelectMdDemo />;
+MultiSelectMd.decorators = [DefaultDecorator];
+MultiSelectMd.storyName = "Multi select (md)";
+
+export const MultiSelectLg = () => <Selects.MultiSelectLgDemo />;
+MultiSelectLg.decorators = [DefaultDecorator];
+MultiSelectLg.storyName = "Multi select (lg)";
+
+export const MultiSelectDisabled = () => <Selects.MultiSelectDisabledDemo />;
+MultiSelectDisabled.decorators = [DefaultDecorator];
+MultiSelectDisabled.storyName = "Multi select (disabled)";

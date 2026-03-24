@@ -26,12 +26,12 @@ export const sm = ({
     return (
         <div {...otherProps} className={cx("relative h-30 w-38", className)}>
             <svg viewBox="0 0 152 120" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="76" cy="52" r="52" className="fill-utility-gray-100" />
+                <circle cx="76" cy="52" r="52" className="fill-utility-neutral-100" />
 
-                <circle cx="21" cy="19" r="5" className="fill-utility-gray-100" />
-                <circle cx="18" cy="109" r="7" className="fill-utility-gray-100" />
-                <circle cx="145" cy="35" r="7" className="fill-utility-gray-100" />
-                <circle cx="134" cy="8" r="4" className="fill-utility-gray-100" />
+                <circle cx="21" cy="19" r="5" className="fill-utility-neutral-100" />
+                <circle cx="18" cy="109" r="7" className="fill-utility-neutral-100" />
+                <circle cx="145" cy="35" r="7" className="fill-utility-neutral-100" />
+                <circle cx="134" cy="8" r="4" className="fill-utility-neutral-100" />
 
                 <g filter="url(#filter-01-sm)">
                     <path
@@ -71,16 +71,16 @@ export const sm = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect-03-sm" result="shape" />
                     </filter>
                     <linearGradient id="cloud-gradient-01-sm" x1="26.9429" y1="37.4855" x2="72.2" y2="79.9998" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-02-sm" x1="54.0286" y1="26.8571" x2="110.6" y2="80" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-03-sm" x1="93.4" y1="42.8002" x2="133" y2="80.0002" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -109,12 +109,12 @@ export const md = ({
     return (
         <div {...otherProps} className={cx("relative h-32 w-43", className)}>
             <svg viewBox="0 0 182 137" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="91" cy="64" r="64" className="fill-utility-gray-100" />
+                <circle cx="91" cy="64" r="64" className="fill-utility-neutral-100" />
 
-                <circle cx="25" cy="20" r="6" className="fill-utility-gray-100" />
-                <circle cx="22" cy="112" r="8" className="fill-utility-gray-100" />
-                <circle cx="165" cy="36" r="8" className="fill-utility-gray-100" />
-                <circle cx="154" cy="9" r="5" className="fill-utility-gray-100" />
+                <circle cx="25" cy="20" r="6" className="fill-utility-neutral-100" />
+                <circle cx="22" cy="112" r="8" className="fill-utility-neutral-100" />
+                <circle cx="165" cy="36" r="8" className="fill-utility-neutral-100" />
+                <circle cx="154" cy="9" r="5" className="fill-utility-neutral-100" />
 
                 <g filter="url(#filter-01-md)">
                     <path
@@ -155,16 +155,16 @@ export const md = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect-03-md" result="shape" />
                     </filter>
                     <linearGradient id="cloud-gradient-01-md" x1="28.4286" y1="42.8571" x2="85" y2="96" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-02-md" x1="62.2857" y1="29.5714" x2="133" y2="95.9999" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-03-md" x1="111.5" y1="49.5" x2="161" y2="96" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -193,12 +193,12 @@ export const lg = ({
     return (
         <div {...otherProps} className={cx("relative h-40 w-55", className)}>
             <svg viewBox="0 0 220 160" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="110" cy="80" r="80" className="fill-utility-gray-100" />
-                <circle cx="26" cy="20" r="8" className="fill-utility-gray-100" />
-                <circle cx="198" cy="126" r="6" className="fill-utility-gray-100" />
-                <circle cx="25" cy="138" r="10" className="fill-utility-gray-100" />
-                <circle cx="210" cy="46" r="10" className="fill-utility-gray-100" />
-                <circle cx="191" cy="11" r="7" className="fill-utility-gray-100" />
+                <circle cx="110" cy="80" r="80" className="fill-utility-neutral-100" />
+                <circle cx="26" cy="20" r="8" className="fill-utility-neutral-100" />
+                <circle cx="198" cy="126" r="6" className="fill-utility-neutral-100" />
+                <circle cx="25" cy="138" r="10" className="fill-utility-neutral-100" />
+                <circle cx="210" cy="46" r="10" className="fill-utility-neutral-100" />
+                <circle cx="191" cy="11" r="7" className="fill-utility-neutral-100" />
                 <g filter="url(#filter-01-lg)">
                     <mask id="path-01-lg" maskUnits="userSpaceOnUse" x="23" y="15" width="176" height="102" fill="black">
                         <rect fill="white" x="23" y="15" width="176" height="102" />
@@ -248,16 +248,16 @@ export const lg = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="effect-03-lg" result="shape" />
                     </filter>
                     <linearGradient id="cloud-gradient-01-lg" x1="33.2326" y1="49.3796" x2="103.543" y2="115.429" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-02-lg" x1="75.3122" y1="32.8673" x2="163.2" y2="115.428" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                     <linearGradient id="cloud-gradient-03-lg" x1="136.479" y1="57.6357" x2="198" y2="115.429" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-200" />
-                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-200" />
+                        <stop offset="0.350715" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>

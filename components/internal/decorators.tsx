@@ -1,6 +1,5 @@
 import type { FC, ReactElement } from "react";
 import type { StoryContext, StoryFn } from "@storybook/nextjs";
-import { useGlobals } from "storybook/preview-api";
 
 export declare type ImageSrc = {
     height: number;
@@ -26,7 +25,7 @@ export type Viewports = "desktop" | "mobile";
 type CustomRenderer = (Story: FC, context: StoryContext) => ReactElement;
 
 export const withOverlayAware = (customRenderer?: CustomRenderer) => (Story: StoryFn, context: StoryContext) => {
-    const [{ overlay }] = useGlobals() as unknown as [Globals];
+    const { overlay } = context.globals as Globals;
 
     if (overlay?.visible) {
         return Story(context.args, context) as ReactElement;

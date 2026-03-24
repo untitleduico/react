@@ -8,7 +8,7 @@ import { Input } from "@/components/base/input/input";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { cx } from "@/utils/cx";
 import { MobileNavigationHeader } from "../base-components/mobile-header";
-import { NavAccountCard } from "../base-components/nav-account-card";
+import { NavAccountCard, type NavAccountType } from "../base-components/nav-account-card";
 import { NavItemBase } from "../base-components/nav-item";
 import { NavList } from "../base-components/nav-list";
 import type { NavItemType } from "../config";
@@ -24,16 +24,28 @@ interface SidebarNavigationDualTierProps {
     footerItems?: NavItemType[];
     /** Whether to hide the right side border. */
     hideBorder?: boolean;
+    /** The selected account ID of the nav account card. */
+    selectedAccountId?: string;
+    /** The items of the nav account card. */
+    accountItems?: NavAccountType[];
 }
 
-export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footerItems = [], featureCard }: SidebarNavigationDualTierProps) => {
+export const SidebarNavigationDualTier = ({
+    activeUrl,
+    hideBorder,
+    items,
+    footerItems = [],
+    featureCard,
+    selectedAccountId,
+    accountItems,
+}: SidebarNavigationDualTierProps) => {
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
     const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
     const [isHovering, setIsHovering] = useState(false);
 
     const isSecondarySidebarVisible = isHovering && Boolean(currentItem.items?.length);
 
-    const MAIN_SIDEBAR_WIDTH = 296;
+    const MAIN_SIDEBAR_WIDTH = 280;
     const SECONDARY_SIDEBAR_WIDTH = 256;
 
     const mainSidebar = (
@@ -45,20 +57,25 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                     } as React.CSSProperties
                 }
                 className={cx(
-                    "relative flex w-full flex-col border-r border-secondary pt-4 transition duration-300 lg:w-(--width) lg:pt-6",
+                    "relative flex w-full flex-col border-r border-secondary pt-4 transition duration-300 lg:w-(--width) lg:pt-5",
                     hideBorder && !isSecondarySidebarVisible && "border-transparent",
                 )}
             >
                 <div className="flex flex-col gap-5 px-4 lg:px-5">
-                    <UntitledLogo className="h-8" />
-                    <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                    <UntitledLogo className="h-6" />
+
+                    {/* Mobile search input */}
+                    <Input size="md" aria-label="Search" placeholder="Search" icon={SearchLg} className="md:hidden" />
+
+                    {/* Desktop search input */}
+                    <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} className="max-md:hidden" />
                 </div>
 
                 <NavList activeUrl={activeUrl} items={items} className="lg:hidden" />
 
-                <ul className="mt-4 hidden flex-col px-4 lg:flex">
+                <ul className="mt-5 hidden flex-col px-4 lg:flex">
                     {items.map((item) => (
-                        <li key={item.label + item.href} className="py-0.5">
+                        <li key={item.label + item.href} className="py-px">
                             <NavItemBase
                                 current={currentItem.href === item.href}
                                 href={item.href}
@@ -72,11 +89,11 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                         </li>
                     ))}
                 </ul>
-                <div className="mt-auto flex flex-col gap-4 px-2 py-4 lg:px-4 lg:py-6">
+                <div className="mt-auto flex flex-col gap-3 px-2 py-4 lg:px-4 lg:py-6">
                     {footerItems.length > 0 && (
                         <ul className="flex flex-col">
                             {footerItems.map((item) => (
-                                <li key={item.label + item.href} className="py-0.5">
+                                <li key={item.label + item.href} className="py-px">
                                     <NavItemBase
                                         current={currentItem.href === item.href}
                                         href={item.href}
@@ -94,7 +111,7 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
 
                     {featureCard}
 
-                    <NavAccountCard />
+                    <NavAccountCard selectedAccountId={selectedAccountId} items={accountItems} />
                 </div>
             </div>
         </aside>
@@ -110,9 +127,9 @@ export const SidebarNavigationDualTier = ({ activeUrl, hideBorder, items, footer
                     transition={{ type: "spring", damping: 26, stiffness: 220, bounce: 0 }}
                     className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary", !hideBorder && "box-content border-r-[1.5px]")}
                 >
-                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 py-6">
+                    <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-5">
                         {currentItem.items?.map((item) => (
-                            <li key={item.label + item.href} className="py-0.5">
+                            <li key={item.label + item.href} className="py-px">
                                 <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                     {item.label}
                                 </NavItemBase>

@@ -10,9 +10,11 @@ interface CalendarCellProps extends AriaCalendarCellProps {
     isRangeCalendar?: boolean;
     /** Whether the cell is highlighted. */
     isHighlighted?: boolean;
+    /** Whether to show out of range dates. */
+    showOutOfRangeDates?: boolean;
 }
 
-export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProps) => {
+export const CalendarCell = ({ date, isHighlighted, showOutOfRangeDates = false, ...props }: CalendarCellProps) => {
     const { locale } = useLocale();
     const dayOfWeek = getDayOfWeek(date, locale);
     const rangeCalendarContext = useSlottedContext(RangeCalendarContext);
@@ -44,14 +46,15 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                 const isRoundedRight = isSelectionEnd || dayOfWeek === 6;
 
                 return cx(
-                    "relative size-10 focus:outline-none",
+                    "relative size-10 focus:outline-hidden",
                     isRoundedLeft && "rounded-l-full",
                     isRoundedRight && "rounded-r-full",
                     isInRange && isDisabled && "bg-active",
                     isSelected && isRangeCalendar && "bg-active",
                     isDisabled ? "pointer-events-none" : "cursor-pointer",
                     isFocusVisible ? "z-10" : "z-0",
-                    isRangeCalendar && isOutsideMonth && "hidden",
+                    isOutsideMonth && "opacity-50",
+                    isRangeCalendar && isOutsideMonth && !showOutOfRangeDates && "hidden",
 
                     // Show gradient on last day of month if it's within the selected range.
                     isLastDayOfMonth &&
@@ -75,9 +78,9 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                 return (
                     <div
                         className={cx(
-                            "relative flex size-full items-center justify-center rounded-full text-sm",
+                            "relative flex size-full items-center justify-center rounded-full text-sm text-secondary hover:text-secondary_hover",
                             // Disabled state.
-                            isDisabled ? "text-disabled" : "text-secondary hover:text-secondary_hover",
+                            isDisabled && "text-secondary/50",
                             // Focus ring, visible while the cell has keyboard focus.
                             isFocusVisible ? "outline-2 outline-offset-2 outline-focus-ring" : "",
                             // Hover state for cells in the middle of the range.
@@ -94,7 +97,8 @@ export const CalendarCell = ({ date, isHighlighted, ...props }: CalendarCellProp
                             <div
                                 className={cx(
                                     "absolute bottom-1 left-1/2 size-1.25 -translate-x-1/2 rounded-full",
-                                    isDisabled ? "bg-fg-disabled" : markedAsSelected ? "bg-fg-white" : "bg-fg-brand-primary",
+                                    markedAsSelected ? "bg-fg-white" : "bg-fg-brand-primary",
+                                    isDisabled && "opacity-50",
                                 )}
                             />
                         )}

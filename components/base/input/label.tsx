@@ -9,13 +9,14 @@ import { cx } from "@/utils/cx";
 
 interface LabelProps extends AriaLabelProps {
     children: ReactNode;
+    isInvalid?: boolean;
     isRequired?: boolean;
     tooltip?: string;
     tooltipDescription?: string;
     ref?: Ref<HTMLLabelElement>;
 }
 
-export const Label = ({ isRequired, tooltip, tooltipDescription, className, ...props }: LabelProps) => {
+export const Label = ({ isInvalid, isRequired, tooltip, tooltipDescription, className, ...props }: LabelProps) => {
     return (
         <AriaLabel
             // Used for conditionally hiding/showing the label element via CSS:
@@ -28,7 +29,18 @@ export const Label = ({ isRequired, tooltip, tooltipDescription, className, ...p
         >
             {props.children}
 
-            <span className={cx("hidden text-brand-tertiary", isRequired && "block", typeof isRequired === "undefined" && "group-required:block")}>*</span>
+            <span
+                className={cx(
+                    "hidden text-brand-tertiary",
+                    isRequired && "block",
+                    typeof isRequired === "undefined" && "group-required:block",
+
+                    isInvalid && "text-error-primary",
+                    typeof isInvalid === "undefined" && "group-invalid:text-error-primary",
+                )}
+            >
+                *
+            </span>
 
             {tooltip && (
                 <Tooltip title={tooltip} description={tooltipDescription} placement="top">

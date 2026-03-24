@@ -169,8 +169,8 @@ export const SizesDemo = () => {
 export const Default = () => {
     const tags: TagItem[] = [
         { id: "tag-01", label: "Label" },
-        { id: "tag-02", label: "Label", avatarSrc: "https://www.untitledui.com/images/flags/AU.svg", avatarContrastBorder: false },
-        { id: "tag-03", label: "Label", avatarSrc: "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" },
+        { id: "tag-02", label: "Label", avatarSrc: "https://www.untitledui.com/imagesadas/flags/AU.svg", avatarContrastBorder: false },
+        { id: "tag-03", label: "Label", avatarSrc: "https://www.untitledui.com/images/avasdasatars/olivia-rhye?fm=webp&q=80" },
         { id: "tag-04", label: "Label", dot: true },
     ];
 

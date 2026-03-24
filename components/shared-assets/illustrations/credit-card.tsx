@@ -26,11 +26,11 @@ export const sm = ({
     return (
         <div {...otherProps} className={cx("relative h-29.5 w-38", className)}>
             <svg viewBox="0 0 152 118" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="21" cy="5" r="5" className="fill-utility-gray-100" />
-                <circle cx="18" cy="109" r="7" className="fill-utility-gray-100" />
-                <circle cx="145" cy="35" r="7" className="fill-utility-gray-100" />
-                <circle cx="134" cy="8" r="4" className="fill-utility-gray-100" />
-                <circle cx="76" cy="52" r="52" className="fill-utility-gray-100" />
+                <circle cx="21" cy="5" r="5" className="fill-utility-neutral-100" />
+                <circle cx="18" cy="109" r="7" className="fill-utility-neutral-100" />
+                <circle cx="145" cy="35" r="7" className="fill-utility-neutral-100" />
+                <circle cx="134" cy="8" r="4" className="fill-utility-neutral-100" />
+                <circle cx="76" cy="52" r="52" className="fill-utility-neutral-100" />
                 <g filter="url(#credit-card-shadow-sm)">
                     <path
                         d="M18 18C18 14.6863 20.6863 12 24 12H127C130.314 12 133 14.6863 133 18V78C133 81.3137 130.314 84 127 84H24C20.6863 84 18 81.3137 18 78V18Z"
@@ -43,25 +43,25 @@ export const sm = ({
                     />
                     <path
                         d="M28 28C28 26.8954 28.8954 26 30 26H46C47.1046 26 48 26.8954 48 28V39C48 40.1046 47.1046 41 46 41H30C28.8954 41 28 40.1046 28 39V28Z"
-                        className="fill-utility-gray-200"
+                        className="fill-utility-neutral-200"
                     />
-                    <circle cx="114.667" cy="32.3335" r="8.33333" className="fill-utility-gray-300" />
-                    <circle cx="104.667" cy="32.3333" r="8.33333" className="fill-utility-gray-200" />
+                    <circle cx="114.667" cy="32.3335" r="8.33333" className="fill-utility-neutral-300" />
+                    <circle cx="104.667" cy="32.3333" r="8.33333" className="fill-utility-neutral-200" />
                     <path
                         d="M28 73.6667C28 72.7462 28.7462 72 29.6667 72H46.3333C47.2538 72 48 72.7462 48 73.6667C48 74.5871 47.2538 75.3333 46.3333 75.3333H29.6667C28.7462 75.3333 28 74.5871 28 73.6667Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M53 73.6667C53 72.7462 53.7462 72 54.6667 72H71.3333C72.2538 72 73 72.7462 73 73.6667C73 74.5871 72.2538 75.3333 71.3333 75.3333H54.6667C53.7462 75.3333 53 74.5871 53 73.6667Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M78 73.6667C78 72.7462 78.7462 72 79.6667 72H96.3333C97.2538 72 98 72.7462 98 73.6667C98 74.5871 97.2538 75.3333 96.3333 75.3333H79.6667C78.7462 75.3333 78 74.5871 78 73.6667Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M103 73.6667C103 72.7462 103.746 72 104.667 72H121.333C122.254 72 123 72.7462 123 73.6667C123 74.5871 122.254 75.3333 121.333 75.3333H104.667C103.746 75.3333 103 74.5871 103 73.6667Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                 </g>
 
@@ -91,8 +91,8 @@ export const sm = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="credit-card-shadow-sm-effect2" result="shape" />
                     </filter>
                     <linearGradient id="credit-card-gradient-sm" x1="22.0049" y1="83.1477" x2="19.9135" y2="17.2505" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -121,11 +121,11 @@ export const md = ({
     return (
         <div {...otherProps} className={cx("relative h-35.75 w-45", className)}>
             <svg viewBox="0 0 180 143" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="90" cy="64" r="64" className="fill-utility-gray-100" />
-                <circle cx="24" cy="6" r="6" className="fill-utility-gray-100" />
-                <circle cx="21" cy="112" r="8" className="fill-utility-gray-100" />
-                <circle cx="164" cy="36" r="8" className="fill-utility-gray-100" />
-                <circle cx="153" cy="9" r="5" className="fill-utility-gray-100" />
+                <circle cx="90" cy="64" r="64" className="fill-utility-neutral-100" />
+                <circle cx="24" cy="6" r="6" className="fill-utility-neutral-100" />
+                <circle cx="21" cy="112" r="8" className="fill-utility-neutral-100" />
+                <circle cx="164" cy="36" r="8" className="fill-utility-neutral-100" />
+                <circle cx="153" cy="9" r="5" className="fill-utility-neutral-100" />
                 <g filter="url(#credit-card-shadow-md)">
                     <path
                         d="M21 22C21 18.6863 23.6863 16 27 16H153C156.314 16 159 18.6863 159 22V96C159 99.3137 156.314 102 153 102H27C23.6863 102 21 99.3137 21 96V22Z"
@@ -138,25 +138,25 @@ export const md = ({
                     />
                     <path
                         d="M33 38C33 36.8954 33.8954 36 35 36H55C56.1046 36 57 36.8954 57 38V52C57 53.1046 56.1046 54 55 54H35C33.8954 54 33 53.1046 33 52V38Z"
-                        className="fill-utility-gray-200"
+                        className="fill-utility-neutral-200"
                     />
-                    <circle cx="137" cy="42" r="10" className="fill-utility-gray-300" />
-                    <circle cx="125" cy="42" r="10" className="fill-utility-gray-200" />
+                    <circle cx="137" cy="42" r="10" className="fill-utility-neutral-300" />
+                    <circle cx="125" cy="42" r="10" className="fill-utility-neutral-200" />
                     <path
                         d="M33 89C33 87.8954 33.8954 87 35 87H55C56.1046 87 57 87.8954 57 89C57 90.1046 56.1046 91 55 91H35C33.8954 91 33 90.1046 33 89Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M63 89C63 87.8954 63.8954 87 65 87H85C86.1046 87 87 87.8954 87 89C87 90.1046 86.1046 91 85 91H65C63.8954 91 63 90.1046 63 89Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M93 89C93 87.8954 93.8954 87 95 87H115C116.105 87 117 87.8954 117 89C117 90.1046 116.105 91 115 91H95C93.8954 91 93 90.1046 93 89Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M123 89C123 87.8954 123.895 87 125 87H145C146.105 87 147 87.8954 147 89C147 90.1046 146.105 91 145 91H125C123.895 91 123 90.1046 123 89Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                 </g>
 
@@ -184,8 +184,8 @@ export const md = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="credit-card-shadow-md-effect3" result="shape" />
                     </filter>
                     <linearGradient id="credit-card-gradient-md" x1="25.8058" y1="100.982" x2="23.3193" y2="22.2707" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -214,12 +214,12 @@ export const lg = ({
     return (
         <div {...otherProps} className={cx("relative h-41.75 w-55", className)}>
             <svg viewBox="0 0 220 167" fill="none" className={cx("size-full stroke-inherit text-inherit", svgClassName)}>
-                <circle cx="110" cy="80" r="80" className="fill-utility-gray-100" />
-                <circle cx="18" cy="12" r="8" className="fill-utility-gray-100" />
-                <circle cx="198" cy="142" r="6" className="fill-utility-gray-100" />
-                <circle cx="25" cy="138" r="10" className="fill-utility-gray-100" />
-                <circle cx="210" cy="46" r="10" className="fill-utility-gray-100" />
-                <circle cx="191" cy="11" r="7" className="fill-utility-gray-100" />
+                <circle cx="110" cy="80" r="80" className="fill-utility-neutral-100" />
+                <circle cx="18" cy="12" r="8" className="fill-utility-neutral-100" />
+                <circle cx="198" cy="142" r="6" className="fill-utility-neutral-100" />
+                <circle cx="25" cy="138" r="10" className="fill-utility-neutral-100" />
+                <circle cx="210" cy="46" r="10" className="fill-utility-neutral-100" />
+                <circle cx="191" cy="11" r="7" className="fill-utility-neutral-100" />
                 <g filter="url(#credit-card-shadow-lg)">
                     <path
                         d="M27 28C27 24.6863 29.6863 22 33 22H187C190.314 22 193 24.6863 193 28V120C193 123.314 190.314 126 187 126H33C29.6863 126 27 123.314 27 120V28Z"
@@ -232,25 +232,25 @@ export const lg = ({
                     />
                     <path
                         d="M41.0698 48.186C41.0698 47.0815 41.9653 46.186 43.0698 46.186H68.0931C69.1977 46.186 70.0931 47.0815 70.0931 48.186V65.9535C70.0931 67.058 69.1977 67.9535 68.0931 67.9535H43.0698C41.9653 67.9535 41.0698 67.058 41.0698 65.9535V48.186Z"
-                        className="fill-utility-gray-200"
+                        className="fill-utility-neutral-200"
                     />
-                    <circle cx="166.837" cy="53.4419" r="12.093" className="fill-utility-gray-300" />
-                    <circle cx="152.325" cy="53.4419" r="12.093" className="fill-utility-gray-200" />
+                    <circle cx="166.837" cy="53.4419" r="12.093" className="fill-utility-neutral-300" />
+                    <circle cx="152.325" cy="53.4419" r="12.093" className="fill-utility-neutral-200" />
                     <path
                         d="M41.0698 110.279C41.0698 108.943 42.1527 107.86 43.4884 107.86H67.6745C69.0102 107.86 70.0931 108.943 70.0931 110.279C70.0931 111.615 69.0102 112.698 67.6745 112.698H43.4884C42.1527 112.698 41.0698 111.615 41.0698 110.279Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M77.3489 110.279C77.3489 108.943 78.4317 107.86 79.7675 107.86H103.954C105.289 107.86 106.372 108.943 106.372 110.279C106.372 111.615 105.289 112.698 103.954 112.698H79.7675C78.4317 112.698 77.3489 111.615 77.3489 110.279Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M113.628 110.279C113.628 108.943 114.711 107.86 116.047 107.86H140.233C141.568 107.86 142.651 108.943 142.651 110.279C142.651 111.615 141.568 112.698 140.233 112.698H116.047C114.711 112.698 113.628 111.615 113.628 110.279Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                     <path
                         d="M149.907 110.279C149.907 108.943 150.99 107.86 152.326 107.86H176.512C177.847 107.86 178.93 108.943 178.93 110.279C178.93 111.615 177.847 112.698 176.512 112.698H152.326C150.99 112.698 149.907 111.615 149.907 110.279Z"
-                        className="fill-utility-gray-300"
+                        className="fill-utility-neutral-300"
                     />
                 </g>
 
@@ -278,8 +278,8 @@ export const lg = ({
                         <feBlend mode="normal" in="SourceGraphic" in2="credit-card-shadow-lg-effect3" result="shape" />
                     </filter>
                     <linearGradient id="credit-card-gradient-lg" x1="32.7809" y1="124.769" x2="29.758" y2="29.5842" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="currentColor" className="text-utility-gray-100" />
-                        <stop offset="1" stopColor="currentColor" className="text-utility-gray-50" />
+                        <stop stopColor="currentColor" className="text-utility-neutral-100" />
+                        <stop offset="1" stopColor="currentColor" className="text-utility-neutral-50" />
                     </linearGradient>
                 </defs>
             </svg>

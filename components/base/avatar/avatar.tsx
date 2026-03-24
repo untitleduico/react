@@ -4,18 +4,30 @@ import { type FC, type ReactNode, useState } from "react";
 import { User01 } from "@untitledui/icons";
 import { cx } from "@/utils/cx";
 import { AvatarOnlineIndicator, VerifiedTick } from "./base-components";
-
-type AvatarSize = "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+import { AvatarCount } from "./base-components/avatar-count";
 
 export interface AvatarProps {
-    size?: AvatarSize;
+    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     className?: string;
+    /**
+     * The class name for the main child of the avatar.
+     */
+    contentClassName?: string;
     src?: string | null;
     alt?: string;
     /**
-     * Display a contrast border around the avatar.
+     * Display an inner contrast border around the avatar image.
      */
     contrastBorder?: boolean;
+    /**
+     * Whether the avatar should be rounded.
+     * @default true
+     */
+    rounded?: boolean;
+    /**
+     * Display an outer border around the avatar.
+     */
+    border?: boolean;
     /**
      * Display a badge (i.e. company logo).
      */
@@ -30,7 +42,10 @@ export interface AvatarProps {
      * @default false
      */
     verified?: boolean;
-
+    /**
+     * Display a count badge.
+     */
+    count?: number;
     /**
      * The initials of the user to display if no image is available.
      */
@@ -54,34 +69,38 @@ export interface AvatarProps {
 }
 
 const styles = {
-    xxs: { root: "size-4 outline-[0.5px] -outline-offset-[0.5px]", initials: "text-xs font-semibold", icon: "size-3" },
-    xs: { root: "size-6 outline-[0.5px] -outline-offset-[0.5px]", initials: "text-xs font-semibold", icon: "size-4" },
-    sm: { root: "size-8 outline-[0.75px] -outline-offset-[0.75px]", initials: "text-sm font-semibold", icon: "size-5" },
-    md: { root: "size-10 outline-1 -outline-offset-1", initials: "text-md font-semibold", icon: "size-6" },
-    lg: { root: "size-12 outline-1 -outline-offset-1", initials: "text-lg font-semibold", icon: "size-7" },
-    xl: { root: "size-14 outline-1 -outline-offset-1", initials: "text-xl font-semibold", icon: "size-8" },
-    "2xl": { root: "size-16 outline-1 -outline-offset-1", initials: "text-display-xs font-semibold", icon: "size-8" },
+    xs: { root: "size-6", rootWithBorder: "p-px", initials: "text-xs font-semibold", icon: "size-4" },
+    sm: { root: "size-8", rootWithBorder: "p-px", initials: "text-sm font-semibold", icon: "size-5" },
+    md: { root: "size-10", rootWithBorder: "p-px", initials: "text-md font-semibold", icon: "size-6" },
+    lg: { root: "size-12", rootWithBorder: "p-[1.5px]", initials: "text-lg font-semibold", icon: "size-7" },
+    xl: { root: "size-14", rootWithBorder: "p-0.5", initials: "text-xl font-semibold", icon: "size-8" },
+    "2xl": { root: "size-16", rootWithBorder: "p-0.5", initials: "text-display-xs font-semibold", icon: "size-8" },
 };
 
 export const Avatar = ({
-    contrastBorder = true,
     size = "md",
     src,
     alt,
     initials,
     placeholder,
     placeholderIcon: PlaceholderIcon,
+    border,
     badge,
     status,
     verified,
+    count,
     focusable = false,
+    rounded = true,
     className,
+    contentClassName,
 }: AvatarProps) => {
     const [isFailed, setIsFailed] = useState(false);
 
+    const canShowImage = src && !isFailed;
+
     const renderMainContent = () => {
-        if (src && !isFailed) {
-            return <img data-avatar-img className="size-full rounded-full object-cover" src={src} alt={alt} onError={() => setIsFailed(true)} />;
+        if (canShowImage) {
+            return <img data-avatar-img className="size-full object-cover" src={src} alt={alt} onError={() => setIsFailed(true)} />;
         }
 
         if (initials) {
@@ -97,16 +116,15 @@ export const Avatar = ({
 
     const renderBadgeContent = () => {
         if (status) {
-            return <AvatarOnlineIndicator status={status} size={size === "xxs" ? "xs" : size} />;
+            return <AvatarOnlineIndicator status={status} size={size} />;
         }
 
         if (verified) {
-            return (
-                <VerifiedTick
-                    size={size === "xxs" ? "xs" : size}
-                    className={cx("absolute right-0 bottom-0", (size === "xxs" || size === "xs") && "-right-px -bottom-px")}
-                />
-            );
+            return <VerifiedTick size={size} className={cx("absolute right-0 bottom-0", size === "xs" && "-right-px -bottom-px")} />;
+        }
+
+        if (count) {
+            return <AvatarCount count={count} />;
         }
 
         return badge;
@@ -116,15 +134,28 @@ export const Avatar = ({
         <div
             data-avatar
             className={cx(
-                "relative inline-flex shrink-0 items-center justify-center rounded-full bg-avatar-bg outline-transparent",
+                "relative inline-flex shrink-0 rounded-[7px]",
+                rounded && "rounded-full",
                 // Focus styles
-                focusable && "group-outline-focus-ring group-focus-visible:outline-2 group-focus-visible:outline-offset-2",
-                contrastBorder && "outline outline-avatar-contrast-border",
+                focusable && "outline-transparent group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-focus-ring",
+                border && "ring-1 ring-secondary_alt",
+                border && styles[size].rootWithBorder,
                 styles[size].root,
                 className,
             )}
         >
-            {renderMainContent()}
+            <div
+                className={cx(
+                    "relative inline-flex size-full shrink-0 items-center justify-center overflow-hidden rounded-md bg-tertiary outline-[0.5px] -outline-offset-[0.5px] outline-black/16 before:inset-[0.5px]",
+                    rounded && "rounded-full",
+                    canShowImage &&
+                        size !== "xs" &&
+                        "before:absolute before:inset-0 before:rounded-[inherit] before:border before:border-white/32 before:mask-[linear-gradient(to_bottom,black_0%,transparent_25%,transparent_75%,black_100%)]",
+                    contentClassName,
+                )}
+            >
+                {renderMainContent()}
+            </div>
             {renderBadgeContent()}
         </div>
     );

@@ -26,6 +26,8 @@ interface SidebarNavigationProps {
     hideBorder?: boolean;
     /** Additional CSS classes to apply to the sidebar. */
     className?: string;
+    /** Whether to round the account card avatar. */
+    avatarRounded?: boolean;
 }
 
 export const SidebarNavigationSimple = ({
@@ -37,7 +39,7 @@ export const SidebarNavigationSimple = ({
     hideBorder = false,
     className,
 }: SidebarNavigationProps) => {
-    const MAIN_SIDEBAR_WIDTH = 296;
+    const MAIN_SIDEBAR_WIDTH = 280;
 
     const content = (
         <aside
@@ -47,23 +49,28 @@ export const SidebarNavigationSimple = ({
                 } as React.CSSProperties
             }
             className={cx(
-                "flex h-full w-full max-w-full flex-col justify-between overflow-auto bg-primary pt-4 lg:w-(--width) lg:pt-6",
+                "flex h-full w-full max-w-full flex-col justify-between overflow-auto bg-primary pt-4 lg:w-(--width) lg:pt-5",
                 !hideBorder && "border-secondary md:border-r",
                 className,
             )}
         >
             <div className="flex flex-col gap-5 px-4 lg:px-5">
-                <UntitledLogo className="h-8" />
-                <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} />
+                <UntitledLogo className="h-6" />
+
+                {/* Mobile search input */}
+                <Input size="md" aria-label="Search" placeholder="Search" icon={SearchLg} className="md:hidden" />
+
+                {/* Desktop search input */}
+                <Input shortcut size="sm" aria-label="Search" placeholder="Search" icon={SearchLg} className="max-md:hidden" />
             </div>
 
             <NavList activeUrl={activeUrl} items={items} />
 
-            <div className="mt-auto flex flex-col gap-4 px-2 py-4 lg:px-4 lg:py-6">
+            <div className="mt-auto flex flex-col gap-3 px-4 py-4 lg:py-5">
                 {footerItems.length > 0 && (
                     <ul className="flex flex-col">
                         {footerItems.map((item) => (
-                            <li key={item.label} className="py-0.5">
+                            <li key={item.label} className="py-px">
                                 <NavItemBase badge={item.badge} icon={item.icon} href={item.href} type="link" current={item.href === activeUrl}>
                                     {item.label}
                                 </NavItemBase>

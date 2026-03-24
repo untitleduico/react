@@ -12,5 +12,8 @@ export default {
     ],
 };
 
-export const ButtonGroups = () => <ButtonGroup.All />;
-ButtonGroups.storyName = "Button groups";
+export const ButtonGroupSmall = () => <ButtonGroup.AllSmall />;
+ButtonGroupSmall.storyName = "Button group sm";
+
+export const ButtonGroupMedium = () => <ButtonGroup.All />;
+ButtonGroupMedium.storyName = "Button group md";

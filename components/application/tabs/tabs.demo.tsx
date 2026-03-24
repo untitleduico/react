@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { type FC, type ReactNode, useState } from "react";
+import { LayersTwo01, Lock01, Rows01, UserSquare, Users01 } from "@untitledui/icons";
 import type { Key } from "react-aria-components";
 import { Tabs } from "@/components/application/tabs/tabs";
 import { NativeSelect } from "@/components/base/select/select-native";
@@ -13,6 +14,14 @@ const tabs = [
     { id: "notifications", label: "Notifications", badge: 2 },
     { id: "integrations", label: "Integrations" },
     { id: "api", label: "API" },
+];
+
+const fullWidthTabs = [
+    { id: "details", label: "My details", icon: Rows01 },
+    { id: "profile", label: "Profile", icon: UserSquare },
+    { id: "password", label: "Password", icon: Lock01 },
+    { id: "team", label: "Team", icon: Users01, badge: 2 },
+    { id: "notifications", label: "Plan", icon: LayersTwo01 },
 ];
 
 export const ButtonBrandHorizontalDemo = () => {
@@ -42,6 +51,7 @@ export const ButtonBrandVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -63,6 +73,7 @@ export const ButtonGrayHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -84,6 +95,7 @@ export const ButtonGrayVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -105,6 +117,7 @@ export const UnderlineDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -126,6 +139,7 @@ export const LineDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -147,6 +161,7 @@ export const ButtonBorderHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -168,6 +183,7 @@ export const ButtonBorderVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -189,6 +205,7 @@ export const ButtonMinimalHorizontalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -210,6 +227,7 @@ export const ButtonMinimalVerticalDemo = () => {
     return (
         <>
             <NativeSelect
+                size="sm"
                 aria-label="Tabs"
                 value={selectedTabIndex as string}
                 onChange={(event) => setSelectedTabIndex(event.target.value)}
@@ -225,10 +243,18 @@ export const ButtonMinimalVerticalDemo = () => {
     );
 };
 
-const GenericTabs = (props: {
+const GenericTabs = ({
+    type,
+    fullWidth,
+    items = tabs,
+    orientation,
+    size = "sm",
+}: {
     size?: "sm" | "md";
     orientation?: "horizontal" | "vertical";
     type: "underline" | "line" | "button-brand" | "button-gray" | "button-border" | "button-minimal";
+    fullWidth?: boolean;
+    items?: { id: string; label: string; badge?: number; icon?: FC | ReactNode }[];
 }) => {
     const [selectedTabIndex, setSelectedTabIndex] = useState<Key>("details");
 
@@ -236,14 +262,15 @@ const GenericTabs = (props: {
         <>
             <div className="md:hidden">
                 <NativeSelect
+                    size="sm"
                     aria-label="Tabs"
                     value={selectedTabIndex as string}
                     onChange={(event) => setSelectedTabIndex(event.target.value)}
-                    options={tabs.map((tab) => ({ label: tab.label, value: tab.id }))}
+                    options={items.map((tab) => ({ label: tab.label, value: tab.id }))}
                 />
             </div>
-            <Tabs orientation={props.orientation} selectedKey={selectedTabIndex} onSelectionChange={setSelectedTabIndex} className="max-md:hidden">
-                <Tabs.List {...props} type={props.type} items={tabs}>
+            <Tabs orientation={orientation} selectedKey={selectedTabIndex} onSelectionChange={setSelectedTabIndex} className="max-md:hidden">
+                <Tabs.List size={size} fullWidth={fullWidth} type={type} items={items}>
                     {(tab) => <Tabs.Item {...tab} />}
                 </Tabs.List>
             </Tabs>
@@ -253,8 +280,15 @@ const GenericTabs = (props: {
 
 export const ButtonBrandHorizontal = () => (
     <div className="flex flex-col gap-16">
-        <GenericTabs type="button-brand" />
+        <GenericTabs type="button-brand" size="sm" />
         <GenericTabs type="button-brand" size="md" />
+    </div>
+);
+
+export const ButtonBrandHorizontalFullWidth = () => (
+    <div className="flex w-full flex-col gap-16">
+        <GenericTabs type="button-brand" size="sm" items={fullWidthTabs} fullWidth />
+        <GenericTabs type="button-brand" size="md" items={fullWidthTabs} fullWidth />
     </div>
 );
 
@@ -269,6 +303,12 @@ export const ButtonGrayHorizontal = () => (
     <div className="flex flex-col gap-16">
         <GenericTabs type="button-gray" />
         <GenericTabs type="button-gray" size="md" />
+    </div>
+);
+export const ButtonGrayHorizontalFullWidth = () => (
+    <div className="flex w-full flex-col gap-16">
+        <GenericTabs type="button-gray" size="sm" items={fullWidthTabs} fullWidth />
+        <GenericTabs type="button-gray" size="md" items={fullWidthTabs} fullWidth />
     </div>
 );
 
@@ -286,6 +326,13 @@ export const UnderlineHorizontal = () => (
     </div>
 );
 
+export const UnderlineHorizontalFullWidth = () => (
+    <div className="flex w-full flex-col gap-16">
+        <GenericTabs type="underline" size="sm" items={fullWidthTabs} fullWidth />
+        <GenericTabs type="underline" size="md" items={fullWidthTabs} fullWidth />
+    </div>
+);
+
 export const UnderlineVertical = () => (
     <div className="flex gap-16">
         <GenericTabs type="line" orientation="vertical" />
@@ -300,6 +347,13 @@ export const ButtonBorderHorizontal = () => (
     </div>
 );
 
+export const ButtonBorderHorizontalFullWidth = () => (
+    <div className="flex w-full flex-col gap-16">
+        <GenericTabs type="button-border" size="sm" items={fullWidthTabs} fullWidth />
+        <GenericTabs type="button-border" size="md" items={fullWidthTabs} fullWidth />
+    </div>
+);
+
 export const ButtonBorderVertical = () => (
     <div className="flex gap-16">
         <GenericTabs type="button-border" orientation="vertical" />
@@ -311,6 +365,13 @@ export const ButtonMinimalHorizontal = () => (
     <div className="flex flex-col gap-16">
         <GenericTabs type="button-minimal" />
         <GenericTabs type="button-minimal" size="md" />
+    </div>
+);
+
+export const ButtonMinimalHorizontalFullWidth = () => (
+    <div className="flex w-full flex-col gap-16">
+        <GenericTabs type="button-minimal" items={fullWidthTabs} fullWidth />
+        <GenericTabs type="button-minimal" size="md" items={fullWidthTabs} fullWidth />
     </div>
 );
 

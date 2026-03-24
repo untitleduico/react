@@ -16,5 +16,8 @@ export default {
 export const SocialButtons = () => <Buttons.SocialButtons />;
 SocialButtons.storyName = "Social buttons";
 
-export const SocialButtonGroups = () => <Buttons.SocialButtonGroups />;
-SocialButtonGroups.storyName = "Social button groups";
+export const SocialButtonGroups = () => <Buttons.SocialButtonGroupsMD />;
+SocialButtonGroups.storyName = "Social button groups md";
+
+export const SocialButtonGroupsLG = () => <Buttons.SocialButtonGroupsLG />;
+SocialButtonGroupsLG.storyName = "Social button groups lg";

@@ -15,8 +15,8 @@ import { cx } from "@/utils/cx";
 export const MobileNavigationHeader = ({ children }: PropsWithChildren) => {
     return (
         <AriaDialogTrigger>
-            <header className="flex h-16 items-center justify-between border-b border-secondary bg-primary py-3 pr-2 pl-4 lg:hidden">
-                <UntitledLogo />
+            <header className="flex h-14 items-center justify-between border-b border-secondary bg-primary p-3 pl-4 lg:hidden">
+                <UntitledLogo className="h-6" />
 
                 <AriaButton
                     aria-label="Expand navigation menu"
@@ -42,12 +42,12 @@ export const MobileNavigationHeader = ({ children }: PropsWithChildren) => {
                         <AriaButton
                             aria-label="Close navigation menu"
                             onPress={() => state.close()}
-                            className="fixed top-3 right-2 flex cursor-pointer items-center justify-center rounded-lg p-2 text-fg-white/70 outline-focus-ring hover:bg-white/10 hover:text-fg-white focus-visible:outline-2 focus-visible:outline-offset-2"
+                            className="fixed top-2.5 right-3 flex cursor-pointer items-center justify-center rounded-lg p-2 text-fg-white/70 outline-focus-ring hover:bg-white/10 hover:text-fg-white focus-visible:outline-2 focus-visible:outline-offset-2"
                         >
                             <CloseIcon className="size-6" />
                         </AriaButton>
 
-                        <AriaModal className="w-full cursor-auto will-change-transform">
+                        <AriaModal className="w-full max-w-74 cursor-auto will-change-transform">
                             <AriaDialog className="h-dvh outline-hidden focus:outline-hidden">{children}</AriaDialog>
                         </AriaModal>
                     </>

@@ -1,6 +1,7 @@
 "use client";
 
-import { type PropsWithChildren, type RefAttributes, createContext, useContext } from "react";
+import { type ImgHTMLAttributes, type PropsWithChildren, type RefAttributes, createContext, useContext, useState } from "react";
+import { User01 } from "@untitledui/icons";
 import {
     Tag as AriaTag,
     TagGroup as AriaTagGroup,
@@ -8,11 +9,30 @@ import {
     TagList as AriaTagList,
     type TagProps as AriaTagProps,
 } from "react-aria-components";
-import { Avatar } from "@/components/base/avatar/avatar";
 import { Dot } from "@/components/foundations/dot-icon";
 import { cx } from "@/utils/cx";
 import { TagCheckbox } from "./base-components/tag-checkbox";
 import { TagCloseX } from "./base-components/tag-close-x";
+
+export const TagAvatar = ({ src, alt, contrastBorder = true, className }: ImgHTMLAttributes<HTMLImageElement> & { contrastBorder?: boolean }) => {
+    const [isFailed, setIsFailed] = useState(false);
+
+    return (
+        <div
+            className={cx(
+                "relative inline-flex size-4 shrink-0 items-center justify-center overflow-hidden rounded-full bg-tertiary",
+                contrastBorder && "outline-[0.5px] -outline-offset-[0.5px] outline-black/16",
+                className,
+            )}
+        >
+            {src && !isFailed ? (
+                <img data-avatar-img className="size-full object-cover" src={src} alt={alt} onError={() => setIsFailed(true)} />
+            ) : (
+                <User01 className="size-3 stroke-[2.25px] text-fg-quaternary" />
+            )}
+        </div>
+    );
+};
 
 export interface TagItem {
     id: string;
@@ -95,7 +115,7 @@ interface TagProps extends AriaTagProps, RefAttributes<object>, Omit<TagItem, "l
 export const Tag = ({
     id,
     avatarSrc,
-    avatarContrastBorder,
+    avatarContrastBorder = true,
     dot,
     dotClassName,
     isDisabled,
@@ -107,7 +127,7 @@ export const Tag = ({
     const context = useContext(TagGroupContext);
 
     const leadingContent = avatarSrc ? (
-        <Avatar size="xxs" src={avatarSrc} alt="Avatar" contrastBorder={avatarContrastBorder} />
+        <TagAvatar src={avatarSrc} alt="Avatar" contrastBorder={avatarContrastBorder} />
     ) : dot ? (
         <Dot className={cx("text-fg-success-secondary", dotClassName)} size="sm" />
     ) : null;
@@ -119,7 +139,7 @@ export const Tag = ({
             textValue={typeof children === "string" ? children : undefined}
             className={(state) =>
                 cx(
-                    "flex cursor-default items-center gap-0.75 rounded-md bg-primary text-secondary ring-1 ring-primary ring-inset focus:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-ring",
+                    "flex cursor-default items-center gap-0.75 rounded-md bg-primary text-secondary ring-1 ring-primary outline-focus-ring transition duration-50 ease-linear ring-inset focus-visible:outline-2 focus-visible:outline-offset-2",
                     styles[context.size].root.base,
 
                     // With avatar
@@ -155,7 +175,9 @@ export const Tag = ({
                         )}
                     </div>
 
-                    {(onClose || allowsRemoving) && <TagCloseX size={context.size} onPress={() => id && onClose?.(id.toString())} />}
+                    {(onClose || allowsRemoving) && (
+                        <TagCloseX size={context.size} excludeFromTabOrder={allowsRemoving} onPress={() => id && onClose?.(id.toString())} />
+                    )}
                 </>
             )}
         </AriaTag>

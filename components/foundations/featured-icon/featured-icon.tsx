@@ -4,7 +4,7 @@ import { cx, sortCx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 
 const iconsSizes = {
-    sm: "*:data-icon:size-4",
+    sm: "*:data-icon:size-4 *:data-icon:stroke-[2.25px]",
     md: "*:data-icon:size-5",
     lg: "*:data-icon:size-6",
     xl: "*:data-icon:size-7",
@@ -38,15 +38,15 @@ const styles = sortCx({
         },
         colors: {
             brand: "before:border-utility-brand-200 before:bg-utility-brand-50 after:bg-brand-solid",
-            gray: "before:border-utility-gray-200 before:bg-utility-gray-50 after:bg-secondary-solid",
-            error: "before:border-utility-error-200 before:bg-utility-error-50 after:bg-error-solid",
-            warning: "before:border-utility-warning-200 before:bg-utility-warning-50 after:bg-warning-solid",
-            success: "before:border-utility-success-200 before:bg-utility-success-50 after:bg-success-solid",
+            gray: "before:border-utility-neutral-200 before:bg-utility-neutral-50 after:bg-secondary-solid",
+            error: "before:border-utility-red-200 before:bg-utility-red-50 after:bg-error-solid",
+            warning: "before:border-utility-yellow-200 before:bg-utility-yellow-50 after:bg-warning-solid",
+            success: "before:border-utility-green-200 before:bg-utility-green-50 after:bg-success-solid",
         },
     },
 
     dark: {
-        base: "text-fg-white shadow-xs-skeumorphic before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
+        base: "text-fg-white shadow-xs-skeuomorphic before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
         sizes: {
             sm: "size-8 rounded-md before:rounded-[5px]",
             md: "size-10 rounded-lg before:rounded-[7px]",
@@ -55,15 +55,15 @@ const styles = sortCx({
         },
         colors: {
             brand: "bg-brand-solid before:border-utility-brand-200/12",
-            gray: "bg-secondary-solid before:border-utility-gray-200/12",
-            error: "bg-error-solid before:border-utility-error-200/12",
-            warning: "bg-warning-solid before:border-utility-warning-200/12",
-            success: "bg-success-solid before:border-utility-success-200/12",
+            gray: "bg-secondary-solid before:border-utility-neutral-200/12",
+            error: "bg-error-solid before:border-utility-red-200/12",
+            warning: "bg-warning-solid before:border-utility-yellow-200/12",
+            success: "bg-success-solid before:border-utility-green-200/12",
         },
     },
 
     modern: {
-        base: "bg-primary shadow-xs-skeumorphic ring-1 ring-inset",
+        base: "bg-primary shadow-xs-skeuomorphic ring-1 ring-primary ring-inset",
         sizes: {
             sm: "size-8 rounded-md",
             md: "size-10 rounded-lg",
@@ -71,11 +71,11 @@ const styles = sortCx({
             xl: "size-14 rounded-xl",
         },
         colors: {
-            brand: "",
-            gray: "text-fg-secondary ring-primary",
-            error: "",
-            warning: "",
-            success: "",
+            brand: "text-fg-brand-primary",
+            gray: "text-fg-secondary",
+            error: "text-fg-error-primary",
+            warning: "text-fg-warning-primary",
+            success: "text-fg-success-primary",
         },
     },
     "modern-neue": {

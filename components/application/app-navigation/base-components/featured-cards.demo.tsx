@@ -31,12 +31,15 @@ export const FeaturedCardProgressBar = ({
         <div className={cx("relative flex flex-col rounded-xl bg-secondary p-4", className)}>
             <p className="text-sm font-semibold text-primary">{title}</p>
             <p className="mt-1 text-sm text-tertiary">{description}</p>
-            <div className="absolute top-2 right-2">
+
+            <div className="absolute top-1 right-1">
                 <CloseButton onClick={onDismiss} size="sm" />
             </div>
+
             <div className="mt-4 flex">
                 <ProgressBar value={progress} />
             </div>
+
             <div className="mt-4 flex gap-3">
                 <Button onClick={onDismiss} color="link-gray" size="sm">
                     Dismiss
@@ -66,7 +69,7 @@ export const FeaturedCardProgressCircle = ({
                 <ProgressBarCircle value={progress} size="xxs" />
             </div>
 
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-1 right-1">
                 <CloseButton onClick={onDismiss} size="sm" />
             </div>
             <div className="mt-3">

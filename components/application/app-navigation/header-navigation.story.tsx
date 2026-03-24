@@ -27,3 +27,19 @@ HeaderNavigationDualTierDemo.parameters = {
         desktop: "1208-101427",
     },
 };
+
+export const HeaderNavigationTabsDemo = () => <Demos.HeaderNavigationTabsDemo />;
+HeaderNavigationTabsDemo.storyName = "Header navigation tabs";
+HeaderNavigationTabsDemo.parameters = {
+    design: {
+        desktop: "11910-608084",
+    },
+};
+
+export const HeaderNavigationCenteredDemo = () => <Demos.HeaderNavigationCenteredDemo />;
+HeaderNavigationCenteredDemo.storyName = "Header navigation centered";
+HeaderNavigationCenteredDemo.parameters = {
+    design: {
+        desktop: "11910-613771",
+    },
+};
