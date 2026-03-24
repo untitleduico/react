@@ -719,7 +719,7 @@
         --color-bg-warning-solid: var(--color-yellow-600);
         --color-bg-success-solid: var(--color-green-600);
         --color-bg-secondary_hover: var(--color-neutral-800);
-        --color-bg-primary_hover: var(--color-neutral-800);
+        --color-bg-primary_hover: var(--color-neutral-900);
         --color-bg-active: var(--color-neutral-800);
         --color-bg-brand-solid_hover: var(--color-brand-500);
         --color-bg-error-primary: var(--color-red-950);
