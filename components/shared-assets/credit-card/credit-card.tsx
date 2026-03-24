@@ -189,7 +189,7 @@ export const CreditCard = ({
                         <div className="size-20 rounded-tl-full bg-pink-500 opacity-30 mix-blend-normal" />
                         <div className="size-20 rounded-tr-full bg-orange-500 opacity-50 mix-blend-normal" />
                         <div className="size-20 rounded-bl-full bg-blue-500 opacity-30 mix-blend-normal" />
-                        <div className="bg-success-500 size-20 rounded-br-full opacity-30 mix-blend-normal" />
+                        <div className="bg-green-500 size-20 rounded-br-full opacity-30 mix-blend-normal" />
                     </div>
                 )}
 
