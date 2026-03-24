@@ -4,7 +4,7 @@
 
 [Untitled UI React](https://www.untitledui.com/react) is the world’s largest collection of open-source React components built with Tailwind CSS and React Aria. Everything you need to design and develop modern, beautiful interfaces—fast. Just copy, paste, and build.
 
-Built with React 19.1, Tailwind CSS v4.1, TypeScript 5.8, and React Aria, Untitled UI React components deliver modern performance, type safety, and maintainability.
+Built with React 19.2, Tailwind CSS v4.2, TypeScript 5.9, and React Aria, Untitled UI React components deliver modern performance, type safety, and maintainability.
 
 [Learn more](https://www.untitledui.com/react) • [Documentation](https://www.untitledui.com/react/docs/introduction) • [Figma](https://www.untitledui.com/figma) • [FAQs](https://www.untitledui.com/faqs)
 
