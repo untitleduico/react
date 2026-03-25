@@ -1075,7 +1075,7 @@ export const CloseXDarkDemo = () => {
 export const CloseX = () => {
     return (
         <div className="flex items-start gap-8">
-            <div className="gap-3.5 flex items-start p-12">
+            <div className="flex items-start gap-3.5 p-12">
                 <CloseButton size="sm" theme="light" />
                 <CloseButton size="md" theme="light" />
                 <CloseButton size="lg" theme="light" />
