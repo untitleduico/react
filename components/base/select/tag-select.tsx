@@ -164,8 +164,8 @@ export const TagSelectBase = ({
                 onInputChange={onInputChange}
                 inputValue={accessibleList.filterText}
                 // This keeps the combobox popover open and the input value unchanged when an item is selected.
-                selectedKey={null}
-                onSelectionChange={onSelectionChange}
+                value={null}
+                onChange={onSelectionChange}
                 className={(state) => cx("flex flex-col gap-1.5", typeof className === "function" ? className(state) : className)}
                 {...props}
             >
@@ -275,13 +275,13 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
     const isSelectionEmpty = tagSelectContext?.selectedItems?.items?.length === 0;
 
     return (
-        <div className="relative flex w-full flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
+        <div className="relative flex w-full min-w-0 flex-1 flex-row flex-wrap items-center justify-start gap-1.5">
             {!isSelectionEmpty &&
                 tagSelectContext?.selectedItems?.items?.map((value) => (
                     <span
                         key={value.id}
                         className={cx(
-                            "flex items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
+                            "flex min-w-0 items-center rounded-md bg-primary ring-1 ring-primary ring-inset",
                             size === "sm" ? "px-1 py-0.75" : "py-0.5 pr-1 pl-1.25",
                         )}
                     >
