@@ -286,7 +286,7 @@ export const FileListItemProgressBar = ({ name, size, progress, failed, type, fi
                                 {isComplete && <CheckCircle className="size-4 stroke-[2.5px] text-fg-success-primary" />}
                                 {isComplete && <p className="text-sm font-medium text-success-primary">Complete</p>}
 
-                                {!isComplete && !failed && <UploadCloud02 className="stroke-[2.5px size-4 text-fg-quaternary" />}
+                                {!isComplete && !failed && <UploadCloud02 className="size-4 stroke-[2.5px] text-fg-quaternary" />}
                                 {!isComplete && !failed && <p className="text-sm font-medium text-quaternary">Uploading...</p>}
 
                                 {failed && <XCircle className="size-4 text-fg-error-primary" />}

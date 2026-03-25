@@ -266,7 +266,7 @@ export const InputTags = ({
                                                 <Tag
                                                     id={item.id}
                                                     isDisabled={isDisabled}
-                                                    className="focus-visible:-ring-offset-2 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:outline-hidden"
+                                                    className="focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-[-2px] focus-visible:outline-hidden"
                                                 >
                                                     {item.label}
                                                 </Tag>

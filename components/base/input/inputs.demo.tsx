@@ -5,10 +5,10 @@ import React from "react";
 import { AlertCircle, Calendar, Check, CheckCircle, Copy01, Lock03, Mail01 } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
 import { Input, InputBase, TextField } from "@/components/base/input/input";
+import { InputFile } from "@/components/base/input/input-file";
 import { InputGroup } from "@/components/base/input/input-group";
 import { PaymentInput } from "@/components/base/input/input-payment";
 import { InputTags } from "@/components/base/input/input-tags";
-import { InputFile } from "@/components/base/input/input-file";
 import { InputTagsOuter } from "@/components/base/input/input-tags-outer";
 import { NativeSelect } from "@/components/base/select/select-native";
 import { useClipboard } from "@/hooks/use-clipboard";
@@ -168,7 +168,7 @@ export const PasswordInputDemo = () => {
                         password.length >= 8 && "text-fg-success-primary",
                     )}
                 />
-                <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                 Must be at least 8 characters.
             </HintText>
         </TextField>
@@ -1192,7 +1192,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1206,7 +1206,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1220,7 +1220,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1236,7 +1236,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1250,7 +1250,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1264,7 +1264,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1280,7 +1280,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1294,7 +1294,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
@@ -1308,7 +1308,7 @@ export const PasswordInputs = () => {
                                 password.length >= 8 && "text-fg-success-primary",
                             )}
                         />
-                        <AlertCircle className="text-error-secondary hidden size-4 stroke-[2.25px] in-invalid:inline-block" />
+                        <AlertCircle className="hidden size-4 stroke-[2.25px] text-fg-error-secondary in-invalid:inline-block" />
                         Must be at least 8 characters.
                     </HintText>
                 </TextField>
