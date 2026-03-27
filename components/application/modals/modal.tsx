@@ -12,7 +12,10 @@ export const ModalOverlay = (props: AriaModalOverlayProps) => {
             {...props}
             className={(state) =>
                 cx(
-                    "fixed inset-0 z-50 flex min-h-dvh w-full items-end justify-center overflow-y-auto bg-overlay/70 px-4 pt-4 pb-[clamp(16px,8vh,64px)] outline-hidden backdrop-blur-[6px] sm:items-center sm:justify-center sm:p-8",
+                    "fixed inset-0 z-50 flex min-h-dvh w-full items-end justify-center bg-overlay/70 px-4 outline-hidden backdrop-blur-[6px] sm:items-center sm:justify-center sm:px-8",
+                    // Vertical padding
+                    "pt-(--modal-pt) pb-(--modal-pb) [--modal-pb:clamp(16px,8vh,64px)] [--modal-pt:16px] sm:[--modal-pb:32px] sm:[--modal-pt:32px]",
+                    // Animations
                     state.isEntering && "duration-300 ease-out animate-in fade-in",
                     state.isExiting && "duration-200 ease-in animate-out fade-out",
                     typeof props.className === "function" ? props.className(state) : props.className,
@@ -27,7 +30,10 @@ export const Modal = (props: AriaModalOverlayProps) => (
         {...props}
         className={(state) =>
             cx(
-                "max-h-full w-full align-middle outline-hidden max-sm:overflow-y-auto max-sm:rounded-xl",
+                "rounded-xl bg-primary align-middle shadow-xl outline-hidden max-sm:overflow-y-auto sm:rounded-2xl",
+                // Max height based on parent's vertical padding
+                "max-h-[calc(var(--visual-viewport-height)-var(--modal-pt)-var(--modal-pb))]",
+                // Animations
                 state.isEntering && "duration-300 ease-out animate-in zoom-in-95",
                 state.isExiting && "duration-200 ease-in animate-out zoom-out-95",
                 typeof props.className === "function" ? props.className(state) : props.className,
@@ -37,5 +43,5 @@ export const Modal = (props: AriaModalOverlayProps) => (
 );
 
 export const Dialog = (props: AriaDialogProps) => (
-    <AriaDialog {...props} className={cx("flex w-full items-center justify-center outline-hidden", props.className)} />
+    <AriaDialog {...props} className={cx("relative max-h-[inherit] w-full overflow-y-auto outline-hidden", props.className)} />
 );
