@@ -81,15 +81,6 @@ const getHorizontalStyles = ({ size, fullWidth }: { size?: "sm" | "md"; fullWidt
     line: "gap-2",
 });
 
-const getColorStyles = ({ isSelected, isHovered }: Partial<AriaTabRenderProps>) => ({
-    "button-brand": isSelected || isHovered ? "brand" : "gray",
-    "button-gray": "gray",
-    "button-border": "gray",
-    "button-minimal": "gray",
-    underline: isSelected || isHovered ? "brand" : "gray",
-    line: isSelected || isHovered ? "brand" : "gray",
-});
-
 interface TabListComponentProps<T extends object, K extends Orientation> extends Omit<AriaTabListProps<T>, "items"> {
     /** The size of the tab list. */
     size?: keyof typeof sizes;
