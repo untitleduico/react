@@ -50,18 +50,6 @@
     /* This must match the breakpoint in Sonner: https://github.com/emilkowalski/sonner/blob/main/src/styles.css */
     --breakpoint-xs: 600px;
 
-    /* RADIUS */
-    --radius-none: 0px;
-    --radius-xs: 0.125rem;
-    --radius-sm: 0.25rem;
-    --radius-DEFAULT: 0.25rem;
-    --radius-md: 0.375rem;
-    --radius-lg: 0.5rem;
-    --radius-xl: 0.75rem;
-    --radius-2xl: 1rem;
-    --radius-3xl: 1.5rem;
-    --radius-full: 9999px;
-
     /* SHADOW */
     --shadow-xs: 0px 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-sm: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 1px 2px -1px rgba(0, 0, 0, 0.1);
@@ -113,9 +101,6 @@
 
     /* BASE COLOR */
     --color-transparent: rgb(0 0 0 / 0);
-
-    --color-white: rgb(255 255 255);
-    --color-black: rgb(0 0 0);
 
     /* These will be inverted in dark mode. */
     --color-alpha-white: rgb(255 255 255);
@@ -294,7 +279,6 @@
     --color-text-error-primary: var(--color-red-600);
     --color-text-warning-primary: var(--color-yellow-600);
     --color-text-success-primary: var(--color-green-600);
-    --color-text-white: var(--color-white);
     --color-text-secondary: var(--color-neutral-700);
     --color-text-secondary_hover: var(--color-neutral-800);
     --color-text-tertiary_hover: var(--color-neutral-700);
@@ -360,7 +344,6 @@
     --color-bg-success-solid: var(--color-green-600);
     --color-bg-secondary_hover: var(--color-neutral-100);
     --color-bg-primary_hover: var(--color-neutral-50);
-    --color-bg-active: var(--color-neutral-50);
     --color-bg-brand-solid_hover: var(--color-brand-700);
     --color-bg-error-primary: var(--color-red-50);
     --color-bg-brand-secondary: var(--color-brand-100);
@@ -414,7 +397,6 @@
     --background-color-success-solid: var(--color-bg-success-solid);
     --background-color-secondary_hover: var(--color-bg-secondary_hover);
     --background-color-primary_hover: var(--color-bg-primary_hover);
-    --background-color-active: var(--color-bg-active);
     --background-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
     --background-color-error-primary: var(--color-bg-error-primary);
     --background-color-brand-secondary: var(--color-bg-brand-secondary);
@@ -657,7 +639,6 @@
         --color-text-error-primary: var(--color-red-400);
         --color-text-warning-primary: var(--color-yellow-400);
         --color-text-success-primary: var(--color-green-400);
-        --color-text-white: var(--color-white);
         --color-text-secondary: var(--color-neutral-300);
         --color-text-secondary_hover: var(--color-neutral-200);
         --color-text-tertiary_hover: var(--color-neutral-300);
@@ -720,7 +701,6 @@
         --color-bg-success-solid: var(--color-green-600);
         --color-bg-secondary_hover: var(--color-neutral-800);
         --color-bg-primary_hover: var(--color-neutral-900);
-        --color-bg-active: var(--color-neutral-800);
         --color-bg-brand-solid_hover: var(--color-brand-500);
         --color-bg-error-primary: var(--color-red-950);
         --color-bg-brand-secondary: var(--color-brand-600);
@@ -772,7 +752,6 @@
         --background-color-success-solid: var(--color-bg-success-solid);
         --background-color-secondary_hover: var(--color-bg-secondary_hover);
         --background-color-primary_hover: var(--color-bg-primary_hover);
-        --background-color-active: var(--color-bg-active);
         --background-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
         --background-color-error-primary: var(--color-bg-error-primary);
         --background-color-brand-secondary: var(--color-bg-brand-secondary);
@@ -797,7 +776,6 @@
         --text-color-error-primary: var(--color-text-error-primary);
         --text-color-warning-primary: var(--color-text-warning-primary);
         --text-color-success-primary: var(--color-text-success-primary);
-        --text-color-white: var(--color-text-white);
         --text-color-secondary: var(--color-text-secondary);
         --text-color-secondary_hover: var(--color-text-secondary_hover);
         --text-color-tertiary_hover: var(--color-text-tertiary_hover);
