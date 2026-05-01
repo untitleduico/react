@@ -40,10 +40,10 @@ export const SidebarNavigationDualTier = ({
     accountItems,
 }: SidebarNavigationDualTierProps) => {
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
-    const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
+    const [currentItem, setCurrentItem] = useState(activeItem ?? items[1] ?? items[0]);
     const [isHovering, setIsHovering] = useState(false);
 
-    const isSecondarySidebarVisible = isHovering && Boolean(currentItem.items?.length);
+    const isSecondarySidebarVisible = isHovering && Boolean(currentItem?.items?.length);
 
     const MAIN_SIDEBAR_WIDTH = 280;
     const SECONDARY_SIDEBAR_WIDTH = 256;
@@ -77,7 +77,7 @@ export const SidebarNavigationDualTier = ({
                     {items.map((item) => (
                         <li key={item.label + item.href} className="py-px">
                             <NavItemBase
-                                current={currentItem.href === item.href}
+                                current={currentItem?.href === item.href}
                                 href={item.href}
                                 badge={item.badge}
                                 icon={item.icon}
@@ -95,7 +95,7 @@ export const SidebarNavigationDualTier = ({
                             {footerItems.map((item) => (
                                 <li key={item.label + item.href} className="py-px">
                                     <NavItemBase
-                                        current={currentItem.href === item.href}
+                                        current={currentItem?.href === item.href}
                                         href={item.href}
                                         badge={item.badge}
                                         icon={item.icon}
@@ -119,7 +119,7 @@ export const SidebarNavigationDualTier = ({
 
     const secondarySidebar = (
         <AnimatePresence initial={false}>
-            {isSecondarySidebarVisible && (
+            {isSecondarySidebarVisible && currentItem?.items && (
                 <motion.div
                     initial={{ width: 0, borderColor: "var(--color-border-secondary)" }}
                     animate={{ width: SECONDARY_SIDEBAR_WIDTH, borderColor: "var(--color-border-secondary)" }}
@@ -128,7 +128,7 @@ export const SidebarNavigationDualTier = ({
                     className={cx("relative h-full overflow-x-hidden overflow-y-auto bg-primary", !hideBorder && "box-content border-r-[1.5px]")}
                 >
                     <ul style={{ width: SECONDARY_SIDEBAR_WIDTH }} className="flex h-full flex-col p-4 pt-5">
-                        {currentItem.items?.map((item) => (
+                        {currentItem.items.map((item) => (
                             <li key={item.label + item.href} className="py-px">
                                 <NavItemBase current={activeUrl === item.href} href={item.href} icon={item.icon} badge={item.badge} type="link">
                                     {item.label}

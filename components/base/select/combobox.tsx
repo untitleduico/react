@@ -1,6 +1,6 @@
 "use client";
 
-import type { FC, FocusEventHandler, PointerEventHandler, ReactNode, RefAttributes, RefObject } from "react";
+import type { FC, FocusEventHandler, PointerEventHandler, ReactNode, Ref, RefAttributes } from "react";
 import { isValidElement, useCallback, useContext, useRef, useState } from "react";
 import { SearchLg } from "@untitledui/icons";
 import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps } from "react-aria-components";
@@ -31,10 +31,10 @@ interface ComboBoxValueProps extends AriaGroupProps {
     icon?: FC | ReactNode;
     onFocus?: FocusEventHandler;
     onPointerEnter?: PointerEventHandler;
-    ref?: RefObject<HTMLDivElement | null>;
+    ref?: Ref<HTMLDivElement>;
 }
 
-const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: IconProp, ...otherProps }: ComboBoxValueProps) => {
+const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: IconProp, ref, ...otherProps }: ComboBoxValueProps) => {
     const state = useContext(ComboBoxStateContext);
 
     const value = state?.selectedItem?.value || null;
@@ -45,6 +45,7 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: I
 
     return (
         <AriaGroup
+            ref={ref}
             {...otherProps}
             className={({ isFocusWithin, isDisabled }) =>
                 cx(
