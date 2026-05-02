@@ -6,7 +6,7 @@ Dưới đây là 100 tác vụ (tasks) đề xuất để mở rộng bộ UI t
 - [ ] 1. Thêm component `Timeline` để hiển thị lịch sử hoạt động.
 - [ ] 2. Thêm component `Calendar` (Lịch) xem theo tháng, tuần, ngày.
 - [ ] 3. Thêm component `KanbanBoard` hỗ trợ kéo thả các thẻ công việc.
-- [ ] 4. Thêm component `DataGrid` (bảng nâng cao) hỗ trợ filter, sort, pagination, freeze cột.
+- [x] 4. Thêm component `DataGrid` (bảng nâng cao) hỗ trợ filter, sort, pagination, freeze cột.
 - [ ] 5. Thêm component `TreeView` để hiển thị dữ liệu phân cấp thư mục.
 - [ ] 6. Thêm component `StatisticCard` có kèm biểu đồ mini (sparkline).
 - [ ] 7. Thêm component `PricingTable` so sánh các gói cước.
@@ -24,12 +24,12 @@ Dưới đây là 100 tác vụ (tasks) đề xuất để mở rộng bộ UI t
 - [ ] 17. Thêm component `TimePicker` dạng mặt đồng hồ xoay (clock face).
 - [ ] 18. Thêm component `DateRangePicker` với tuỳ chọn nhanh (Hôm nay, 7 ngày qua...).
 - [ ] 19. Thêm component `RatingBar` dạng thanh phần trăm (ví dụ: 5 sao chiếm 80%).
-- [ ] 20. Thêm component `SliderRange` có 2 đầu kéo (min/max).
+- [x] 20. Thêm component `SliderRange` có 2 đầu kéo (min/max).
 - [ ] 21. Thêm component `CreditCardInput` tự động định dạng số thẻ và logo ngân hàng.
 - [ ] 22. Thêm component `PhoneInput` có cờ quốc gia và tự động định dạng.
-- [ ] 23. Thêm component `OTPInput` hỗ trợ paste tự động điền các ô.
+- [x] 23. Thêm component `OTPInput` hỗ trợ paste tự động điền các ô.
 - [ ] 24. Thêm component `PasswordStrengthIndicator` (thanh đo độ mạnh mật khẩu).
-- [ ] 25. Thêm component `Dropzone` hỗ trợ kéo thả file, hiển thị dung lượng, tiến trình tải.
+- [x] 25. Thêm component `Dropzone` hỗ trợ kéo thả file, hiển thị dung lượng, tiến trình tải.
 - [ ] 26. Thêm component `InlineEdit` (Click to edit text).
 - [ ] 27. Thêm component `ComboBox` hỗ trợ tạo mới item nếu chưa có.
 - [ ] 28. Thêm component `Stepper` dạng form đa bước (Multi-step form).
@@ -37,21 +37,21 @@ Dưới đây là 100 tác vụ (tasks) đề xuất để mở rộng bộ UI t
 - [ ] 30. Thêm component `NumberInput` có nút tăng/giảm (spinners).
 
 ## 🧭 3. Navigation & Menus (Điều hướng & Menu)
-- [ ] 31. Thêm component `Breadcrumbs` hỗ trợ collapse khi quá dài.
+- [x] 31. Thêm component `Breadcrumbs` hỗ trợ collapse khi quá dài.
 - [ ] 32. Thêm component `MegaMenu` cho thanh điều hướng desktop.
-- [ ] 33. Thêm component `SidebarNavigation` dạng có thể thu gọn (collapsible mini sidebar).
+- [x] 33. Thêm component `SidebarNavigation` dạng có thể thu gọn (collapsible mini sidebar).
 - [ ] 34. Thêm component `BottomNavigation` dùng cho giao diện di động (Mobile App UI).
 - [ ] 35. Thêm component `ContextMenu` (Right-click menu).
 - [ ] 36. Thêm component `CommandPalette` (CMD+K menu) hỗ trợ tìm kiếm toàn cục.
 - [ ] 37. Thêm component `ScrollSpy` để highlight menu theo vị trí cuộn trang.
 - [ ] 38. Thêm component `FloatingActionButton` (FAB) có kèm menu phụ.
-- [ ] 39. Thêm component `Pagination` dạng load-more button.
+- [x] 39. Thêm component `Pagination` dạng load-more button.
 - [ ] 40. Thêm component `Pagination` dạng infinite scroll.
 - [ ] 41. Thêm component `Steps` hiển thị tiến trình ngang/dọc.
 - [ ] 42. Thêm component `SkipLink` cho accessibility.
 - [ ] 43. Thêm component `AnchorLinks` bên phải bài viết (Table of Contents).
-- [ ] 44. Thêm component `Tabs` dạng dọc (Vertical Tabs).
-- [ ] 45. Thêm component `Tabs` dạng pills.
+- [x] 44. Thêm component `Tabs` dạng dọc (Vertical Tabs).
+- [x] 45. Thêm component `Tabs` dạng pills.
 
 ## 🔔 4. Feedback & Status (Phản hồi & Trạng thái)
 - [ ] 46. Thêm component `Toast` hỗ trợ các trạng thái Success/Error/Warning/Info.
@@ -60,9 +60,9 @@ Dưới đây là 100 tác vụ (tasks) đề xuất để mở rộng bộ UI t
 - [ ] 49. Thêm component `ProgressBar` đa màu sắc biểu diễn nhiều thành phần.
 - [ ] 50. Thêm component `CircularProgress` dạng đồng hồ đếm ngược.
 - [ ] 51. Thêm component `Banner` thông báo trên cùng của trang web.
-- [ ] 52. Thêm component `EmptyState` có kèm hình minh hoạ (Illustration).
+- [x] 52. Thêm component `EmptyState` có kèm hình minh hoạ (Illustration).
 - [ ] 53. Thêm component `Ribbon` dán góc thẻ sản phẩm (Ví dụ: "New", "Sale").
-- [ ] 54. Thêm component `Tooltip` với nội dung phức tạp (có chứa ảnh hoặc link).
+- [x] 54. Thêm component `Tooltip` với nội dung phức tạp (có chứa ảnh hoặc link).
 - [ ] 55. Thêm component `Popover` dùng để hiển thị thông tin chi tiết người dùng khi hover.
 
 ## 🪟 5. Overlays & Modals (Hộp thoại & Lớp phủ)
@@ -90,7 +90,7 @@ Dưới đây là 100 tác vụ (tasks) đề xuất để mở rộng bộ UI t
 - [ ] 75. Thêm component `ShippingProgress` (Đang giao, đã lấy hàng...).
 
 ## 🖥 7. Dashboard Layouts (Bố cục Trang quản trị)
-- [ ] 76. Thêm layout `Dashboard Sidebar Classic` (Sidebar trái, Header trên, Content phải).
+- [x] 76. Thêm layout `Dashboard Sidebar Classic` (Sidebar trái, Header trên, Content phải).
 - [ ] 77. Thêm layout `Dashboard Top Navigation` (Menu ngang).
 - [ ] 78. Thêm layout `Dashboard Stacked` (Header, Breadcrumbs, Content box).
 - [ ] 79. Thêm layout `Settings Page` (Sidebar nhỏ bên trái cho menu settings, form bên phải).
