@@ -26,6 +26,7 @@ export const CloseButton = ({ label, className, size = "sm", theme = "light", ..
     return (
         <AriaButton
             {...otherProps}
+            slot="close"
             aria-label={label || "Close"}
             className={(state) =>
                 cx(
