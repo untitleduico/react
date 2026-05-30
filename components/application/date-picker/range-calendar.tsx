@@ -16,6 +16,7 @@ import {
     RangeCalendarStateContext,
     useSlottedContext,
 } from "react-aria-components";
+import type { ButtonProps } from "@/components/base/buttons/button";
 import { Button } from "@/components/base/buttons/button";
 import { InputDateBase } from "@/components/base/input/input-date";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
@@ -71,7 +72,11 @@ export const RangePresetButton = ({ value, className, children, ...props }: Rang
     );
 };
 
-const MobilePresetButton = ({ value, children, ...props }: HTMLAttributes<HTMLButtonElement> & { value: { start: DateValue; end: DateValue } }) => {
+interface MobilePresetButtonProps extends Omit<ButtonProps, "value" | "slot" | "size" | "color" | "onClick"> {
+    value: { start: DateValue; end: DateValue };
+}
+
+const MobilePresetButton = ({ value, children, ...props }: MobilePresetButtonProps) => {
     const context = useContext(RangeCalendarStateContext);
 
     return (
