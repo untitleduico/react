@@ -1,6 +1,6 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
+import type { FC, ReactElement, ReactNode } from "react";
 import React, { isValidElement } from "react";
 import type { ButtonProps as AriaButtonProps, LinkProps as AriaLinkProps } from "react-aria-components";
 import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
@@ -150,28 +150,29 @@ export interface CommonProps {
     noTextPadding?: boolean;
     /** When true, keeps the text visible during loading state */
     showTextWhileLoading?: boolean;
+
+    children?: ReactNode;
+    className?: string;
 }
 
 /**
  * Props for the button variant (non-link)
  */
-export interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "slot">, HTMLButtonElement> {
-    /** Slot name for react-aria component */
-    slot?: AriaButtonProps["slot"];
-}
-
+export interface ButtonProps extends CommonProps, Omit<AriaButtonProps, "children" | "className"> {}
 /**
  * Props for the link variant (anchor tag)
  */
-interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {
-    /** Options for the configured client side router. */
-    routerOptions?: AriaLinkProps["routerOptions"];
+interface LinkProps extends CommonProps, Omit<AriaLinkProps, "children" | "className"> {
+    href: NonNullable<AriaLinkProps["href"]>;
 }
 
 /** Union type of button and link props */
 export type Props = ButtonProps | LinkProps;
 
-export const Button = ({
+export const Button: {
+    (props: LinkProps): ReactElement<LinkProps>;
+    (props: ButtonProps): ReactElement<ButtonProps>;
+} = ({
     size = "sm",
     color = "primary",
     children,
@@ -182,50 +183,17 @@ export const Button = ({
     isDisabled: disabled,
     isLoading: loading,
     showTextWhileLoading,
-    ...otherProps
-}: Props) => {
-    const href = "href" in otherProps ? otherProps.href : undefined;
-    const Component = href ? AriaLink : AriaButton;
+    ...props
+}) => {
+    const href = "href" in props ? props.href : undefined;
 
     const isIcon = (IconLeading || IconTrailing) && !children;
     const isLinkType = ["link-gray", "link-color", "link-destructive"].includes(color);
 
     noTextPadding = isLinkType || noTextPadding;
 
-    let props = {};
-
-    if (href) {
-        props = {
-            ...otherProps,
-
-            href: disabled ? undefined : href,
-        };
-    } else {
-        props = {
-            ...otherProps,
-
-            type: otherProps.type || "button",
-            isPending: loading,
-        };
-    }
-
-    return (
-        <Component
-            data-loading={loading ? true : undefined}
-            data-icon-only={isIcon ? true : undefined}
-            {...props}
-            isDisabled={disabled}
-            className={cx(
-                styles.common.root,
-                styles.sizes[size].root,
-                styles.colors[color].root,
-                isLinkType && styles.sizes[size].linkRoot,
-                (loading || (href && (disabled || loading))) && "pointer-events-none",
-                // If in `loading` state, hide everything except the loading icon (and text if `showTextWhileLoading` is true).
-                loading && (showTextWhileLoading ? "[&>*:not([data-icon=loading]):not([data-text])]:hidden" : "[&>*:not([data-icon=loading])]:invisible"),
-                className,
-            )}
-        >
+    const commonChildren = (
+        <>
             {/* Leading icon */}
             {isValidElement(IconLeading) && IconLeading}
             {isReactComponent(IconLeading) && <IconLeading data-icon="leading" className={styles.common.icon} />}
@@ -262,6 +230,30 @@ export const Button = ({
             {/* Trailing icon */}
             {isValidElement(IconTrailing) && IconTrailing}
             {isReactComponent(IconTrailing) && <IconTrailing data-icon="trailing" className={styles.common.icon} />}
-        </Component>
+        </>
     );
+
+    const commonProps = {
+        "data-loading": loading ? true : undefined,
+        "data-icon-only": isIcon ? true : undefined,
+        ...props,
+        isDisabled: disabled,
+        className: cx(
+            styles.common.root,
+            styles.sizes[size].root,
+            styles.colors[color].root,
+            isLinkType && styles.sizes[size].linkRoot,
+            (loading || (href && (disabled || loading))) && "pointer-events-none",
+            // If in `loading` state, hide everything except the loading icon (and text if `showTextWhileLoading` is true).
+            loading && (showTextWhileLoading ? "[&>*:not([data-icon=loading]):not([data-text])]:hidden" : "[&>*:not([data-icon=loading])]:invisible"),
+            className,
+        ),
+        children: commonChildren,
+    };
+
+    if ("href" in commonProps) {
+        return <AriaLink {...commonProps} href={disabled ? undefined : href} />;
+    }
+
+    return <AriaButton {...commonProps} type={commonProps.type || "button"} isPending={loading} />;
 };

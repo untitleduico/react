@@ -32,10 +32,10 @@ interface SidebarNavigationSlimProps {
 
 export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hideBorder, hideRightBorder }: SidebarNavigationSlimProps) => {
     const activeItem = [...items, ...footerItems].find((item) => item.href === activeUrl || item.items?.some((subItem) => subItem.href === activeUrl));
-    const [currentItem, setCurrentItem] = useState(activeItem || items[1]);
+    const [currentItem, setCurrentItem] = useState(activeItem ?? items[1] ?? items[0]);
     const [isHovering, setIsHovering] = useState(false);
 
-    const isSecondarySidebarVisible = isHovering && Boolean(currentItem.items?.length);
+    const isSecondarySidebarVisible = isHovering && Boolean(currentItem?.items?.length);
 
     const MAIN_SIDEBAR_WIDTH = 68;
     const SECONDARY_SIDEBAR_WIDTH = 256;
@@ -64,7 +64,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                     {items.map((item) => (
                         <li key={item.label}>
                             <NavButton
-                                current={currentItem.href === item.href}
+                                current={currentItem?.href === item.href}
                                 href={item.href}
                                 label={item.label || ""}
                                 icon={item.icon}
@@ -79,7 +79,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                             {footerItems.map((item) => (
                                 <li key={item.label}>
                                     <NavButton
-                                        current={currentItem.href === item.href}
+                                        current={currentItem?.href === item.href}
                                         label={item.label || ""}
                                         href={item.href}
                                         icon={item.icon}
@@ -126,7 +126,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
         </aside>
     );
 
-    const secondarySidebar = (
+    const secondarySidebar = currentItem && (
         <AnimatePresence initial={false}>
             {isSecondarySidebarVisible && (
                 <motion.div

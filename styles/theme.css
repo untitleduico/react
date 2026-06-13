@@ -715,7 +715,7 @@
         --color-bg-primary-solid: var(--color-bg-secondary);
         --color-bg-error-solid_hover: var(--color-red-500);
 
-        --color-app-store-badg-border: var(--color-white);
+        --color-app-store-badge-border: var(--color-white);
         --color-avatar-styles-bg-neutral: 224 224 224 1;
         --color-featured-icon-light-fg-brand: var(--color-brand-200);
         --color-featured-icon-light-fg-error: var(--color-red-200);
