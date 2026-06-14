@@ -18,25 +18,6 @@ import { InputDate } from "./input-date";
 import { InputNumber } from "./input-number";
 import { Label } from "./label";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const DefaultDemo = () => {
     return <Input isRequired label="Email" hint="This is a hint text to help user." placeholder="olivia@untitledui.com" tooltip="This is a tooltip" />;
 };
