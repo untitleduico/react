@@ -21,8 +21,15 @@ import { cx } from "@/utils/cx";
 import { CalendarCell } from "./cell";
 
 export const CalendarContextProvider = ({ children }: PropsWithChildren) => {
-    const [value, onChange] = useState<DateValue | null>(null);
+    const [value, setValue] = useState<DateValue | null>(null);
     const [focusedValue, onFocusChange] = useState<DateValue | undefined>();
+
+    // React Aria's Calendar context widened `onChange` to support multiple selection
+    // (`selectionMode="multiple"`). This calendar is single-select, so collapse any
+    // array value down to the first entry.
+    const onChange = (next: DateValue | readonly DateValue[] | null) => {
+        setValue(Array.isArray(next) ? (next[0] ?? null) : next);
+    };
 
     return <AriaCalendarContext.Provider value={{ value, onChange, focusedValue, onFocusChange }}>{children}</AriaCalendarContext.Provider>;
 };
