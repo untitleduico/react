@@ -3,7 +3,7 @@
 This is an **Untitled UI React** component library project built with:
 
 - **React 19** with TypeScript
-- **Tailwind CSS v4.2** for styling
+- **Tailwind CSS v4.3** for styling
 - **React Aria Components** as the foundation for accessibility and behavior
 
 ## Key Architecture Principles
@@ -133,9 +133,9 @@ interface ButtonProps extends CommonProps, HTMLButtonElement {
 
 ## Styling Guidelines
 
-### Tailwind CSS v4.2
+### Tailwind CSS v4.3
 
-- Uses the latest Tailwind CSS v4.2 features
+- Uses the latest Tailwind CSS v4.3 features
 - Custom design tokens defined in theme configuration
 - Consistent spacing, colors, and typography scales
 
