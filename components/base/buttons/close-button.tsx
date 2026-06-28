@@ -20,13 +20,21 @@ interface CloseButtonProps extends AriaButtonProps {
     theme?: "light" | "dark";
     size?: "xs" | "sm" | "md" | "lg";
     label?: string;
+    /**
+     * The React Aria slot the button fills. Defaults to `"close"` so it
+     * automatically closes a parent `Dialog`/`Modal` without an explicit handler.
+     * Pass `null` to opt out (e.g. when used as a `SearchField` clear button it
+     * is picked up regardless of slot).
+     * @default "close"
+     */
+    slot?: string | null;
 }
 
-export const CloseButton = ({ label, className, size = "sm", theme = "light", ...otherProps }: CloseButtonProps) => {
+export const CloseButton = ({ label, className, size = "sm", theme = "light", slot = "close", ...otherProps }: CloseButtonProps) => {
     return (
         <AriaButton
             {...otherProps}
-            slot="close"
+            slot={slot}
             aria-label={label || "Close"}
             className={(state) =>
                 cx(
