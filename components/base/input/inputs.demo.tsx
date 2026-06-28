@@ -1724,3 +1724,137 @@ export const TagInputsOuter = () => {
         </div>
     );
 };
+
+export const Clearable = () => {
+    return (
+        <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-4">
+                <Input
+                    isRequired
+                    isClearable
+                    size="sm"
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isDisabled
+                    isClearable
+                    size="sm"
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isInvalid
+                    isClearable
+                    size="sm"
+                    label="Email"
+                    hint="This is an error message."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+            </div>
+            <div className="flex flex-col gap-4">
+                <Input
+                    isRequired
+                    isClearable
+                    size="md"
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isClearable
+                    size="md"
+                    isDisabled
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isClearable
+                    size="md"
+                    isInvalid
+                    label="Email"
+                    hint="This is an error message."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+            </div>
+            <div className="flex flex-col gap-4">
+                <Input
+                    isRequired
+                    isClearable
+                    size="lg"
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isClearable
+                    size="lg"
+                    isDisabled
+                    label="Email"
+                    hint="This is a hint text to help user."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    isRequired
+                    isClearable
+                    size="lg"
+                    isInvalid
+                    label="Email"
+                    hint="This is an error message."
+                    placeholder="olivia@untitledui.com"
+                    tooltip="This is a tooltip"
+                />
+            </div>
+            <div className="flex flex-col gap-4">
+                <Input
+                    type="search"
+                    isRequired
+                    isClearable
+                    size="sm"
+                    label="Search"
+                    hint="This is a hint text to help user."
+                    placeholder="Search..."
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    type="search"
+                    isRequired
+                    isDisabled
+                    isClearable
+                    size="sm"
+                    label="Search"
+                    hint="This is a hint text to help user."
+                    placeholder="Search..."
+                    tooltip="This is a tooltip"
+                />
+                <Input
+                    type="search"
+                    isRequired
+                    isInvalid
+                    isClearable
+                    size="sm"
+                    label="Search"
+                    hint="This is an error message."
+                    placeholder="Search..."
+                    tooltip="This is a tooltip"
+                />
+            </div>
+        </div>
+    );
+};
