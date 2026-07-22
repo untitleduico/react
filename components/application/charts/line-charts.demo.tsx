@@ -154,7 +154,7 @@ export const LineChart01 = () => {
                     <Tooltip
                         content={<ChartTooltipContent />}
                         formatter={(value) => Number(value).toLocaleString()}
-                        labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
+                        labelFormatter={(value) => new Date(value as string | number | Date).toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                         cursor={{
                             className: "stroke-utility-brand-600 stroke-2",
                         }}
@@ -282,7 +282,7 @@ export const LineChart02 = () => {
                     <Tooltip
                         content={<ChartTooltipContent />}
                         formatter={(value) => Number(value).toLocaleString()}
-                        labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
+                        labelFormatter={(value) => new Date(value as string | number | Date).toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                         cursor={{
                             className: "stroke-utility-brand-600 stroke-2",
                         }}
@@ -420,7 +420,7 @@ export const LineChart03 = () => {
                     <Tooltip
                         content={<ChartTooltipContent />}
                         formatter={(value) => Number(value).toLocaleString()}
-                        labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
+                        labelFormatter={(value) => new Date(value as string | number | Date).toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                         cursor={{
                             className: "stroke-utility-brand-600 stroke-2",
                         }}
@@ -549,7 +549,7 @@ export const LineChart04 = () => {
                     <Tooltip
                         content={<ChartTooltipContent />}
                         formatter={(value) => Number(value).toLocaleString()}
-                        labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
+                        labelFormatter={(value) => new Date(value as string | number | Date).toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                         cursor={{
                             className: "stroke-utility-brand-600 stroke-2",
                         }}

@@ -14,7 +14,9 @@ export default [
     {
         settings: {
             react: {
-                version: "detect",
+                // Pinned explicitly (not "detect"): eslint-plugin-react@7.37.5's version
+                // auto-detection calls context.getFilename(), which ESLint 10 removed.
+                version: "19.2",
             },
         },
         files: ["**/*.{js,jsx,ts,tsx}"],

@@ -94,7 +94,19 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, r
     );
 };
 
-const Select = ({ placeholder = "Select", icon, size = "md", children, items, label, hint, tooltip, hideRequiredIndicator, className, ...rest }: SelectProps) => {
+const Select = ({
+    placeholder = "Select",
+    icon,
+    size = "md",
+    children,
+    items,
+    label,
+    hint,
+    tooltip,
+    hideRequiredIndicator,
+    className,
+    ...rest
+}: SelectProps) => {
     return (
         <SelectContext.Provider value={{ size }}>
             <AriaSelect {...rest} className={(state) => cx("flex flex-col gap-1.5", typeof className === "function" ? className(state) : className)}>

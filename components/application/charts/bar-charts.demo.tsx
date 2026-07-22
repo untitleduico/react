@@ -143,7 +143,7 @@ export const BarChart = () => {
                 <Tooltip
                     content={<ChartTooltipContent />}
                     formatter={(value) => Number(value).toLocaleString()}
-                    labelFormatter={(value) => value.toLocaleDateString(undefined, { month: "short", year: "numeric" })}
+                    labelFormatter={(value) => new Date(value as string | number | Date).toLocaleDateString(undefined, { month: "short", year: "numeric" })}
                     cursor={{
                         className: "fill-utility-neutral-200/20",
                     }}
@@ -298,7 +298,7 @@ export const BarChart02 = () => {
                         formatter={(value) => Number(value).toLocaleString()}
                         // Custom label formatter to show the week range
                         labelFormatter={(value) => {
-                            const date = new Date(value);
+                            const date = new Date(value as string | number | Date);
                             const endDate = new Date(date);
                             endDate.setDate(date.getDate() + 6); // Set end date to 7 days after start date
 
@@ -458,7 +458,7 @@ export const BarChart03 = () => {
                         formatter={(value) => Number(value).toLocaleString()}
                         // Custom label formatter to show the week range
                         labelFormatter={(value) => {
-                            const date = new Date(value);
+                            const date = new Date(value as string | number | Date);
                             const endDate = new Date(date);
                             endDate.setDate(date.getDate() + 6); // Set end date to 7 days after start date
 

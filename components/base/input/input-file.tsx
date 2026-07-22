@@ -111,7 +111,11 @@ export const InputFile = ({
                         onClick={handleClick}
                     />
                     {isLoading && (
-                        <svg fill="none" viewBox="0 0 16 16" className="pointer-events-none absolute top-1/2 right-3 z-20 size-4 -translate-y-1/2 text-fg-quaternary">
+                        <svg
+                            fill="none"
+                            viewBox="0 0 16 16"
+                            className="pointer-events-none absolute top-1/2 right-3 z-20 size-4 -translate-y-1/2 text-fg-quaternary"
+                        >
                             <circle className="stroke-current opacity-30" cx="8" cy="8" r="6.5" strokeWidth="1.5" />
                             <circle
                                 className="origin-center animate-spin stroke-current"

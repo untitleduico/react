@@ -278,10 +278,10 @@ All components use `opacity-50` for disabled states instead of individual disabl
 
 ```typescript
 // Correct (v8)
-"disabled:cursor-not-allowed disabled:opacity-50"
+"disabled:cursor-not-allowed disabled:opacity-50";
 
 // Incorrect (v7 pattern, do not use)
-"disabled:bg-disabled_subtle disabled:text-disabled disabled:ring-disabled"
+"disabled:bg-disabled_subtle disabled:text-disabled disabled:ring-disabled";
 ```
 
 ## Common Patterns
