@@ -33,7 +33,7 @@
     "url": "https://github.com/untitleduico/react.git"
   },
   "dependencies": {
-    "@internationalized/date": "^3.12.2",
+    "@internationalized/date": "^3.12.3",
     "@react-aria/utils": "^3.34.1",
     "@react-stately/utils": "^3.12.1",
     "@tailwindcss/typography": "^0.5.20",
@@ -46,8 +46,8 @@
     "next-themes": "^0.4.6",
     "qr-code-styling": "^1.9.2",
     "react": "^19.2.8",
-    "react-aria": "^3.50.0",
-    "react-aria-components": "^1.19.0",
+    "react-aria": "^3.51.0",
+    "react-aria-components": "^1.20.0",
     "react-dom": "^19.2.8",
     "react-hook-form": "^7.82.0",
     "recharts": "^3.10.0",

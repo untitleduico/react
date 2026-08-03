@@ -8,6 +8,8 @@ import { DropdownAvatar } from "@/components/base/dropdown/dropdown-avatar";
 import { DropdownButtonAdvanced } from "@/components/base/dropdown/dropdown-button-advanced";
 import { DropdownButtonLink } from "@/components/base/dropdown/dropdown-button-link";
 import { DropdownButtonSimple } from "@/components/base/dropdown/dropdown-button-simple";
+import { DropdownContextMenuAdvanced } from "@/components/base/dropdown/dropdown-context-menu-advanced";
+import { DropdownContextMenuSimple } from "@/components/base/dropdown/dropdown-context-menu-simple";
 import { DropdownIconAdvanced } from "@/components/base/dropdown/dropdown-icon-advanced";
 import { DropdownIconSimple } from "@/components/base/dropdown/dropdown-icon-simple";
 import { DropdownIntegration } from "@/components/base/dropdown/dropdown-integration";
@@ -33,6 +35,12 @@ DropdownButtonAdvancedStory.storyName = "Dropdown menu button advanced";
 
 export const DropdownButtonLinkStory = () => <DropdownButtonLink />;
 DropdownButtonLinkStory.storyName = "Dropdown menu button link";
+
+export const DropdownContextMenuSimpleStory = () => <DropdownContextMenuSimple />;
+DropdownContextMenuSimpleStory.storyName = "Dropdown menu context menu simple";
+
+export const DropdownContextMenuAdvancedStory = () => <DropdownContextMenuAdvanced />;
+DropdownContextMenuAdvancedStory.storyName = "Dropdown menu context menu advanced";
 
 export const DropdownIconSimpleStory = () => <DropdownIconSimple />;
 DropdownIconSimpleStory.storyName = "Dropdown menu icon simple";
