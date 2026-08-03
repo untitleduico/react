@@ -20,7 +20,7 @@ export const DropdownContextMenuAdvanced = () => {
         <Dropdown.Root trigger="contextMenu">
             <AriaButton
                 aria-label="Open context menu"
-                className="flex h-40 w-full max-w-xs cursor-default items-center justify-center rounded-xl border border-dashed border-secondary bg-primary px-6 text-center text-sm text-tertiary outline-focus-ring transition select-none focus-visible:outline-2 focus-visible:outline-offset-2"
+                className="flex h-40 w-full max-w-xs cursor-default items-center justify-center rounded-xl border border-dashed border-secondary bg-primary px-6 text-center text-sm text-tertiary outline-focus-ring select-none focus-visible:outline-2 focus-visible:outline-offset-2"
             >
                 Right-click anywhere in this area
             </AriaButton>
