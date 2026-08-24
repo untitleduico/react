@@ -1,6 +1,6 @@
 "use client";
 
-import type { AnchorHTMLAttributes, ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import type { ReactElement, ReactNode, RefAttributes } from "react";
 import type { ButtonProps as AriaButtonProps, LinkProps as AriaLinkProps } from "react-aria-components";
 import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
 import { cx, sortCx } from "@/utils/cx";
@@ -47,25 +47,35 @@ export const styles = sortCx({
 
 interface CommonProps {
     social: "google" | "facebook" | "apple" | "twitter" | "figma" | "dribble";
+    /** Disables the button and shows a disabled state */
+    isDisabled?: boolean;
+    /**
+     * Disables the button and shows a disabled state.
+     * @deprecated Use `isDisabled` instead, for consistency with `Button` and React Aria.
+     */
     disabled?: boolean;
     theme?: "brand" | "color" | "gray";
     size?: keyof typeof styles.sizes;
+
+    children?: ReactNode;
+    className?: string;
 }
 
-interface ButtonProps extends CommonProps, DetailedHTMLProps<Omit<ButtonHTMLAttributes<HTMLButtonElement>, "color" | "slot">, HTMLButtonElement> {
-    slot?: AriaButtonProps["slot"];
-}
+interface ButtonProps extends CommonProps, Omit<AriaButtonProps, "children" | "className">, RefAttributes<HTMLButtonElement> {}
 
-interface LinkProps extends CommonProps, DetailedHTMLProps<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "color">, HTMLAnchorElement> {
-    /** Options for the configured client side router. */
-    routerOptions?: AriaLinkProps["routerOptions"];
+interface LinkProps extends CommonProps, Omit<AriaLinkProps, "children" | "className">, RefAttributes<HTMLAnchorElement> {
+    /** The link target. Required as a key to select the link variant, but may be `undefined` (e.g. a disabled nav button). */
+    href: AriaLinkProps["href"];
 }
 
 export type SocialButtonProps = ButtonProps | LinkProps;
 
-export const SocialButton = ({ size = "lg", theme = "brand", social, className, children, disabled, ...otherProps }: SocialButtonProps) => {
-    const href = "href" in otherProps ? otherProps.href : undefined;
-    const Component = href ? AriaLink : AriaButton;
+export const SocialButton: {
+    (props: LinkProps): ReactElement<LinkProps>;
+    (props: ButtonProps): ReactElement<ButtonProps>;
+} = ({ size = "lg", theme = "brand", social, className, children, isDisabled, disabled, ...props }) => {
+    // `disabled` is the deprecated alias of `isDisabled`.
+    const isButtonDisabled = isDisabled ?? disabled;
 
     const isIconOnly = !children;
 
@@ -91,35 +101,8 @@ export const SocialButton = ({ size = "lg", theme = "brand", social, className, 
 
     const Logo = logos[social];
 
-    let props = {};
-
-    if (href) {
-        props = {
-            ...otherProps,
-
-            href: disabled ? undefined : href,
-
-            // Since anchor elements do not support the `disabled` attribute and state,
-            // we need to specify `data-rac` and `data-disabled` in order to be able
-            // to use the `disabled:` selector in classes.
-            ...(disabled ? { "data-rac": true, "data-disabled": true } : {}),
-        };
-    } else {
-        props = {
-            ...otherProps,
-
-            type: otherProps.type || "button",
-            isDisabled: disabled,
-        };
-    }
-
-    return (
-        <Component
-            isDisabled={disabled}
-            {...props}
-            data-icon-only={isIconOnly ? true : undefined}
-            className={cx(styles.common.root, styles.sizes[size].root, colorStyles.root, className)}
-        >
+    const commonChildren = (
+        <>
             <Logo
                 className={cx(
                     styles.common.icon,
@@ -140,6 +123,28 @@ export const SocialButton = ({ size = "lg", theme = "brand", social, className, 
             />
 
             {children}
-        </Component>
+        </>
     );
+
+    const commonProps = {
+        "data-icon-only": isIconOnly ? true : undefined,
+        ...props,
+        isDisabled: isButtonDisabled,
+        className: cx(styles.common.root, styles.sizes[size].root, colorStyles.root, className),
+        children: commonChildren,
+    };
+
+    if ("href" in commonProps) {
+        const { href: linkHref, ...rest } = commonProps;
+
+        // An explicitly `undefined` href renders a real <button> rather than React Aria's
+        // link fallback <span>.
+        return linkHref ? (
+            <AriaLink {...commonProps} href={isButtonDisabled ? undefined : linkHref} />
+        ) : (
+            <AriaButton {...(rest as AriaButtonProps)} type="button" />
+        );
+    }
+
+    return <AriaButton {...commonProps} type={commonProps.type || "button"} />;
 };
