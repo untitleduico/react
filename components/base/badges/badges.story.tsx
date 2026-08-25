@@ -1,83 +1,125 @@
-import type { FC } from "react";
-import * as Badges from "@/components/base/badges/badges.demo";
+import type { ReactNode } from "react";
+import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import { ArrowRight } from "@untitledui/icons";
+import { Badge, BadgeWithButton, BadgeWithDot, BadgeWithFlag, BadgeWithIcon, BadgeWithImage } from "./badges";
 
-export default {
+/**
+ * Canonical interactive story for the Badge.
+ *
+ * `Playground` drives the base `Badge` from the Controls panel. The curated
+ * rows below are hand-picked references: `Colors` (all 12), `Types` (the 3
+ * shapes), and `Variants` (the sibling badge components — dot, icon, flag,
+ * image, close button).
+ *
+ * NOTE: `type="modern"` intentionally collapses the color surface to gray —
+ * that's by design in `badges.tsx`, not a bug.
+ */
+
+const sizes = ["sm", "md", "lg"] as const;
+const types = ["pill-color", "color", "modern"] as const;
+const colors = ["gray", "brand", "error", "warning", "success", "slate", "sky", "blue", "indigo", "purple", "pink", "orange"] as const;
+
+const IMG_SRC = "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80";
+
+/** Small captioned cell so it's obvious which badge is which. */
+const Labeled = ({ label, children }: { label: string; children: ReactNode }) => (
+    <div className="flex flex-col items-start gap-2">
+        <span className="text-xs font-medium tracking-wide text-tertiary uppercase">{label}</span>
+        {children}
+    </div>
+);
+
+const meta = {
     title: "Base components/Badges",
-    decorators: [
-        (Story: FC) => (
-            <div className="flex h-screen w-full bg-primary p-4">
-                <Story />
-            </div>
-        ),
-    ],
+    component: Badge,
+    tags: ["autodocs"],
+    parameters: { layout: "padded" },
+    args: {
+        type: "pill-color",
+        size: "md",
+        color: "brand",
+        children: "Label",
+    },
+    argTypes: {
+        type: { control: "select", options: types },
+        size: { control: "select", options: sizes },
+        color: { control: "select", options: colors },
+        children: { control: "text" },
+    },
+} satisfies Meta<typeof Badge>;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+/** Single interactive badge — edit props live in the Controls panel. */
+export const Playground: Story = {};
+
+/** The badge in all 12 colors (pill-color type). */
+export const Colors: Story = {
+    render: (args) => (
+        <div className="flex flex-wrap items-start gap-3">
+            {colors.map((color) => (
+                <Badge key={color} type="pill-color" size={args.size} color={color}>
+                    {color}
+                </Badge>
+            ))}
+        </div>
+    ),
 };
 
-export const PillColor = () => <Badges.PillColor />;
-PillColor.storyName = "Pill color";
+/** The three badge shapes. */
+export const Types: Story = {
+    render: (args) => (
+        <div className="flex flex-wrap items-start gap-8">
+            <Labeled label="pill-color">
+                <Badge type="pill-color" size={args.size} color="brand">
+                    Label
+                </Badge>
+            </Labeled>
+            <Labeled label="color">
+                <Badge type="color" size={args.size} color="brand">
+                    Label
+                </Badge>
+            </Labeled>
+            <Labeled label="modern (gray)">
+                <Badge type="modern" size={args.size} color="gray">
+                    Label
+                </Badge>
+            </Labeled>
+        </div>
+    ),
+};
 
-export const BadgeColor = () => <Badges.BadgeColor />;
-BadgeColor.storyName = "Badge color";
-
-export const BadgeModern = () => <Badges.BadgeModern />;
-BadgeModern.storyName = "Badge modern";
-
-export const WithDot = () => <Badges.WithDot />;
-WithDot.storyName = "With dot";
-
-export const WithDotBadgeColor = () => <Badges.WithDotBadgeColor />;
-WithDotBadgeColor.storyName = "With dot badge color";
-
-export const WithDotBadgeModern = () => <Badges.WithDotBadgeModern />;
-WithDotBadgeModern.storyName = "With dot badge modern";
-
-export const WithFlag = () => <Badges.WithFlag />;
-WithFlag.storyName = "With flag";
-
-export const WithFlagBadgeColor = () => <Badges.WithFlagBadgeColor />;
-WithFlagBadgeColor.storyName = "With flag badge color";
-
-export const WithFlagBadgeModern = () => <Badges.WithFlagBadgeModern />;
-WithFlagBadgeModern.storyName = "With flag badge modern";
-
-export const WithAvatar = () => <Badges.WithAvatar />;
-WithAvatar.storyName = "With avatar";
-
-export const WithAvatarBadgeColor = () => <Badges.WithAvatarBadgeColor />;
-WithAvatarBadgeColor.storyName = "With avatar badge color";
-
-export const WithAvatarBadgeModern = () => <Badges.WithAvatarBadgeModern />;
-WithAvatarBadgeModern.storyName = "With avatar badge modern";
-
-export const WithCloseX = () => <Badges.WithCloseX />;
-WithCloseX.storyName = "With close X";
-
-export const WithCloseXBadgeColor = () => <Badges.WithCloseXBadgeColor />;
-WithCloseXBadgeColor.storyName = "With close X badge color";
-export const WithCloseXBadgeModern = () => <Badges.WithCloseXBadgeModern />;
-
-export const WithIconTrailing = () => <Badges.WithIconTrailing />;
-WithIconTrailing.storyName = "With icon trailing";
-
-export const WithIconTrailingBadgeColor = () => <Badges.WithIconTrailingBadgeColor />;
-WithIconTrailingBadgeColor.storyName = "With icon trailing badge color";
-
-export const WithIconTrailingBadgeModern = () => <Badges.WithIconTrailingBadgeModern />;
-WithIconTrailingBadgeModern.storyName = "With icon trailing badge modern";
-
-export const WithIconLeading = () => <Badges.WithIconLeading />;
-WithIconLeading.storyName = "With icon leading";
-
-export const WithIconLeadingBadgeColor = () => <Badges.WithIconLeadingBadgeColor />;
-WithIconLeadingBadgeColor.storyName = "With icon leading badge color";
-
-export const WithIconLeadingBadgeModern = () => <Badges.WithIconLeadingBadgeModern />;
-WithIconLeadingBadgeModern.storyName = "With icon leading badge modern";
-
-export const WithIconOnly = () => <Badges.WithIconOnly />;
-WithIconOnly.storyName = "With icon only";
-
-export const WithIconOnlyBadgeColor = () => <Badges.WithIconOnlyBadgeColor />;
-WithIconOnlyBadgeColor.storyName = "With icon only badge color";
-
-export const WithIconOnlyBadgeModern = () => <Badges.WithIconOnlyBadgeModern />;
-WithIconOnlyBadgeModern.storyName = "With icon only badge modern";
+/** The sibling badge components sharing the same size/type/color axes. */
+export const Variants: Story = {
+    render: (args) => (
+        <div className="flex flex-wrap items-center gap-4">
+            <Labeled label="Dot">
+                <BadgeWithDot size={args.size} color="success">
+                    Label
+                </BadgeWithDot>
+            </Labeled>
+            <Labeled label="Icon">
+                <BadgeWithIcon size={args.size} color="brand" iconTrailing={ArrowRight}>
+                    Label
+                </BadgeWithIcon>
+            </Labeled>
+            <Labeled label="Flag">
+                <BadgeWithFlag size={args.size} color="gray" flag="AU">
+                    Label
+                </BadgeWithFlag>
+            </Labeled>
+            <Labeled label="Image">
+                <BadgeWithImage size={args.size} color="gray" imgSrc={IMG_SRC}>
+                    Label
+                </BadgeWithImage>
+            </Labeled>
+            <Labeled label="Close button">
+                <BadgeWithButton size={args.size} color="gray" buttonLabel="Remove">
+                    Label
+                </BadgeWithButton>
+            </Labeled>
+        </div>
+    ),
+};
