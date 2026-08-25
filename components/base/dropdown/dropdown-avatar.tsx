@@ -70,7 +70,7 @@ export const DropdownAvatar = () => {
                     <Dropdown.Item icon={Container}>API</Dropdown.Item>
                 </Dropdown.Menu>
                 <div className="flex flex-col gap-3 border-t border-secondary p-3">
-                    <Button size="xs" color="secondary" iconLeading={LogOut01} className="text-center">
+                    <Button size="sm" color="secondary" iconLeading={LogOut01} className="text-center">
                         Sign out
                     </Button>
                 </div>

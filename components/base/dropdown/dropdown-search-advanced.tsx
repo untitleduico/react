@@ -84,7 +84,7 @@ export const DropdownSearchAdvanced = () => {
                         </Dropdown.Item>
                     </Dropdown.Menu>
                     <div className="flex flex-col gap-3 border-t border-secondary p-3">
-                        <Button size="xs" color="secondary" iconLeading={Plus}>
+                        <Button size="sm" color="secondary" iconLeading={Plus}>
                             Create team
                         </Button>
                     </div>

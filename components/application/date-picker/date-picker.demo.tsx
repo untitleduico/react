@@ -158,7 +158,7 @@ export const DateTimePickerDemo = () => {
                                                 return (
                                                     <li key={slot.id} className="flex-1">
                                                         <Button
-                                                            size="xs"
+                                                            size="sm"
                                                             color="secondary"
                                                             className={cx("w-full", isSelected && "bg-primary_hover")}
                                                             onClick={() => handleTimeClick(slot.id)}

@@ -30,7 +30,7 @@ const searchSizes = {
 };
 
 const footerButtonSize = {
-    sm: "xs" as const,
+    sm: "sm" as const,
     md: "sm" as const,
     lg: "sm" as const,
 };

@@ -64,7 +64,7 @@ export const DropdownAccountButton = () => {
                     <Dropdown.Item icon={Plus}>Add account</Dropdown.Item>
                 </Dropdown.Menu>
                 <div className="flex flex-col gap-3 p-3">
-                    <Button size="xs" color="secondary" iconLeading={LogOut01} className="text-center">
+                    <Button size="sm" color="secondary" iconLeading={LogOut01} className="text-center">
                         Sign out
                     </Button>
                 </div>

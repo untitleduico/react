@@ -6,7 +6,7 @@
 
     /* FONT SIZE */
     --text-xs: calc(var(--spacing) * 3);
-    --text-xs--line-height: calc(var(--spacing) * 4.5);
+    --text-xs--line-height: 16px;
 
     --text-sm: calc(var(--spacing) * 3.5);
     --text-sm--line-height: calc(var(--spacing) * 5);
@@ -15,7 +15,7 @@
     --text-md--line-height: calc(var(--spacing) * 6);
 
     --text-lg: calc(var(--spacing) * 4.5);
-    --text-lg--line-height: calc(var(--spacing) * 7);
+    --text-lg--line-height: 30px;
 
     --text-xl: calc(var(--spacing) * 5);
     --text-xl--line-height: calc(var(--spacing) * 7.5);
@@ -106,17 +106,19 @@
     --color-alpha-white: rgb(255 255 255);
     --color-alpha-black: rgb(0 0 0);
 
-    --color-brand-50: rgb(249 245 255);
-    --color-brand-100: rgb(244 235 255);
-    --color-brand-200: rgb(233 215 254);
-    --color-brand-300: rgb(214 187 251);
-    --color-brand-400: rgb(182 146 246);
-    --color-brand-500: rgb(158 119 237);
-    --color-brand-600: rgb(127 86 217);
-    --color-brand-700: rgb(105 65 198);
-    --color-brand-800: rgb(83 56 158);
-    --color-brand-900: rgb(66 48 125);
-    --color-brand-950: rgb(44 28 95);
+    /* FA brand blue — canonical ramp from the Figma "❖ Untitled UI x Fa" variables (brand 25–950). */
+    --color-brand-25: rgb(245 250 254); /* #F5FAFE */
+    --color-brand-50: rgb(231 242 253); /* #E7F2FD */
+    --color-brand-100: rgb(203 227 251); /* #CBE3FB */
+    --color-brand-200: rgb(154 201 249); /* #9AC9F9 */
+    --color-brand-300: rgb(99 173 248); /* #63ADF8 */
+    --color-brand-400: rgb(42 145 248); /* #2A91F8 */
+    --color-brand-500: rgb(3 115 227); /* #0373E3 */
+    --color-brand-600: rgb(3 92 181); /* #035CB5 — button fill / bg-brand-solid */
+    --color-brand-700: rgb(2 69 136); /* #024588 — button hover / bg-brand-solid_hover */
+    --color-brand-800: rgb(2 52 102); /* #023466 */
+    --color-brand-900: rgb(2 38 75); /* #02264B */
+    --color-brand-950: rgb(2 26 49); /* #021A31 */
 
     /* LIGHT MODE VARIABLES */
 
@@ -337,14 +339,14 @@
     --color-bg-warning-secondary: var(--color-yellow-100);
     --color-bg-success-primary: var(--color-green-50);
     --color-bg-success-secondary: var(--color-green-100);
-    --color-bg-brand-solid: var(--color-brand-600);
+    --color-bg-brand-solid: var(--color-brand-500); /* synced to Figma bg-brand-solid (was brand-600) */
     --color-bg-secondary-solid: var(--color-neutral-600);
     --color-bg-error-solid: var(--color-red-600);
     --color-bg-warning-solid: var(--color-yellow-600);
     --color-bg-success-solid: var(--color-green-600);
     --color-bg-secondary_hover: var(--color-neutral-100);
     --color-bg-primary_hover: var(--color-neutral-50);
-    --color-bg-brand-solid_hover: var(--color-brand-700);
+    --color-bg-brand-solid_hover: var(--color-brand-600); /* synced to Figma bg-brand-solid_hover (was brand-700) */
     --color-bg-error-primary: var(--color-red-50);
     --color-bg-brand-secondary: var(--color-brand-100);
     --color-bg-secondary: var(--color-neutral-50);
