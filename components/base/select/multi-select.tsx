@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode, RefAttributes } from "react";
-import { useCallback, useRef, useState } from "react";
+import type { FC, ReactNode, RefAttributes } from "react";
+import { isValidElement, useCallback, useRef, useState } from "react";
 import { ChevronDown, SearchLg } from "@untitledui/icons";
 import { useFilter } from "react-aria";
 import type { Selection } from "react-aria-components";
@@ -20,6 +20,7 @@ import { HintText } from "@/components/base/input/hint-text";
 import { Label } from "@/components/base/input/label";
 import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 import { cx } from "@/utils/cx";
+import { isReactComponent } from "@/utils/is-react-component";
 import { SelectItem } from "./select-item";
 import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
 
@@ -152,6 +153,8 @@ interface MultiSelectProps extends RefAttributes<HTMLDivElement>, CommonProps {
     selectedCountFormatter?: (count: number) => ReactNode;
     /** Supporting text displayed next to the selected count in the trigger. */
     supportingText?: ReactNode;
+    /** Leading icon rendered in the trigger, before the placeholder / selected count. Matches `Select`'s `icon`. */
+    icon?: FC | ReactNode;
 }
 
 const MultiSelectRoot = ({
@@ -179,6 +182,7 @@ const MultiSelectRoot = ({
     emptyStateDescription,
     selectedCountFormatter,
     supportingText,
+    icon,
 }: MultiSelectProps) => {
     const { contains } = useFilter({ sensitivity: "base" });
     const [searchValue, setSearchValue] = useState("");
@@ -194,6 +198,9 @@ const MultiSelectRoot = ({
 
     const selectedCount = selectedKeys instanceof Set ? selectedKeys.size : selectedKeys === "all" ? (items?.length ?? 0) : 0;
     const hasSelection = selectedCount > 0;
+
+    // Capitalized alias so a function-component icon can be rendered as JSX (mirrors Select).
+    const Icon = icon;
 
     const handleClearSearch = useCallback(() => {
         setSearchValue("");
@@ -228,6 +235,8 @@ const MultiSelectRoot = ({
                                 "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
                             )}
                         >
+                            {isReactComponent(Icon) ? <Icon data-icon aria-hidden="true" /> : isValidElement(Icon) ? Icon : null}
+
                             {hasSelection ? (
                                 <span className={cx("flex items-center", sizes[size].textContainer)}>
                                     <span className={cx("font-medium text-primary", sizes[size].text)}>

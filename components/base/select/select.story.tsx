@@ -50,6 +50,10 @@ export const MultiSelectMd = () => <Selects.MultiSelectMdDemo />;
 MultiSelectMd.decorators = [DefaultDecorator];
 MultiSelectMd.storyName = "Multi select (md)";
 
+export const MultiSelectWithIcon = () => <Selects.MultiSelectWithIconDemo />;
+MultiSelectWithIcon.decorators = [DefaultDecorator];
+MultiSelectWithIcon.storyName = "Multi select with icon";
+
 export const MultiSelectLg = () => <Selects.MultiSelectLgDemo />;
 MultiSelectLg.decorators = [DefaultDecorator];
 MultiSelectLg.storyName = "Multi select (lg)";

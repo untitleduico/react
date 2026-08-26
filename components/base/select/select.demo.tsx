@@ -1253,6 +1253,32 @@ export const MultiSelectMdDemo = () => {
     );
 };
 
+export const MultiSelectWithIconDemo = () => {
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["design"]));
+
+    return (
+        <MultiSelect
+            size="md"
+            label="Assignees"
+            hint="Add one or more teammates."
+            placeholder="Select assignees"
+            icon={User01}
+            items={teamItems}
+            selectedKeys={selectedKeys}
+            onSelectionChange={setSelectedKeys}
+            supportingText={`${getSelectedUserCount(selectedKeys)} users`}
+            onReset={() => setSelectedKeys(new Set())}
+            onSelectAll={() => setSelectedKeys(new Set(teamItems.map((t) => t.id)))}
+        >
+            {(item) => (
+                <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                    {item.label}
+                </MultiSelect.Item>
+            )}
+        </MultiSelect>
+    );
+};
+
 export const MultiSelectLgDemo = () => {
     const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["design", "product"]));
 
