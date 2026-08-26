@@ -120,6 +120,20 @@
     --color-brand-900: rgb(2 38 75); /* #02264B */
     --color-brand-950: rgb(2 26 49); /* #021A31 */
 
+    /* FA error red — canonical ramp from the Figma "❖ Untitled UI x Fa" variables (error 25–950). */
+    --color-error-25: rgb(255 250 250); /* #FFFAFA */
+    --color-error-50: rgb(253 241 242); /* #FDF1F2 */
+    --color-error-100: rgb(252 224 227); /* #FCE0E3 */
+    --color-error-200: rgb(250 197 204); /* #FAC5CC */
+    --color-error-300: rgb(246 145 156); /* #F6919C */
+    --color-error-400: rgb(238 86 103); /* #EE5667 */
+    --color-error-500: rgb(225 35 57); /* #E12339 — error solid / bg-error-solid */
+    --color-error-600: rgb(184 38 54); /* #B82636 — error solid hover / bg-error-solid_hover */
+    --color-error-700: rgb(155 30 43); /* #9B1E2B */
+    --color-error-800: rgb(127 29 40); /* #7F1D28 */
+    --color-error-900: rgb(109 30 33); /* #6D1E21 */
+    --color-error-950: rgb(81 16 19); /* #511013 */
+
     /* LIGHT MODE VARIABLES */
 
     --color-alpha-white: rgb(255 255 255);
@@ -167,14 +181,14 @@
     --color-utility-neutral-800: var(--color-neutral-800);
     --color-utility-neutral-900: var(--color-neutral-900);
 
-    --color-utility-red-50: var(--color-red-50);
-    --color-utility-red-100: var(--color-red-100);
-    --color-utility-red-200: var(--color-red-200);
-    --color-utility-red-300: var(--color-red-300);
-    --color-utility-red-400: var(--color-red-400);
-    --color-utility-red-500: var(--color-red-500);
-    --color-utility-red-600: var(--color-red-600);
-    --color-utility-red-700: var(--color-red-700);
+    --color-utility-red-50: var(--color-error-50);
+    --color-utility-red-100: var(--color-error-100);
+    --color-utility-red-200: var(--color-error-200);
+    --color-utility-red-300: var(--color-error-300);
+    --color-utility-red-400: var(--color-error-400);
+    --color-utility-red-500: var(--color-error-500);
+    --color-utility-red-600: var(--color-error-600);
+    --color-utility-red-700: var(--color-error-700);
 
     --color-utility-yellow-50: var(--color-yellow-50);
     --color-utility-yellow-100: var(--color-yellow-100);
@@ -278,7 +292,7 @@
     /* TEXT COLORS */
     --color-text-primary: var(--color-neutral-900);
     --color-text-tertiary: var(--color-neutral-600);
-    --color-text-error-primary: var(--color-red-600);
+    --color-text-error-primary: var(--color-error-500); /* synced to Figma text-error-primary (was error-600) */
     --color-text-warning-primary: var(--color-yellow-600);
     --color-text-success-primary: var(--color-green-600);
     --color-text-secondary: var(--color-neutral-700);
@@ -296,7 +310,7 @@
     --color-text-tertiary_on-brand: var(--color-brand-200);
     --color-text-quaternary_on-brand: var(--color-brand-300);
     --color-text-brand-tertiary_alt: var(--color-brand-600);
-    --color-text-error-primary_hover: var(--color-red-700);
+    --color-text-error-primary_hover: var(--color-error-600); /* synced to Figma text-error-primary_hover (was error-700) */
     --color-text-brand-secondary_hover: var(--color-brand-800);
 
     /* BORDER COLORS */
@@ -304,8 +318,8 @@
     --color-border-secondary: var(--color-neutral-200);
     --color-border-secondary_alt: rgb(0 0 0 / 0.1);
     --color-border-tertiary: var(--color-neutral-100);
-    --color-border-error: var(--color-red-500);
-    --color-border-error_subtle: var(--color-red-300);
+    --color-border-error: var(--color-error-500);
+    --color-border-error_subtle: var(--color-error-300);
     --color-border-brand: var(--color-brand-500);
     --color-border-brand_alt: var(--color-brand-600);
 
@@ -321,33 +335,33 @@
     --color-fg-brand-primary: var(--color-brand-600);
     --color-fg-quaternary: var(--color-neutral-400);
     --color-fg-quaternary_hover: var(--color-neutral-500);
-    --color-fg-error-primary: var(--color-red-600);
+    --color-fg-error-primary: var(--color-error-600);
     --color-fg-warning-secondary: var(--color-yellow-500);
-    --color-fg-error-secondary: var(--color-red-500);
+    --color-fg-error-secondary: var(--color-error-500);
     --color-fg-tertiary: var(--color-neutral-600);
     --color-fg-tertiary_hover: var(--color-neutral-700);
     --color-fg-brand-primary_alt: var(--color-fg-brand-primary);
     --color-fg-brand-secondary_alt: var(--color-fg-brand-secondary);
-    --color-fg-brand-secondary_hover: var(--color-brand-600);
+    --color-fg-brand-secondary_hover: var(--color-brand-800); /* synced to Figma fg-brand-secondary_hover (was brand-600) */
 
     /* BACKGROUND COLORS */
     --color-bg-primary: var(--color-white);
     --color-bg-tertiary: var(--color-neutral-100);
     --color-bg-brand-primary: var(--color-brand-50);
-    --color-bg-error-secondary: var(--color-red-100);
+    --color-bg-error-secondary: var(--color-error-100);
     --color-bg-warning-primary: var(--color-yellow-50);
     --color-bg-warning-secondary: var(--color-yellow-100);
     --color-bg-success-primary: var(--color-green-50);
     --color-bg-success-secondary: var(--color-green-100);
     --color-bg-brand-solid: var(--color-brand-500); /* synced to Figma bg-brand-solid (was brand-600) */
     --color-bg-secondary-solid: var(--color-neutral-600);
-    --color-bg-error-solid: var(--color-red-600);
+    --color-bg-error-solid: var(--color-error-500); /* synced to Figma bg-error-solid (was error-600) */
     --color-bg-warning-solid: var(--color-yellow-600);
     --color-bg-success-solid: var(--color-green-600);
     --color-bg-secondary_hover: var(--color-neutral-100);
     --color-bg-primary_hover: var(--color-neutral-50);
     --color-bg-brand-solid_hover: var(--color-brand-600); /* synced to Figma bg-brand-solid_hover (was brand-700) */
-    --color-bg-error-primary: var(--color-red-50);
+    --color-bg-error-primary: var(--color-error-50);
     --color-bg-brand-secondary: var(--color-brand-100);
     --color-bg-secondary: var(--color-neutral-50);
     --color-bg-quaternary: var(--color-neutral-200);
@@ -358,17 +372,25 @@
     --color-bg-brand-section: var(--color-brand-800);
     --color-bg-brand-section_subtle: var(--color-brand-700);
     --color-bg-primary-solid: var(--color-neutral-950);
-    --color-bg-error-solid_hover: var(--color-red-700);
+    --color-bg-error-solid_hover: var(--color-error-600); /* synced to Figma bg-error-solid_hover (was error-700) */
+
+    /* DISABLED COLORS — Figma binds these to the Gray ramp; here that ramp is Tailwind neutral. */
+    --color-fg-disabled: var(--color-neutral-400); /* Figma fg-disabled → Gray/400 */
+    --color-fg-disabled_subtle: var(--color-neutral-300); /* Figma fg-disabled_subtle → Gray/300 */
+    --color-bg-disabled: var(--color-neutral-100); /* Figma bg-disabled → Gray/100 */
+    --color-bg-disabled_subtle: var(--color-neutral-50); /* Figma bg-disabled_subtle → Gray/50 */
+    --color-border-disabled: var(--color-neutral-300); /* Figma border-disabled → Gray/300 */
+    --color-border-disabled_subtle: var(--color-neutral-200); /* Figma border-disabled_subtle → Gray/200 */
 
     /* COMPONENT COLORS */
     --color-app-store-badge-border: 166 166 166 1;
     --color-avatar-styles-bg-neutral: 224 224 224 1;
     --color-featured-icon-light-fg-brand: var(--color-brand-600);
-    --color-featured-icon-light-fg-error: var(--color-red-600);
+    --color-featured-icon-light-fg-error: var(--color-error-600);
     --color-featured-icon-light-fg-gray: var(--color-neutral-500);
     --color-featured-icon-light-fg-success: var(--color-green-600);
     --color-featured-icon-light-fg-warning: var(--color-yellow-600);
-    --color-focus-ring-error: var(--color-red-500);
+    --color-focus-ring-error: var(--color-error-500);
     --color-focus-ring: var(--color-brand-500);
     --color-footer-button-fg: var(--color-brand-200);
     --color-footer-button-fg_hover: var(--color-white);
@@ -476,6 +498,14 @@
     --outline-color-brand_alt: var(--color-border-brand_alt);
     --outline-color-brand-solid: var(--color-bg-brand-solid);
     --outline-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
+
+    /* DISABLED PROPERTY COLORS (fg-disabled/_subtle generate text-fg-disabled/_subtle from the base namespace) */
+    --background-color-disabled: var(--color-bg-disabled);
+    --background-color-disabled_subtle: var(--color-bg-disabled_subtle);
+    --border-color-disabled: var(--color-border-disabled);
+    --border-color-disabled_subtle: var(--color-border-disabled_subtle);
+    --ring-color-disabled: var(--color-border-disabled);
+    --ring-color-disabled_subtle: var(--color-border-disabled_subtle);
 }
 
 @layer base {
@@ -528,14 +558,14 @@
         --color-utility-neutral-800: var(--color-neutral-200);
         --color-utility-neutral-900: var(--color-neutral-100);
 
-        --color-utility-red-50: var(--color-red-950);
-        --color-utility-red-100: var(--color-red-900);
-        --color-utility-red-200: var(--color-red-800);
-        --color-utility-red-300: var(--color-red-700);
-        --color-utility-red-400: var(--color-red-600);
-        --color-utility-red-500: var(--color-red-500);
-        --color-utility-red-600: var(--color-red-400);
-        --color-utility-red-700: var(--color-red-300);
+        --color-utility-red-50: var(--color-error-950);
+        --color-utility-red-100: var(--color-error-900);
+        --color-utility-red-200: var(--color-error-800);
+        --color-utility-red-300: var(--color-error-700);
+        --color-utility-red-400: var(--color-error-600);
+        --color-utility-red-500: var(--color-error-500);
+        --color-utility-red-600: var(--color-error-400);
+        --color-utility-red-700: var(--color-error-300);
 
         --color-utility-yellow-50: var(--color-yellow-950);
         --color-utility-yellow-100: var(--color-yellow-900);
@@ -638,7 +668,7 @@
 
         --color-text-primary: var(--color-neutral-50);
         --color-text-tertiary: var(--color-neutral-400);
-        --color-text-error-primary: var(--color-red-400);
+        --color-text-error-primary: var(--color-error-400);
         --color-text-warning-primary: var(--color-yellow-400);
         --color-text-success-primary: var(--color-green-400);
         --color-text-secondary: var(--color-neutral-300);
@@ -656,14 +686,14 @@
         --color-text-tertiary_on-brand: var(--color-neutral-400);
         --color-text-quaternary_on-brand: var(--color-neutral-400);
         --color-text-brand-tertiary_alt: var(--color-neutral-50);
-        --color-text-error-primary_hover: var(--color-red-300);
+        --color-text-error-primary_hover: var(--color-error-300);
         --color-text-brand-secondary_hover: var(--color-neutral-200);
 
         --color-border-secondary: var(--color-neutral-800);
-        --color-border-error_subtle: var(--color-red-500);
+        --color-border-error_subtle: var(--color-error-500);
         --color-border-primary: var(--color-neutral-700);
         --color-border-brand: var(--color-brand-400);
-        --color-border-error: var(--color-red-400);
+        --color-border-error: var(--color-error-400);
         --color-border-tertiary: var(--color-neutral-800);
         --color-border-brand_alt: var(--color-neutral-700);
         --color-border-secondary_alt: var(--color-neutral-800);
@@ -679,9 +709,9 @@
         --color-fg-brand-primary: var(--color-brand-500);
         --color-fg-quaternary: var(--color-neutral-600);
         --color-fg-quaternary_hover: var(--color-neutral-500);
-        --color-fg-error-primary: var(--color-red-500);
+        --color-fg-error-primary: var(--color-error-500);
         --color-fg-warning-secondary: var(--color-yellow-400);
-        --color-fg-error-secondary: var(--color-red-400);
+        --color-fg-error-secondary: var(--color-error-400);
         --color-fg-tertiary: var(--color-neutral-400);
         --color-fg-tertiary_hover: var(--color-neutral-300);
         --color-fg-brand-primary_alt: var(--color-neutral-300);
@@ -691,20 +721,20 @@
         --color-bg-primary: var(--color-neutral-950);
         --color-bg-tertiary: var(--color-neutral-800);
         --color-bg-brand-primary: var(--color-brand-500);
-        --color-bg-error-secondary: var(--color-red-600);
+        --color-bg-error-secondary: var(--color-error-600);
         --color-bg-warning-primary: var(--color-yellow-950);
         --color-bg-warning-secondary: var(--color-yellow-600);
         --color-bg-success-primary: var(--color-green-950);
         --color-bg-success-secondary: var(--color-green-600);
         --color-bg-brand-solid: var(--color-brand-600);
         --color-bg-secondary-solid: var(--color-neutral-600);
-        --color-bg-error-solid: var(--color-red-600);
+        --color-bg-error-solid: var(--color-error-600);
         --color-bg-warning-solid: var(--color-yellow-600);
         --color-bg-success-solid: var(--color-green-600);
         --color-bg-secondary_hover: var(--color-neutral-800);
         --color-bg-primary_hover: var(--color-neutral-900);
         --color-bg-brand-solid_hover: var(--color-brand-500);
-        --color-bg-error-primary: var(--color-red-950);
+        --color-bg-error-primary: var(--color-error-950);
         --color-bg-brand-secondary: var(--color-brand-600);
         --color-bg-secondary: var(--color-neutral-900);
         --color-bg-quaternary: var(--color-neutral-700);
@@ -715,16 +745,24 @@
         --color-bg-brand-section: var(--color-bg-secondary);
         --color-bg-brand-section_subtle: var(--color-bg-primary);
         --color-bg-primary-solid: var(--color-bg-secondary);
-        --color-bg-error-solid_hover: var(--color-red-500);
+        --color-bg-error-solid_hover: var(--color-error-500);
+
+        /* DISABLED COLORS — Figma dark column (Gray dark mode → Tailwind neutral) */
+        --color-fg-disabled: var(--color-neutral-500); /* Figma fg-disabled → Gray/500 */
+        --color-fg-disabled_subtle: var(--color-neutral-600); /* Figma fg-disabled_subtle → Gray/600 */
+        --color-bg-disabled: var(--color-neutral-800); /* Figma bg-disabled → Gray/800 */
+        --color-bg-disabled_subtle: var(--color-neutral-900); /* Figma bg-disabled_subtle → Gray/900 */
+        --color-border-disabled: var(--color-neutral-700); /* Figma border-disabled → Gray/700 */
+        --color-border-disabled_subtle: var(--color-neutral-800); /* Figma border-disabled_subtle → Gray/800 */
 
         --color-app-store-badge-border: var(--color-white);
         --color-avatar-styles-bg-neutral: 224 224 224 1;
         --color-featured-icon-light-fg-brand: var(--color-brand-200);
-        --color-featured-icon-light-fg-error: var(--color-red-200);
+        --color-featured-icon-light-fg-error: var(--color-error-200);
         --color-featured-icon-light-fg-gray: var(--color-neutral-200);
         --color-featured-icon-light-fg-success: var(--color-green-200);
         --color-featured-icon-light-fg-warning: var(--color-yellow-200);
-        --color-focus-ring-error: var(--color-red-500);
+        --color-focus-ring-error: var(--color-error-500);
         --color-focus-ring: var(--color-brand-500);
         --color-footer-button-fg: var(--color-neutral-300);
         --color-footer-button-fg_hover: var(--color-neutral-100);
@@ -832,5 +870,13 @@
         --outline-color-brand-solid: var(--color-bg-brand-solid);
         --outline-color-brand-solid_hover: var(--color-bg-brand-solid_hover);
         --outline-color-brand_alt: var(--color-border-brand_alt);
+
+        /* DISABLED PROPERTY COLORS */
+        --background-color-disabled: var(--color-bg-disabled);
+        --background-color-disabled_subtle: var(--color-bg-disabled_subtle);
+        --border-color-disabled: var(--color-border-disabled);
+        --border-color-disabled_subtle: var(--color-border-disabled_subtle);
+        --ring-color-disabled: var(--color-border-disabled);
+        --ring-color-disabled_subtle: var(--color-border-disabled_subtle);
     }
 }

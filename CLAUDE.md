@@ -274,15 +274,22 @@ This provides a snappy 100ms linear transition that feels responsive without bei
 
 ### Disabled states
 
-All components use `opacity-50` for disabled states instead of individual disabled color tokens:
+Most components use `opacity-50` for disabled states instead of individual disabled color tokens:
 
 ```typescript
-// Correct (v8)
+// Default (v8) — used by inputs, checkboxes, etc.
 "disabled:cursor-not-allowed disabled:opacity-50";
-
-// Incorrect (v7 pattern, do not use)
-"disabled:bg-disabled_subtle disabled:text-disabled disabled:ring-disabled";
 ```
+
+**Exception — `Button`** now matches Figma exactly using the neutral disabled tokens
+(`bg-disabled`, `border-disabled_subtle`, `fg-disabled`), not `opacity-50`. Disabled text and icon
+are both `fg-disabled`; primary/primary-destructive disabled is fill-only (no border, no shadow);
+secondary keeps a `border-disabled_subtle`. No disabled shadows.
+Shared text/icon greying lives in `common.root`; per-hierarchy fill/border in each color variant.
+The disabled tokens are defined in `styles/theme.css` (bound to the `neutral` ramp at Figma's Gray
+step numbers, light + dark). See `components/base/buttons/button.tsx`. If you convert other
+components to Figma-accurate disabled states, reuse those same tokens rather than re-introducing
+per-component greys.
 
 ## Common Patterns
 

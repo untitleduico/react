@@ -36,7 +36,7 @@ Modifiers carry through too: `_hover`, `_alt`, `_on-brand`, `_subtle`.
 
 | Kind | File | Notes |
 |---|---|---|
-| Primitives (ramps) | `styles/theme.css` `@theme {}` | `--color-brand-25 … 950`; gray/red/green/yellow come from Tailwind defaults (`--color-neutral-*`, etc.) |
+| Primitives (ramps) | `styles/theme.css` `@theme {}` | `--color-brand-25 … 950` and `--color-error-25 … 950` are canonical FA ramps synced from Figma; gray/green/yellow still come from Tailwind defaults (`--color-neutral-*`, etc.) |
 | Semantic aliases | `styles/theme.css` `@theme {}` | e.g. `--color-bg-brand-solid: var(--color-brand-500)` |
 | Dark-mode overrides | `styles/theme.css` `.dark-mode {}` | each mode has its **own** binding — edit the mode you changed in Figma |
 | Type scale | `styles/theme.css` (`--text-*`) | `text-xs … text-display-2xl` |
@@ -93,6 +93,15 @@ Code: `--color-brand-25 … 950` in `styles/theme.css`. One edit reskinned every
 Figma: alias `bg-brand-solid` rebound `brand-600 → brand-500` (hover `brand-700 → brand-600`).
 Code: `--color-bg-brand-solid: var(--color-brand-500)` and `…_hover: var(--color-brand-600)`
 in `styles/theme.css`. Light mode only — dark mode keeps its own binding.
+
+**Error → FA red ramp** *(primitive layer)*
+Figma: the `error` ramp `25 … 950` hex values (Figma has no "red"/"utility-red" — only `error`).
+Code: added `--color-error-25 … 950` in `styles/theme.css`, then repointed every error consumer
+off Tailwind's default `--color-red-*` and onto the new ramp — both the error semantics
+(`text-error-primary`, `bg-error-solid`, `border-error`, `fg-error-*`, `focus-ring-error`) **and**
+the `--color-utility-red-*` tier used by error Badges and FeaturedIcons. The `utility-red` tokens
+keep their code name but now resolve to `--color-error-*`. Light + dark both rebound (dark keeps
+its inverted step mapping, e.g. `utility-red-50 → error-950`).
 
 ---
 
