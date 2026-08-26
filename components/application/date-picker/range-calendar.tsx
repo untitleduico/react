@@ -118,7 +118,7 @@ export const RangeCalendar = ({ presets, visibleDuration, showOutOfRangeDates = 
         <ContextWrapper>
             <AriaRangeCalendar
                 {...props}
-                className={(state) => cx("flex items-start", typeof props.className === "function" ? props.className(state) : props.className)}
+                className={(state) => cx("flex", typeof props.className === "function" ? props.className(state) : props.className)}
                 visibleDuration={{
                     months: visibleDurationMonths,
                 }}
