@@ -25,7 +25,7 @@ const meta = {
     title: "Base components/Checkboxes",
     component: Checkbox,
     tags: ["autodocs"],
-    parameters: { layout: "padded" },
+    parameters: { layout: "centered" },
     args: {
         size: "sm",
         label: "Remember me",

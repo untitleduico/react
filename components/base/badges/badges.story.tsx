@@ -33,7 +33,7 @@ const meta = {
     title: "Base components/Badges",
     component: Badge,
     tags: ["autodocs"],
-    parameters: { layout: "padded" },
+    parameters: { layout: "centered" },
     args: {
         type: "pill-color",
         size: "md",

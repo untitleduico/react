@@ -67,7 +67,7 @@ const meta = {
     title: "Base components/Tags",
     component: TagsPreview,
     tags: ["autodocs"],
-    parameters: { layout: "padded" },
+    parameters: { layout: "centered" },
     args: { size: "md", selectionMode: "none", variant: "label", closable: false },
     argTypes: {
         size: { control: "select", options: sizes },

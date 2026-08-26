@@ -27,7 +27,7 @@ const meta = {
     title: "Base components/Avatars",
     component: Avatar,
     tags: ["autodocs"],
-    parameters: { layout: "padded" },
+    parameters: { layout: "centered" },
     args: {
         size: "lg",
         src: AVATAR_SRC,

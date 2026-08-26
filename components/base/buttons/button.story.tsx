@@ -43,7 +43,7 @@ const meta = {
     title: "Base components/Buttons/Button",
     component: Button,
     tags: ["autodocs"],
-    parameters: { layout: "padded" },
+    parameters: { layout: "centered" },
     args: { color: "primary", size: "md", children: "Button CTA" },
     argTypes: {
         color: { control: "select", options: colors },
