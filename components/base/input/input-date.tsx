@@ -29,7 +29,7 @@ export interface InputDateBaseProps extends Omit<AriaDateInputProps, "children">
     tooltip?: string;
     /**
      * Input size.
-     * @default "sm"
+     * @default "md"
      */
     size?: "sm" | "md" | "lg";
     /** Placeholder text. */

@@ -22,7 +22,7 @@ export interface InputTagsOuterProps {
     tooltip?: string;
     /**
      * Input size variant.
-     * @default "sm"
+     * @default "md"
      */
     size?: "sm" | "md" | "lg";
     /** Placeholder text for the input field. */
