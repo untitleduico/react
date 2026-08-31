@@ -32,6 +32,7 @@ export interface CommonProps {
     /** The placement of the tooltip */
     tooltipPlacement?: Placement;
 
+    /** The class name applied to the button. */
     className?: string;
 }
 

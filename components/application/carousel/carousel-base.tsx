@@ -282,7 +282,9 @@ const CarouselIndicator = ({ index, isSelected = false, children, asChild, class
 };
 
 interface CarouselIndicatorGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+    /** The indicators to render. Can be a render prop, which is called once per scroll snap with its index. */
     children: ReactNode | ((props: { index: number }) => ReactNode);
+    /** The class name applied to the indicator group. */
     className?: string;
 }
 

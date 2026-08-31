@@ -47,7 +47,14 @@ export const NavAccountMenu = ({
     className,
     selectedAccountId = "olivia",
     ...dialogProps
-}: AriaDialogProps & { className?: string; accounts?: NavAccountType[]; selectedAccountId?: string }) => {
+}: AriaDialogProps & {
+    /** Additional classes for the popover dialog that wraps the menu. */
+    className?: string;
+    /** The accounts offered in the "Switch account" section. Accepted for parity with `NavAccountCard`, which passes its own list down; the menu itself always renders the built-in demo accounts. */
+    accounts?: NavAccountType[];
+    /** The `id` of the account to present as the current one — its row is highlighted and its radio button is selected. */
+    selectedAccountId?: string;
+}) => {
     const focusManager = useFocusManager();
     const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -129,8 +136,11 @@ const NavAccountCardMenuItem = ({
     shortcut,
     ...buttonProps
 }: {
+    /** Icon rendered at the leading edge of the item, before the label. */
     icon?: FC<{ className?: string }>;
+    /** Text of the menu item. */
     label: string;
+    /** Keyboard shortcut shown as a `kbd` badge at the trailing edge. Display only — the item does not bind the key combination. */
     shortcut?: string;
 } & HTMLAttributes<HTMLButtonElement>) => {
     return (
@@ -160,9 +170,16 @@ export const NavAccountCard = ({
     items = placeholderAccounts,
     avatarRounded,
 }: {
+    /**
+     * Where the account menu opens relative to the card.
+     * @default "right bottom" from the `lg` breakpoint up, "top right" below it
+     */
     popoverPlacement?: Placement;
+    /** The `id` of the account from `items` to show in the card. Nothing is rendered if no item matches, and a warning is logged. */
     selectedAccountId?: string;
+    /** The accounts the card can display. The one matching `selectedAccountId` fills the card, and the list is handed to the account menu. */
     items?: NavAccountType[];
+    /** Whether the account avatar is a circle. Pass `false` for a rounded square. */
     avatarRounded?: boolean;
 }) => {
     const triggerRef = useRef<HTMLDivElement>(null);

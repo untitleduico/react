@@ -39,6 +39,7 @@ export interface PaginationRootProps {
     page: number;
     /** Total number of pages */
     total: number;
+    /** The pagination parts to render, such as `Pagination.PrevTrigger`, `Pagination.Context` and `Pagination.NextTrigger`. */
     children: ReactNode;
     /** The style of the pagination root. */
     style?: CSSProperties;
@@ -339,9 +340,13 @@ const PaginationItem = ({ value, isCurrent, children, style, className, ariaLabe
     );
 };
 interface PaginationEllipsisProps {
+    /** The identifier of the ellipsis within the generated list of pagination items. */
     key: number;
+    /** The content rendered in place of the skipped pages, such as an ellipsis character. Hidden from assistive technology. */
     children?: ReactNode;
+    /** The style of the ellipsis. */
     style?: CSSProperties;
+    /** The class name of the ellipsis. Can be a function returning the class name. */
     className?: string | (() => string);
 }
 
@@ -356,6 +361,7 @@ const PaginationEllipsis: FC<PaginationEllipsisProps> = ({ children, style, clas
 };
 
 interface PaginationContextComponentProps {
+    /** A render prop called with the pagination state (pages, current page, total and the page change handler). */
     children: (pagination: PaginationContextType) => ReactNode;
 }
 

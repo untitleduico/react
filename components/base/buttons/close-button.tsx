@@ -17,8 +17,11 @@ const themes = {
 };
 
 interface CloseButtonProps extends AriaButtonProps {
+    /** Whether the icon is styled for a light background (`light`) or a dark one (`dark`). */
     theme?: "light" | "dark";
+    /** Controls the dimensions of the button and its icon. */
     size?: "xs" | "sm" | "md" | "lg";
+    /** The accessible name of the button, applied as `aria-label`. Defaults to "Close". */
     label?: string;
     /**
      * The React Aria slot the button fills. Defaults to `"close"` so it

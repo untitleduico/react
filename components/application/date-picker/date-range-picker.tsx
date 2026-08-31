@@ -17,6 +17,7 @@ const now = today(getLocalTimeZone());
 const highlightedDates = [today(getLocalTimeZone())];
 
 interface DateRangePickerProps extends AriaDateRangePickerProps<DateValue> {
+    /** Controls the size of the trigger button that opens the calendar. */
     size?: ButtonProps["size"];
     /** The function to call when the apply button is clicked. */
     onApply?: () => void;

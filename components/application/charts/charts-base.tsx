@@ -45,7 +45,18 @@ export const selectEvenlySpacedItems = <T extends readonly unknown[]>(dataArray:
  * @param className - The class name of the legend.
  * @returns The legend content.
  */
-export const ChartLegendContent = ({ reversed, payload, align, layout, className }: LegendContentProps & { reversed?: boolean; className?: string }) => {
+export const ChartLegendContent = ({
+    reversed,
+    payload,
+    align,
+    layout,
+    className,
+}: LegendContentProps & {
+    /** Whether the legend entries are listed in the reverse of the order Recharts supplies them, so a stacked chart's legend reads in the same order as its stack. */
+    reversed?: boolean;
+    /** Additional classes for the legend list, merged after the layout and alignment classes derived from the Recharts `Legend` props. */
+    className?: string;
+}) => {
     payload = reversed ? payload?.toReversed() : payload;
 
     return (
@@ -74,9 +85,13 @@ export const ChartLegendContent = ({ reversed, payload, align, layout, className
 };
 
 interface ChartTooltipContentProps extends TooltipProps<ValueType, NameType> {
+    /** Whether the tooltip belongs to a Recharts `RadialBarChart`. When a single point is hovered, the supporting line is read from `payload[0].payload.name` instead of the axis label. */
     isRadialChart?: boolean;
+    /** Whether the tooltip belongs to a Recharts `PieChart`. When a single slice is hovered, the supporting line is the slice's `name` instead of the axis label. */
     isPieChart?: boolean;
+    /** The category label Recharts passes for the hovered position. Used as the tooltip heading when several series are active, and as the supporting line otherwise. */
     label?: string;
+    /** The active data points Recharts passes to the `Tooltip` content. Each entry supplies the series name and value rendered as a row in the tooltip. */
     // We have to use `any` here because the `payload` prop is not typed correctly in the `recharts` library.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload?: any;
@@ -124,6 +139,7 @@ export const ChartTooltipContent = ({ active, payload, label, isRadialChart, isP
 };
 
 interface ChartActiveDotProps extends DotProps {
+    /** The data point Recharts passes to the `activeDot` renderer. Accepted so the dot can be dropped straight into a `Line` or `Area`; the marker itself is drawn from `cx` and `cy` only. */
     // We have to use `any` here because the `payload` prop is not typed correctly in the `recharts` library.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     payload?: any;

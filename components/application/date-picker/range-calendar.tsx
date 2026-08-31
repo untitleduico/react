@@ -50,6 +50,7 @@ const RangeCalendarTitle = ({ part }: { part: "start" | "end" }) => {
 };
 
 interface RangePresetButtonProps extends HTMLAttributes<HTMLButtonElement> {
+    /** The date range applied when the preset is pressed. The button is highlighted while this range is the selected one. */
     value: { start: DateValue; end: DateValue };
 }
 

@@ -11,6 +11,7 @@ import { Illustration as Illustrations } from "@/components/shared-assets/illust
 import { cx } from "@/utils/cx";
 
 interface RootContextProps {
+    /** Scales the whole empty state — the header icon or illustration, the heading and description type, the avatar decorations, and the spacing between the sections. Read by every sub-component through context. */
     size?: "sm" | "md" | "lg";
 }
 
@@ -47,7 +48,9 @@ const Illustration = ({ type = "cloud", color = "gray", size = "lg", ...props }:
 };
 
 interface FileTypeIconProps extends ComponentPropsWithRef<"div"> {
+    /** Which file type the icon depicts, forwarded to `FileIcon` from `@untitledui/file-icons`. */
     type?: ComponentProps<typeof FileIcon>["type"];
+    /** Drawing style of the file icon, forwarded to `FileIcon` as its `variant`. */
     theme?: ComponentProps<typeof FileIcon>["variant"];
 }
 
@@ -60,7 +63,9 @@ const FileTypeIcon = ({ type = "folder", theme = "solid", ...props }: FileTypeIc
 };
 
 interface HeaderProps extends ComponentPropsWithRef<"div"> {
+    /** Decorative background pattern drawn behind the header's icon or illustration and centred on it. Pass `"none"` to render the header without a pattern. */
     pattern?: "none" | BackgroundPatternProps["pattern"];
+    /** How far the decorative background pattern extends behind the header content. */
     patternSize?: "sm" | "md" | "lg";
 }
 
@@ -124,6 +129,7 @@ const Description = (props: ComponentPropsWithRef<"p">) => {
 };
 
 interface AvatarRadiusProps extends ComponentPropsWithRef<"div"> {
+    /** Avatars scattered across the concentric rings behind the empty state. Each one takes the next predefined ring and angle, so at most nine are drawn and any extras are ignored. */
     avatars?: Array<{ src: string; alt?: string }>;
 }
 
@@ -186,7 +192,9 @@ const AvatarRadius = ({ avatars = [], ...props }: AvatarRadiusProps) => {
 };
 
 interface AvatarRowProps extends ComponentPropsWithRef<"div"> {
+    /** Avatars fanned out either side of the children, growing towards the centre. The first few fill the left group and the next few the right — three or four per side depending on the root size — and any extras are ignored. */
     avatars?: Array<{ src: string; alt?: string }>;
+    /** Content placed between the two avatar groups, typically the empty state's featured icon or illustration. */
     children?: ReactNode;
 }
 
@@ -242,6 +250,7 @@ const AvatarRow = ({ avatars = [], children, ...props }: AvatarRowProps) => {
 };
 
 interface AvatarGridProps extends ComponentPropsWithRef<"div"> {
+    /** Avatars split into two marquee rows that scroll in opposite directions behind the empty state. The first half of the list fills the top row and the rest the bottom row, each repeated to loop seamlessly. */
     avatars?: Array<{ src: string; alt?: string }>;
 }
 
