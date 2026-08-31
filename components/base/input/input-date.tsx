@@ -42,11 +42,15 @@ export interface InputDateBaseProps extends Omit<AriaDateInputProps, "children">
     tooltipClassName?: string;
     /** Keyboard shortcut to display. */
     shortcut?: string | boolean;
+    /** Ref for the hidden native input that holds the date value. */
     ref?: Ref<HTMLInputElement>;
+    /** Ref for the group element that wraps the date segments, icon and tooltip. */
     groupRef?: Ref<HTMLDivElement>;
     /** Icon component to display on the left side of the input. */
     icon?: ComponentType<HTMLAttributes<HTMLOrSVGElement>>;
+    /** Whether the input shows the error state, replacing the tooltip icon with an error icon. */
     isInvalid?: boolean;
+    /** Whether the input is dimmed and cannot be edited. */
     isDisabled?: boolean;
 }
 

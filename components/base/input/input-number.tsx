@@ -43,7 +43,9 @@ export interface InputNumberBaseProps extends AriaNumberFieldProps {
     inputClassName?: string;
     /** Class name for the input wrapper. */
     wrapperClassName?: string;
+    /** Ref for the underlying input element. */
     ref?: Ref<HTMLInputElement>;
+    /** Ref for the group element that wraps the input and its stepper buttons. */
     groupRef?: Ref<HTMLDivElement>;
     /** Orientation of buttons. */
     orientation?: "horizontal" | "vertical";
@@ -142,6 +144,7 @@ interface InputProps extends InputNumberBaseProps, Pick<AriaDateFieldProps<DateV
     label?: string;
     /** Helper text displayed below the input */
     hint?: ReactNode;
+    /** Whether to hide the required indicator from the label. */
     hideRequiredIndicator?: boolean;
 }
 

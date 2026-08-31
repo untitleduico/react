@@ -14,7 +14,9 @@ const getResizeHandleBg = (color: string) => {
 };
 
 interface TextAreaBaseProps extends AriaTextAreaProps {
+    /** Ref for the underlying textarea element. */
     ref?: Ref<HTMLTextAreaElement>;
+    /** Controls the padding and text size of the textarea. */
     size?: "sm" | "md";
 }
 

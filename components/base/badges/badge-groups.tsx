@@ -104,16 +104,23 @@ const colorClasses: Record<Theme, Record<Color, { root?: string; addon?: string;
 });
 
 interface BadgeGroupProps {
+    /** The main text of the group, shown next to the addon. When omitted the group tightens its padding and the addon drops its margin. */
     children?: string | ReactNode;
+    /** The text of the pill-shaped addon, which is placed at the start or the end of the group depending on `align`. */
     addonText: string;
+    /** Controls the padding and font size of the group, its addon, and the trailing icon. */
     size?: Size;
+    /** The color palette of the group. In the `light` theme it drives the background, text, ring, and icon colors; in the `modern` theme it only colors the status dot. */
     color: Color;
+    /** `light` fills the group with a tinted background and gives the addon its own ring, while `modern` renders a white, shadowed group with a colored status dot. */
     theme?: Theme;
     /**
      * Alignment of the badge addon element.
      */
     align?: Align;
+    /** An icon component or element rendered at the end of the group. With `align="trailing"` it sits inside the addon, otherwise it follows the group's text. */
     iconTrailing?: FC<{ className?: string }> | ReactNode;
+    /** Additional CSS classes merged onto the group's root element. */
     className?: string;
 }
 

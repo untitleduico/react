@@ -5,10 +5,15 @@ import { FileIcon } from "@untitledui/file-icons";
 import { motion, useMotionValue, useSpring } from "motion/react";
 
 interface DraggableProps {
+    /** The file name shown under the icon and used for the simulated `File` that is dropped. */
     name: string;
+    /** The MIME type of the simulated file. Also used as the file icon type when `fileIconType` is not set. */
     type: string;
+    /** Overrides which file icon is shown, when it should differ from the MIME `type`. */
     fileIconType?: ComponentProps<typeof FileIcon>["type"];
+    /** The visual variant of the file icon. */
     theme?: ComponentProps<typeof FileIcon>["variant"];
+    /** The size of the simulated file in bytes. That many random bytes are generated on drop. */
     size: number;
 }
 
