@@ -34,7 +34,7 @@ const styles = {
 export interface InputNumberBaseProps extends AriaNumberFieldProps {
     /**
      * Input size.
-     * @default "sm"
+     * @default "md"
      */
     size?: "sm" | "md" | "lg";
     /** Placeholder text. */

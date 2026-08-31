@@ -20,7 +20,7 @@ export interface InputBaseProps extends Omit<AriaInputProps, "size"> {
     isRequired?: boolean;
     /**
      * Input size.
-     * @default "sm"
+     * @default "md"
      */
     size?: "sm" | "md" | "lg";
     /** Placeholder text. */
