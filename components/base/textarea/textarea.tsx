@@ -73,7 +73,7 @@ interface TextFieldProps extends AriaTextFieldProps {
     hideRequiredIndicator?: boolean;
     /** Placeholder text. */
     placeholder?: string;
-    /** Visible height of textarea in rows . */
+    /** Visible height of textarea in rows. */
     rows?: number;
     /** Visible width of textarea in columns. */
     cols?: number;
