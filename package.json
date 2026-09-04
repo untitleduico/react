@@ -65,6 +65,7 @@
     "@storybook/nextjs-vite": "10.5.3",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/react": "^16.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
     "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
@@ -85,11 +86,13 @@
     "eslint-plugin-storybook": "10.5.3",
     "eslint-plugin-tailwindcss": "^4.2.0",
     "eslint-plugin-unused-imports": "^4.4.1",
+    "jsdom": "^30.0.1",
     "postcss": "^8.5.21",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "storybook": "^10.5.3",
     "typescript": "^5.9.3",
-    "vite": "^8.1.5"
+    "vite": "^8.1.5",
+    "vitest": "^5.0.0"
   }
 }
