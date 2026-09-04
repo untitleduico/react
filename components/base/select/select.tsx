@@ -29,12 +29,13 @@ interface SelectValueProps {
     size: "sm" | "md" | "lg";
     isFocused: boolean;
     isDisabled: boolean;
+    isInvalid: boolean;
     placeholder?: string;
     ref?: Ref<HTMLButtonElement>;
     icon?: FC | ReactNode;
 }
 
-const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, ref }: SelectValueProps) => {
+const SelectValue = ({ isOpen, isFocused, isDisabled, isInvalid, size, placeholder, icon, ref }: SelectValueProps) => {
     return (
         <AriaButton
             ref={ref}
@@ -42,6 +43,11 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, r
                 "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                 (isFocused || isOpen) && "ring-2 ring-brand",
                 isDisabled && "cursor-not-allowed opacity-50",
+                // Match Input's invalid-state styling: error ring at rest,
+                // escalated to ring-2 on focus. Closes the gap reported in
+                // https://github.com/untitleduico/react/issues/187.
+                isInvalid && "ring-error_subtle",
+                isInvalid && (isFocused || isOpen) && "ring-2 ring-error",
             )}
         >
             <AriaSelectValue<SelectItemType>

@@ -4,8 +4,9 @@ import { getLocalTimeZone, today } from "@internationalized/date";
 import { useControlledState } from "@react-stately/utils";
 import { Calendar as CalendarIcon } from "@untitledui/icons";
 import { useDateFormatter } from "react-aria";
+import { useContext } from "react";
 import type { DatePickerProps as AriaDatePickerProps, DateValue } from "react-aria-components";
-import { DatePicker as AriaDatePicker, Dialog as AriaDialog, Group as AriaGroup, Popover as AriaPopover } from "react-aria-components";
+import { DatePicker as AriaDatePicker, DatePickerStateContext, Dialog as AriaDialog, Group as AriaGroup, Popover as AriaPopover } from "react-aria-components";
 import { Button, type ButtonProps } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
 import { Calendar } from "./calendar";
@@ -20,6 +21,27 @@ interface DatePickerProps extends AriaDatePickerProps<DateValue> {
     size?: ButtonProps["size"];
 }
 
+// Inner trigger that reads `isInvalid` from the surrounding DatePicker state
+// and forwards it to the Button's ring color. Closes the gap reported in
+// https://github.com/untitleduico/react/issues/187.
+const DatePickerTrigger = ({ size, children }: { size: ButtonProps["size"]; children: React.ReactNode }) => {
+    const state = useContext(DatePickerStateContext);
+    const isInvalid = state?.isInvalid ?? false;
+    return (
+        <Button
+            size={size}
+            color="secondary"
+            iconLeading={CalendarIcon}
+            className={cx(
+                // Match the Input/select invalid-state styling.
+                isInvalid && "ring-error_subtle",
+            )}
+        >
+            {children}
+        </Button>
+    );
+};
+
 export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, onCancel, size = "sm", ...props }: DatePickerProps) => {
     const formatter = useDateFormatter({
         month: "short",
@@ -33,9 +55,7 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
     return (
         <AriaDatePicker aria-label="Date picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
-                <Button size={size} color="secondary" iconLeading={CalendarIcon}>
-                    {formattedDate}
-                </Button>
+                <DatePickerTrigger size={size}>{formattedDate}</DatePickerTrigger>
             </AriaGroup>
             <AriaPopover
                 offset={8}
