@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from "react";
-import type { StoryContext, StoryFn } from "@storybook/nextjs";
+import type { StoryContext, StoryFn } from "@storybook/nextjs-vite";
 
 export declare type ImageSrc = {
     height: number;
