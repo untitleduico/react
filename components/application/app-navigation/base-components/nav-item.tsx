@@ -2,6 +2,7 @@
 
 import type { FC, HTMLAttributes, MouseEventHandler, ReactNode } from "react";
 import { ChevronDown, Share04 } from "@untitledui/icons";
+import type { LinkProps as AriaLinkProps } from "react-aria-components";
 import { Link as AriaLink } from "react-aria-components";
 import { Badge } from "@/components/base/badges/badges";
 import { cx, sortCx } from "@/utils/cx";
@@ -11,15 +12,16 @@ const styles = sortCx({
     rootSelected: "bg-secondary hover:bg-secondary_hover",
 });
 
-interface NavItemBaseProps {
+/**
+ * Common props shared between the collapsible and link variants
+ */
+export interface CommonProps {
     /** Whether the nav item shows only an icon. */
     iconOnly?: boolean;
     /** Whether the collapsible nav item is open. */
     open?: boolean;
     /** URL to navigate to when the nav item is clicked. */
     href?: string;
-    /** Type of the nav item. */
-    type: "link" | "collapsible" | "collapsible-child";
     /** Icon component to display. */
     icon?: FC<HTMLAttributes<HTMLOrSVGElement>>;
     /** Badge to display. */
@@ -34,7 +36,38 @@ interface NavItemBaseProps {
     children?: ReactNode;
 }
 
-export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, truncate = true, onClick }: NavItemBaseProps) => {
+/**
+ * Props for the collapsible variant (renders a `summary` element)
+ */
+export interface NavItemCollapsibleProps extends CommonProps {
+    /** Type of the nav item. */
+    type: "collapsible";
+}
+
+/**
+ * Props for the link variants (anchor tag), including React Aria link props such as `routerOptions`
+ */
+export interface NavItemLinkProps extends CommonProps, Omit<AriaLinkProps, "children" | "className" | "onClick"> {
+    /** Type of the nav item. */
+    type: "link" | "collapsible-child";
+}
+
+/** Union type of collapsible and link props */
+export type NavItemBaseProps = NavItemCollapsibleProps | NavItemLinkProps;
+
+export const NavItemBase = ({
+    current,
+    type,
+    badge,
+    href,
+    icon: Icon,
+    children,
+    truncate = true,
+    onClick,
+    iconOnly: _iconOnly,
+    open: _open,
+    ...props
+}: NavItemBaseProps) => {
     const iconElement = Icon && (
         <Icon
             aria-hidden="true"
@@ -86,6 +119,7 @@ export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, 
     if (type === "collapsible-child") {
         return (
             <AriaLink
+                {...props}
                 href={href!}
                 target={isExternal ? "_blank" : "_self"}
                 rel="noopener noreferrer"
@@ -102,6 +136,7 @@ export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, 
 
     return (
         <AriaLink
+            {...props}
             href={href!}
             target={isExternal ? "_blank" : "_self"}
             rel="noopener noreferrer"
