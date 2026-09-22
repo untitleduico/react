@@ -41,6 +41,23 @@ export default [
         },
         rules: {
             "unused-imports/no-unused-imports": "error",
+            // Forbid importing from packages that are only present as hoisted transitive
+            // dependencies. They type-check locally but fail on a clean or non-hoisting install.
+            "no-restricted-imports": [
+                "error",
+                {
+                    patterns: [
+                        {
+                            group: ["@react-types/*"],
+                            message: "Import types from react-aria or react-aria-components instead; @react-types/* is not a declared dependency.",
+                        },
+                        {
+                            group: ["@storybook/nextjs", "@storybook/nextjs/*", "@storybook/react", "@storybook/react/*"],
+                            message: "Import from @storybook/nextjs-vite instead; it is the declared Storybook framework package.",
+                        },
+                    ],
+                },
+            ],
             "@typescript-eslint/no-explicit-any": "warn",
 
             "@typescript-eslint/consistent-type-imports": [
