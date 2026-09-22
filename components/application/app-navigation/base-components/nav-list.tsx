@@ -30,7 +30,7 @@ export const NavList = ({ activeUrl, items, className }: NavListProps) => {
                 if (item.items?.length) {
                     return (
                         <details key={item.label} open={activeItem?.href === item.href} className="appearance-none py-0.25">
-                            <NavItemBase href={item.href} badge={item.badge} icon={item.icon} type="collapsible">
+                            <NavItemBase badge={item.badge} icon={item.icon} type="collapsible">
                                 {item.label}
                             </NavItemBase>
 
