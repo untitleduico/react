@@ -1,10 +1,10 @@
 "use client";
 
 import { HelpCircle } from "@untitledui/icons";
-import type { Placement } from "react-aria";
+import type { TooltipProps } from "@/components/base/tooltip/tooltip";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 
-const PLACEMENTS: { label: string; value: Placement }[] = [
+const PLACEMENTS: { label: string; value: NonNullable<TooltipProps["placement"]> }[] = [
     {
         label: "Top left",
         value: "top left",
