@@ -4,10 +4,15 @@ import type { FocusEventHandler, KeyboardEvent, PointerEventHandler, RefAttribut
 import React, { createContext, useCallback, useContext, useRef, useState } from "react";
 import { SearchLg } from "@untitledui/icons";
 import { FocusScope, useFilter, useFocusManager } from "react-aria";
-import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key } from "react-aria-components";
-import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox, ComboBoxStateContext } from "react-aria-components";
-import type { ListData } from "react-stately";
-import { useListData } from "react-stately";
+import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key, ListData } from "react-aria-components";
+import {
+    ComboBox as AriaComboBox,
+    Group as AriaGroup,
+    Input as AriaInput,
+    ListBox as AriaListBox,
+    ComboBoxStateContext,
+    useListData,
+} from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
 import type { IconComponentType } from "@/components/base/badges/badge-types";
 import { HintText } from "@/components/base/input/hint-text";
