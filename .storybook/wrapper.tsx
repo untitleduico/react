@@ -1,3 +1,4 @@
+import type { ComponentType } from "react";
 import React, { useEffect } from "react";
 import { Inter } from "next/font/google";
 
@@ -7,7 +8,7 @@ const inter = Inter({
     variable: "--font-inter",
 });
 
-const Wrapper = (Story: any) => {
+const Wrapper = (Story: ComponentType) => {
     useEffect(() => {
         const handler = (event: SubmitEvent) => {
             event.stopPropagation();

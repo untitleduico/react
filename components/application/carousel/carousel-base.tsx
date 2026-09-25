@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, ComponentPropsWithRef, HTMLAttributes, KeyboardEvent, ReactNode, Ref } from "react";
-import { cloneElement, createContext, isValidElement, useCallback, useContext, useEffect, useState } from "react";
+import { cloneElement, createContext, isValidElement, useCallback, useContext, useEffect, useMemo, useSyncExternalStore } from "react";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
 import { cx } from "@/utils/cx";
 
@@ -60,24 +60,42 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
         },
         plugins,
     );
-    const [canScrollPrev, setCanScrollPrev] = useState(false);
-    const [canScrollNext, setCanScrollNext] = useState(false);
-    const [selectedIndex, setSelectedIndex] = useState(0);
-    const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-    const onInit = useCallback((api: CarouselApi) => {
-        if (!api) return;
-
-        setScrollSnaps(api.scrollSnapList());
-    }, []);
-
-    const onSelect = useCallback((api: CarouselApi) => {
-        if (!api) return;
-
-        setCanScrollPrev(api.canScrollPrev());
-        setCanScrollNext(api.canScrollNext());
-        setSelectedIndex(api.selectedScrollSnap());
-    }, []);
+    // Read the carousel's position straight from Embla instead of mirroring it into state
+    // from an effect: no extra render on init, and every listener is removed on cleanup.
+    const subscribe = useCallback(
+        (onChange: () => void) => {
+            if (!api) return () => {};
+            api.on("reInit", onChange);
+            api.on("select", onChange);
+            return () => {
+                api.off("reInit", onChange);
+                api.off("select", onChange);
+            };
+        },
+        [api],
+    );
+    const canScrollPrev = useSyncExternalStore(
+        subscribe,
+        () => api?.canScrollPrev() ?? false,
+        () => false,
+    );
+    const canScrollNext = useSyncExternalStore(
+        subscribe,
+        () => api?.canScrollNext() ?? false,
+        () => false,
+    );
+    const selectedIndex = useSyncExternalStore(
+        subscribe,
+        () => api?.selectedScrollSnap() ?? 0,
+        () => 0,
+    );
+    // scrollSnapList() returns a new array on every call, so subscribe to a stable string and rebuild the array from it.
+    const scrollSnapsKey = useSyncExternalStore(
+        subscribe,
+        () => api?.scrollSnapList().join(",") ?? "",
+        () => "",
+    );
+    const scrollSnaps = useMemo(() => (scrollSnapsKey ? scrollSnapsKey.split(",").map(Number) : []), [scrollSnapsKey]);
 
     const scrollPrev = useCallback(() => {
         api?.scrollPrev();
@@ -105,21 +123,6 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
 
         setApi(api);
     }, [api, setApi]);
-
-    useEffect(() => {
-        if (!api) return;
-
-        onInit(api);
-        onSelect(api);
-
-        api.on("reInit", onInit);
-        api.on("reInit", onSelect);
-        api.on("select", onSelect);
-
-        return () => {
-            api?.off("select", onSelect);
-        };
-    }, [api, onInit, onSelect]);
 
     return (
         <CarouselContext.Provider
