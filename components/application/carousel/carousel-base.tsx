@@ -109,12 +109,8 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
         [scrollPrev, scrollNext],
     );
 
-    useEffect(() => {
-        if (!api || !setApi) return;
-
-        setApi(api);
-    }, [api, setApi]);
-
+    // Subscribe before handing the api to setApi: effects run in order, so a consumer that
+    // scrolls as soon as it gets the api must find these listeners already attached.
     useEffect(() => {
         if (!api) return;
 
@@ -128,6 +124,12 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
             api.off("select", onSelect);
         };
     }, [api, onInit, onSelect]);
+
+    useEffect(() => {
+        if (!api || !setApi) return;
+
+        setApi(api);
+    }, [api, setApi]);
 
     return (
         <CarouselContext.Provider
