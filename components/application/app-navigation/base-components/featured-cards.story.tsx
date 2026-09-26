@@ -6,7 +6,7 @@ import * as FeatureCard from "./featured-cards.demo";
 export default {
     title: "Application/Application navigation/Base components",
     decorators: [
-        withOverlayAware((Story: any) => (
+        withOverlayAware((Story) => (
             <div className="min-h-screen w-full bg-primary p-8">
                 <div className="w-62">
                     <Story />

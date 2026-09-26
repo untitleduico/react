@@ -79,6 +79,15 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
         setSelectedIndex(api.selectedScrollSnap());
     }, []);
 
+    // Read the initial position when Embla hands over a new api. Doing it here rather than in the
+    // effect below avoids an extra render, and the effect only subscribes to later changes.
+    const [syncedApi, setSyncedApi] = useState<CarouselApi>(undefined);
+    if (api !== syncedApi) {
+        setSyncedApi(api);
+        onInit(api);
+        onSelect(api);
+    }
+
     const scrollPrev = useCallback(() => {
         api?.scrollPrev();
     }, [api]);
@@ -109,15 +118,14 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
     useEffect(() => {
         if (!api) return;
 
-        onInit(api);
-        onSelect(api);
-
         api.on("reInit", onInit);
         api.on("reInit", onSelect);
         api.on("select", onSelect);
 
         return () => {
-            api?.off("select", onSelect);
+            api.off("reInit", onInit);
+            api.off("reInit", onSelect);
+            api.off("select", onSelect);
         };
     }, [api, onInit, onSelect]);
 
