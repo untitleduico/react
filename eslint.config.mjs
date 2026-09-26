@@ -92,7 +92,8 @@ export default [
             "react/display-name": "off",
             "react/jsx-key": "warn",
             "react/prop-types": "off",
-            "react/no-unescaped-entities": "error",
+            // Off on purpose: thousands of examples use plain apostrophes in JSX text.
+            "react/no-unescaped-entities": "off",
             "react/no-unknown-property": ["error", { ignore: ["fill"] }],
             "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
             "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_", varsIgnorePattern: "^_" }],

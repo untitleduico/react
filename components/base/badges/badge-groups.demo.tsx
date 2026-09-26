@@ -36,10 +36,10 @@ export const PillColorLeadingGray = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="gray" theme="light" align="leading" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="gray" theme="light" align="leading" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -49,10 +49,10 @@ export const PillColorLeadingBrand = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="brand" theme="light" align="leading" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="brand" theme="light" align="leading" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -88,10 +88,10 @@ export const PillColorLeadingSuccess = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="Success" color="success" theme="light" align="leading" size="md">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
             <BadgeGroup addonText="Success" color="success" theme="light" align="leading" size="lg">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
         </div>
     );
@@ -101,10 +101,10 @@ export const PillColorTrailingGray = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="gray" theme="light" align="trailing" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="gray" theme="light" align="trailing" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -114,10 +114,10 @@ export const PillColorTrailingBrand = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="brand" theme="light" align="trailing" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="brand" theme="light" align="trailing" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -153,10 +153,10 @@ export const PillColorTrailingSuccess = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="Success" color="success" theme="light" align="trailing" size="md">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
             <BadgeGroup addonText="Success" color="success" theme="light" align="trailing" size="lg">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
         </div>
     );
@@ -166,10 +166,10 @@ export const BadgeModernLeadingGray = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="gray" theme="modern" align="leading" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="gray" theme="modern" align="leading" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -179,10 +179,10 @@ export const BadgeModernLeadingBrand = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="brand" theme="modern" align="leading" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="brand" theme="modern" align="leading" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -218,10 +218,10 @@ export const BadgeModernLeadingSuccess = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="Success" color="success" theme="modern" align="leading" size="md">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
             <BadgeGroup addonText="Success" color="success" theme="modern" align="leading" size="lg">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
         </div>
     );
@@ -231,10 +231,10 @@ export const BadgeModernTrailingGray = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="gray" theme="modern" align="trailing" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="gray" theme="modern" align="trailing" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -244,10 +244,10 @@ export const BadgeModernTrailingBrand = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="New feature" color="brand" theme="modern" align="trailing" size="md">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
             <BadgeGroup addonText="New feature" color="brand" theme="modern" align="trailing" size="lg">
-                We&apos;ve just released a new feature
+                We've just released a new feature
             </BadgeGroup>
         </div>
     );
@@ -283,10 +283,10 @@ export const BadgeModernTrailingSuccess = () => {
     return (
         <div className="flex flex-col items-start gap-4">
             <BadgeGroup addonText="Success" color="success" theme="modern" align="trailing" size="md">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
             <BadgeGroup addonText="Success" color="success" theme="modern" align="trailing" size="lg">
-                You&apos;ve updated your profile and details
+                You've updated your profile and details
             </BadgeGroup>
         </div>
     );

@@ -1220,7 +1220,7 @@ export const TableOffline = () => {
                     </EmptyState.Header>
 
                     <EmptyState.Content>
-                        <EmptyState.Title>You&apos;re offline</EmptyState.Title>
+                        <EmptyState.Title>You're offline</EmptyState.Title>
                         <EmptyState.Description>
                             Please check your internet connection and try again. If the issue continues, contact support.
                         </EmptyState.Description>
