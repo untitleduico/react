@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "react";
 import { UploadCloud02 } from "@untitledui/icons";
 import { cx } from "@/utils/cx";
 
-interface IllustrationProps extends HTMLAttributes<HTMLDivElement> {
+export interface IllustrationProps extends HTMLAttributes<HTMLDivElement> {
     size?: "sm" | "md" | "lg";
     svgClassName?: string;
     childrenClassName?: string;

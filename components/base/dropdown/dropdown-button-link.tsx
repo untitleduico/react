@@ -13,7 +13,7 @@ const permissions = [
 ];
 
 export const DropdownButtonLink = () => {
-    const [selectedPermission, setSelectedPermission] = useState<string>(permissions[1].id);
+    const [selectedPermission, setSelectedPermission] = useState<string>("can-edit");
 
     return (
         <Dropdown.Root>
@@ -34,7 +34,7 @@ export const DropdownButtonLink = () => {
                     <Dropdown.Section
                         selectionMode="single"
                         selectedKeys={[selectedPermission]}
-                        onSelectionChange={(keys) => setSelectedPermission(typeof keys === "string" ? keys : (keys.keys().toArray()[0] as string))}
+                        onSelectionChange={(keys) => setSelectedPermission(typeof keys === "string" ? keys : (Array.from(keys)[0] as string))}
                     >
                         {permissions.map((permission) => (
                             <Dropdown.Item key={permission.id} id={permission.id}>

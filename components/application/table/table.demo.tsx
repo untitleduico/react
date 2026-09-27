@@ -810,8 +810,8 @@ export const Table04DividerLine = () => {
                         <Table.Row id={item.name}>
                             <Table.Cell>
                                 <div className="flex items-center gap-3">
-                                    <FileIcon type={item.name.split(".")[1]} theme="light" className="size-10 dark:hidden" />
-                                    <FileIcon type={item.name.split(".")[1]} theme="dark" className="size-10 not-dark:hidden" />
+                                    <FileIcon type={item.name.split(".")[1] ?? ""} theme="light" className="size-10 dark:hidden" />
+                                    <FileIcon type={item.name.split(".")[1] ?? ""} theme="dark" className="size-10 not-dark:hidden" />
 
                                     <div className="whitespace-nowrap">
                                         <p className="text-sm font-medium text-primary">{item.name}</p>
@@ -866,8 +866,8 @@ export const Table04AlternatingFills = () => {
                         <Table.Row id={item.name} className="odd:bg-secondary">
                             <Table.Cell>
                                 <div className="flex items-center gap-3">
-                                    <FileIcon type={item.name.split(".")[1]} theme="light" className="size-10 dark:hidden" />
-                                    <FileIcon type={item.name.split(".")[1]} theme="dark" className="size-10 not-dark:hidden" />
+                                    <FileIcon type={item.name.split(".")[1] ?? ""} theme="light" className="size-10 dark:hidden" />
+                                    <FileIcon type={item.name.split(".")[1] ?? ""} theme="dark" className="size-10 not-dark:hidden" />
 
                                     <div className="whitespace-nowrap">
                                         <p className="text-sm font-medium text-primary">{item.name}</p>

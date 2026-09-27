@@ -8,6 +8,13 @@ import { Label } from "@/components/base/input/label";
 import { AmexIcon, DiscoverIcon, MastercardIcon, UnionPayIcon, VisaIcon } from "@/components/foundations/payment-icons";
 import { cx } from "@/utils/cx";
 
+const unknownCardType = {
+    name: "Unknown",
+    pattern: /.*/, // Fallback pattern for unknown cards
+    card: "unknown",
+    icon: MastercardIcon,
+};
+
 const cardTypes = [
     {
         name: "Visa",
@@ -39,12 +46,7 @@ const cardTypes = [
         card: "unionpay",
         icon: UnionPayIcon,
     },
-    {
-        name: "Unknown",
-        pattern: /.*/, // Fallback pattern for unknown cards
-        card: "unknown",
-        icon: MastercardIcon,
-    },
+    unknownCardType,
 ];
 
 /**
@@ -59,7 +61,7 @@ const detectCardType = (number: string) => {
     // Find the matching card type
     const card = cardTypes.find((cardType) => cardType.pattern.test(sanitizedNumber));
 
-    return card || cardTypes[cardTypes.length - 1];
+    return card || unknownCardType;
 };
 
 /**

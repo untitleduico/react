@@ -1,10 +1,14 @@
 {
     "compilerOptions": {
         "target": "ES2017",
-        "lib": ["dom", "dom.iterable", "esnext"],
+        "lib": ["dom", "dom.iterable", "es2022"],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": true,
+        "noUncheckedIndexedAccess": true,
+        "verbatimModuleSyntax": true,
+        "erasableSyntaxOnly": true,
+        "declaration": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
