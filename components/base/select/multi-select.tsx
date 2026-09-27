@@ -12,7 +12,6 @@ import {
     DialogTrigger as AriaDialogTrigger,
     Input as AriaInput,
     ListBox as AriaListBox,
-    Popover as AriaPopover,
     SearchField as AriaSearchField,
 } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
@@ -21,6 +20,7 @@ import { Label } from "@/components/base/input/label";
 import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { SelectItem } from "./select-item";
 import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
 
@@ -255,7 +255,7 @@ const MultiSelectRoot = ({
                         </span>
                     </AriaButton>
 
-                    <AriaPopover
+                    <OverlayPopover
                         placement="bottom"
                         offset={4}
                         containerPadding={0}
@@ -312,7 +312,7 @@ const MultiSelectRoot = ({
 
                             {showFooter && <MultiSelectFooter size={size} onReset={onReset} onSelectAll={onSelectAll} />}
                         </AriaDialog>
-                    </AriaPopover>
+                    </OverlayPopover>
                 </AriaDialogTrigger>
 
                 {hint && (

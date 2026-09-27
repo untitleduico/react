@@ -48,7 +48,7 @@ export const DropdownAccountBreadcrumb = () => {
                 <ChevronSelectorVertical className="size-3 shrink-0 stroke-3 text-fg-quaternary" />
             </AriaButton>
 
-            <Dropdown.Popover className="w-62" placement="bottom left">
+            <Dropdown.Popover className="w-62" placement="bottom start">
                 <Dropdown.Menu
                     disallowEmptySelection
                     selectionMode="single"

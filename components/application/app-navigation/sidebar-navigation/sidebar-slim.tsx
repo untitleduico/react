@@ -4,12 +4,13 @@ import type { FC } from "react";
 import { useState } from "react";
 import { DotsVertical, LifeBuoy01, Settings01 } from "@untitledui/icons";
 import { AnimatePresence, motion } from "motion/react";
-import { Button as AriaButton, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
+import { Button as AriaButton, DialogTrigger as AriaDialogTrigger } from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { UntitledLogoMinimal } from "@/components/foundations/logo/untitledui-logo-minimal";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { MobileNavigationHeader } from "../base-components/mobile-header";
 import { NavAccountCard, NavAccountMenu } from "../base-components/nav-account-card";
 import { NavButton } from "../base-components/nav-button";
@@ -104,7 +105,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                                 alt="Olivia Rhye"
                             />
                         </AriaButton>
-                        <AriaPopover
+                        <OverlayPopover
                             placement="right bottom"
                             offset={8}
                             crossOffset={6}
@@ -119,7 +120,7 @@ export const SidebarNavigationSlim = ({ activeUrl, items, footerItems = [], hide
                             }
                         >
                             <NavAccountMenu />
-                        </AriaPopover>
+                        </OverlayPopover>
                     </AriaDialogTrigger>
                 </div>
             </div>
