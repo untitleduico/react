@@ -1,16 +1,8 @@
 "use client";
 
-import type { CSSProperties, ReactNode, RefAttributes, RefObject } from "react";
+import type { CSSProperties, RefObject } from "react";
 import { useLayoutEffect, useSyncExternalStore } from "react";
-import type { PopoverProps as AriaPopoverProps } from "react-aria-components";
-import {
-    I18nProvider as AriaI18nProvider,
-    Popover as AriaPopover,
-    PopoverContext as AriaPopoverContext,
-    isRTL,
-    useLocale,
-    useSlottedContext,
-} from "react-aria-components";
+import { isRTL, useLocale } from "react-aria-components";
 
 /**
  * Overlays inside other libraries' modal layers.
@@ -136,7 +128,7 @@ export const useFocusedHostLayer = (): HTMLElement | null => {
  * full-screen overlay rendered inside it would only cover the layer. Offsets
  * that put the overlay back over the viewport; `style` unchanged without a host.
  */
-export const withHostLayerOffset = <T,>(host: HTMLElement | null, style: StyleProp<T>): StyleProp<T> => {
+export const withHostLayerOffset = <T>(host: HTMLElement | null, style: StyleProp<T>): StyleProp<T> => {
     if (!host) return style;
     return (values: T) => ({ ...(typeof style === "function" ? style(values) : style), ...hostLayerOffset(host) });
 };
@@ -207,30 +199,6 @@ const safeIsRtl = (locale: string) => {
     } catch {
         return null;
     }
-};
-
-/** Wraps `children` in an `I18nProvider` for `locale`, or returns them untouched. */
-export const HostLocale = ({ locale, children }: { locale?: string; children: ReactNode }) =>
-    locale ? <AriaI18nProvider locale={locale}>{children}</AriaI18nProvider> : children;
-
-/**
- * React Aria's `Popover`, rendered into the host layer that contains its
- * trigger and following the page's direction. Same props; identical to
- * `Popover` when there is no host layer and no direction mismatch.
- */
-export const OverlayPopover = (props: AriaPopoverProps & RefAttributes<HTMLElement>) => {
-    const context = useSlottedContext(AriaPopoverContext, props.slot);
-    const triggerRef = props.triggerRef ?? context?.triggerRef;
-    // Submenus render into their root popover's container; leave them there.
-    const isSubmenu = (props.trigger ?? context?.trigger) === "SubmenuTrigger";
-    const host = useHostLayer(isSubmenu ? null : triggerRef);
-    const locale = useHostLocale(triggerRef);
-
-    return (
-        <HostLocale locale={locale}>
-            <AriaPopover {...props} {...(host && !props.UNSTABLE_portalContainer ? { UNSTABLE_portalContainer: host, [IN_HOST_LAYER]: "" } : {})} />
-        </HostLocale>
-    );
 };
 
 /**

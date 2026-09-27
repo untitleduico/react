@@ -20,7 +20,7 @@ import {
     Separator as AriaSeparator,
 } from "react-aria-components";
 import { cx } from "@/utils/cx";
-import { OverlayPopover } from "@/utils/overlay-host";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { Avatar } from "../avatar/avatar";
 import { CheckboxBase } from "../checkbox/checkbox";
 import { RadioButtonBase } from "../radio-buttons/radio-buttons";

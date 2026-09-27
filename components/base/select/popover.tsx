@@ -3,7 +3,7 @@
 import type { RefAttributes } from "react";
 import type { PopoverProps as AriaPopoverProps } from "react-aria-components";
 import { cx } from "@/utils/cx";
-import { OverlayPopover } from "@/utils/overlay-host";
+import { OverlayPopover } from "@/utils/overlay-popover";
 
 interface PopoverProps extends AriaPopoverProps, RefAttributes<HTMLElement> {
     size: "sm" | "md" | "lg";

@@ -8,7 +8,7 @@ import type { DatePickerProps as AriaDatePickerProps, DateValue } from "react-ar
 import { DatePicker as AriaDatePicker, Dialog as AriaDialog, Group as AriaGroup } from "react-aria-components";
 import { Button, type ButtonProps } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
-import { OverlayPopover } from "@/utils/overlay-host";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { Calendar } from "./calendar";
 
 const highlightedDates = [today(getLocalTimeZone())];

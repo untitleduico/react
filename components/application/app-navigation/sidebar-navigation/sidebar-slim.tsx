@@ -10,7 +10,7 @@ import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { UntitledLogo } from "@/components/foundations/logo/untitledui-logo";
 import { UntitledLogoMinimal } from "@/components/foundations/logo/untitledui-logo-minimal";
 import { cx } from "@/utils/cx";
-import { OverlayPopover } from "@/utils/overlay-host";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { MobileNavigationHeader } from "../base-components/mobile-header";
 import { NavAccountCard, NavAccountMenu } from "../base-components/nav-account-card";
 import { NavButton } from "../base-components/nav-button";

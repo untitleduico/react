@@ -20,7 +20,7 @@ import { Label } from "@/components/base/input/label";
 import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
-import { OverlayPopover } from "@/utils/overlay-host";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { SelectItem } from "./select-item";
 import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
 
