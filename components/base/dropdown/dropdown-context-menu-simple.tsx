@@ -12,7 +12,7 @@ export const DropdownContextMenuSimple = () => (
             Right-click anywhere in this area
         </AriaButton>
 
-        <Dropdown.Popover placement="bottom left" className="w-54">
+        <Dropdown.Popover placement="bottom start" className="w-54">
             <Dropdown.Menu>
                 <Dropdown.Section>
                     <Dropdown.Item addon="⌘X">Cut</Dropdown.Item>
@@ -29,7 +29,7 @@ export const DropdownContextMenuSimple = () => (
                 <Dropdown.Section>
                     <SubmenuTrigger>
                         <Dropdown.Item>View details</Dropdown.Item>
-                        <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                        <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                             <Dropdown.Menu>
                                 <Dropdown.Item>Share</Dropdown.Item>
                                 <Dropdown.Item>Save as</Dropdown.Item>

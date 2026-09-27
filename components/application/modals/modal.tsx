@@ -3,13 +3,20 @@
 import type { DialogProps as AriaDialogProps, ModalOverlayProps as AriaModalOverlayProps } from "react-aria-components";
 import { Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Modal as AriaModal, ModalOverlay as AriaModalOverlay } from "react-aria-components";
 import { cx } from "@/utils/cx";
+import { IN_HOST_LAYER, useFocusedHostLayer, useForeignOverlaysOnTop, withHostLayerOffset } from "@/utils/overlay-host";
 
 export const DialogTrigger = AriaDialogTrigger;
 
 export const ModalOverlay = (props: AriaModalOverlayProps) => {
+    // Inside another library's modal layer (e.g. a shadcn/ui Dialog), render into it.
+    const host = useFocusedHostLayer();
+
     return (
         <AriaModalOverlay
             {...props}
+            {...(host && !props.UNSTABLE_portalContainer
+                ? { UNSTABLE_portalContainer: host, style: withHostLayerOffset(host, props.style), [IN_HOST_LAYER]: "" }
+                : {})}
             className={(state) =>
                 cx(
                     "fixed inset-0 z-50 flex min-h-dvh w-full items-end justify-center bg-overlay/70 px-4 outline-hidden backdrop-blur-[6px] sm:items-center sm:justify-center sm:px-8",
@@ -25,22 +32,27 @@ export const ModalOverlay = (props: AriaModalOverlayProps) => {
     );
 };
 
-export const Modal = (props: AriaModalOverlayProps) => (
-    <AriaModal
-        {...props}
-        className={(state) =>
-            cx(
-                "w-full rounded-xl bg-primary align-middle shadow-xl outline-hidden max-sm:overflow-y-auto sm:rounded-2xl",
-                // Max height based on parent's vertical padding
-                "max-h-[calc(var(--visual-viewport-height)-var(--modal-pt)-var(--modal-pb))]",
-                // Animations
-                state.isEntering && "duration-300 ease-out animate-in zoom-in-95",
-                state.isExiting && "duration-200 ease-in animate-out zoom-out-95",
-                typeof props.className === "function" ? props.className(state) : props.className,
-            )
-        }
-    />
-);
+export const Modal = (props: AriaModalOverlayProps) => {
+    // Keeps menus and popovers of other libraries opened from inside the modal usable.
+    useForeignOverlaysOnTop();
+
+    return (
+        <AriaModal
+            {...props}
+            className={(state) =>
+                cx(
+                    "w-full rounded-xl bg-primary align-middle shadow-xl outline-hidden max-sm:overflow-y-auto sm:rounded-2xl",
+                    // Max height based on parent's vertical padding
+                    "max-h-[calc(var(--visual-viewport-height)-var(--modal-pt)-var(--modal-pb))]",
+                    // Animations
+                    state.isEntering && "duration-300 ease-out animate-in zoom-in-95",
+                    state.isExiting && "duration-200 ease-in animate-out zoom-out-95",
+                    typeof props.className === "function" ? props.className(state) : props.className,
+                )
+            }
+        />
+    );
+};
 
 export const Dialog = (props: AriaDialogProps) => (
     <AriaDialog {...props} className={cx("relative max-h-[inherit] w-full overflow-y-auto outline-hidden", props.className)} />

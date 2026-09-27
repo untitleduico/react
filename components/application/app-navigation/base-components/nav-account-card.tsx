@@ -5,12 +5,13 @@ import { useCallback, useEffect, useRef } from "react";
 import { BookOpen01, ChevronSelectorVertical, LogOut01, Plus, Settings01, User01 } from "@untitledui/icons";
 import { useFocusManager } from "react-aria";
 import type { DialogProps as AriaDialogProps, Placement as AriaPlacement } from "react-aria-components";
-import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
+import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger } from "react-aria-components";
 import { AvatarLabelGroup } from "@/components/base/avatar/avatar-label-group";
 import { Button } from "@/components/base/buttons/button";
 import { RadioButtonBase } from "@/components/base/radio-buttons/radio-buttons";
 import { useBreakpoint } from "@/hooks/use-breakpoint";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-host";
 
 export type NavAccountType = {
     /** Unique identifier for the nav item. */
@@ -189,7 +190,7 @@ export const NavAccountCard = ({
                 <AriaButton className="absolute top-2 right-2 flex cursor-pointer items-center justify-center rounded-md p-1.5 text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-fg-quaternary_hover focus-visible:outline-2 focus-visible:outline-offset-2 pressed:bg-primary_hover pressed:text-fg-quaternary_hover">
                     <ChevronSelectorVertical className="size-4 shrink-0 stroke-[2.25px]" />
                 </AriaButton>
-                <AriaPopover
+                <OverlayPopover
                     placement={popoverPlacement ?? (isDesktop ? "right bottom" : "top right")}
                     triggerRef={triggerRef}
                     offset={8}
@@ -204,7 +205,7 @@ export const NavAccountCard = ({
                     }
                 >
                     <NavAccountMenu selectedAccountId={selectedAccountId} accounts={items} />
-                </AriaPopover>
+                </OverlayPopover>
             </AriaDialogTrigger>
         </div>
     );

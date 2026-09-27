@@ -64,7 +64,7 @@ export const DropdownAccountCardXS = () => {
                     <SubmenuTrigger>
                         <Dropdown.Item icon={LogOut01}>Sign out</Dropdown.Item>
 
-                        <Dropdown.Popover placement="right top" offset={-6}>
+                        <Dropdown.Popover placement="end top" offset={-6}>
                             <Dropdown.Menu>
                                 <Dropdown.Item>Current device</Dropdown.Item>
                                 <Dropdown.Item>All devices</Dropdown.Item>

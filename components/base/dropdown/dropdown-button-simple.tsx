@@ -28,7 +28,7 @@ export const DropdownButtonSimple = () => (
                 <Dropdown.Section>
                     <SubmenuTrigger>
                         <Dropdown.Item>View details</Dropdown.Item>
-                        <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                        <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                             <Dropdown.Menu>
                                 <Dropdown.Item>Share</Dropdown.Item>
                                 <Dropdown.Item>Save as</Dropdown.Item>

@@ -17,10 +17,10 @@ import {
     MenuItem as AriaMenuItem,
     MenuSection as AriaMenuSection,
     MenuTrigger as AriaMenuTrigger,
-    Popover as AriaPopover,
     Separator as AriaSeparator,
 } from "react-aria-components";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-host";
 import { Avatar } from "../avatar/avatar";
 import { CheckboxBase } from "../checkbox/checkbox";
 import { RadioButtonBase } from "../radio-buttons/radio-buttons";
@@ -140,8 +140,8 @@ type DropdownPopoverProps = AriaPopoverProps;
 
 const DropdownPopover = (props: DropdownPopoverProps) => {
     return (
-        <AriaPopover
-            placement="bottom right"
+        <OverlayPopover
+            placement="bottom end"
             {...props}
             className={(state) =>
                 cx(
@@ -155,7 +155,7 @@ const DropdownPopover = (props: DropdownPopoverProps) => {
             }
         >
             {props.children}
-        </AriaPopover>
+        </OverlayPopover>
     );
 };
 

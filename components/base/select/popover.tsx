@@ -2,8 +2,8 @@
 
 import type { RefAttributes } from "react";
 import type { PopoverProps as AriaPopoverProps } from "react-aria-components";
-import { Popover as AriaPopover } from "react-aria-components";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-host";
 
 interface PopoverProps extends AriaPopoverProps, RefAttributes<HTMLElement> {
     size: "sm" | "md" | "lg";
@@ -11,7 +11,7 @@ interface PopoverProps extends AriaPopoverProps, RefAttributes<HTMLElement> {
 
 export const Popover = (props: PopoverProps) => {
     return (
-        <AriaPopover
+        <OverlayPopover
             placement="bottom"
             containerPadding={0}
             offset={4}
