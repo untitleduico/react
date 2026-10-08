@@ -33,7 +33,7 @@ export const DropdownSearchAdvanced = () => {
                             <Dropdown.Item id="untitledui" textValue="Olivia Rhye" selectionIndicator="checkbox">
                                 Untitled UI
                             </Dropdown.Item>
-                            <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                            <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                                 <Dropdown.Menu selectionMode="multiple">
                                     <Dropdown.Item
                                         id="olivia"

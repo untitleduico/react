@@ -25,7 +25,7 @@ export const DropdownContextMenuAdvanced = () => {
                 Right-click anywhere in this area
             </AriaButton>
 
-            <Dropdown.Popover placement="bottom left" className="w-60">
+            <Dropdown.Popover placement="bottom start" className="w-60">
                 <Dropdown.Menu selectionMode="none">
                     <Dropdown.Section>
                         <Dropdown.Item icon={ArrowNarrowLeft}>Back</Dropdown.Item>
@@ -60,11 +60,11 @@ export const DropdownContextMenuAdvanced = () => {
                     <Dropdown.Section>
                         <SubmenuTrigger>
                             <Dropdown.Item icon={Cube01}>More tools</Dropdown.Item>
-                            <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                            <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                                 <Dropdown.Menu selectionMode="none">
                                     <SubmenuTrigger>
                                         <Dropdown.Item icon={Download01}>Save as</Dropdown.Item>
-                                        <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                                        <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                                             <Dropdown.Menu selectionMode="none">
                                                 <Dropdown.Item>PDF</Dropdown.Item>
                                                 <Dropdown.Item>HTML</Dropdown.Item>
@@ -83,7 +83,7 @@ export const DropdownContextMenuAdvanced = () => {
 
                                     <SubmenuTrigger>
                                         <Dropdown.Item icon={Code02}>Developer</Dropdown.Item>
-                                        <Dropdown.Popover placement="right top" offset={-6} className="w-50">
+                                        <Dropdown.Popover placement="end top" offset={-6} className="w-50">
                                             <Dropdown.Menu selectionMode="none">
                                                 <Dropdown.Item>View source</Dropdown.Item>
                                                 <Dropdown.Item>Developer tools</Dropdown.Item>
