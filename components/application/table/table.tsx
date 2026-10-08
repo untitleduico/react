@@ -74,113 +74,8 @@ const TableContext = createContext<{ size: "sm" | "md" }>({ size: "md" });
 const withClassName = <T,>(base: string, className: string | ((state: T) => string) | undefined) =>
     typeof className === "function" ? (state: T) => cx(base, className(state)) : cx(base, className);
 
-/** Whether the table is rendered inside a `Table.ResizableContainer`, which then acts as the scroll container. */
-const TableResizableContext = createContext(false);
-
 /** Whether the table renders only the rows and columns in view. Its parts are then `div`s that React Aria positions. */
 const useIsVirtualized = () => useContext(AriaCollectionRendererContext).isVirtualized ?? false;
-
-interface TableVirtualizerLayoutOptions extends AriaTableLayoutProps {
-    /** The ids of the columns that stay visible while the table scrolls horizontally. */
-    stickyColumns?: Key[];
-    /** Whether the footer stays at the bottom of the table while it scrolls. */
-    stickyFooter?: boolean;
-}
-
-/** Whether a virtualized table keeps its footer at the bottom. `Table.Footer` then marks itself for the table's styles. */
-const TableStickyFooterContext = createContext(false);
-
-// React Aria's table layout with sticky columns: they're always rendered, and stick to the start of the table. The header,
-// body and footer don't clip their content, as a clipping parent would keep the sticky cells from sticking.
-class StickyTableLayout<T> extends AriaTableLayout<T, TableVirtualizerLayoutOptions> {
-    private stickyColumns = new Set<Key>();
-    private stickyFooter = false;
-
-    update(invalidationContext: Parameters<AriaTableLayout<T, TableVirtualizerLayoutOptions>["update"]>[0]) {
-        this.stickyColumns = new Set(invalidationContext.layoutOptions?.stickyColumns);
-        this.stickyFooter = invalidationContext.layoutOptions?.stickyFooter ?? false;
-        super.update(invalidationContext);
-    }
-
-    protected isStickyColumn(node: { type: string; key: Key; index: number; colIndex?: number | null }) {
-        const key = node.type === "column" ? node.key : this.collection.columns[node.colIndex ?? node.index]?.key;
-        return key != null && this.stickyColumns.has(key);
-    }
-
-    protected buildCollection() {
-        const nodes = super.buildCollection();
-        for (const node of nodes) {
-            node.layoutInfo.allowOverflow = true;
-            // A sticky footer is laid out in the flow, so the table's styles can move it to the bottom of the view.
-            if (this.stickyFooter && node.node?.type === "tablefooter") {
-                node.layoutInfo.isSticky = true;
-                node.layoutInfo.zIndex = 1;
-            }
-        }
-        return nodes;
-    }
-
-    // React Aria only lays out the rows near the area in view. A sticky footer is always in view, so all its rows are laid out.
-    protected buildRowGroup(...args: Parameters<AriaTableLayout<T>["buildRowGroup"]>) {
-        if (!this.stickyFooter || args[1].type !== "tablefooter") return super.buildRowGroup(...args);
-
-        const requestedRect = this.requestedRect;
-        const fullHeight = requestedRect.copy();
-        fullHeight.y = 0;
-        fullHeight.height = Number.MAX_SAFE_INTEGER;
-        this.requestedRect = fullHeight;
-        try {
-            return super.buildRowGroup(...args);
-        } finally {
-            this.requestedRect = requestedRect;
-        }
-    }
-
-    // React Aria lays out a row's cells up to the edge of the area in view, and finds sticky cells by their column index among
-    // them, so a column stuck to the right edge would never be found. Rows then lay out all their cells; only the cells in
-    // view and the sticky ones are rendered.
-    protected buildRow(...args: Parameters<AriaTableLayout<T>["buildRow"]>) {
-        const lastColumn = this.collection.columns[this.collection.columns.length - 1];
-        if (!lastColumn || !this.stickyColumns.has(lastColumn.key)) return super.buildRow(...args);
-
-        const requestedRect = this.requestedRect;
-        const fullWidth = requestedRect.copy();
-        fullWidth.width = Number.MAX_SAFE_INTEGER;
-        this.requestedRect = fullWidth;
-        try {
-            return super.buildRow(...args);
-        } finally {
-            this.requestedRect = requestedRect;
-        }
-    }
-}
-
-interface TableVirtualizerProps {
-    children: ReactNode;
-    /** The height of each row, in pixels. */
-    rowHeight: number;
-    /** The height of the header, in pixels. */
-    headingHeight: number;
-    /** The ids of the columns that stay visible while the table scrolls horizontally. They must come first. */
-    stickyColumns?: Key[];
-    /** Whether the footer stays at the bottom of the table while it scrolls. */
-    stickyFooter?: boolean;
-}
-
-/**
- * Renders only the rows and columns in view, so large tables stay fast. The table's parts become `div`s that React Aria
- * positions, and the table scrolls itself, so give `Table` a height and `overflow-auto`.
- */
-const TableVirtualizer = ({ children, rowHeight, headingHeight, stickyColumns, stickyFooter = false }: TableVirtualizerProps) => {
-    const layoutOptions: TableVirtualizerLayoutOptions = { rowHeight, headingHeight, stickyColumns, stickyFooter };
-
-    return (
-        <AriaVirtualizer layout={StickyTableLayout} layoutOptions={layoutOptions}>
-            <TableStickyFooterContext.Provider value={stickyFooter}>{children}</TableStickyFooterContext.Provider>
-        </AriaVirtualizer>
-    );
-};
-TableVirtualizer.displayName = "TableVirtualizer";
 
 const TableCardRoot = ({ children, className, size = "md", ...props }: HTMLAttributes<HTMLDivElement> & { size?: "sm" | "md" }) => {
     // Every row and cell reads this context, also React Aria's copies of them, so a new value on each render would re-render them all.
@@ -278,15 +173,6 @@ const TableRoot = ({ className, size = "md", wrapperClassName, ...props }: Table
 };
 TableRoot.displayName = "Table";
 
-const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps & { ref?: Ref<HTMLDivElement> }) => {
-    return (
-        <TableResizableContext.Provider value={true}>
-            <AriaResizableTableContainer {...props} className={cx("relative w-full overflow-auto", className)} />
-        </TableResizableContext.Provider>
-    );
-};
-TableResizableContainer.displayName = "TableResizableContainer";
-
 interface TableHeaderProps<T extends object>
     extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
     bordered?: boolean;
@@ -360,98 +246,6 @@ const TableHeader = <T extends object>({
 };
 
 TableHeader.displayName = "TableHeader";
-
-interface TableColumnResizerProps {
-    /** The id of the column. */
-    columnKey: Key;
-    /** Whether arrow keys can focus the divider to resize with the keyboard. */
-    isFocusable: boolean;
-}
-
-// Dragging the divider resizes the column in the DOM, and React Aria gets the new width once, on release. React Aria's own
-// resizer re-renders every row on each pointer move, which lags on larger tables. It still handles keyboard resizing.
-const TableColumnResizer = ({ columnKey, isFocusable }: TableColumnResizerProps) => {
-    const layoutState = useContext(AriaTableColumnResizeStateContext);
-    const latestLayoutState = useRef(layoutState);
-    useLayoutEffect(() => {
-        latestLayoutState.current = layoutState;
-    });
-    const { direction } = useLocale();
-    const [isResizing, setIsResizing] = useState(false);
-
-    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-        const handle = event.currentTarget;
-        const header = handle.closest<HTMLElement>("th, [role=columnheader]");
-        const state = latestLayoutState.current;
-        if (event.button !== 0 || !header || !state) return;
-        // Keeps the header from sorting, and the text from being selected.
-        event.preventDefault();
-        event.stopPropagation();
-
-        handle.setPointerCapture(event.pointerId);
-        const minWidth = state.getColumnMinWidth(columnKey);
-        const maxWidth = state.getColumnMaxWidth(columnKey);
-        const startX = event.clientX;
-        const startWidth = header.getBoundingClientRect().width;
-        let width = startWidth;
-        setIsResizing(true);
-
-        // A virtualized table only renders the cells in view, so it can follow the pointer through React Aria's state, once per
-        // frame. A full table resizes the header in the DOM until release.
-        const isVirtualized = header.tagName !== "TH";
-        let frame = 0;
-
-        const handleMove = (moveEvent: globalThis.PointerEvent) => {
-            const delta = (moveEvent.clientX - startX) * (direction === "rtl" ? -1 : 1);
-            width = Math.round(Math.min(Math.max(startWidth + delta, minWidth), maxWidth));
-            if (!isVirtualized) header.style.width = `${width}px`;
-            else if (!frame) {
-                frame = requestAnimationFrame(() => {
-                    frame = 0;
-                    latestLayoutState.current?.updateResizedColumns(columnKey, width);
-                });
-            }
-        };
-        const handleEnd = () => {
-            handle.removeEventListener("pointermove", handleMove);
-            handle.removeEventListener("pointerup", handleEnd);
-            handle.removeEventListener("pointercancel", handleEnd);
-            cancelAnimationFrame(frame);
-            setIsResizing(false);
-            if (width !== startWidth) latestLayoutState.current?.updateResizedColumns(columnKey, width);
-        };
-
-        handle.addEventListener("pointermove", handleMove);
-        handle.addEventListener("pointerup", handleEnd);
-        handle.addEventListener("pointercancel", handleEnd);
-    };
-
-    return (
-        <>
-            <div
-                aria-hidden="true"
-                data-resizing={isResizing || undefined}
-                onPointerDown={handlePointerDown}
-                className={cx(
-                    // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the table.
-                    "absolute inset-y-0 -end-2 z-10 flex w-4 cursor-col-resize touch-none justify-center in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
-                    "in-[[role=presentation]:last-child>[role=columnheader]]:end-0 in-[[role=presentation]:last-child>[role=columnheader]]:justify-end",
-                    "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
-                    "hover:after:w-0.5 hover:after:bg-fg-brand-primary data-resizing:after:w-0.5 data-resizing:after:bg-fg-brand-primary",
-                )}
-            />
-            <AriaColumnResizer
-                data-react-aria-prevent-focus={!isFocusable || undefined}
-                className={(resizerState) =>
-                    cx(
-                        "pointer-events-none absolute inset-y-0 -end-2 z-10 flex w-4 justify-center outline-hidden in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
-                        (resizerState.isResizing || resizerState.isFocusVisible) && "after:h-full after:w-0.5 after:bg-fg-brand-primary",
-                    )
-                }
-            />
-        </>
-    );
-};
 
 interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
     ref?: Ref<HTMLTableCellElement>;
@@ -703,6 +497,110 @@ const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellP
 };
 TableCell.displayName = "TableCell";
 
+/** Whether the table is rendered inside a `Table.ResizableContainer`, which then acts as the scroll container. */
+const TableResizableContext = createContext(false);
+
+const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps & { ref?: Ref<HTMLDivElement> }) => {
+    return (
+        <TableResizableContext.Provider value={true}>
+            <AriaResizableTableContainer {...props} className={cx("relative w-full overflow-auto", className)} />
+        </TableResizableContext.Provider>
+    );
+};
+TableResizableContainer.displayName = "TableResizableContainer";
+
+interface TableColumnResizerProps {
+    /** The id of the column. */
+    columnKey: Key;
+    /** Whether arrow keys can focus the divider to resize with the keyboard. */
+    isFocusable: boolean;
+}
+
+// Dragging the divider resizes the column in the DOM, and React Aria gets the new width once, on release. React Aria's own
+// resizer re-renders every row on each pointer move, which lags on larger tables. It still handles keyboard resizing.
+const TableColumnResizer = ({ columnKey, isFocusable }: TableColumnResizerProps) => {
+    const layoutState = useContext(AriaTableColumnResizeStateContext);
+    const latestLayoutState = useRef(layoutState);
+    useLayoutEffect(() => {
+        latestLayoutState.current = layoutState;
+    });
+    const { direction } = useLocale();
+    const [isResizing, setIsResizing] = useState(false);
+
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+        const handle = event.currentTarget;
+        const header = handle.closest<HTMLElement>("th, [role=columnheader]");
+        const state = latestLayoutState.current;
+        if (event.button !== 0 || !header || !state) return;
+        // Keeps the header from sorting, and the text from being selected.
+        event.preventDefault();
+        event.stopPropagation();
+
+        handle.setPointerCapture(event.pointerId);
+        const minWidth = state.getColumnMinWidth(columnKey);
+        const maxWidth = state.getColumnMaxWidth(columnKey);
+        const startX = event.clientX;
+        const startWidth = header.getBoundingClientRect().width;
+        let width = startWidth;
+        setIsResizing(true);
+
+        // A virtualized table only renders the cells in view, so it can follow the pointer through React Aria's state, once per
+        // frame. A full table resizes the header in the DOM until release.
+        const isVirtualized = header.tagName !== "TH";
+        let frame = 0;
+
+        const handleMove = (moveEvent: globalThis.PointerEvent) => {
+            const delta = (moveEvent.clientX - startX) * (direction === "rtl" ? -1 : 1);
+            width = Math.round(Math.min(Math.max(startWidth + delta, minWidth), maxWidth));
+            if (!isVirtualized) header.style.width = `${width}px`;
+            else if (!frame) {
+                frame = requestAnimationFrame(() => {
+                    frame = 0;
+                    latestLayoutState.current?.updateResizedColumns(columnKey, width);
+                });
+            }
+        };
+        const handleEnd = () => {
+            handle.removeEventListener("pointermove", handleMove);
+            handle.removeEventListener("pointerup", handleEnd);
+            handle.removeEventListener("pointercancel", handleEnd);
+            cancelAnimationFrame(frame);
+            setIsResizing(false);
+            if (width !== startWidth) latestLayoutState.current?.updateResizedColumns(columnKey, width);
+        };
+
+        handle.addEventListener("pointermove", handleMove);
+        handle.addEventListener("pointerup", handleEnd);
+        handle.addEventListener("pointercancel", handleEnd);
+    };
+
+    return (
+        <>
+            <div
+                aria-hidden="true"
+                data-resizing={isResizing || undefined}
+                onPointerDown={handlePointerDown}
+                className={cx(
+                    // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the table.
+                    "absolute inset-y-0 -end-2 z-10 flex w-4 cursor-col-resize touch-none justify-center in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                    "in-[[role=presentation]:last-child>[role=columnheader]]:end-0 in-[[role=presentation]:last-child>[role=columnheader]]:justify-end",
+                    "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
+                    "hover:after:w-0.5 hover:after:bg-fg-brand-primary data-resizing:after:w-0.5 data-resizing:after:bg-fg-brand-primary",
+                )}
+            />
+            <AriaColumnResizer
+                data-react-aria-prevent-focus={!isFocusable || undefined}
+                className={(resizerState) =>
+                    cx(
+                        "pointer-events-none absolute inset-y-0 -end-2 z-10 flex w-4 justify-center outline-hidden in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                        (resizerState.isResizing || resizerState.isFocusVisible) && "after:h-full after:w-0.5 after:bg-fg-brand-primary",
+                    )
+                }
+            />
+        </>
+    );
+};
+
 const TableFooter = <T extends object>({ className, ...props }: AriaTableFooterProps<T>) => {
     const isVirtualized = useIsVirtualized();
     const isSticky = useContext(TableStickyFooterContext);
@@ -760,6 +658,108 @@ const TableLoadMoreItem = ({ className, label = "Loading more...", children, ...
 };
 TableLoadMoreItem.displayName = "TableLoadMoreItem";
 
+interface TableVirtualizerLayoutOptions extends AriaTableLayoutProps {
+    /** The ids of the columns that stay visible while the table scrolls horizontally. */
+    stickyColumns?: Key[];
+    /** Whether the footer stays at the bottom of the table while it scrolls. */
+    stickyFooter?: boolean;
+}
+
+/** Whether a virtualized table keeps its footer at the bottom. `Table.Footer` then marks itself for the table's styles. */
+const TableStickyFooterContext = createContext(false);
+
+// React Aria's table layout with sticky columns: they're always rendered, and stick to the start of the table. The header,
+// body and footer don't clip their content, as a clipping parent would keep the sticky cells from sticking.
+class StickyTableLayout<T> extends AriaTableLayout<T, TableVirtualizerLayoutOptions> {
+    private stickyColumns = new Set<Key>();
+    private stickyFooter = false;
+
+    update(invalidationContext: Parameters<AriaTableLayout<T, TableVirtualizerLayoutOptions>["update"]>[0]) {
+        this.stickyColumns = new Set(invalidationContext.layoutOptions?.stickyColumns);
+        this.stickyFooter = invalidationContext.layoutOptions?.stickyFooter ?? false;
+        super.update(invalidationContext);
+    }
+
+    protected isStickyColumn(node: { type: string; key: Key; index: number; colIndex?: number | null }) {
+        const key = node.type === "column" ? node.key : this.collection.columns[node.colIndex ?? node.index]?.key;
+        return key != null && this.stickyColumns.has(key);
+    }
+
+    protected buildCollection() {
+        const nodes = super.buildCollection();
+        for (const node of nodes) {
+            node.layoutInfo.allowOverflow = true;
+            // A sticky footer is laid out in the flow, so the table's styles can move it to the bottom of the view.
+            if (this.stickyFooter && node.node?.type === "tablefooter") {
+                node.layoutInfo.isSticky = true;
+                node.layoutInfo.zIndex = 1;
+            }
+        }
+        return nodes;
+    }
+
+    // React Aria only lays out the rows near the area in view. A sticky footer is always in view, so all its rows are laid out.
+    protected buildRowGroup(...args: Parameters<AriaTableLayout<T>["buildRowGroup"]>) {
+        if (!this.stickyFooter || args[1].type !== "tablefooter") return super.buildRowGroup(...args);
+
+        const requestedRect = this.requestedRect;
+        const fullHeight = requestedRect.copy();
+        fullHeight.y = 0;
+        fullHeight.height = Number.MAX_SAFE_INTEGER;
+        this.requestedRect = fullHeight;
+        try {
+            return super.buildRowGroup(...args);
+        } finally {
+            this.requestedRect = requestedRect;
+        }
+    }
+
+    // React Aria lays out a row's cells up to the edge of the area in view, and finds sticky cells by their column index among
+    // them, so a column stuck to the right edge would never be found. Rows then lay out all their cells; only the cells in
+    // view and the sticky ones are rendered.
+    protected buildRow(...args: Parameters<AriaTableLayout<T>["buildRow"]>) {
+        const lastColumn = this.collection.columns[this.collection.columns.length - 1];
+        if (!lastColumn || !this.stickyColumns.has(lastColumn.key)) return super.buildRow(...args);
+
+        const requestedRect = this.requestedRect;
+        const fullWidth = requestedRect.copy();
+        fullWidth.width = Number.MAX_SAFE_INTEGER;
+        this.requestedRect = fullWidth;
+        try {
+            return super.buildRow(...args);
+        } finally {
+            this.requestedRect = requestedRect;
+        }
+    }
+}
+
+interface TableVirtualizerProps {
+    children: ReactNode;
+    /** The height of each row, in pixels. */
+    rowHeight: number;
+    /** The height of the header, in pixels. */
+    headingHeight: number;
+    /** The ids of the columns that stay visible while the table scrolls horizontally. They must come first. */
+    stickyColumns?: Key[];
+    /** Whether the footer stays at the bottom of the table while it scrolls. */
+    stickyFooter?: boolean;
+}
+
+/**
+ * Renders only the rows and columns in view, so large tables stay fast. The table's parts become `div`s that React Aria
+ * positions, and the table scrolls itself, so give `Table` a height and `overflow-auto`.
+ */
+const TableVirtualizer = ({ children, rowHeight, headingHeight, stickyColumns, stickyFooter = false }: TableVirtualizerProps) => {
+    const layoutOptions: TableVirtualizerLayoutOptions = { rowHeight, headingHeight, stickyColumns, stickyFooter };
+
+    return (
+        <AriaVirtualizer layout={StickyTableLayout} layoutOptions={layoutOptions}>
+            <TableStickyFooterContext.Provider value={stickyFooter}>{children}</TableStickyFooterContext.Provider>
+        </AriaVirtualizer>
+    );
+};
+TableVirtualizer.displayName = "TableVirtualizer";
+
 const TableCard = {
     Root: TableCardRoot,
     Header: TableCardHeader,
@@ -768,24 +768,24 @@ const TableCard = {
 const Table = TableRoot as typeof TableRoot & {
     Body: typeof AriaTableBody;
     Cell: typeof TableCell;
-    DropIndicator: typeof TableDropIndicator;
-    Footer: typeof TableFooter;
     Head: typeof TableHead;
     Header: typeof TableHeader;
-    LoadMoreItem: typeof TableLoadMoreItem;
-    ResizableContainer: typeof TableResizableContainer;
     Row: typeof TableRow;
+    ResizableContainer: typeof TableResizableContainer;
+    Footer: typeof TableFooter;
+    DropIndicator: typeof TableDropIndicator;
+    LoadMoreItem: typeof TableLoadMoreItem;
     Virtualizer: typeof TableVirtualizer;
 };
 Table.Body = AriaTableBody;
 Table.Cell = TableCell;
-Table.DropIndicator = TableDropIndicator;
-Table.Footer = TableFooter;
 Table.Head = TableHead;
 Table.Header = TableHeader;
-Table.LoadMoreItem = TableLoadMoreItem;
-Table.ResizableContainer = TableResizableContainer;
 Table.Row = TableRow;
+Table.ResizableContainer = TableResizableContainer;
+Table.Footer = TableFooter;
+Table.DropIndicator = TableDropIndicator;
+Table.LoadMoreItem = TableLoadMoreItem;
 Table.Virtualizer = TableVirtualizer;
 
 export { Table, TableCard };
