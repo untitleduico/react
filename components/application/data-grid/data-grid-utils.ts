@@ -480,7 +480,7 @@ export const groupRows = <T>(
     return [...groups.entries()]
         .sort(([a], [b]) => (direction === "ascending" ? 1 : -1) * collator.compare(a, b))
         .map(([label, groupRows]): DataGridGroup<T> => ({
-            id: `group:${label}`,
+            id: `group:${column.field}:${label}`,
             label,
             rows: groupRows,
             aggregates: aggregateRows(groupRows, aggregation, columns),

@@ -1,7 +1,7 @@
 "use client";
 
 import type { ComponentPropsWithRef, HTMLAttributes, PointerEvent, ReactNode, Ref, TdHTMLAttributes, ThHTMLAttributes } from "react";
-import { createContext, isValidElement, useContext, useLayoutEffect, useRef, useState } from "react";
+import { createContext, isValidElement, useContext, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, ChevronRight, ChevronSelectorVertical, Copy01, DotsGrid, Edit01, HelpCircle, Trash01 } from "@untitledui/icons";
 import type {
     CellProps as AriaCellProps,
@@ -183,8 +183,11 @@ const TableVirtualizer = ({ children, rowHeight, headingHeight, stickyColumns, s
 TableVirtualizer.displayName = "TableVirtualizer";
 
 const TableCardRoot = ({ children, className, size = "md", ...props }: HTMLAttributes<HTMLDivElement> & { size?: "sm" | "md" }) => {
+    // Every row and cell reads this context, also React Aria's copies of them, so a new value on each render would re-render them all.
+    const context = useMemo(() => ({ size }), [size]);
+
     return (
-        <TableContext.Provider value={{ size }}>
+        <TableContext.Provider value={context}>
             <div {...props} className={cx("overflow-hidden rounded-xl bg-primary shadow-xs ring-1 ring-secondary", className)}>
                 {children}
             </div>
@@ -246,6 +249,9 @@ const TableRoot = ({ className, size = "md", wrapperClassName, ...props }: Table
     const context = useContext(TableContext);
     const isResizable = useContext(TableResizableContext);
     const isVirtualized = useIsVirtualized();
+    // Every row and cell reads this context, also React Aria's copies of them, so a new value on each render would re-render them all.
+    const contextSize = context?.size ?? size;
+    const tableContext = useMemo(() => ({ size: contextSize }), [contextSize]);
 
     const table = (
         <AriaTable
@@ -264,7 +270,7 @@ const TableRoot = ({ className, size = "md", wrapperClassName, ...props }: Table
     );
 
     return (
-        <TableContext.Provider value={{ size: context?.size ?? size }}>
+        <TableContext.Provider value={tableContext}>
             {/* A resizable container already scrolls, so the table can't be wrapped in another scroll container. */}
             {isResizable || isVirtualized ? table : <div className={cx("overflow-x-auto", wrapperClassName)}>{table}</div>}
         </TableContext.Provider>

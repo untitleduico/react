@@ -911,7 +911,6 @@ export const DataGrid = <T extends object>({
     const [uncontrolledSelectedKeys, setUncontrolledSelectedKeys] = useState<Set<Key>>(new Set());
     const [groupingField, setGroupingField] = useState<string | null>(initialState?.rowGrouping ?? null);
     const [aggregation, setAggregation] = useState<Record<string, DataGridAggregationFunction>>(initialState?.aggregation ?? {});
-    const [expandedKeys, setExpandedKeys] = useState<Set<Key>>(new Set());
     const [edits, setEdits] = useState<Map<Key, { original: T; row: T }>>(new Map());
     const [editingStore] = useState(createEditingStore);
     const [openPanel, setOpenPanel] = useState<DataGridPanel | null>(null);
@@ -1172,7 +1171,6 @@ export const DataGrid = <T extends object>({
             }
             case "group":
                 setGroupingField(field);
-                setExpandedKeys(new Set());
                 setPage(0);
                 break;
             case "ungroup":
@@ -1354,8 +1352,6 @@ export const DataGrid = <T extends object>({
                                     sortDescriptor={sortDescriptor}
                                     onSortChange={handleSortChange}
                                     treeColumn={groupingColumn ? GROUP_FIELD : undefined}
-                                    expandedKeys={expandedKeys}
-                                    onExpandedChange={setExpandedKeys}
                                     className={
                                         virtualized
                                             ? cx("size-full overflow-auto", styles[density].scrollPadding, hasAggregationRow && "scroll-pb-(--footer-height)")
