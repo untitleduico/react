@@ -59,9 +59,6 @@ export const TableRowActionsDropdown = () => (
 
 const TableContext = createContext<{ size: "sm" | "md" }>({ size: "md" });
 
-/** Whether the table is rendered inside a `Table.ResizableContainer`, which then acts as the scroll container. */
-const TableResizableContext = createContext(false);
-
 const TableCardRoot = ({ children, className, size = "md", ...props }: HTMLAttributes<HTMLDivElement> & { size?: "sm" | "md" }) => {
     return (
         <TableContext.Provider value={{ size }}>
@@ -138,15 +135,6 @@ const TableRoot = ({ className, size = "md", wrapperClassName, ...props }: Table
     );
 };
 TableRoot.displayName = "Table";
-
-const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps) => {
-    return (
-        <TableResizableContext.Provider value={true}>
-            <AriaResizableTableContainer {...props} className={cx("relative w-full overflow-auto", className)} />
-        </TableResizableContext.Provider>
-    );
-};
-TableResizableContainer.displayName = "TableResizableContainer";
 
 interface TableHeaderProps<T extends object>
     extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
@@ -388,6 +376,18 @@ const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellP
 };
 TableCell.displayName = "TableCell";
 
+/** Whether the table is rendered inside a `Table.ResizableContainer`, which then acts as the scroll container. */
+const TableResizableContext = createContext(false);
+
+const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps) => {
+    return (
+        <TableResizableContext.Provider value={true}>
+            <AriaResizableTableContainer {...props} className={cx("relative w-full overflow-auto", className)} />
+        </TableResizableContext.Provider>
+    );
+};
+TableResizableContainer.displayName = "TableResizableContainer";
+
 const TableFooter = <T extends object>({ className, ...props }: AriaTableFooterProps<T>) => {
     return <AriaTableFooter {...props} className={cx("border-t border-secondary bg-secondary [&>tr]:hover:bg-transparent", className)} />;
 };
@@ -444,22 +444,22 @@ const TableCard = {
 const Table = TableRoot as typeof TableRoot & {
     Body: typeof AriaTableBody;
     Cell: typeof TableCell;
-    DropIndicator: typeof TableDropIndicator;
-    Footer: typeof TableFooter;
     Head: typeof TableHead;
     Header: typeof TableHeader;
-    LoadMoreItem: typeof TableLoadMoreItem;
-    ResizableContainer: typeof TableResizableContainer;
     Row: typeof TableRow;
+    ResizableContainer: typeof TableResizableContainer;
+    Footer: typeof TableFooter;
+    DropIndicator: typeof TableDropIndicator;
+    LoadMoreItem: typeof TableLoadMoreItem;
 };
 Table.Body = AriaTableBody;
 Table.Cell = TableCell;
-Table.DropIndicator = TableDropIndicator;
-Table.Footer = TableFooter;
 Table.Head = TableHead;
 Table.Header = TableHeader;
-Table.LoadMoreItem = TableLoadMoreItem;
-Table.ResizableContainer = TableResizableContainer;
 Table.Row = TableRow;
+Table.ResizableContainer = TableResizableContainer;
+Table.Footer = TableFooter;
+Table.DropIndicator = TableDropIndicator;
+Table.LoadMoreItem = TableLoadMoreItem;
 
 export { Table, TableCard };
