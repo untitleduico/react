@@ -1,7 +1,7 @@
 "use client";
 
-import type { ComponentPropsWithRef, HTMLAttributes, ReactNode, Ref, TdHTMLAttributes, ThHTMLAttributes } from "react";
-import { createContext, isValidElement, useContext, useRef } from "react";
+import type { ComponentPropsWithRef, HTMLAttributes, PointerEvent, ReactNode, Ref, TdHTMLAttributes, ThHTMLAttributes } from "react";
+import { createContext, isValidElement, useContext, useLayoutEffect, useRef, useState } from "react";
 import { ArrowDown, ChevronRight, ChevronSelectorVertical, Copy01, DotsGrid, Edit01, HelpCircle, Trash01 } from "@untitledui/icons";
 import type {
     CellProps as AriaCellProps,
@@ -13,6 +13,8 @@ import type {
     TableHeaderProps as AriaTableHeaderProps,
     TableLoadMoreItemProps as AriaTableLoadMoreItemProps,
     TableProps as AriaTableProps,
+    ColumnRenderProps,
+    Key,
 } from "react-aria-components";
 import {
     Button as AriaButton,
@@ -26,9 +28,11 @@ import {
     Row as AriaRow,
     Table as AriaTable,
     TableBody as AriaTableBody,
+    TableColumnResizeStateContext as AriaTableColumnResizeStateContext,
     TableFooter as AriaTableFooter,
     TableHeader as AriaTableHeader,
     TableLoadMoreItem as AriaTableLoadMoreItem,
+    useLocale,
     useTableOptions,
 } from "react-aria-components";
 import { Badge } from "@/components/base/badges/badges";
@@ -58,6 +62,13 @@ export const TableRowActionsDropdown = () => (
 );
 
 const TableContext = createContext<{ size: "sm" | "md" }>({ size: "md" });
+
+/**
+ * Joins a part's own classes with its `className` prop, which React Aria allows to be a function of the render state. A string
+ * keeps the result static, so React Aria's re-renders on focus and selection changes don't rebuild it for every cell.
+ */
+const withClassName = <T,>(base: string, className: string | ((state: T) => string) | undefined) =>
+    typeof className === "function" ? (state: T) => cx(base, className(state)) : cx(base, className);
 
 /** Whether the table is rendered inside a `Table.ResizableContainer`, which then acts as the scroll container. */
 const TableResizableContext = createContext(false);
@@ -139,7 +150,7 @@ const TableRoot = ({ className, size = "md", wrapperClassName, ...props }: Table
 };
 TableRoot.displayName = "Table";
 
-const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps) => {
+const TableResizableContainer = ({ className, ...props }: AriaResizableTableContainerProps & { ref?: Ref<HTMLDivElement> }) => {
     return (
         <TableResizableContext.Provider value={true}>
             <AriaResizableTableContainer {...props} className={cx("relative w-full overflow-auto", className)} />
@@ -152,9 +163,20 @@ interface TableHeaderProps<T extends object>
     extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
     bordered?: boolean;
     size?: "sm" | "md";
+    /** Props of the checkbox column the header adds when rows are selected with checkboxes, such as a width or a sticky position. */
+    selectionColumnProps?: Omit<AriaColumnProps, "children" | "className"> & { className?: string };
 }
 
-const TableHeader = <T extends object>({ columns, children, bordered = true, className, size: sizeProp, ...props }: TableHeaderProps<T>) => {
+const TableHeader = <T extends object>({
+    columns,
+    children,
+    bordered = true,
+    className,
+    size: sizeProp,
+    selectionColumnProps,
+    dependencies,
+    ...props
+}: TableHeaderProps<T>) => {
     const context = useContext(TableContext);
     const { selectionBehavior, selectionMode, allowsDragging } = useTableOptions();
 
@@ -178,7 +200,10 @@ const TableHeader = <T extends object>({ columns, children, bordered = true, cla
         >
             {allowsDragging && <AriaColumn className={cx("relative w-0 py-2 pr-0 pl-4", size === "sm" ? "md:pl-5" : "md:pl-6")} />}
             {selectionBehavior === "toggle" && (
-                <AriaColumn className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6")}>
+                <AriaColumn
+                    {...selectionColumnProps}
+                    className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6", selectionColumnProps?.className)}
+                >
                     {selectionMode === "multiple" && (
                         <div className="flex items-start">
                             <Checkbox slot="selection" size="md" />
@@ -186,37 +211,150 @@ const TableHeader = <T extends object>({ columns, children, bordered = true, cla
                     )}
                 </AriaColumn>
             )}
-            <AriaCollection items={columns}>{children}</AriaCollection>
+            <AriaCollection items={columns} dependencies={dependencies}>
+                {children}
+            </AriaCollection>
         </AriaTableHeader>
     );
 };
 
 TableHeader.displayName = "TableHeader";
 
-interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
-    label?: string;
-    tooltip?: string;
-    /** Whether the column can be resized. Requires the table to be wrapped in a `Table.ResizableContainer`. */
-    allowsResizing?: boolean;
+interface TableColumnResizerProps {
+    /** The id of the column. */
+    columnKey: Key;
+    /** Whether arrow keys can focus the divider to resize with the keyboard. */
+    isFocusable: boolean;
 }
 
-const TableHead = ({ className, tooltip, label, children, allowsResizing, ...props }: TableHeadProps) => {
+// Dragging the divider resizes the column in the DOM, and React Aria gets the new width once, on release. React Aria's own
+// resizer re-renders every row on each pointer move, which lags on larger tables. It still handles keyboard resizing.
+const TableColumnResizer = ({ columnKey, isFocusable }: TableColumnResizerProps) => {
+    const layoutState = useContext(AriaTableColumnResizeStateContext);
+    const latestLayoutState = useRef(layoutState);
+    useLayoutEffect(() => {
+        latestLayoutState.current = layoutState;
+    });
+    const { direction } = useLocale();
+    const [isResizing, setIsResizing] = useState(false);
+
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+        const handle = event.currentTarget;
+        const header = handle.closest("th");
+        const state = latestLayoutState.current;
+        if (event.button !== 0 || !header || !state) return;
+        // Keeps the header from sorting, and the text from being selected.
+        event.preventDefault();
+        event.stopPropagation();
+
+        handle.setPointerCapture(event.pointerId);
+        const minWidth = state.getColumnMinWidth(columnKey);
+        const maxWidth = state.getColumnMaxWidth(columnKey);
+        const startX = event.clientX;
+        const startWidth = header.getBoundingClientRect().width;
+        let width = startWidth;
+        setIsResizing(true);
+
+        const handleMove = (moveEvent: globalThis.PointerEvent) => {
+            const delta = (moveEvent.clientX - startX) * (direction === "rtl" ? -1 : 1);
+            width = Math.round(Math.min(Math.max(startWidth + delta, minWidth), maxWidth));
+            header.style.width = `${width}px`;
+        };
+        const handleEnd = () => {
+            handle.removeEventListener("pointermove", handleMove);
+            handle.removeEventListener("pointerup", handleEnd);
+            handle.removeEventListener("pointercancel", handleEnd);
+            setIsResizing(false);
+            if (width !== startWidth) latestLayoutState.current?.updateResizedColumns(columnKey, width);
+        };
+
+        handle.addEventListener("pointermove", handleMove);
+        handle.addEventListener("pointerup", handleEnd);
+        handle.addEventListener("pointercancel", handleEnd);
+    };
+
+    return (
+        <>
+            <div
+                aria-hidden="true"
+                data-resizing={isResizing || undefined}
+                onPointerDown={handlePointerDown}
+                className={cx(
+                    // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the table.
+                    "absolute inset-y-0 -end-2 z-10 flex w-4 cursor-col-resize touch-none justify-center in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                    "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
+                    "hover:after:w-0.5 hover:after:bg-fg-brand-primary data-resizing:after:w-0.5 data-resizing:after:bg-fg-brand-primary",
+                )}
+            />
+            <AriaColumnResizer
+                data-react-aria-prevent-focus={!isFocusable || undefined}
+                className={(resizerState) =>
+                    cx(
+                        "pointer-events-none absolute inset-y-0 -end-2 z-10 flex w-4 justify-center outline-hidden in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                        (resizerState.isResizing || resizerState.isFocusVisible) && "after:h-full after:w-0.5 after:bg-fg-brand-primary",
+                    )
+                }
+            />
+        </>
+    );
+};
+
+interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
+    ref?: Ref<HTMLTableCellElement>;
+    label?: string;
+    tooltip?: string;
+    /** Whether the column can be resized. Requires the table to be wrapped in a `Table.ResizableContainer`, and an `id`. */
+    allowsResizing?: boolean;
+    /**
+     * The alignment of the header content, such as "right" for number columns.
+     * @default "left"
+     */
+    align?: "left" | "center" | "right";
+    /** Content at the end of the header, after the sort indicator, such as a column menu. */
+    contentTrailing?: ReactNode | ((state: ColumnRenderProps) => ReactNode);
+    /**
+     * Whether arrow keys can focus the resize divider, which then resizes with the arrow keys. Turn it off when something
+     * else starts keyboard resizing, such as a column menu calling `startResize`, so arrow keys focus the header itself.
+     * @default true
+     */
+    isResizerFocusable?: boolean;
+}
+
+const TableHead = ({
+    className,
+    tooltip,
+    label,
+    children,
+    allowsResizing,
+    align = "left",
+    contentTrailing,
+    isResizerFocusable = true,
+    ...props
+}: TableHeadProps) => {
     const { selectionBehavior, allowsDragging } = useTableOptions();
 
     return (
         <AriaColumn
             {...props}
-            className={(state) =>
+            className={withClassName(
                 cx(
                     "relative p-0 px-6 py-2 outline-hidden focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary focus-visible:ring-inset",
                     selectionBehavior === "toggle" && (allowsDragging ? "nth-3:pl-3" : "nth-2:pl-3"),
-                    state.allowsSorting && "cursor-pointer",
-                    typeof className === "function" ? className(state) : className,
-                )
-            }
+                    "allows-sorting:cursor-pointer",
+                ),
+                className,
+            )}
         >
             {(state) => (
-                <AriaGroup className={cx("flex items-center gap-1", allowsResizing && "min-w-0")}>
+                <AriaGroup
+                    className={cx(
+                        "flex items-center gap-1",
+                        allowsResizing && "min-w-0",
+                        (contentTrailing || align !== "left") && "w-full",
+                        align === "center" && "justify-center",
+                        align === "right" && "justify-end",
+                    )}
+                >
                     <div className={cx("flex items-center gap-1", allowsResizing && "min-w-0")}>
                         {label && <span className={cx("text-xs font-semibold whitespace-nowrap text-quaternary", allowsResizing && "truncate")}>{label}</span>}
                         {typeof children === "function" ? children(state) : children}
@@ -237,19 +375,13 @@ const TableHead = ({ className, tooltip, label, children, allowsResizing, ...pro
                             <ChevronSelectorVertical size={12} strokeWidth={3} className="shrink-0 text-fg-quaternary" />
                         ))}
 
-                    {allowsResizing && (
-                        <AriaColumnResizer
-                            className={(resizerState) =>
-                                cx(
-                                    // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the table.
-                                    "absolute inset-y-0 -right-2 z-10 box-border flex w-4 cursor-col-resize touch-none justify-center overflow-hidden outline-hidden in-[th:last-child]:right-0 in-[th:last-child]:justify-end",
-                                    "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
-                                    (resizerState.isHovered || resizerState.isResizing || resizerState.isFocusVisible) &&
-                                        "after:w-0.5 after:bg-fg-brand-primary",
-                                )
-                            }
-                        />
+                    {contentTrailing && (
+                        <div className={cx("flex shrink-0 items-center", align === "left" && "ms-auto")}>
+                            {typeof contentTrailing === "function" ? contentTrailing(state) : contentTrailing}
+                        </div>
                     )}
+
+                    {allowsResizing && props.id !== undefined && <TableColumnResizer columnKey={props.id} isFocusable={isResizerFocusable} />}
                 </AriaGroup>
             )}
         </AriaColumn>
@@ -261,9 +393,20 @@ interface TableRowProps<T extends object>
     extends AriaRowProps<T>, Omit<ComponentPropsWithRef<"tr">, "children" | "className" | "onClick" | "slot" | "style" | "id"> {
     highlightSelectedRow?: boolean;
     size?: "sm" | "md";
+    /** Props of the checkbox cell the row adds when rows are selected with checkboxes, such as a sticky position. `children` replaces the checkbox. */
+    selectionCellProps?: Omit<AriaCellProps, "className"> & { className?: string };
 }
 
-const TableRow = <T extends object>({ columns, children, className, highlightSelectedRow = true, size: sizeProp, ...props }: TableRowProps<T>) => {
+const TableRow = <T extends object>({
+    columns,
+    children,
+    className,
+    highlightSelectedRow = true,
+    size: sizeProp,
+    selectionCellProps,
+    dependencies,
+    ...props
+}: TableRowProps<T>) => {
     const context = useContext(TableContext);
     const { selectionBehavior, allowsDragging } = useTableOptions();
     const isDragHandlePressed = useRef(false);
@@ -273,7 +416,7 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
     return (
         <AriaRow
             {...props}
-            className={(state) =>
+            className={withClassName(
                 cx(
                     "relative outline-focus-ring transition-colors after:pointer-events-none hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2",
                     size === "sm" ? "h-14" : "h-18",
@@ -283,10 +426,9 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
                     // Row border—using an "after" pseudo-element to avoid the border taking up space. It's hidden on the last row unless the
                     // loading row (also `role="row"`) follows it. `:last-child` won't do, as `Table.LoadMoreItem` always adds a hidden row.
                     "[&:not(:has(~[role=row]))>td]:after:hidden [&>td]:after:absolute [&>td]:after:inset-x-0 [&>td]:after:bottom-0 [&>td]:after:h-px [&>td]:after:w-full [&>td]:after:bg-border-secondary [&>td]:focus-visible:after:opacity-0 focus-visible:[&>td]:after:opacity-0",
-
-                    typeof className === "function" ? className(state) : className,
-                )
-            }
+                ),
+                className,
+            )}
         >
             {allowsDragging && (
                 <AriaCell className="relative h-px p-0">
@@ -315,13 +457,22 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
                 </AriaCell>
             )}
             {selectionBehavior === "toggle" && (
-                <AriaCell className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "md:pl-5" : "md:pl-6")}>
-                    <div className="flex items-end">
-                        <Checkbox slot="selection" size="md" />
-                    </div>
+                <AriaCell
+                    {...selectionCellProps}
+                    className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "md:pl-5" : "md:pl-6", selectionCellProps?.className)}
+                >
+                    {selectionCellProps?.children !== undefined ? (
+                        selectionCellProps.children
+                    ) : (
+                        <div className="flex items-end">
+                            <Checkbox slot="selection" size="md" />
+                        </div>
+                    )}
                 </AriaCell>
             )}
-            <AriaCollection items={columns}>{children}</AriaCollection>
+            <AriaCollection items={columns} dependencies={dependencies}>
+                {children}
+            </AriaCollection>
         </AriaRow>
     );
 };
@@ -342,18 +493,17 @@ const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellP
     return (
         <AriaCell
             {...props}
-            className={(state) =>
+            className={withClassName(
                 cx(
                     "relative text-sm text-tertiary outline-focus-ring focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-2",
                     size === "sm" && "px-5 py-3",
                     size === "md" && "px-6 py-4",
 
                     selectionBehavior === "toggle" && (allowsDragging ? "nth-3:pl-3" : "nth-2:pl-3"),
-                    state.isDisabled && "opacity-50",
-
-                    typeof className === "function" ? className(state) : className,
-                )
-            }
+                    "disabled:opacity-50",
+                ),
+                className,
+            )}
         >
             {(state) => {
                 const content = typeof children === "function" ? children(state) : children;
