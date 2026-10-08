@@ -14,7 +14,6 @@ import {
     DotsVertical,
     EyeOff,
     FilterLines,
-    HelpCircle,
     LayersThree01,
     Pin01,
     Pin02,
@@ -24,22 +23,8 @@ import {
 } from "@untitledui/icons";
 import { useCollator, useIsSSR } from "react-aria";
 import type { Key, Selection, SortDescriptor } from "react-aria-components";
-import {
-    Button as AriaButton,
-    Cell as AriaCell,
-    Collection as AriaCollection,
-    Column as AriaColumn,
-    ColumnResizer as AriaColumnResizer,
-    ResizableTableContainer as AriaResizableTableContainer,
-    Row as AriaRow,
-    SubmenuTrigger as AriaSubmenuTrigger,
-    Table as AriaTable,
-    TableBody as AriaTableBody,
-    TableColumnResizeStateContext as AriaTableColumnResizeStateContext,
-    TableFooter as AriaTableFooter,
-    TableHeader as AriaTableHeader,
-    useLocale,
-} from "react-aria-components";
+import { Button as AriaButton, Collection as AriaCollection, SubmenuTrigger as AriaSubmenuTrigger, useLocale } from "react-aria-components";
+import { Table } from "@/components/application/table/table";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { Dropdown } from "@/components/base/dropdown/dropdown";
@@ -90,10 +75,10 @@ const SELECTION_WIDTH = 48;
 const GROUP_WIDTH = 220;
 
 const styles = {
-    compact: { row: "h-9", header: "h-9", padding: "px-3" },
-    standard: { row: "h-13", header: "h-11", padding: "px-4" },
-    comfortable: { row: "h-16", header: "h-13", padding: "px-5" },
-} satisfies Record<DataGridDensity, { row: string; header: string; padding: string }>;
+    compact: { row: "h-9", header: "h-9", padding: "px-3", rowHeight: 36, headerHeight: 36, scrollPadding: "scroll-pt-9" },
+    standard: { row: "h-13", header: "h-11", padding: "px-4", rowHeight: 52, headerHeight: 44, scrollPadding: "scroll-pt-11" },
+    comfortable: { row: "h-16", header: "h-13", padding: "px-5", rowHeight: 64, headerHeight: 52, scrollPadding: "scroll-pt-13" },
+} satisfies Record<DataGridDensity, { row: string; header: string; padding: string; rowHeight: number; headerHeight: number; scrollPadding: string }>;
 
 const alignments = {
     left: { text: "text-left", flex: "justify-start" },
@@ -120,6 +105,8 @@ const isGroupItem = (item: object): item is GroupItem => GROUP_ROW in item;
 
 interface PinnedPosition {
     side: "left" | "right";
+    /** The position among the pinned columns of its side, from the edge inwards. */
+    index: number;
     /** The CSS variable with the distance from the edge of the scroll container, measured from the pinned columns before it. */
     variable: string;
     /** The distance from the edge before it's measured, from the column widths, in pixels. */
@@ -132,8 +119,8 @@ interface EditingCell {
     rowId: Key;
     column: AnyColumn;
     row: object;
-    /** The <td> of the cell. The editor is rendered inside it. */
-    element: HTMLTableCellElement;
+    /** The element of the cell. The editor is rendered inside it. */
+    element: HTMLElement;
     /** The text that starts the edit, such as the key the user typed. */
     initialText?: string;
 }
@@ -215,6 +202,12 @@ export interface DataGridProps<T extends object> {
      */
     pagination?: boolean;
     /**
+     * Whether to render only the rows and columns in view, so pages of any size stay fast. Turn off `pagination` to scroll
+     * through every row. The grid needs a height, such as `className="h-130"`.
+     * @default false
+     */
+    virtualized?: boolean;
+    /**
      * The options of the rows per page select.
      * @default [25, 50, 100]
      */
@@ -253,6 +246,7 @@ interface DataGridContextValue {
     pinned: Map<string, PinnedPosition>;
     aggregation: Record<string, DataGridAggregationFunction>;
     disableRowSelectionOnClick: boolean;
+    virtualized: boolean;
     editingStore: EditingStore;
     actions: DataGridActions;
 }
@@ -290,6 +284,32 @@ const getAlign = (column: AnyColumn): Align => column.align ?? (column.type === 
 
 const getPinnedStyle = (position: PinnedPosition | undefined): CSSProperties | undefined =>
     position ? { position: "sticky", [position.side]: `var(${position.variable}, ${position.offset}px)` } : undefined;
+
+// When virtualized, React Aria positions the cells, so pinned cells are marked with data attributes instead of styles.
+const getPinnedProps = (position: PinnedPosition | undefined, virtualized: boolean) => ({
+    style: virtualized ? undefined : getPinnedStyle(position),
+    "data-pinned": position?.side,
+    "data-pinned-index": position?.index,
+    "data-pinned-edge": position?.isEdge || undefined,
+});
+
+// React Aria's layout only sticks columns to the left. In a virtualized grid, these rules move the boxes of right-pinned
+// cells to the right edge: after the left-pinned boxes in the row's flex layout, and stuck at their offset from the edge.
+const rightPinnedBoxClassName = [
+    "[&>[role=presentation]:has(>[data-pinned=right])]:left-auto!",
+    "[&>[role=presentation]:has(>[data-pinned=right][data-pinned-edge])]:ms-auto",
+    "[&>[role=presentation]:has(>[data-pinned=right][data-pinned-index='0'])]:right-(--pinned-right-0)!",
+    "[&>[role=presentation]:has(>[data-pinned=right][data-pinned-index='1'])]:right-(--pinned-right-1)!",
+    "[&>[role=presentation]:has(>[data-pinned=right][data-pinned-index='2'])]:right-(--pinned-right-2)!",
+].join(" ");
+const rightPinnedHeaderBoxClassName = [
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right])]:left-auto!",
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right])]:z-50!",
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right][data-pinned-edge])]:ms-auto",
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right][data-pinned-index='0'])]:right-(--pinned-right-0)!",
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right][data-pinned-index='1'])]:right-(--pinned-right-1)!",
+    "[&>[role=row]>[role=presentation]:has(>[data-pinned=right][data-pinned-index='2'])]:right-(--pinned-right-2)!",
+].join(" ");
 
 const pinnedEdgeClassName = (position: PinnedPosition | undefined) =>
     position?.isEdge && (position.side === "left" ? "shadow-[inset_-1px_0_0_0] shadow-border-secondary" : "shadow-[inset_1px_0_0_0] shadow-border-secondary");
@@ -425,70 +445,6 @@ const ColumnMenu = ({ column, label, startResize }: ColumnMenuProps) => {
     );
 };
 
-interface ColumnResizeHandleProps {
-    field: string;
-    minWidth: number;
-    maxWidth?: number;
-}
-
-// Dragging a column divider resizes the column in the DOM, and React Aria gets the new width once, on release. React Aria's
-// own resizer re-renders every row on each pointer move, which lags on larger pages. It still handles keyboard resizing.
-const ColumnResizeHandle = ({ field, minWidth, maxWidth }: ColumnResizeHandleProps) => {
-    const layoutState = useContext(AriaTableColumnResizeStateContext);
-    const latestLayoutState = useRef(layoutState);
-    useLayoutEffect(() => {
-        latestLayoutState.current = layoutState;
-    });
-    const { direction } = useLocale();
-    const [isResizing, setIsResizing] = useState(false);
-
-    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-        const handle = event.currentTarget;
-        const header = handle.closest("th");
-        if (event.button !== 0 || !header) return;
-        // Keeps the header from sorting, and the text from being selected.
-        event.preventDefault();
-        event.stopPropagation();
-
-        handle.setPointerCapture(event.pointerId);
-        const startX = event.clientX;
-        const startWidth = header.getBoundingClientRect().width;
-        let width = startWidth;
-        setIsResizing(true);
-
-        const handleMove = (moveEvent: globalThis.PointerEvent) => {
-            const delta = (moveEvent.clientX - startX) * (direction === "rtl" ? -1 : 1);
-            width = Math.round(Math.min(Math.max(startWidth + delta, minWidth), maxWidth ?? Infinity));
-            header.style.width = `${width}px`;
-        };
-        const handleEnd = () => {
-            handle.removeEventListener("pointermove", handleMove);
-            handle.removeEventListener("pointerup", handleEnd);
-            handle.removeEventListener("pointercancel", handleEnd);
-            setIsResizing(false);
-            if (width !== startWidth) latestLayoutState.current?.updateResizedColumns(field, width);
-        };
-
-        handle.addEventListener("pointermove", handleMove);
-        handle.addEventListener("pointerup", handleEnd);
-        handle.addEventListener("pointercancel", handleEnd);
-    };
-
-    return (
-        <div
-            aria-hidden="true"
-            data-resizing={isResizing || undefined}
-            onPointerDown={handlePointerDown}
-            className={cx(
-                // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the grid.
-                "absolute inset-y-0 -end-2 z-10 flex w-4 cursor-col-resize touch-none justify-center in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
-                "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
-                "hover:after:w-0.5 hover:after:bg-fg-brand-primary data-resizing:after:w-0.5 data-resizing:after:bg-fg-brand-primary",
-            )}
-        />
-    );
-};
-
 interface ColumnHeaderProps {
     /** The id React Aria passes to items of a collection. */
     id?: Key;
@@ -498,7 +454,7 @@ interface ColumnHeaderProps {
 }
 
 const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) => {
-    const { density, pinned: pinnedColumns, aggregation: aggregationModel, actions } = useDataGrid();
+    const { density, pinned: pinnedColumns, aggregation: aggregationModel, virtualized, actions } = useDataGrid();
     const header = useDataGridHeader();
     const label = column.headerName ?? column.field;
     const align = getAlign(column);
@@ -532,7 +488,7 @@ const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) 
     );
 
     return (
-        <AriaColumn
+        <Table.Head
             id={column.field}
             data-field={column.field}
             textValue={label}
@@ -541,93 +497,43 @@ const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) 
             defaultWidth={defaultWidth}
             minWidth={column.minWidth ?? MIN_WIDTH}
             maxWidth={column.maxWidth}
-            style={getPinnedStyle(pinned)}
+            {...getPinnedProps(pinned, virtualized)}
             ref={attachKeyboardShortcuts}
             aria-keyshortcuts={hasMenu ? "Control+Enter Alt+ArrowDown" : undefined}
+            align={align}
+            tooltip={column.description}
+            allowsResizing={column.resizable !== false}
+            // Arrow keys focus the header itself, like MUI's. The column menu starts keyboard resizing.
+            isResizerFocusable={false}
+            contentTrailing={hasMenu ? (state) => <ColumnMenu column={column} label={label} startResize={state.startResize} /> : undefined}
             className={cx(
-                "group/column relative bg-secondary p-0 text-left outline-hidden",
-                "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border-secondary",
-                "focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-inset",
+                "group/column bg-secondary py-0",
                 styles[density].header,
-                allowsSorting && "cursor-pointer",
+                styles[density].padding,
                 // Pinned headers sit above the column dividers (z-10) of the headers that scroll under them.
                 pinned ? "z-20" : "focus-visible:z-1",
                 pinnedEdgeClassName(pinned),
             )}
         >
-            {(state) => (
-                <div className={cx("flex h-full min-w-0 items-center gap-1", styles[density].padding, align === "right" && "flex-row-reverse")}>
-                    {/* Right-aligned headers are mirrored like MUI's: the sort icon comes before the name. In a reversed row,
-                    "justify-start" packs the content to the right. */}
-                    <div
-                        className={cx("flex min-w-0 flex-1 items-center gap-1", align === "right" ? "flex-row-reverse justify-start" : alignments[align].flex)}
+            <span className={cx("flex min-w-0 flex-col", align === "right" && "items-end")}>
+                <span className="truncate text-xs font-semibold text-quaternary">{label}</span>
+                {/* Like MUI, an aggregated column shows its function under the name. */}
+                {aggregation && (
+                    <span className="truncate text-xs leading-4 font-normal text-quaternary">{aggregationFunctions[aggregation].label.toLowerCase()}</span>
+                )}
+            </span>
+
+            {filterCount > 0 && (
+                <Tooltip title={filterCount === 1 ? "1 active filter" : `${filterCount} active filters`} placement="top">
+                    <TooltipTrigger
+                        onPress={header.showToolbar ? actions.openFilterPanel : undefined}
+                        className="flex shrink-0 cursor-pointer rounded-xs text-fg-brand-secondary outline-focus-ring focus-visible:outline-2"
                     >
-                        <span className={cx("flex min-w-0 flex-col", align === "right" && "items-end")}>
-                            <span className="truncate text-xs font-semibold text-quaternary">{label}</span>
-                            {/* Like MUI, an aggregated column shows its function under the name. */}
-                            {aggregation && (
-                                <span className="truncate text-xs leading-4 font-normal text-quaternary">
-                                    {aggregationFunctions[aggregation].label.toLowerCase()}
-                                </span>
-                            )}
-                        </span>
-
-                        {filterCount > 0 && (
-                            <Tooltip title={filterCount === 1 ? "1 active filter" : `${filterCount} active filters`} placement="top">
-                                <TooltipTrigger
-                                    onPress={header.showToolbar ? actions.openFilterPanel : undefined}
-                                    className="flex shrink-0 cursor-pointer rounded-xs text-fg-brand-secondary outline-focus-ring focus-visible:outline-2"
-                                >
-                                    <FilterLines className="size-3.5 stroke-[2.5px]" />
-                                </TooltipTrigger>
-                            </Tooltip>
-                        )}
-
-                        {column.description && (
-                            <Tooltip title={column.description} placement="top">
-                                <TooltipTrigger className="flex shrink-0 cursor-pointer text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover">
-                                    <HelpCircle className="size-4" />
-                                </TooltipTrigger>
-                            </Tooltip>
-                        )}
-
-                        {allowsSorting &&
-                            (state.sortDirection ? (
-                                state.sortDirection === "ascending" ? (
-                                    <ArrowUp className="size-3.5 shrink-0 stroke-[2.5px] text-fg-quaternary" aria-hidden="true" />
-                                ) : (
-                                    <ArrowDown className="size-3.5 shrink-0 stroke-[2.5px] text-fg-quaternary" aria-hidden="true" />
-                                )
-                            ) : (
-                                // A faded arrow hints at sorting when hovering an unsorted column.
-                                <ArrowUp
-                                    className="hidden size-3.5 shrink-0 stroke-[2.5px] text-fg-quaternary opacity-50 group-hover/column:block"
-                                    aria-hidden="true"
-                                />
-                            ))}
-                    </div>
-
-                    {hasMenu && <ColumnMenu column={column} label={label} startResize={state.startResize} />}
-
-                    {column.resizable !== false && (
-                        <>
-                            <ColumnResizeHandle field={column.field} minWidth={column.minWidth ?? MIN_WIDTH} maxWidth={column.maxWidth} />
-                            <AriaColumnResizer
-                                // Arrow keys focus the header itself, not this divider. The column menu starts keyboard resizing, which
-                                // this resizer handles, and dragging goes through the handle above.
-                                data-react-aria-prevent-focus
-                                className={(resizer) =>
-                                    cx(
-                                        "pointer-events-none absolute inset-y-0 -end-2 z-10 flex w-4 justify-center outline-hidden in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
-                                        (resizer.isResizing || resizer.isFocusVisible) && "after:h-full after:w-0.5 after:bg-fg-brand-primary",
-                                    )
-                                }
-                            />
-                        </>
-                    )}
-                </div>
+                        <FilterLines className="size-3.5 stroke-[2.5px]" />
+                    </TooltipTrigger>
+                </Tooltip>
             )}
-        </AriaColumn>
+        </Table.Head>
     );
 };
 
@@ -637,16 +543,22 @@ const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) 
 const inputClassName =
     "absolute inset-0 size-full min-w-0 bg-primary text-sm text-primary outline-hidden ring-2 ring-brand ring-inset aria-invalid:ring-error placeholder:text-placeholder";
 
-// Moves the focus back to the edited cell, or to the next cell, after editing with the keyboard.
-const focusAfterEdit = (cell: HTMLTableCellElement, move?: "next" | "previous" | "down") =>
+// Moves the focus back to the edited cell, or to the next cell, after editing with the keyboard. Cells are found by their
+// column index and rows by their row index, as a virtualized grid doesn't keep them as siblings in the DOM.
+const focusAfterEdit = (cell: HTMLElement, move?: "next" | "previous" | "down") =>
     requestAnimationFrame(() => {
         let target: Element | null = cell;
-        if (move === "next") target = cell.nextElementSibling;
-        else if (move === "previous") target = cell.previousElementSibling;
-        else if (move === "down") {
+        const row = cell.closest("[role=row]");
+        const columnIndex = Number(cell.dataset.columnIndex);
+        if (move === "next" || move === "previous") {
+            target = row?.querySelector(`[data-column-index="${columnIndex + (move === "next" ? 1 : -1)}"]`) ?? cell;
+        } else if (move === "down") {
             // The cell in the same column of the next row, or this cell on the last row.
-            const nextRow = cell.parentElement?.nextElementSibling;
-            target = (nextRow?.getAttribute("role") === "row" && nextRow.children[cell.cellIndex]) || cell;
+            const rowIndex = Number(row?.getAttribute("aria-rowindex"));
+            const nextRow = rowIndex
+                ? cell.closest("[role=grid], [role=treegrid]")?.querySelector(`[role=row][aria-rowindex="${rowIndex + 1}"]`)
+                : row?.nextElementSibling;
+            target = nextRow?.querySelector(`[data-column-index="${columnIndex}"]`) ?? cell;
         }
         // After a click elsewhere, the focus stays where the user put it.
         if (target instanceof HTMLElement && (move || cell.contains(document.activeElement) || document.activeElement === document.body)) target.focus();
@@ -787,11 +699,6 @@ interface GridCellContentProps {
     isAggregated: boolean;
     label?: ReactNode;
     align: Align;
-    padding: string;
-    isTreeColumn: boolean;
-    level: number;
-    hasChildItems: boolean;
-    isExpanded: boolean;
 }
 
 // React Aria re-renders every cell when the focus or the selection changes. The content is memoized, so those re-renders
@@ -806,11 +713,6 @@ const GridCellContent = memo(function GridCellContent({
     isAggregated,
     label,
     align,
-    padding,
-    isTreeColumn,
-    level,
-    hasChildItems,
-    isExpanded,
 }: GridCellContentProps) {
     let content: ReactNode = null;
     if (label !== undefined && !isAggregated) content = label;
@@ -824,27 +726,7 @@ const GridCellContent = memo(function GridCellContent({
         );
     } else content = <span className={cx("truncate", column.type === "number" && "tabular-nums")}>{formattedValue}</span>;
 
-    const wrapped = <div className={cx("flex min-w-0 items-center gap-2", alignments[align].flex)}>{content}</div>;
-
-    if (!isTreeColumn) return wrapped;
-
-    // The grouping column indents the rows of a group and shows the expand button on group rows.
-    return (
-        <div className={cx("flex min-w-0 items-center gap-2", padding)}>
-            {level > 1 && <span aria-hidden="true" style={{ width: (level - 1) * 24 }} className="shrink-0" />}
-            {hasChildItems ? (
-                <AriaButton
-                    slot="chevron"
-                    className="flex shrink-0 cursor-pointer rounded-xs text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:text-fg-quaternary_hover focus-visible:outline-2 focus-visible:outline-offset-2"
-                >
-                    <ChevronRight aria-hidden="true" className={cx("size-4 transition-transform duration-100 ease-linear", isExpanded && "rotate-90")} />
-                </AriaButton>
-            ) : (
-                <span aria-hidden="true" className="size-4 shrink-0" />
-            )}
-            {wrapped}
-        </div>
-    );
+    return <div className={cx("flex min-w-0 items-center gap-2", alignments[align].flex)}>{content}</div>;
 });
 
 interface GridCellProps {
@@ -861,11 +743,10 @@ interface GridCellProps {
 }
 
 const GridCell = ({ column, row, rowId, rowType, aggregates, label }: GridCellProps) => {
-    const { density, formatters, pinned: pinnedColumns, aggregation, disableRowSelectionOnClick, actions } = useDataGrid();
+    const { density, formatters, pinned: pinnedColumns, aggregation, disableRowSelectionOnClick, virtualized, actions } = useDataGrid();
     const cellRef = useRef<HTMLTableCellElement>(null);
     const align = getAlign(column);
     const pinned = pinnedColumns.get(column.field);
-    const isTreeColumn = column.field === GROUP_FIELD;
     const isAggregated = rowType !== "row" && aggregates !== undefined && column.field in aggregates;
     const isEditable = column.editable === true && rowType === "row" && column.type !== "actions";
 
@@ -913,69 +794,62 @@ const GridCell = ({ column, row, rowId, rowType, aggregates, label }: GridCellPr
     );
 
     return (
-        <AriaCell
+        <Table.Cell
             ref={attachCell}
             data-field={column.field}
             textValue={formattedValue}
-            style={getPinnedStyle(pinned)}
+            {...getPinnedProps(pinned, virtualized)}
             onDoubleClick={isEditable ? () => cellRef.current && startEditing({ rowId, column, row, element: cellRef.current }) : undefined}
             onPointerDown={disableRowSelectionOnClick ? focusCellWithoutSelecting : undefined}
-            // A static class name, so React Aria's re-renders don't rebuild it for every cell.
             className={cx(
-                "relative truncate text-sm text-tertiary outline-focus-ring focus-visible:outline-2 focus-visible:-outline-offset-2",
-                isTreeColumn ? "p-0" : styles[density].padding,
+                "truncate py-0",
+                styles[density].padding,
                 alignments[align].text,
                 rowType !== "row" || column.isRowHeader ? "font-medium text-primary" : undefined,
-                pinned ? pinnedCellClassName : "focus-visible:z-1",
+                pinned && pinnedCellClassName,
                 pinnedEdgeClassName(pinned),
                 isEditable && "cursor-text",
                 column.cellClassName,
             )}
         >
-            {(state) => (
-                <GridCellContent
-                    column={column}
-                    row={row}
-                    rowId={rowId}
-                    rowType={rowType}
-                    value={value}
-                    formattedValue={formattedValue}
-                    isAggregated={isAggregated}
-                    label={label}
-                    align={align}
-                    padding={styles[density].padding}
-                    isTreeColumn={state.isTreeColumn}
-                    level={state.level}
-                    hasChildItems={state.hasChildItems}
-                    isExpanded={state.isExpanded}
-                />
-            )}
-        </AriaCell>
+            <GridCellContent
+                column={column}
+                row={row}
+                rowId={rowId}
+                rowType={rowType}
+                value={value}
+                formattedValue={formattedValue}
+                isAggregated={isAggregated}
+                label={label}
+                align={align}
+            />
+        </Table.Cell>
     );
 };
 
-const SelectionCell = ({ isSelectable }: { isSelectable: boolean }) => {
-    const { pinned: pinnedColumns } = useDataGrid();
-    const pinned = pinnedColumns.get(SELECTION_FIELD);
+/** Virtualization */
 
-    return (
-        <AriaCell
-            data-field={SELECTION_FIELD}
-            style={getPinnedStyle(pinned)}
-            className={cx(
-                "relative pr-0 pl-4 outline-focus-ring focus-visible:outline-2 focus-visible:-outline-offset-2",
-                pinned && pinnedCellClassName,
-                pinnedEdgeClassName(pinned),
-            )}
+interface TableVirtualizationProps {
+    virtualized: boolean;
+    density: DataGridDensity;
+    stickyColumns: Key[];
+    stickyFooter: boolean;
+    children: ReactNode;
+}
+
+const TableVirtualization = ({ virtualized, density, stickyColumns, stickyFooter, children }: TableVirtualizationProps) =>
+    virtualized ? (
+        <Table.Virtualizer
+            rowHeight={styles[density].rowHeight}
+            headingHeight={styles[density].headerHeight}
+            stickyColumns={stickyColumns}
+            stickyFooter={stickyFooter}
         >
-            {isSelectable && (
-                <div className="flex items-center">
-                    <Checkbox slot="selection" size="sm" />
-                </div>
-            )}
-        </AriaCell>
+            {children}
+        </Table.Virtualizer>
+    ) : (
+        children
     );
-};
 
 /** Main component */
 
@@ -997,6 +871,7 @@ export const DataGrid = <T extends object>({
     selectedKeys: controlledSelectedKeys,
     onSelectionChange,
     pagination = true,
+    virtualized = false,
     pageSizeOptions = [25, 50, 100],
     loading = false,
     initialState,
@@ -1036,7 +911,6 @@ export const DataGrid = <T extends object>({
     const [uncontrolledSelectedKeys, setUncontrolledSelectedKeys] = useState<Set<Key>>(new Set());
     const [groupingField, setGroupingField] = useState<string | null>(initialState?.rowGrouping ?? null);
     const [aggregation, setAggregation] = useState<Record<string, DataGridAggregationFunction>>(initialState?.aggregation ?? {});
-    const [expandedKeys, setExpandedKeys] = useState<Set<Key>>(new Set());
     const [edits, setEdits] = useState<Map<Key, { original: T; row: T }>>(new Map());
     const [editingStore] = useState(createEditingStore);
     const [openPanel, setOpenPanel] = useState<DataGridPanel | null>(null);
@@ -1186,21 +1060,25 @@ export const DataGrid = <T extends object>({
         [pinnedLeftFields, pinnedRightFields],
     );
 
+    const declaredWidth = useCallback(
+        (field: string) =>
+            field === SELECTION_FIELD ? SELECTION_WIDTH : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH),
+        [columnsByField, groupColumnWidth],
+    );
+
     const pinned = useMemo(() => {
-        const widthOf = (field: string) =>
-            field === SELECTION_FIELD ? SELECTION_WIDTH : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH);
         const positions = new Map<string, PinnedPosition>();
 
         for (const { side, fields } of pinnedSides) {
             let offset = 0;
             fields.forEach((field, index) => {
-                positions.set(field, { side, variable: `--pinned-${side}-${index}`, offset, isEdge: index === fields.length - 1 });
-                offset += widthOf(field);
+                positions.set(field, { side, index, variable: `--pinned-${side}-${index}`, offset, isEdge: index === fields.length - 1 });
+                offset += declaredWidth(field);
             });
         }
 
         return positions;
-    }, [pinnedSides, columnsByField, groupColumnWidth]);
+    }, [pinnedSides, declaredWidth]);
 
     // A pinned column sits after the pinned columns before it, whose widths change when resizing. They're measured into the
     // CSS variables of the positions, outside React, so resizing a column doesn't re-render the grid.
@@ -1209,7 +1087,7 @@ export const DataGrid = <T extends object>({
         if (!container || pinned.size === 0) return;
 
         const headers = new Map<string, HTMLElement>();
-        for (const header of container.querySelectorAll<HTMLElement>("thead th[data-field]")) {
+        for (const header of container.querySelectorAll<HTMLElement>("[role=columnheader][data-field]")) {
             if (header.dataset.field && pinned.has(header.dataset.field)) headers.set(header.dataset.field, header);
         }
 
@@ -1218,7 +1096,7 @@ export const DataGrid = <T extends object>({
                 let offset = 0;
                 fields.forEach((field, index) => {
                     container.style.setProperty(`--pinned-${side}-${index}`, `${offset}px`);
-                    offset += headers.get(field)?.getBoundingClientRect().width ?? 0;
+                    offset += headers.get(field)?.getBoundingClientRect().width ?? declaredWidth(field);
                 });
             }
         };
@@ -1227,7 +1105,7 @@ export const DataGrid = <T extends object>({
         const observer = new ResizeObserver(measure);
         headers.forEach((header) => observer.observe(header));
         return () => observer.disconnect();
-    }, [pinned, pinnedSides]);
+    }, [pinned, pinnedSides, declaredWidth]);
 
     /** Actions */
 
@@ -1293,7 +1171,6 @@ export const DataGrid = <T extends object>({
             }
             case "group":
                 setGroupingField(field);
-                setExpandedKeys(new Set());
                 setPage(0);
                 break;
             case "ungroup":
@@ -1367,8 +1244,8 @@ export const DataGrid = <T extends object>({
     /** Rendering */
 
     const contextValue = useMemo<DataGridContextValue>(
-        () => ({ density, formatters, pinned, aggregation, disableRowSelectionOnClick, editingStore, actions }),
-        [density, formatters, pinned, aggregation, disableRowSelectionOnClick, editingStore, actions],
+        () => ({ density, formatters, pinned, aggregation, disableRowSelectionOnClick, virtualized, editingStore, actions }),
+        [density, formatters, pinned, aggregation, disableRowSelectionOnClick, virtualized, editingStore, actions],
     );
 
     const groupingHeaderName = groupingColumn?.headerName ?? groupingField ?? "";
@@ -1383,23 +1260,26 @@ export const DataGrid = <T extends object>({
     const firstItem = items.length === 0 ? 0 : currentPage * pageSize + 1;
     const lastItem = Math.min(items.length, (currentPage + 1) * pageSize);
 
+    const stickyColumns = useMemo(() => [...pinnedLeftFields, ...pinnedRightFields], [pinnedLeftFields, pinnedRightFields]);
+    const selectionPinned = pinned.get(SELECTION_FIELD);
+    const selectionCellProps = (isSelectable: boolean) => ({
+        style: virtualized ? undefined : getPinnedStyle(selectionPinned),
+        className: cx("py-0 md:pl-4", selectionPinned && pinnedCellClassName, pinnedEdgeClassName(selectionPinned)),
+        children: isSelectable ? undefined : null,
+    });
+
     const renderRow = (item: object): ReactNode => {
         const group = isGroupItem(item) ? item.group : null;
         const rowId = group ? group.id : getRowId(item as T);
         const row = group ? (group.rows[0] ?? {}) : item;
 
         return (
-            <AriaRow
+            <Table.Row
                 id={rowId}
                 textValue={group ? group.label : rowHeaderColumn ? getFormattedValue(row, rowHeaderColumn) : ""}
-                className={cx(
-                    "group/row relative outline-focus-ring transition-colors duration-100 ease-linear hover:bg-secondary focus-visible:outline-2 focus-visible:-outline-offset-2 selected:bg-brand-primary_alt",
-                    styles[density].row,
-                    // Row border, using an "after" pseudo-element so it doesn't take up space and moves with pinned cells.
-                    "[&>td]:after:pointer-events-none [&>td]:after:absolute [&>td]:after:inset-x-0 [&>td]:after:bottom-0 [&>td]:after:h-px [&>td]:after:bg-border-secondary",
-                )}
+                selectionCellProps={selectionCellProps(!group)}
+                className={cx("group/row duration-100 ease-linear selected:bg-brand-primary_alt", styles[density].row, virtualized && rightPinnedBoxClassName)}
             >
-                {checkboxSelection && <SelectionCell isSelectable={!group} />}
                 <AriaCollection items={displayColumns} dependencies={[item]}>
                     {(column) => (
                         <GridCell
@@ -1421,7 +1301,7 @@ export const DataGrid = <T extends object>({
                     )}
                 </AriaCollection>
                 {group && <AriaCollection items={group.rows}>{renderRow}</AriaCollection>}
-            </AriaRow>
+            </Table.Row>
         );
     };
 
@@ -1453,46 +1333,48 @@ export const DataGrid = <T extends object>({
                     <div className="relative flex min-h-0 flex-1 flex-col" aria-busy={loading || undefined}>
                         {loading && items.length > 0 && <div aria-hidden="true" className="absolute inset-x-0 top-0 z-30 h-0.5 animate-pulse bg-brand-solid" />}
 
-                        <AriaResizableTableContainer ref={scrollRef} className="relative min-h-0 flex-1 overflow-auto">
-                            <AriaTable
-                                aria-label={ariaLabelledBy ? undefined : ariaLabel}
-                                aria-labelledby={ariaLabelledBy}
-                                selectionMode={checkboxSelection ? "multiple" : "single"}
-                                selectionBehavior={checkboxSelection ? "toggle" : "replace"}
-                                selectedKeys={selectedKeys}
-                                onSelectionChange={handleSelectionChange}
-                                disabledKeys={disabledKeys}
-                                disabledBehavior="selection"
-                                sortDescriptor={sortDescriptor}
-                                onSortChange={handleSortChange}
-                                treeColumn={groupingColumn ? GROUP_FIELD : undefined}
-                                expandedKeys={expandedKeys}
-                                onExpandedChange={setExpandedKeys}
-                                className="w-full border-separate border-spacing-0"
-                            >
-                                <AriaTableHeader className="sticky top-0 z-20">
-                                    {checkboxSelection && (
-                                        <AriaColumn
-                                            id={SELECTION_FIELD}
-                                            data-field={SELECTION_FIELD}
-                                            width={SELECTION_WIDTH}
-                                            minWidth={SELECTION_WIDTH}
-                                            style={getPinnedStyle(pinned.get(SELECTION_FIELD))}
-                                            className={cx(
-                                                "relative bg-secondary py-0 pr-0 pl-4 outline-hidden",
-                                                "after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-border-secondary",
-                                                "focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-inset",
-                                                styles[density].header,
+                        <TableVirtualization
+                            virtualized={virtualized}
+                            density={density}
+                            stickyColumns={stickyColumns}
+                            stickyFooter={hasAggregationRow && items.length > 0}
+                        >
+                            <Table.ResizableContainer ref={scrollRef} className={cx("min-h-0 flex-1", virtualized && "overflow-hidden")}>
+                                <Table
+                                    aria-label={ariaLabelledBy ? undefined : ariaLabel}
+                                    aria-labelledby={ariaLabelledBy}
+                                    selectionMode={checkboxSelection ? "multiple" : "single"}
+                                    selectionBehavior={checkboxSelection ? "toggle" : "replace"}
+                                    selectedKeys={selectedKeys}
+                                    onSelectionChange={handleSelectionChange}
+                                    disabledKeys={disabledKeys}
+                                    disabledBehavior="selection"
+                                    sortDescriptor={sortDescriptor}
+                                    onSortChange={handleSortChange}
+                                    treeColumn={groupingColumn ? GROUP_FIELD : undefined}
+                                    className={
+                                        virtualized
+                                            ? cx("size-full overflow-auto", styles[density].scrollPadding, hasAggregationRow && "scroll-pb-(--footer-height)")
+                                            : "w-full border-separate border-spacing-0"
+                                    }
+                                    style={virtualized ? ({ "--footer-height": `${styles[density].rowHeight}px` } as CSSProperties) : undefined}
+                                >
+                                    <Table.Header
+                                        columns={displayColumns}
+                                        dependencies={[groupColumnWidth, hasFlexColumn, lastScrollingField, rowHeaderField, density]}
+                                        selectionColumnProps={{
+                                            id: SELECTION_FIELD,
+                                            width: SELECTION_WIDTH,
+                                            minWidth: SELECTION_WIDTH,
+                                            style: virtualized ? undefined : getPinnedStyle(pinned.get(SELECTION_FIELD)),
+                                            className: cx(
+                                                "bg-secondary py-0 md:pl-4",
                                                 pinned.has(SELECTION_FIELD) && "z-20",
                                                 pinnedEdgeClassName(pinned.get(SELECTION_FIELD)),
-                                            )}
-                                        >
-                                            <div className="flex items-center">
-                                                <Checkbox slot="selection" size="sm" />
-                                            </div>
-                                        </AriaColumn>
-                                    )}
-                                    <AriaCollection items={displayColumns} dependencies={[groupColumnWidth, hasFlexColumn, lastScrollingField, rowHeaderField]}>
+                                            ),
+                                        }}
+                                        className={cx(virtualized ? rightPinnedHeaderBoxClassName : "sticky top-0", "z-20", styles[density].header)}
+                                    >
                                         {(column) => (
                                             <ColumnHeader
                                                 id={column.field}
@@ -1501,71 +1383,74 @@ export const DataGrid = <T extends object>({
                                                 isRowHeader={column.field === rowHeaderField}
                                             />
                                         )}
-                                    </AriaCollection>
-                                </AriaTableHeader>
+                                    </Table.Header>
 
-                                <AriaTableBody
-                                    items={pageItems}
-                                    dependencies={[displayColumns, density, checkboxSelection, rowHeaderColumn]}
-                                    renderEmptyState={() =>
-                                        loading ? (
-                                            <div className="flex flex-col">
-                                                {Array.from({ length: 6 }, (_, index) => (
-                                                    <div
-                                                        key={index}
-                                                        className={cx("flex items-center gap-6 border-b border-secondary px-4", styles[density].row)}
-                                                    >
-                                                        <div className="h-3 w-1/4 animate-pulse rounded-full bg-quaternary" />
-                                                        <div className="h-3 w-1/6 animate-pulse rounded-full bg-quaternary" />
-                                                        <div className="h-3 w-1/5 animate-pulse rounded-full bg-quaternary" />
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        ) : (
-                                            <div className="flex flex-col items-center justify-center gap-1 px-4 py-16 text-center">
-                                                <p className="text-sm font-semibold text-primary">{rows.length === 0 ? "No rows" : "No results found"}</p>
-                                                {rows.length > 0 && <p className="text-sm text-tertiary">Try a different search or filter.</p>}
-                                            </div>
-                                        )
-                                    }
-                                >
-                                    {renderRow}
-                                </AriaTableBody>
+                                    <Table.Body
+                                        items={pageItems}
+                                        dependencies={[displayColumns, density, checkboxSelection, rowHeaderColumn]}
+                                        renderEmptyState={() =>
+                                            loading ? (
+                                                <div className="flex flex-col">
+                                                    {Array.from({ length: 6 }, (_, index) => (
+                                                        <div
+                                                            key={index}
+                                                            className={cx("flex items-center gap-6 border-b border-secondary px-4", styles[density].row)}
+                                                        >
+                                                            <div className="h-3 w-1/4 animate-pulse rounded-full bg-quaternary" />
+                                                            <div className="h-3 w-1/6 animate-pulse rounded-full bg-quaternary" />
+                                                            <div className="h-3 w-1/5 animate-pulse rounded-full bg-quaternary" />
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <div className="flex flex-col items-center justify-center gap-1 px-4 py-16 text-center">
+                                                    <p className="text-sm font-semibold text-primary">{rows.length === 0 ? "No rows" : "No results found"}</p>
+                                                    {rows.length > 0 && <p className="text-sm text-tertiary">Try a different search or filter.</p>}
+                                                </div>
+                                            )
+                                        }
+                                    >
+                                        {renderRow}
+                                    </Table.Body>
 
-                                {hasAggregationRow && items.length > 0 && (
-                                    <AriaTableFooter className="sticky bottom-0 z-20 bg-secondary">
-                                        <AriaRow
-                                            id={AGGREGATION_ROW_ID}
-                                            data-footer
-                                            className={cx(
-                                                "group/row relative bg-secondary outline-focus-ring focus-visible:outline-2 focus-visible:-outline-offset-2",
-                                                styles[density].row,
-                                                "[&>td]:before:pointer-events-none [&>td]:before:absolute [&>td]:before:inset-x-0 [&>td]:before:top-0 [&>td]:before:h-px [&>td]:before:bg-border-secondary",
-                                            )}
-                                        >
-                                            {checkboxSelection && <SelectionCell isSelectable={false} />}
-                                            <AriaCollection items={displayColumns} dependencies={[totals, filteredRows]}>
-                                                {(column) => (
-                                                    <GridCell
-                                                        id={column.field}
-                                                        column={column}
-                                                        row={filteredRows[0] ?? {}}
-                                                        rowId={AGGREGATION_ROW_ID}
-                                                        rowType="aggregation"
-                                                        aggregates={totals}
-                                                        label={
-                                                            column.field === displayColumns[0]?.field ? (
-                                                                <span className="font-medium text-primary">Total</span>
-                                                            ) : undefined
-                                                        }
-                                                    />
+                                    {hasAggregationRow && items.length > 0 && (
+                                        <Table.Footer className={cx("z-20 border-t-0", !virtualized && "sticky bottom-0")}>
+                                            <Table.Row
+                                                id={AGGREGATION_ROW_ID}
+                                                data-footer
+                                                selectionCellProps={selectionCellProps(false)}
+                                                className={cx(
+                                                    "group/row bg-secondary hover:bg-secondary",
+                                                    styles[density].row,
+                                                    "[&>td]:before:pointer-events-none [&>td]:before:absolute [&>td]:before:inset-x-0 [&>td]:before:top-0 [&>td]:before:h-px [&>td]:before:bg-border-secondary",
+                                                    virtualized &&
+                                                        "before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-px before:bg-border-secondary",
+                                                    virtualized && rightPinnedBoxClassName,
                                                 )}
-                                            </AriaCollection>
-                                        </AriaRow>
-                                    </AriaTableFooter>
-                                )}
-                            </AriaTable>
-                        </AriaResizableTableContainer>
+                                            >
+                                                <AriaCollection items={displayColumns} dependencies={[totals, filteredRows]}>
+                                                    {(column) => (
+                                                        <GridCell
+                                                            id={column.field}
+                                                            column={column}
+                                                            row={filteredRows[0] ?? {}}
+                                                            rowId={AGGREGATION_ROW_ID}
+                                                            rowType="aggregation"
+                                                            aggregates={totals}
+                                                            label={
+                                                                column.field === displayColumns[0]?.field ? (
+                                                                    <span className="font-medium text-primary">Total</span>
+                                                                ) : undefined
+                                                            }
+                                                        />
+                                                    )}
+                                                </AriaCollection>
+                                            </Table.Row>
+                                        </Table.Footer>
+                                    )}
+                                </Table>
+                            </Table.ResizableContainer>
+                        </TableVirtualization>
                     </div>
 
                     <div className="flex flex-wrap items-center justify-between gap-3 border-t border-secondary px-4 py-3">

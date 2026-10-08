@@ -28,3 +28,9 @@ DataGridColumnPinning.storyName = "Data grid column pinning";
 
 export const DataGridLoading = () => <DataGrids.DataGridLoading />;
 DataGridLoading.storyName = "Data grid loading";
+
+export const DataGridFullFeaturedVirtualized = () => <DataGrids.DataGridFullFeaturedVirtualized />;
+DataGridFullFeaturedVirtualized.storyName = "Data grid full featured (virtualized)";
+
+export const DataGridVirtualized = () => <DataGrids.DataGridVirtualized />;
+DataGridVirtualized.storyName = "Data grid 10,000 rows (virtualized)";

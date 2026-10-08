@@ -157,3 +157,41 @@ export const DataGridLoading = () => {
         </div>
     );
 };
+
+export const DataGridFullFeaturedVirtualized = () => (
+    <DataGrid
+        aria-label="Commodity trades"
+        rows={commodityRows}
+        columns={commodityColumns}
+        showToolbar
+        checkboxSelection
+        disableRowSelectionOnClick
+        virtualized
+        initialState={{ density: "compact", columnVisibility: { brokerId: false } }}
+        exportFileName="commodity-trades"
+        className="h-130"
+    />
+);
+
+const manyRows = generateCommodityRows(10_000, 3);
+
+export const DataGridVirtualized = () => (
+    <DataGrid
+        aria-label="10,000 commodity trades"
+        rows={manyRows}
+        columns={[...commodityColumns, actionsColumn]}
+        showToolbar
+        checkboxSelection
+        disableRowSelectionOnClick
+        virtualized
+        pagination={false}
+        initialState={{
+            density: "compact",
+            pinnedColumns: { left: ["commodity"], right: ["actions"] },
+            columnVisibility: { brokerId: false },
+            aggregation: { quantity: "sum" },
+        }}
+        exportFileName="commodity-trades"
+        className="h-130"
+    />
+);
