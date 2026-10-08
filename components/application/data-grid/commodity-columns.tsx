@@ -13,6 +13,7 @@ import {
 } from "@/components/application/data-grid/commodity-data";
 import type { DataGridColumn } from "@/components/application/data-grid/data-grid";
 import { Badge, BadgeWithIcon } from "@/components/base/badges/badges";
+import { ProgressBar } from "@/components/base/progress-indicators/progress-indicators";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
 
@@ -78,18 +79,11 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
         type: "number",
         width: 150,
         aggregable: true,
-        valueFormatter: (value) => (typeof value === "number" ? `${numberFormatter.format(value * 100)} %` : ""),
-        renderCell: ({ value, formattedValue }) =>
+        valueFormatter: (value) => (typeof value === "number" ? `${Math.round(value * 100)}%` : ""),
+        renderCell: ({ value }) =>
             typeof value === "number" ? (
-                <div className="relative flex h-6 w-full items-center justify-center overflow-hidden rounded-md bg-primary ring-1 ring-secondary ring-inset">
-                    <div
-                        className={cx(
-                            "absolute inset-y-0 left-0",
-                            value < 0.3 ? "bg-error-secondary" : value <= 0.7 ? "bg-warning-secondary" : "bg-success-secondary",
-                        )}
-                        style={{ width: `${value * 100}%` }}
-                    />
-                    <span className="relative text-xs font-medium text-secondary tabular-nums">{formattedValue}</span>
+                <div className="w-full">
+                    <ProgressBar labelPosition="right" value={value * 100} />
                 </div>
             ) : null,
     },

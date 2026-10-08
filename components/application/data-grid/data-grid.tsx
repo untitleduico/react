@@ -35,6 +35,7 @@ import {
     SubmenuTrigger as AriaSubmenuTrigger,
     Table as AriaTable,
     TableBody as AriaTableBody,
+    TableColumnResizeStateContext as AriaTableColumnResizeStateContext,
     TableFooter as AriaTableFooter,
     TableHeader as AriaTableHeader,
     useLocale,
@@ -118,7 +119,9 @@ const isGroupItem = (item: object): item is GroupItem => GROUP_ROW in item;
 
 interface PinnedPosition {
     side: "left" | "right";
-    /** The distance from the edge of the scroll container, in pixels. */
+    /** The CSS variable with the distance from the edge of the scroll container, measured from the pinned columns before it. */
+    variable: string;
+    /** The distance from the edge before it's measured, from the column widths, in pixels. */
     offset: number;
     /** Whether this is the column next to the scrolling columns, which shows the divider. */
     isEdge: boolean;
@@ -285,7 +288,7 @@ const useDataGridHeader = () => {
 const getAlign = (column: AnyColumn): Align => column.align ?? (column.type === "number" ? "right" : column.type === "boolean" ? "center" : "left");
 
 const getPinnedStyle = (position: PinnedPosition | undefined): CSSProperties | undefined =>
-    position ? { position: "sticky", [position.side]: position.offset } : undefined;
+    position ? { position: "sticky", [position.side]: `var(${position.variable}, ${position.offset}px)` } : undefined;
 
 const pinnedEdgeClassName = (position: PinnedPosition | undefined) =>
     position?.isEdge && (position.side === "left" ? "shadow-[inset_-1px_0_0_0] shadow-border-secondary" : "shadow-[inset_1px_0_0_0] shadow-border-secondary");
@@ -421,6 +424,70 @@ const ColumnMenu = ({ column, label, startResize }: ColumnMenuProps) => {
     );
 };
 
+interface ColumnResizeHandleProps {
+    field: string;
+    minWidth: number;
+    maxWidth?: number;
+}
+
+// Dragging a column divider resizes the column in the DOM, and React Aria gets the new width once, on release. React Aria's
+// own resizer re-renders every row on each pointer move, which lags on larger pages. It still handles keyboard resizing.
+const ColumnResizeHandle = ({ field, minWidth, maxWidth }: ColumnResizeHandleProps) => {
+    const layoutState = useContext(AriaTableColumnResizeStateContext);
+    const latestLayoutState = useRef(layoutState);
+    useLayoutEffect(() => {
+        latestLayoutState.current = layoutState;
+    });
+    const { direction } = useLocale();
+    const [isResizing, setIsResizing] = useState(false);
+
+    const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
+        const handle = event.currentTarget;
+        const header = handle.closest("th");
+        if (event.button !== 0 || !header) return;
+        // Keeps the header from sorting, and the text from being selected.
+        event.preventDefault();
+        event.stopPropagation();
+
+        handle.setPointerCapture(event.pointerId);
+        const startX = event.clientX;
+        const startWidth = header.getBoundingClientRect().width;
+        let width = startWidth;
+        setIsResizing(true);
+
+        const handleMove = (moveEvent: globalThis.PointerEvent) => {
+            const delta = (moveEvent.clientX - startX) * (direction === "rtl" ? -1 : 1);
+            width = Math.round(Math.min(Math.max(startWidth + delta, minWidth), maxWidth ?? Infinity));
+            header.style.width = `${width}px`;
+        };
+        const handleEnd = () => {
+            handle.removeEventListener("pointermove", handleMove);
+            handle.removeEventListener("pointerup", handleEnd);
+            handle.removeEventListener("pointercancel", handleEnd);
+            setIsResizing(false);
+            if (width !== startWidth) latestLayoutState.current?.updateResizedColumns(field, width);
+        };
+
+        handle.addEventListener("pointermove", handleMove);
+        handle.addEventListener("pointerup", handleEnd);
+        handle.addEventListener("pointercancel", handleEnd);
+    };
+
+    return (
+        <div
+            aria-hidden="true"
+            data-resizing={isResizing || undefined}
+            onPointerDown={handlePointerDown}
+            className={cx(
+                // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the grid.
+                "absolute inset-y-0 -end-2 z-10 flex w-4 cursor-col-resize touch-none justify-center in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
+                "hover:after:w-0.5 hover:after:bg-fg-brand-primary data-resizing:after:w-0.5 data-resizing:after:bg-fg-brand-primary",
+            )}
+        />
+    );
+};
+
 interface ColumnHeaderProps {
     /** The id React Aria passes to items of a collection. */
     id?: Key;
@@ -542,18 +609,20 @@ const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) 
                     {hasMenu && <ColumnMenu column={column} label={label} startResize={state.startResize} />}
 
                     {column.resizable !== false && (
-                        <AriaColumnResizer
-                            // Arrow keys focus the header itself, not this divider. The column menu offers keyboard resizing.
-                            data-react-aria-prevent-focus
-                            className={(resizer) =>
-                                cx(
-                                    // A 16px hit area centered on the column divider. On the last column, it stays inside so it can't overflow the grid.
-                                    "absolute inset-y-0 -right-2 z-10 box-border flex w-4 cursor-col-resize touch-none justify-center overflow-hidden outline-hidden in-[th:last-child]:right-0 in-[th:last-child]:justify-end",
-                                    "after:h-full after:w-px after:bg-border-secondary after:transition after:duration-100 after:ease-linear",
-                                    (resizer.isHovered || resizer.isResizing || resizer.isFocusVisible) && "after:w-0.5 after:bg-fg-brand-primary",
-                                )
-                            }
-                        />
+                        <>
+                            <ColumnResizeHandle field={column.field} minWidth={column.minWidth ?? MIN_WIDTH} maxWidth={column.maxWidth} />
+                            <AriaColumnResizer
+                                // Arrow keys focus the header itself, not this divider. The column menu starts keyboard resizing, which
+                                // this resizer handles, and dragging goes through the handle above.
+                                data-react-aria-prevent-focus
+                                className={(resizer) =>
+                                    cx(
+                                        "pointer-events-none absolute inset-y-0 -end-2 z-10 flex w-4 justify-center outline-hidden in-[th:last-child]:end-0 in-[th:last-child]:justify-end",
+                                        (resizer.isResizing || resizer.isFocusVisible) && "after:h-full after:w-0.5 after:bg-fg-brand-primary",
+                                    )
+                                }
+                            />
+                        </>
                     )}
                 </div>
             )}
@@ -1094,7 +1163,6 @@ export const DataGrid = <T extends object>({
     /** Pinning */
 
     const scrollRef = useRef<HTMLDivElement>(null);
-    const [measuredWidths, setMeasuredWidths] = useState<Record<string, number>>({});
 
     const pinnedLeftFields = useMemo(() => {
         const fields = displayColumns.filter((column) => pinnedColumns.left.includes(column.field)).map((column) => column.field);
@@ -1107,49 +1175,58 @@ export const DataGrid = <T extends object>({
         [displayColumns, pinnedColumns.right],
     );
 
+    // The pinned columns on each side, from the edge inwards.
+    const pinnedSides = useMemo(
+        () =>
+            [
+                { side: "left", fields: pinnedLeftFields },
+                { side: "right", fields: [...pinnedRightFields].reverse() },
+            ] as const,
+        [pinnedLeftFields, pinnedRightFields],
+    );
+
     const pinned = useMemo(() => {
         const widthOf = (field: string) =>
-            measuredWidths[field] ??
-            (field === SELECTION_FIELD ? SELECTION_WIDTH : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH));
+            field === SELECTION_FIELD ? SELECTION_WIDTH : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH);
         const positions = new Map<string, PinnedPosition>();
 
-        let left = 0;
-        pinnedLeftFields.forEach((field, index) => {
-            positions.set(field, { side: "left", offset: left, isEdge: index === pinnedLeftFields.length - 1 });
-            left += widthOf(field);
-        });
-
-        let right = 0;
-        [...pinnedRightFields].reverse().forEach((field, index) => {
-            positions.set(field, { side: "right", offset: right, isEdge: index === pinnedRightFields.length - 1 });
-            right += widthOf(field);
-        });
+        for (const { side, fields } of pinnedSides) {
+            let offset = 0;
+            fields.forEach((field, index) => {
+                positions.set(field, { side, variable: `--pinned-${side}-${index}`, offset, isEdge: index === fields.length - 1 });
+                offset += widthOf(field);
+            });
+        }
 
         return positions;
-    }, [pinnedLeftFields, pinnedRightFields, measuredWidths, columnsByField, groupColumnWidth]);
+    }, [pinnedSides, columnsByField, groupColumnWidth]);
 
-    // Pinned columns are positioned from the measured widths of the columns before them, which change when resizing.
-    const pinnedKey = [...pinnedLeftFields, "|", ...pinnedRightFields, density].join(",");
+    // A pinned column sits after the pinned columns before it, whose widths change when resizing. They're measured into the
+    // CSS variables of the positions, outside React, so resizing a column doesn't re-render the grid.
     useLayoutEffect(() => {
         const container = scrollRef.current;
-        if (!container || pinnedLeftFields.length + pinnedRightFields.length === 0) return;
+        if (!container || pinned.size === 0) return;
 
-        const headers = [...container.querySelectorAll<HTMLElement>("thead th[data-field]")];
-        const measure = () =>
-            setMeasuredWidths((previous) => {
-                const next: Record<string, number> = {};
-                for (const header of headers) if (header.dataset.field) next[header.dataset.field] = header.getBoundingClientRect().width;
-                const isSame =
-                    Object.keys(next).length === Object.keys(previous).length && Object.entries(next).every(([field, width]) => previous[field] === width);
-                return isSame ? previous : next;
-            });
+        const headers = new Map<string, HTMLElement>();
+        for (const header of container.querySelectorAll<HTMLElement>("thead th[data-field]")) {
+            if (header.dataset.field && pinned.has(header.dataset.field)) headers.set(header.dataset.field, header);
+        }
+
+        const measure = () => {
+            for (const { side, fields } of pinnedSides) {
+                let offset = 0;
+                fields.forEach((field, index) => {
+                    container.style.setProperty(`--pinned-${side}-${index}`, `${offset}px`);
+                    offset += headers.get(field)?.getBoundingClientRect().width ?? 0;
+                });
+            }
+        };
 
         measure();
         const observer = new ResizeObserver(measure);
         headers.forEach((header) => observer.observe(header));
         return () => observer.disconnect();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pinnedKey]);
+    }, [pinned, pinnedSides]);
 
     /** Actions */
 
