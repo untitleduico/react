@@ -1838,7 +1838,7 @@ const createLiveTransaction = (index: number) => {
 // The content clips only vertically: hiding horizontal overflow would let the table shrink the columns and crop their content.
 // The strong ease-out moves rows quickly at first and lets them settle gently. Keep the duration in sync with the removal delay.
 const liveCellClassName =
-    "grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] starting:grid-rows-[0fr] starting:opacity-0 motion-reduce:transition-none";
+    "grid grid-rows-[1fr] transition-[grid-template-rows,opacity] duration-500 [--tw-ease:cubic-bezier(0.32,0.72,0,1)] starting:grid-rows-[0fr] starting:opacity-0 motion-reduce:transition-none";
 
 export const TableRealTime = () => {
     const [transactions, setTransactions] = useState(() =>
