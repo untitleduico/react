@@ -46,7 +46,7 @@ import { Dropdown } from "@/components/base/dropdown/dropdown";
 import { Select } from "@/components/base/select/select";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
-import { type DataGridPanel, DataGridToolbar, createFilterItem } from "./data-grid-toolbar";
+import { type DataGridPanel, DataGridToolbar } from "./data-grid-toolbar";
 import {
     type DataGridAggregationFunction,
     type DataGridColumn,
@@ -58,6 +58,7 @@ import {
     type DataGridSort,
     aggregateRows,
     aggregationFunctions,
+    createFilterItem,
     downloadFile,
     filterRows,
     formatCellValue,

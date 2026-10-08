@@ -14,7 +14,7 @@ import { MultiSelect } from "@/components/base/select/multi-select";
 import { Select } from "@/components/base/select/select";
 import { cx } from "@/utils/cx";
 import type { DataGridColumn, DataGridDensity, DataGridFilterItem, DataGridFilterModel } from "./data-grid-utils";
-import { getFilterOperators, getOptionLabel, getOptionValue, isFilterActive } from "./data-grid-utils";
+import { createFilterItem, getDefaultOperator, getFilterOperators, getOptionLabel, getOptionValue, isFilterActive } from "./data-grid-utils";
 
 export type DataGridPanel = "columns" | "filters";
 
@@ -91,17 +91,6 @@ const ColumnsPanel = <T,>({ columns, columnVisibility, onColumnVisibilityChange,
 };
 
 /** Filter panel */
-
-let nextFilterId = 1;
-
-const getDefaultOperator = <T,>(column: DataGridColumn<T>) => getFilterOperators(column.type)[0]?.value ?? "";
-
-export const createFilterItem = <T,>(column: DataGridColumn<T>): DataGridFilterItem => ({
-    id: nextFilterId++,
-    field: column.field,
-    operator: getDefaultOperator(column),
-    value: "",
-});
 
 interface FilterRowProps<T> {
     item: DataGridFilterItem;
@@ -302,7 +291,7 @@ const FilterPanel = <T,>({ columns, model, onChange, onClose }: FilterPanelProps
 
 /** Toolbar */
 
-export const densityOptions: { id: DataGridDensity; label: string; icon: typeof Rows01 }[] = [
+const densityOptions: { id: DataGridDensity; label: string; icon: typeof Rows01 }[] = [
     { id: "compact", label: "Compact", icon: Rows03 },
     { id: "standard", label: "Standard", icon: Rows02 },
     { id: "comfortable", label: "Comfortable", icon: Rows01 },

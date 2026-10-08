@@ -306,6 +306,19 @@ export const getFilterOperators = (type: DataGridColumnType = "string") => {
     }
 };
 
+/** The first operator of the column's type, used for new filters. */
+export const getDefaultOperator = <T>(column: DataGridColumn<T>) => getFilterOperators(column.type)[0]?.value ?? "";
+
+let nextFilterId = 1;
+
+/** A new, empty filter for a column. */
+export const createFilterItem = <T>(column: DataGridColumn<T>): DataGridFilterItem => ({
+    id: nextFilterId++,
+    field: column.field,
+    operator: getDefaultOperator(column),
+    value: "",
+});
+
 /** Whether a filter has everything it needs to apply. An incomplete filter, like "contains" without a value, is ignored. */
 export const isFilterActive = <T>(item: DataGridFilterItem, column: DataGridColumn<T> | undefined) => {
     const operator = column && getFilterOperators(column.type).find((option) => option.value === item.operator);
