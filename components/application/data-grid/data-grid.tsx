@@ -315,7 +315,7 @@ const pinnedEdgeClassName = (position: PinnedPosition | undefined) =>
     position?.isEdge && (position.side === "left" ? "shadow-[inset_-1px_0_0_0] shadow-border-secondary" : "shadow-[inset_1px_0_0_0] shadow-border-secondary");
 
 // Pinned cells need their own background, as the row background doesn't move with them.
-const pinnedCellClassName = "z-[2] bg-primary group-hover/row:bg-secondary group-data-[footer]/row:bg-secondary group-data-[selected]/row:bg-brand-primary_alt";
+const pinnedCellClassName = "z-[2] bg-primary group-hover/row:bg-secondary group-data-[footer]/row:bg-secondary group-data-[selected]/row:bg-secondary";
 
 // With `disableRowSelectionOnClick`, the press never reaches the row, so clicking a cell doesn't select it. React Aria would
 // otherwise focus the cell on press, so the cell takes the focus here, unless the press is on something focusable inside it.
@@ -1278,7 +1278,7 @@ export const DataGrid = <T extends object>({
                 id={rowId}
                 textValue={group ? group.label : rowHeaderColumn ? getFormattedValue(row, rowHeaderColumn) : ""}
                 selectionCellProps={selectionCellProps(!group)}
-                className={cx("group/row duration-100 ease-linear selected:bg-brand-primary_alt", styles[density].row, virtualized && rightPinnedBoxClassName)}
+                className={cx("group/row", styles[density].row, virtualized && rightPinnedBoxClassName)}
             >
                 <AriaCollection items={displayColumns} dependencies={[item]}>
                     {(column) => (
