@@ -149,7 +149,7 @@ export const InputTags = ({
     const focusLastTag = useCallback(() => {
         const tagEls = tagGroupRef.current?.querySelectorAll<HTMLElement>('[role="row"]');
         if (tagEls && tagEls.length > 0) {
-            tagEls[tagEls.length - 1].focus();
+            tagEls[tagEls.length - 1]?.focus();
         }
     }, []);
 
@@ -182,7 +182,7 @@ export const InputTags = ({
             const tagEls = tagGroupRef.current?.querySelectorAll<HTMLElement>('[role="row"]');
             if (tagEls && tagEls.length > 0) {
                 const lastTag = tagEls[tagEls.length - 1];
-                if (document.activeElement === lastTag || lastTag.contains(document.activeElement)) {
+                if (lastTag && (document.activeElement === lastTag || lastTag.contains(document.activeElement))) {
                     inputRef.current?.focus();
                 }
             }

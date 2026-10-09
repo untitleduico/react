@@ -173,6 +173,8 @@ const AvatarRadius = ({ avatars = [], ...props }: AvatarRadiusProps) => {
 
             {avatars.slice(0, avatarSlots.length).map((avatar, i) => {
                 const slot = avatarSlots[i];
+                if (!slot) return null;
+
                 const rad = (slot.angle * Math.PI) / 180;
                 const x = Math.sin(rad) * slot.ring;
                 const y = -Math.cos(rad) * slot.ring;
@@ -213,7 +215,7 @@ const AvatarRow = ({ avatars = [], children, ...props }: AvatarRowProps) => {
     const leftAvatars = avatars.slice(0, count);
     const rightAvatars = avatars.slice(count, count * 2);
 
-    const renderAvatar = (avatar: { src: string; alt?: string }, sizeClass: string, key: number) => (
+    const renderAvatar = (avatar: { src: string; alt?: string }, sizeClass: string | undefined, key: number) => (
         <div
             key={key}
             className={cx(

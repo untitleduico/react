@@ -9,13 +9,20 @@ import type {
 import { Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Modal as AriaModal, ModalOverlay as AriaModalOverlay } from "react-aria-components";
 import { CloseButton } from "@/components/base/buttons/close-button";
 import { cx } from "@/utils/cx";
+import { IN_HOST_LAYER, useFocusedHostLayer, useForeignOverlaysOnTop, withHostLayerOffset } from "@/utils/overlay-host";
 
 interface ModalOverlayProps extends AriaModalOverlayProps, RefAttributes<HTMLDivElement> {}
 
 export const ModalOverlay = (props: ModalOverlayProps) => {
+    // Inside another library's modal layer (e.g. a shadcn/ui Sheet), render into it.
+    const host = useFocusedHostLayer();
+
     return (
         <AriaModalOverlay
             {...props}
+            {...(host && !props.UNSTABLE_portalContainer
+                ? { UNSTABLE_portalContainer: host, style: withHostLayerOffset(host, props.style), [IN_HOST_LAYER]: "" }
+                : {})}
             className={(state) =>
                 cx(
                     "fixed inset-0 flex min-h-dvh w-full items-center justify-end bg-overlay/70 pl-6 outline-hidden ease-linear md:pl-10",
@@ -31,19 +38,24 @@ ModalOverlay.displayName = "ModalOverlay";
 
 interface ModalProps extends AriaModalOverlayProps, RefAttributes<HTMLDivElement> {}
 
-export const Modal = (props: ModalProps) => (
-    <AriaModal
-        {...props}
-        className={(state) =>
-            cx(
-                "inset-y-0 right-0 h-full w-full max-w-100 shadow-xl transition",
-                state.isEntering && "duration-300 animate-in slide-in-from-right",
-                state.isExiting && "duration-500 animate-out slide-out-to-right",
-                typeof props.className === "function" ? props.className(state) : props.className,
-            )
-        }
-    />
-);
+export const Modal = (props: ModalProps) => {
+    // Keeps menus and popovers of other libraries opened from inside the slideout usable.
+    useForeignOverlaysOnTop();
+
+    return (
+        <AriaModal
+            {...props}
+            className={(state) =>
+                cx(
+                    "inset-y-0 right-0 h-full w-full max-w-100 shadow-xl transition",
+                    state.isEntering && "duration-300 animate-in slide-in-from-right",
+                    state.isExiting && "duration-500 animate-out slide-out-to-right",
+                    typeof props.className === "function" ? props.className(state) : props.className,
+                )
+            }
+        />
+    );
+};
 Modal.displayName = "Modal";
 
 interface DialogProps extends AriaDialogProps, RefAttributes<HTMLElement> {}

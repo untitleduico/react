@@ -5,9 +5,10 @@ import { useControlledState } from "@react-stately/utils";
 import { Calendar as CalendarIcon } from "@untitledui/icons";
 import { useDateFormatter } from "react-aria";
 import type { DatePickerProps as AriaDatePickerProps, DateValue } from "react-aria-components";
-import { DatePicker as AriaDatePicker, Dialog as AriaDialog, Group as AriaGroup, Popover as AriaPopover } from "react-aria-components";
+import { DatePicker as AriaDatePicker, Dialog as AriaDialog, Group as AriaGroup } from "react-aria-components";
 import { Button, type ButtonProps } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { Calendar } from "./calendar";
 
 const highlightedDates = [today(getLocalTimeZone())];
@@ -38,9 +39,9 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
                     {formattedDate}
                 </Button>
             </AriaGroup>
-            <AriaPopover
+            <OverlayPopover
                 offset={8}
-                placement="bottom right"
+                placement="bottom end"
                 className={({ isEntering, isExiting }) =>
                     cx(
                         "origin-(--trigger-anchor-point) will-change-transform",
@@ -82,7 +83,7 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
                         </>
                     )}
                 </AriaDialog>
-            </AriaPopover>
+            </OverlayPopover>
         </AriaDatePicker>
     );
 };

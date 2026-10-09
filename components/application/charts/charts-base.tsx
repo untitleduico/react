@@ -57,7 +57,7 @@ export const ChartLegendContent = ({
     /** Additional classes for the legend list, merged after the layout and alignment classes derived from the Recharts `Legend` props. */
     className?: string;
 }) => {
-    payload = reversed ? payload?.toReversed() : payload;
+    payload = reversed && payload ? [...payload].reverse() : payload;
 
     return (
         <ul

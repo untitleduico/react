@@ -6,10 +6,11 @@ import { useControlledState } from "@react-stately/utils";
 import { Calendar as CalendarIcon } from "@untitledui/icons";
 import { useDateFormatter } from "react-aria";
 import type { DateRangePickerProps as AriaDateRangePickerProps, DateValue } from "react-aria-components";
-import { DateRangePicker as AriaDateRangePicker, Dialog as AriaDialog, Group as AriaGroup, Popover as AriaPopover, useLocale } from "react-aria-components";
+import { DateRangePicker as AriaDateRangePicker, Dialog as AriaDialog, Group as AriaGroup, useLocale } from "react-aria-components";
 import { Button, type ButtonProps } from "@/components/base/buttons/button";
 import { InputDateBase } from "@/components/base/input/input-date";
 import { cx } from "@/utils/cx";
+import { OverlayPopover } from "@/utils/overlay-popover";
 import { RangeCalendar, RangePresetButton } from "./range-calendar";
 
 const now = today(getLocalTimeZone());
@@ -84,8 +85,8 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                     {!value ? <span className="text-placeholder">Select dates</span> : `${formattedStartDate} – ${formattedEndDate}`}
                 </Button>
             </AriaGroup>
-            <AriaPopover
-                placement="bottom right"
+            <OverlayPopover
+                placement="bottom end"
                 offset={8}
                 className={({ isEntering, isExiting }) =>
                     cx(
@@ -158,7 +159,7 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                         </>
                     )}
                 </AriaDialog>
-            </AriaPopover>
+            </OverlayPopover>
         </AriaDateRangePicker>
     );
 };

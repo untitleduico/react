@@ -38,7 +38,7 @@ export const DropdownAccountButton = () => {
                     <SubmenuTrigger>
                         <Dropdown.Item icon={HelpCircle}>Support</Dropdown.Item>
 
-                        <Dropdown.Popover placement="right top" offset={-6}>
+                        <Dropdown.Popover placement="end top" offset={-6}>
                             <Dropdown.Menu>
                                 <Dropdown.Item>Help center</Dropdown.Item>
                                 <Dropdown.Item>Contact support</Dropdown.Item>
