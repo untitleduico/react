@@ -141,3 +141,39 @@ TableOffline.parameters = {
         desktop: "12201-545323",
     },
 };
+
+export const TableResizableColumns = () => <Tables.TableResizableColumns />;
+TableResizableColumns.storyName = "Table resizable columns";
+
+export const TableColumnVisibility = () => <Tables.TableColumnVisibility />;
+TableColumnVisibility.storyName = "Table column visibility";
+
+export const TableColumnMenu = () => <Tables.TableColumnMenu />;
+TableColumnMenu.storyName = "Table column menu";
+
+export const TableExpandableRows = () => <Tables.TableExpandableRows />;
+TableExpandableRows.storyName = "Table expandable rows";
+
+export const TableDragAndDrop = () => <Tables.TableDragAndDrop />;
+TableDragAndDrop.storyName = "Table drag and drop";
+
+export const TableInfiniteScroll = () => <Tables.TableInfiniteScroll />;
+TableInfiniteScroll.storyName = "Table infinite scroll";
+
+export const TableBulkActions = () => <Tables.TableBulkActions />;
+TableBulkActions.storyName = "Table bulk actions";
+
+export const TableRowActions = () => <Tables.TableRowActions />;
+TableRowActions.storyName = "Table row actions";
+
+export const TableDisabledRows = () => <Tables.TableDisabledRows />;
+TableDisabledRows.storyName = "Table disabled rows";
+
+export const TableEditableCells = () => <Tables.TableEditableCells />;
+TableEditableCells.storyName = "Table editable cells";
+
+export const TableWithFooter = () => <Tables.TableWithFooter />;
+TableWithFooter.storyName = "Table with footer";
+
+export const TableRealTime = () => <Tables.TableRealTime />;
+TableRealTime.storyName = "Table real time";
