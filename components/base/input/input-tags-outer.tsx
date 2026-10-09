@@ -1,7 +1,7 @@
 "use client";
 
 import type { Key, KeyboardEvent, ReactNode } from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { HintText } from "@/components/base/input/hint-text";
 import { InputBase } from "@/components/base/input/input";
 import { Label } from "@/components/base/input/label";
@@ -12,6 +12,19 @@ interface TagEntry {
     id: string;
     label: string;
 }
+
+/**
+ * Keys come from the tags themselves (occurrence and label), so they stay stable across
+ * renders without mutable bookkeeping: the second "react" tag is always "1:react".
+ */
+const toEntries = (labels: string[]): TagEntry[] => {
+    const seen = new Map<string, number>();
+    return labels.map((label) => {
+        const n = seen.get(label) ?? 0;
+        seen.set(label, n + 1);
+        return { id: `${n}:${label}`, label };
+    });
+};
 
 export interface InputTagsOuterProps {
     /** Label text displayed above the input. */
@@ -82,42 +95,19 @@ export const InputTagsOuter = ({
     hideRequiredIndicator,
 }: InputTagsOuterProps) => {
     const isControlled = value !== undefined;
-    const idCounter = useRef(0);
-    const nextId = () => `tag-${idCounter.current++}`;
-
     const [inputValue, setInputValue] = useState("");
+    const [internalTags, setInternalTags] = useState<string[]>(() => defaultValue ?? []);
 
-    const [internalEntries, setInternalEntries] = useState<TagEntry[]>(() => (defaultValue ?? []).map((label) => ({ id: nextId(), label })));
+    const tags = isControlled ? value : internalTags;
+    const entries = useMemo(() => toEntries(tags), [tags]);
 
-    const prevControlledValue = useRef<string[]>([]);
-    const controlledEntries = useRef<TagEntry[]>([]);
-
-    const entries = (() => {
-        if (!isControlled) return internalEntries;
-
-        const prev = prevControlledValue.current;
-        if (prev === value) return controlledEntries.current;
-
-        const oldEntries = controlledEntries.current;
-        const newEntries: TagEntry[] = [];
-        const usedOldIndices = new Set<number>();
-
-        for (const label of value) {
-            const oldIndex = oldEntries.findIndex((e, i) => e.label === label && !usedOldIndices.has(i));
-            if (oldIndex !== -1) {
-                usedOldIndices.add(oldIndex);
-                newEntries.push(oldEntries[oldIndex]);
-            } else {
-                newEntries.push({ id: nextId(), label });
-            }
-        }
-
-        prevControlledValue.current = value;
-        controlledEntries.current = newEntries;
-        return newEntries;
-    })();
-
-    const tags = entries.map((e) => e.label);
+    const commit = useCallback(
+        (next: string[]) => {
+            if (!isControlled) setInternalTags(next);
+            onChange?.(next);
+        },
+        [isControlled, onChange],
+    );
 
     const addTag = useCallback(
         (text: string) => {
@@ -127,42 +117,25 @@ export const InputTagsOuter = ({
             if (maxTags && tags.length >= maxTags) return false;
             if (validate && !validate(trimmed)) return false;
 
-            const newEntry: TagEntry = { id: nextId(), label: trimmed };
-            const newEntries = [...entries, newEntry];
-
-            if (!isControlled) {
-                setInternalEntries(newEntries);
-            }
-            onChange?.(newEntries.map((e) => e.label));
+            commit([...tags, trimmed]);
             onTagAdded?.(trimmed);
             return true;
         },
-        [tags, entries, isControlled, allowDuplicates, maxTags, validate, onChange, onTagAdded],
+        [tags, allowDuplicates, maxTags, validate, commit, onTagAdded],
     );
 
-    const removeTag = useCallback(
-        (id: string) => {
-            const entry = entries.find((e) => e.id === id);
-            if (!entry) return;
-
-            const newEntries = entries.filter((e) => e.id !== id);
-
-            if (!isControlled) {
-                setInternalEntries(newEntries);
-            }
-            onChange?.(newEntries.map((e) => e.label));
-            onTagRemoved?.(entry.label);
-        },
-        [entries, isControlled, onChange, onTagRemoved],
-    );
-
+    // Removes every selected tag in one update, so removing several at once keeps all the removals.
     const handleRemove = useCallback(
         (keys: Set<Key>) => {
-            for (const key of keys) {
-                removeTag(key.toString());
-            }
+            const ids = new Set([...keys].map(String));
+            const removed = entries.filter((e) => ids.has(e.id));
+            if (!removed.length) return;
+
+            const remaining = entries.filter((e) => !ids.has(e.id));
+            commit(remaining.map((e) => e.label));
+            removed.forEach((e) => onTagRemoved?.(e.label));
         },
-        [removeTag],
+        [entries, commit, onTagRemoved],
     );
 
     const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {

@@ -161,7 +161,7 @@ export const TagSelectBase = ({
     // Resize observer for popover width
     const onResize = useCallback(() => {
         if (!placeholderRef.current) return;
-        let divRect = placeholderRef.current?.getBoundingClientRect();
+        const divRect = placeholderRef.current?.getBoundingClientRect();
         setPopoverWidth(divRect.width + "px");
     }, [placeholderRef, setPopoverWidth]);
 

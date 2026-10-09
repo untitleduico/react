@@ -2,10 +2,9 @@
 
 import type { FC, HTMLAttributes } from "react";
 import { useCallback, useEffect, useRef } from "react";
-import type { Placement } from "@react-types/overlays";
 import { BookOpen01, ChevronSelectorVertical, LogOut01, Plus, Settings01, User01 } from "@untitledui/icons";
 import { useFocusManager } from "react-aria";
-import type { DialogProps as AriaDialogProps } from "react-aria-components";
+import type { DialogProps as AriaDialogProps, Placement as AriaPlacement } from "react-aria-components";
 import { Button as AriaButton, Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
 import { AvatarLabelGroup } from "@/components/base/avatar/avatar-label-group";
 import { Button } from "@/components/base/buttons/button";
@@ -174,7 +173,7 @@ export const NavAccountCard = ({
      * Where the account menu opens relative to the card.
      * @default "right bottom" from the `lg` breakpoint up, "top right" below it
      */
-    popoverPlacement?: Placement;
+    popoverPlacement?: AriaPlacement;
     /** The `id` of the account from `items` to show in the card. Nothing is rendered if no item matches, and a warning is logged. */
     selectedAccountId?: string;
     /** The accounts the card can display. The one matching `selectedAccountId` fills the card, and the list is handed to the account menu. */

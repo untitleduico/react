@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import React from "react";
 import { AlertCircle, Calendar, Check, CheckCircle, Copy01, Lock03, Mail01 } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
 import { Input, InputBase, TextField } from "@/components/base/input/input";

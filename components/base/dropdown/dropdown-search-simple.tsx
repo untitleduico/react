@@ -10,7 +10,7 @@ import { InputBase } from "../input/input";
 
 export const DropdownSearchSimple = () => {
     const [selectedUsers, setSelectedUsers] = useState<Selection>(new Set(["olivia", "phoenix"]));
-    let { contains } = useFilter({ sensitivity: "base" });
+    const { contains } = useFilter({ sensitivity: "base" });
 
     return (
         <Dropdown.Root>

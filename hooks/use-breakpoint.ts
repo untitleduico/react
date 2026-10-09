@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 const screens = {
     sm: "640px",
@@ -19,18 +19,22 @@ const screens = {
  * @returns A boolean indicating whether the viewport size applies.
  */
 export const useBreakpoint = (size: "sm" | "md" | "lg" | "xl" | "2xl") => {
-    const [matches, setMatches] = useState(typeof window !== "undefined" ? window.matchMedia(`(min-width: ${screens[size]})`).matches : true);
+    const query = `(min-width: ${screens[size]})`;
 
-    useEffect(() => {
-        const breakpoint = window.matchMedia(`(min-width: ${screens[size]})`);
+    const subscribe = useCallback(
+        (onChange: () => void) => {
+            const breakpoint = window.matchMedia(query);
+            breakpoint.addEventListener("change", onChange);
+            return () => breakpoint.removeEventListener("change", onChange);
+        },
+        [query],
+    );
 
-        setMatches(breakpoint.matches);
-
-        const handleChange = (value: MediaQueryListEvent) => setMatches(value.matches);
-
-        breakpoint.addEventListener("change", handleChange);
-        return () => breakpoint.removeEventListener("change", handleChange);
-    }, [size]);
-
-    return matches;
+    // The server has no viewport, so it renders the desktop layout (as before); the browser
+    // then reads the real value without a hydration mismatch.
+    return useSyncExternalStore(
+        subscribe,
+        () => window.matchMedia(query).matches,
+        () => true,
+    );
 };

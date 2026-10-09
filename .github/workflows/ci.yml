@@ -1,0 +1,31 @@
+name: CI
+
+on:
+    pull_request:
+    push:
+        branches:
+            - main
+
+concurrency:
+    group: ci-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        name: "type-check, lint, prettier"
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: Install dependencies
+              run: bun install --frozen-lockfile
+
+            # tsc (with the Vite template's unused-code checks), eslint with the rules
+            # create-next-app enables, and prettier. Components are copied into users'
+            # projects, so anything this catches would otherwise land there.
+            - name: Check
+              run: bun run test

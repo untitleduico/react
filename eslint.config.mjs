@@ -41,7 +41,29 @@ export default [
         },
         rules: {
             "unused-imports/no-unused-imports": "error",
-            "@typescript-eslint/no-explicit-any": "warn",
+            // Forbid importing from packages that are only present as hoisted transitive
+            // dependencies. They type-check locally but fail on a clean or non-hoisting install.
+            "no-restricted-imports": [
+                "error",
+                {
+                    patterns: [
+                        {
+                            group: ["@react-types/*"],
+                            message: "Import types from react-aria or react-aria-components instead; @react-types/* is not a declared dependency.",
+                        },
+                        {
+                            group: ["@storybook/nextjs", "@storybook/nextjs/*", "@storybook/react", "@storybook/react/*"],
+                            message: "Import from @storybook/nextjs-vite instead; it is the declared Storybook framework package.",
+                        },
+                    ],
+                },
+            ],
+            // The rules below match what a consumer's default config enables (create-next-app ships
+            // eslint-config-next: react-hooks "recommended-latest" and typescript-eslint "recommended").
+            // Components are copied into those projects, so anything looser here ships lint errors to them.
+            "@typescript-eslint/no-explicit-any": "error",
+            "@typescript-eslint/no-empty-object-type": "error",
+            "prefer-const": "error",
 
             "@typescript-eslint/consistent-type-imports": [
                 "error",
@@ -52,9 +74,8 @@ export default [
                 },
             ],
 
-            // React Hooks rules
-            "react-hooks/rules-of-hooks": "error",
-            "react-hooks/exhaustive-deps": "warn",
+            // React Hooks rules, including the React Compiler checks (refs, set-state-in-effect, ...).
+            ...reactHooksPlugin.configs["recommended-latest"].rules,
 
             // Next.js rules (disabled for component library)
             "@next/next/no-img-element": "off",
@@ -71,6 +92,7 @@ export default [
             "react/display-name": "off",
             "react/jsx-key": "warn",
             "react/prop-types": "off",
+            // Off on purpose: thousands of examples use plain apostrophes in JSX text.
             "react/no-unescaped-entities": "off",
             "react/no-unknown-property": ["error", { ignore: ["fill"] }],
             "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
@@ -79,9 +101,6 @@ export default [
             "no-redeclare": "warn",
             "max-len": "off",
             "jsx-a11y/alt-text": "error",
-
-            // Added to address the specific error you were getting
-            "@typescript-eslint/no-empty-object-type": "off",
         },
     },
     ...storybook.configs["flat/recommended"],

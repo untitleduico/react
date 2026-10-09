@@ -1,7 +1,8 @@
 "use client";
 
-import type { FC, HTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import type { FC, HTMLAttributes, MouseEventHandler, ReactNode, RefAttributes } from "react";
 import { ChevronDown, Share04 } from "@untitledui/icons";
+import type { LinkProps as AriaLinkProps } from "react-aria-components";
 import { Link as AriaLink } from "react-aria-components";
 import { Badge } from "@/components/base/badges/badges";
 import { cx, sortCx } from "@/utils/cx";
@@ -11,15 +12,10 @@ const styles = sortCx({
     rootSelected: "bg-secondary hover:bg-secondary_hover",
 });
 
-interface NavItemBaseProps {
-    /** Whether the nav item shows only an icon. */
-    iconOnly?: boolean;
-    /** Whether the collapsible nav item is open. */
-    open?: boolean;
-    /** URL to navigate to when the nav item is clicked. */
-    href?: string;
-    /** Type of the nav item. */
-    type: "link" | "collapsible" | "collapsible-child";
+/**
+ * Props shared between the collapsible and link variants
+ */
+interface NavItemCommonProps {
     /** Icon component to display. */
     icon?: FC<HTMLAttributes<HTMLOrSVGElement>>;
     /** Badge to display. */
@@ -34,7 +30,30 @@ interface NavItemBaseProps {
     children?: ReactNode;
 }
 
-export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, truncate = true, onClick }: NavItemBaseProps) => {
+/**
+ * Props for the collapsible variant (renders a `summary` element)
+ */
+export interface NavItemCollapsibleProps extends NavItemCommonProps {
+    /** Type of the nav item. */
+    type: "collapsible";
+}
+
+/**
+ * Props for the link variants (anchor tag). Accepts all React Aria `Link` props such as `routerOptions`, `isDisabled` and `onPress`.
+ */
+export interface NavItemLinkProps extends NavItemCommonProps, Omit<AriaLinkProps, "children" | "className" | "onClick">, RefAttributes<HTMLAnchorElement> {
+    /** Type of the nav item. */
+    type: "link" | "collapsible-child";
+    /** URL to navigate to when the nav item is clicked. */
+    href?: AriaLinkProps["href"];
+}
+
+/** Union type of collapsible and link props */
+export type NavItemBaseProps = NavItemCollapsibleProps | NavItemLinkProps;
+
+export const NavItemBase = (props: NavItemBaseProps) => {
+    const { icon: Icon, badge, current, truncate = true, onClick, children, ...rest } = props;
+
     const iconElement = Icon && (
         <Icon
             aria-hidden="true"
@@ -66,10 +85,7 @@ export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, 
         </span>
     );
 
-    const isExternal = href && href.startsWith("http");
-    const externalIcon = isExternal && <Share04 className="size-4 stroke-[2.5px] text-fg-quaternary" />;
-
-    if (type === "collapsible") {
+    if (rest.type === "collapsible") {
         return (
             <summary className={cx("p-2", styles.root, current && styles.rootSelected)} onClick={onClick}>
                 {iconElement}
@@ -83,33 +99,30 @@ export const NavItemBase = ({ current, type, badge, href, icon: Icon, children, 
         );
     }
 
-    if (type === "collapsible-child") {
-        return (
-            <AriaLink
-                href={href!}
-                target={isExternal ? "_blank" : "_self"}
-                rel="noopener noreferrer"
-                className={cx("py-2 pr-3 pl-10", styles.root, current && styles.rootSelected)}
-                onClick={onClick}
-                aria-current={current ? "page" : undefined}
-            >
-                {labelElement}
-                {externalIcon}
-                {badgeElement}
-            </AriaLink>
-        );
-    }
+    const { type, href, isDisabled, ...linkProps } = rest;
+
+    const isExternal = href?.startsWith("http");
+    const externalIcon = isExternal && <Share04 className="size-4 stroke-[2.5px] text-fg-quaternary" />;
 
     return (
         <AriaLink
-            href={href!}
+            // Defaults that consumers can override through React Aria link props.
             target={isExternal ? "_blank" : "_self"}
             rel="noopener noreferrer"
-            className={cx("group/item p-2", styles.root, current && styles.rootSelected)}
-            onClick={onClick}
             aria-current={current ? "page" : undefined}
+            {...linkProps}
+            // Dropping `href` when disabled prevents navigation via middle-click or "open in new tab".
+            href={isDisabled ? undefined : href}
+            isDisabled={isDisabled}
+            onClick={onClick}
+            className={cx(
+                type === "collapsible-child" ? "py-2 pr-3 pl-10" : "group/item p-2",
+                styles.root,
+                current && styles.rootSelected,
+                "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+            )}
         >
-            {iconElement}
+            {type === "link" && iconElement}
             {labelElement}
             {externalIcon}
             {badgeElement}
