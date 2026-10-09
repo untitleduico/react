@@ -17,6 +17,7 @@ interface DatePickerProps extends AriaDatePickerProps<DateValue> {
     onApply?: () => void;
     /** The function to call when the cancel button is clicked. */
     onCancel?: () => void;
+    /** Controls the size of the trigger button that opens the calendar. */
     size?: ButtonProps["size"];
 }
 

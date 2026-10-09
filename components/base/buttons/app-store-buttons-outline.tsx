@@ -3,7 +3,13 @@
 import type { AnchorHTMLAttributes } from "react";
 import { cx } from "@/utils/cx";
 
-export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const GooglePlayButton = ({
+    size = "md",
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    /** Controls the rendered width and height of the badge. */
+    size?: "md" | "lg";
+}) => {
     return (
         <a
             aria-label="Get it on Google Play"
@@ -73,7 +79,13 @@ export const GooglePlayButton = ({ size = "md", ...props }: AnchorHTMLAttributes
     );
 };
 
-export const AppStoreButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const AppStoreButton = ({
+    size = "md",
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    /** Controls the rendered width and height of the badge. */
+    size?: "md" | "lg";
+}) => {
     return (
         <a
             aria-label="Download on the App Store"
@@ -179,7 +191,13 @@ export const AppStoreButton = ({ size = "md", ...props }: AnchorHTMLAttributes<H
     );
 };
 
-export const GalaxyStoreButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const GalaxyStoreButton = ({
+    size = "md",
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    /** Controls the rendered width and height of the badge. */
+    size?: "md" | "lg";
+}) => {
     return (
         <a
             aria-label="Available on Galaxy Store"
@@ -278,7 +296,13 @@ export const GalaxyStoreButton = ({ size = "md", ...props }: AnchorHTMLAttribute
     );
 };
 
-export const AppGalleryButton = ({ size = "md", ...props }: AnchorHTMLAttributes<HTMLAnchorElement> & { size?: "md" | "lg" }) => {
+export const AppGalleryButton = ({
+    size = "md",
+    ...props
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+    /** Controls the rendered width and height of the badge. */
+    size?: "md" | "lg";
+}) => {
     return (
         <a
             aria-label="Explore it on AppGallery"

@@ -62,7 +62,9 @@ export const Dialog = (props: DialogProps) => (
 Dialog.displayName = "Dialog";
 
 interface SlideoutMenuProps extends Omit<AriaModalOverlayProps, "children">, RefAttributes<HTMLDivElement> {
+    /** The content of the menu. Can be a render prop that receives the modal state along with a `close` function. */
     children: ReactNode | ((children: AriaModalRenderProps & { close: () => void }) => ReactNode);
+    /** The class name applied to the inner dialog, while `className` styles the sliding panel. */
     dialogClassName?: string;
 }
 
@@ -89,6 +91,7 @@ const Content = ({ role = "main", ...props }: ComponentPropsWithRef<"div">) => {
 Content.displayName = "SlideoutContent";
 
 interface SlideoutHeaderProps extends ComponentPropsWithRef<"header"> {
+    /** Handler called when the close button in the top right corner is pressed. */
     onClose?: () => void;
 }
 
