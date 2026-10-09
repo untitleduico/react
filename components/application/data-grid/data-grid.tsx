@@ -74,6 +74,8 @@ const AGGREGATION_ROW_ID = "__aggregation__";
 const DEFAULT_WIDTH = 150;
 const MIN_WIDTH = 120;
 const GROUP_WIDTH = 220;
+// The rows a virtualized grid renders on the server and while it hydrates. See `bodyItems`.
+const SERVER_ROW_LIMIT = 50;
 
 interface DensitySize {
     /** The size of `Table` the density uses. */
@@ -1017,6 +1019,12 @@ export const DataGrid = <T extends object>({
         () => (pagination ? items.slice(currentPage * pageSize, (currentPage + 1) * pageSize) : items),
         [items, pagination, currentPage, pageSize],
     );
+    // React Aria builds a node for every row and cell it's given, also on the server, where a virtualized grid without pages
+    // can't show them anyway. It gets its first rows there and while it hydrates, and every row right after.
+    const bodyItems = useMemo(
+        () => (loading ? [] : virtualized && isSSR ? pageItems.slice(0, SERVER_ROW_LIMIT) : pageItems),
+        [loading, virtualized, isSSR, pageItems],
+    );
 
     /** Pinning */
 
@@ -1372,7 +1380,7 @@ export const DataGrid = <T extends object>({
 
                                     <Table.Body
                                         // While loading, the loading indicator shows in place of the rows.
-                                        items={loading ? [] : pageItems}
+                                        items={bodyItems}
                                         dependencies={[displayColumns, density, checkboxSelection, rowHeaderColumn]}
                                         renderEmptyState={() => (
                                             <div className="sticky start-0 flex w-(--grid-width) items-center justify-center px-8 py-16">
