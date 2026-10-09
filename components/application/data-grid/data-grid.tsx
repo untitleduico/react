@@ -52,6 +52,7 @@ import {
     fromDateInputValue,
     getAggregationFunctions,
     getCellValue,
+    getGroupId,
     getOptionLabel,
     getOptionValue,
     groupRows,
@@ -181,6 +182,8 @@ export interface DataGridInitialState {
     density?: DataGridDensity;
     /** The field of the column the rows are initially grouped by. */
     rowGrouping?: string;
+    /** The groups of `rowGrouping` that are initially expanded, by their label: the formatted value of the grouping column. */
+    expandedGroups?: string[];
     /** The initial aggregation functions, by field. */
     aggregation?: Record<string, DataGridAggregationFunction>;
 }
@@ -890,6 +893,11 @@ export const DataGrid = <T extends object>({
     const [page, setPage] = useState(0);
     const [uncontrolledSelectedKeys, setUncontrolledSelectedKeys] = useState<Set<Key>>(new Set());
     const [groupingField, setGroupingField] = useState<string | null>(initialState?.rowGrouping ?? null);
+    // React Aria keeps which group rows are expanded. The initial grouping can start with some of them expanded.
+    const [defaultExpandedKeys] = useState(() => {
+        const field = initialState?.rowGrouping;
+        return field ? (initialState?.expandedGroups ?? []).map((label) => getGroupId(field, label)) : [];
+    });
     const [aggregation, setAggregation] = useState<Record<string, DataGridAggregationFunction>>(initialState?.aggregation ?? {});
     const [edits, setEdits] = useState<Map<Key, { original: T; row: T }>>(new Map());
     const [editingStore] = useState(createEditingStore);
@@ -1331,6 +1339,7 @@ export const DataGrid = <T extends object>({
                                     sortDescriptor={sortDescriptor}
                                     onSortChange={handleSortChange}
                                     treeColumn={groupingColumn ? GROUP_FIELD : undefined}
+                                    defaultExpandedKeys={defaultExpandedKeys}
                                     className={
                                         virtualized
                                             ? cx("size-full overflow-auto", sizes[density].scrollPadding, hasTotalsRow && "scroll-pb-(--footer-height)")

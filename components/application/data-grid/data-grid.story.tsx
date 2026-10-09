@@ -20,6 +20,9 @@ DataGridFullFeatured.storyName = "Data grid full featured";
 export const DataGridBasic = () => <DataGrids.DataGridBasic />;
 DataGridBasic.storyName = "Data grid basic";
 
+export const DataGridEditing = () => <DataGrids.DataGridEditing />;
+DataGridEditing.storyName = "Data grid editing";
+
 export const DataGridRowGrouping = () => <DataGrids.DataGridRowGrouping />;
 DataGridRowGrouping.storyName = "Data grid row grouping";
 
@@ -28,6 +31,9 @@ DataGridColumnPinning.storyName = "Data grid column pinning";
 
 export const DataGridLoading = () => <DataGrids.DataGridLoading />;
 DataGridLoading.storyName = "Data grid loading";
+
+export const DataGridLiveData = () => <DataGrids.DataGridLiveData />;
+DataGridLiveData.storyName = "Data grid live data";
 
 export const DataGridFullFeaturedVirtualized = () => <DataGrids.DataGridFullFeaturedVirtualized />;
 DataGridFullFeaturedVirtualized.storyName = "Data grid full featured (virtualized)";

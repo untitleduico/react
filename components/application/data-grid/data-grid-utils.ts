@@ -461,6 +461,9 @@ export interface DataGridGroup<T> {
     aggregates: Record<string, unknown>;
 }
 
+/** The id of the row of a group: the grouping column's field and the group's label. */
+export const getGroupId = (field: string, label: string) => `group:${field}:${label}`;
+
 export const groupRows = <T>(
     rows: T[],
     column: DataGridColumn<T>,
@@ -481,7 +484,7 @@ export const groupRows = <T>(
     return [...groups.entries()]
         .sort(([a], [b]) => (direction === "ascending" ? 1 : -1) * collator.compare(a, b))
         .map(([label, groupRows]): DataGridGroup<T> => ({
-            id: `group:${column.field}:${label}`,
+            id: getGroupId(column.field, label),
             label,
             rows: groupRows,
             aggregates: aggregateRows(groupRows, aggregation, columns),
