@@ -303,6 +303,13 @@ const livePriceColumns: DataGridColumn<(typeof livePrices)[number]>[] = [
     { field: "volume", headerName: "Volume", type: "number", width: 150 },
 ];
 
+// Moves the price up or down by up to 0.5%, and adds some volume.
+const movePrice = (row: (typeof livePrices)[number]) => ({
+    ...row,
+    price: Math.max(0.01, Math.round(row.price * (1 + (Math.random() - 0.5) * 0.01) * 100) / 100),
+    volume: row.volume + Math.floor(Math.random() * 200),
+});
+
 export const DataGridLiveData = () => {
     const [rows, setRows] = useState(livePrices);
     const [isPaused, setIsPaused] = useState(false);
@@ -314,13 +321,7 @@ export const DataGridLiveData = () => {
         // changed render again.
         const interval = setInterval(() => {
             const changed = new Set(Array.from({ length: 3 }, () => Math.floor(Math.random() * livePrices.length)));
-            setRows((current) =>
-                current.map((row, index) => {
-                    if (!changed.has(index)) return row;
-                    const price = Math.max(0.01, Math.round(row.price * (1 + (Math.random() - 0.5) * 0.01) * 100) / 100);
-                    return { ...row, price, volume: row.volume + Math.floor(Math.random() * 200) };
-                }),
-            );
+            setRows((current) => current.map((row, index) => (changed.has(index) ? movePrice(row) : row)));
         }, 1000);
 
         return () => clearInterval(interval);
