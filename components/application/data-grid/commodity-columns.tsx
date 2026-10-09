@@ -33,7 +33,7 @@ const toNumber = (value: unknown) => (typeof value === "number" ? value : null);
 const tagList = (values: unknown) => (Array.isArray(values) ? values.map(String) : []);
 
 export const commodityColumns: DataGridColumn<CommodityRow>[] = [
-    { field: "desk", headerName: "Desk", width: 110, groupable: true },
+    { field: "desk", headerName: "Desk", width: 120, groupable: true },
     { field: "commodity", headerName: "Commodity", width: 200, isRowHeader: true, editable: true, groupable: true },
     {
         field: "tags",
@@ -57,7 +57,7 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
             </div>
         ),
     },
-    { field: "traderName", headerName: "Trader name", width: 150, editable: true, groupable: true },
+    { field: "traderName", headerName: "Trader name", width: 170, editable: true, groupable: true },
     {
         field: "traderEmail",
         headerName: "Trader email",
@@ -72,12 +72,12 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
             </a>
         ),
     },
-    { field: "quantity", headerName: "Quantity", type: "number", width: 120, editable: true, aggregable: true },
+    { field: "quantity", headerName: "Quantity", type: "number", width: 140, editable: true, aggregable: true },
     {
         field: "filledQuantity",
         headerName: "Filled quantity",
         type: "number",
-        width: 150,
+        width: 180,
         aggregable: true,
         valueFormatter: (value) => (typeof value === "number" ? `${Math.round(value * 100)}%` : ""),
         renderCell: ({ value }) =>
@@ -87,7 +87,7 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
                 </div>
             ) : null,
     },
-    { field: "isFilled", headerName: "Is filled", type: "boolean", width: 110, editable: true },
+    { field: "isFilled", headerName: "Is filled", type: "boolean", width: 140, editable: true },
     {
         field: "status",
         headerName: "Status",
@@ -105,12 +105,12 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
             ) : null;
         },
     },
-    { field: "unitPrice", headerName: "Unit price", type: "number", width: 120, editable: true, aggregable: true },
+    { field: "unitPrice", headerName: "Unit price", type: "number", width: 150, editable: true, aggregable: true },
     {
         field: "unitPriceCurrency",
         headerName: "Unit price currency",
         type: "singleSelect",
-        width: 170,
+        width: 210,
         valueOptions: currencyOptions,
         editable: true,
         groupable: true,
@@ -124,12 +124,12 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
         valueGetter: (row) => row.quantity * row.unitPrice,
         valueFormatter: (value) => (typeof value === "number" ? numberFormatter.format(value) : ""),
     },
-    { field: "feeRate", headerName: "Fee rate", type: "number", width: 110, editable: true, aggregable: true },
+    { field: "feeRate", headerName: "Fee rate", type: "number", width: 140, editable: true, aggregable: true },
     {
         field: "feeAmount",
         headerName: "Fee amount",
         type: "number",
-        width: 140,
+        width: 160,
         aggregable: true,
         valueGetter: (row) => row.feeRate * row.quantity * row.unitPrice,
         valueFormatter: (value) => (typeof value === "number" ? numberFormatter.format(value) : ""),
@@ -138,7 +138,7 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
         field: "incoTerm",
         headerName: "Incoterm",
         type: "singleSelect",
-        width: 130,
+        width: 150,
         valueOptions: incotermOptions,
         editable: true,
         groupable: true,
@@ -192,8 +192,8 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
             <span className={cx("tabular-nums", (toNumber(value) ?? 0) < 0 ? "text-error-primary" : "text-success-primary")}>{formattedValue}</span>
         ),
     },
-    { field: "maturityDate", headerName: "Maturity date", type: "date", width: 150, editable: true },
-    { field: "tradeDate", headerName: "Trade date", type: "date", width: 140, editable: true },
+    { field: "maturityDate", headerName: "Maturity date", type: "date", width: 170, editable: true },
+    { field: "tradeDate", headerName: "Trade date", type: "date", width: 160, editable: true },
     { field: "brokerId", headerName: "Broker ID", width: 300 },
     { field: "brokerName", headerName: "Broker name", width: 180, editable: true, groupable: true },
     { field: "counterPartyName", headerName: "Counterparty", width: 180, editable: true, groupable: true },
@@ -201,7 +201,7 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
         field: "counterPartyCountry",
         headerName: "Counterparty country",
         type: "singleSelect",
-        width: 200,
+        width: 220,
         valueOptions: countryOptions,
         editable: true,
         groupable: true,
@@ -216,26 +216,26 @@ export const commodityColumns: DataGridColumn<CommodityRow>[] = [
         field: "counterPartyCurrency",
         headerName: "Counterparty currency",
         type: "singleSelect",
-        width: 190,
+        width: 230,
         valueOptions: currencyOptions,
         editable: true,
         groupable: true,
     },
     { field: "counterPartyAddress", headerName: "Counterparty address", width: 220, editable: true },
-    { field: "counterPartyCity", headerName: "Counterparty city", width: 170, editable: true, groupable: true },
-    { field: "taxCode", headerName: "Tax code", type: "singleSelect", width: 120, valueOptions: taxCodeOptions, editable: true, groupable: true },
+    { field: "counterPartyCity", headerName: "Counterparty city", width: 200, editable: true, groupable: true },
+    { field: "taxCode", headerName: "Tax code", type: "singleSelect", width: 150, valueOptions: taxCodeOptions, editable: true, groupable: true },
     {
         field: "contractType",
         headerName: "Contract type",
         type: "singleSelect",
-        width: 140,
+        width: 170,
         valueOptions: contractTypeOptions,
         editable: true,
         groupable: true,
     },
-    { field: "rateType", headerName: "Rate type", type: "singleSelect", width: 120, valueOptions: rateTypeOptions, editable: true, groupable: true },
+    { field: "rateType", headerName: "Rate type", type: "singleSelect", width: 150, valueOptions: rateTypeOptions, editable: true, groupable: true },
     { field: "lastUpdated", headerName: "Updated on", type: "dateTime", width: 200, editable: true },
-    { field: "dateCreated", headerName: "Created on", type: "date", width: 150, editable: true },
+    { field: "dateCreated", headerName: "Created on", type: "date", width: 160, editable: true },
     {
         field: "certifications",
         headerName: "Certifications",

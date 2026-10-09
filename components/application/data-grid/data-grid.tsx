@@ -5,13 +5,13 @@ import { createContext, memo, useCallback, useContext, useLayoutEffect, useMemo,
 import { createPortal } from "react-dom";
 import {
     ArrowDown,
+    ArrowLeft,
+    ArrowRight,
     ArrowUp,
     Calculator,
     Check,
-    ChevronLeft,
-    ChevronRight,
+    ChevronDown,
     Columns03,
-    DotsVertical,
     EyeOff,
     FilterLines,
     LayersThree01,
@@ -24,12 +24,14 @@ import {
 import { useCollator, useIsSSR } from "react-aria";
 import type { Key, Selection, SortDescriptor } from "react-aria-components";
 import { Button as AriaButton, Collection as AriaCollection, SubmenuTrigger as AriaSubmenuTrigger, useLocale } from "react-aria-components";
-import { Table } from "@/components/application/table/table";
-import { ButtonUtility } from "@/components/base/buttons/button-utility";
+import { EmptyState } from "@/components/application/empty-state/empty-state";
+import { LoadingIndicator } from "@/components/application/loading-indicator/loading-indicator";
+import { Table, TableCard } from "@/components/application/table/table";
+import { Badge } from "@/components/base/badges/badges";
+import { Button } from "@/components/base/buttons/button";
 import { Checkbox } from "@/components/base/checkbox/checkbox";
 import { Dropdown } from "@/components/base/dropdown/dropdown";
 import { Select } from "@/components/base/select/select";
-import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
 import { type DataGridPanel, DataGridToolbar } from "./data-grid-toolbar";
 import {
@@ -53,7 +55,6 @@ import {
     getOptionLabel,
     getOptionValue,
     groupRows,
-    isFilterActive,
     printRows,
     sortRows,
     toCsv,
@@ -70,15 +71,27 @@ const GROUP_FIELD = "__group__";
 const AGGREGATION_ROW_ID = "__aggregation__";
 
 const DEFAULT_WIDTH = 150;
-const MIN_WIDTH = 60;
-const SELECTION_WIDTH = 48;
+const MIN_WIDTH = 120;
 const GROUP_WIDTH = 220;
 
-const styles = {
-    compact: { row: "h-9", header: "h-9", padding: "px-3", rowHeight: 36, headerHeight: 36, scrollPadding: "scroll-pt-9" },
-    standard: { row: "h-13", header: "h-11", padding: "px-4", rowHeight: 52, headerHeight: 44, scrollPadding: "scroll-pt-11" },
-    comfortable: { row: "h-16", header: "h-13", padding: "px-5", rowHeight: 64, headerHeight: 52, scrollPadding: "scroll-pt-13" },
-} satisfies Record<DataGridDensity, { row: string; header: string; padding: string; rowHeight: number; headerHeight: number; scrollPadding: string }>;
+interface DensitySize {
+    /** The size of `Table` the density uses. */
+    size: "sm" | "md";
+    /** The heights of `Table`'s rows and header, in pixels, for the virtualizer. */
+    rowHeight: number;
+    headerHeight: number;
+    /** The width of `Table`'s checkbox column: its padding and the checkbox. */
+    selectionWidth: number;
+    /** Keeps the focused row from scrolling under the sticky header. */
+    scrollPadding: string;
+    /** The horizontal padding of the toolbar and footer, which lines up with the cells. */
+    padding: string;
+}
+
+const sizes: Record<DataGridDensity, DensitySize> = {
+    compact: { size: "sm", rowHeight: 56, headerHeight: 36, selectionWidth: 40, scrollPadding: "scroll-pt-9", padding: "md:px-5" },
+    standard: { size: "md", rowHeight: 72, headerHeight: 44, selectionWidth: 44, scrollPadding: "scroll-pt-11", padding: "md:px-6" },
+};
 
 const alignments = {
     left: { text: "text-left", flex: "justify-start" },
@@ -212,7 +225,7 @@ export interface DataGridProps<T extends object> {
      * @default [25, 50, 100]
      */
     pageSizeOptions?: number[];
-    /** Whether the rows are loading. Shows skeleton rows when there are no rows yet. */
+    /** Whether the rows are loading. Shows a loading indicator in place of the rows. */
     loading?: boolean;
     /** The initial state of the sorting, filters, columns, pagination, density, grouping and aggregation. */
     initialState?: DataGridInitialState;
@@ -236,7 +249,6 @@ interface DataGridActions {
     commitEdit: (rowId: Key, field: string, value: unknown) => void;
     onColumnMenuAction: (column: AnyColumn, action: Key) => void;
     onAggregationChange: (field: string, aggregation: DataGridAggregationFunction | null) => void;
-    openFilterPanel: () => void;
 }
 
 // Read by every cell, so it only holds values that rarely change. Selection, sorting and menus don't re-render the cells.
@@ -255,8 +267,6 @@ interface DataGridContextValue {
 interface DataGridHeaderContextValue {
     sort: DataGridSort | null;
     menuField: string | null;
-    /** The number of active filters of each column. */
-    filterCounts: Map<string, number>;
     groupingHeaderName: string;
     showToolbar: boolean;
     /** The number of visible columns. The last one can't be hidden. */
@@ -414,21 +424,12 @@ const ColumnMenu = ({ column, label, startResize }: ColumnMenuProps) => {
                 aria-label={`${label} column menu`}
                 // Like MUI, arrow keys focus the header itself, where Enter sorts. Ctrl+Enter or Alt+ArrowDown opens this menu.
                 data-react-aria-prevent-focus
-                className={(state) =>
-                    cx(
-                        "flex shrink-0 cursor-pointer overflow-hidden rounded-md text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-fg-quaternary_hover",
-                        // Like MUI, the menu button takes no space until the header is hovered or focused, or the menu is open.
-                        "w-0 p-0 opacity-0 group-hover/column:w-5 group-hover/column:p-0.5 group-hover/column:opacity-100",
-                        "group-focus-within/column:w-5 group-focus-within/column:p-0.5 group-focus-within/column:opacity-100 pointer-coarse:w-5 pointer-coarse:p-0.5 pointer-coarse:opacity-100",
-                        (state.isFocusVisible || isOpen) && "w-5 p-0.5 opacity-100",
-                        state.isFocusVisible && "outline-2",
-                    )
-                }
+                className="flex shrink-0 cursor-pointer rounded-xs p-0.5 text-fg-quaternary outline-focus-ring transition duration-100 ease-linear hover:bg-primary_hover hover:text-fg-quaternary_hover focus-visible:outline-2"
             >
-                <DotsVertical className="size-4" aria-hidden="true" />
+                <ChevronDown className="size-4" aria-hidden="true" />
             </AriaButton>
 
-            <Dropdown.Popover placement="bottom end" className="w-56">
+            <Dropdown.Popover placement="bottom start" className="w-56">
                 {/* The menu takes the focus, also when it's opened with the keyboard shortcut, so Escape closes it. */}
                 <Dropdown.Menu
                     aria-label={`${label} column menu`}
@@ -450,17 +451,15 @@ interface ColumnHeaderProps {
     id?: Key;
     column: AnyColumn;
     defaultWidth: number | `${number}fr`;
+    minWidth: number;
     isRowHeader: boolean;
 }
 
-const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) => {
-    const { density, pinned: pinnedColumns, aggregation: aggregationModel, virtualized, actions } = useDataGrid();
-    const header = useDataGridHeader();
+const ColumnHeader = ({ column, defaultWidth, minWidth, isRowHeader }: ColumnHeaderProps) => {
+    const { pinned: pinnedColumns, virtualized, actions } = useDataGrid();
     const label = column.headerName ?? column.field;
     const align = getAlign(column);
     const pinned = pinnedColumns.get(column.field);
-    const aggregation = aggregationModel[column.field];
-    const filterCount = header.filterCounts.get(column.field) ?? 0;
     const allowsSorting = column.sortable !== false && column.type !== "actions";
     const hasMenu = column.type !== "actions";
     const { setMenuField } = actions;
@@ -495,45 +494,21 @@ const ColumnHeader = ({ column, defaultWidth, isRowHeader }: ColumnHeaderProps) 
             isRowHeader={isRowHeader}
             allowsSorting={allowsSorting}
             defaultWidth={defaultWidth}
-            minWidth={column.minWidth ?? MIN_WIDTH}
+            minWidth={minWidth}
             maxWidth={column.maxWidth}
             {...getPinnedProps(pinned, virtualized)}
             ref={attachKeyboardShortcuts}
             aria-keyshortcuts={hasMenu ? "Control+Enter Alt+ArrowDown" : undefined}
+            label={label}
             align={align}
             tooltip={column.description}
             allowsResizing={column.resizable !== false}
             // Arrow keys focus the header itself, like MUI's. The column menu starts keyboard resizing.
             isResizerFocusable={false}
             contentTrailing={hasMenu ? (state) => <ColumnMenu column={column} label={label} startResize={state.startResize} /> : undefined}
-            className={cx(
-                "group/column bg-secondary py-0",
-                styles[density].header,
-                styles[density].padding,
-                // Pinned headers sit above the column dividers (z-10) of the headers that scroll under them.
-                pinned ? "z-20" : "focus-visible:z-1",
-                pinnedEdgeClassName(pinned),
-            )}
-        >
-            <span className={cx("flex min-w-0 flex-col", align === "right" && "items-end")}>
-                <span className="truncate text-xs font-semibold text-quaternary">{label}</span>
-                {/* Like MUI, an aggregated column shows its function under the name. */}
-                {aggregation && (
-                    <span className="truncate text-xs leading-4 font-normal text-quaternary">{aggregationFunctions[aggregation].label.toLowerCase()}</span>
-                )}
-            </span>
-
-            {filterCount > 0 && (
-                <Tooltip title={filterCount === 1 ? "1 active filter" : `${filterCount} active filters`} placement="top">
-                    <TooltipTrigger
-                        onPress={header.showToolbar ? actions.openFilterPanel : undefined}
-                        className="flex shrink-0 cursor-pointer rounded-xs text-fg-brand-secondary outline-focus-ring focus-visible:outline-2"
-                    >
-                        <FilterLines className="size-3.5 stroke-[2.5px]" />
-                    </TooltipTrigger>
-                </Tooltip>
-            )}
-        </Table.Head>
+            // Pinned headers need their own background, and sit above the column dividers (z-10) of the headers that scroll under them.
+            className={cx(pinned && "z-20 bg-secondary", pinnedEdgeClassName(pinned))}
+        />
     );
 };
 
@@ -565,11 +540,16 @@ const focusAfterEdit = (cell: HTMLElement, move?: "next" | "previous" | "down") 
     });
 
 const CellEditor = ({ cell }: { cell: EditingCell }) => {
-    const { density, actions } = useDataGrid();
+    const { actions } = useDataGrid();
     const { column, row, rowId, element } = cell;
     const isDone = useRef(false);
     const value = getCellValue(row, column);
     const label = `Edit ${column.headerName ?? column.field}`;
+    // The text input keeps the cell's padding, so its text stays where the cell's was.
+    const [padding] = useState<CSSProperties>(() => {
+        const style = getComputedStyle(element);
+        return { paddingLeft: style.paddingLeft, paddingRight: style.paddingRight };
+    });
 
     const [text, setText] = useState(() => {
         if (cell.initialText !== undefined) return cell.initialText;
@@ -672,7 +652,8 @@ const CellEditor = ({ cell }: { cell: EditingCell }) => {
             }}
             onKeyDown={handleKeyDown}
             onBlur={() => commit()}
-            className={cx(inputClassName, styles[density].padding, column.type === "number" && "text-right tabular-nums")}
+            style={padding}
+            className={cx(inputClassName, column.type === "number" && "text-right tabular-nums")}
         />
     );
 };
@@ -743,7 +724,7 @@ interface GridCellProps {
 }
 
 const GridCell = ({ column, row, rowId, rowType, aggregates, label }: GridCellProps) => {
-    const { density, formatters, pinned: pinnedColumns, aggregation, disableRowSelectionOnClick, virtualized, actions } = useDataGrid();
+    const { formatters, pinned: pinnedColumns, aggregation, disableRowSelectionOnClick, virtualized, actions } = useDataGrid();
     const cellRef = useRef<HTMLTableCellElement>(null);
     const align = getAlign(column);
     const pinned = pinnedColumns.get(column.field);
@@ -802,8 +783,7 @@ const GridCell = ({ column, row, rowId, rowType, aggregates, label }: GridCellPr
             onDoubleClick={isEditable ? () => cellRef.current && startEditing({ rowId, column, row, element: cellRef.current }) : undefined}
             onPointerDown={disableRowSelectionOnClick ? focusCellWithoutSelecting : undefined}
             className={cx(
-                "truncate py-0",
-                styles[density].padding,
+                "truncate",
                 alignments[align].text,
                 rowType !== "row" || column.isRowHeader ? "font-medium text-primary" : undefined,
                 pinned && pinnedCellClassName,
@@ -840,8 +820,8 @@ interface TableVirtualizationProps {
 const TableVirtualization = ({ virtualized, density, stickyColumns, stickyFooter, children }: TableVirtualizationProps) =>
     virtualized ? (
         <Table.Virtualizer
-            rowHeight={styles[density].rowHeight}
-            headingHeight={styles[density].headerHeight}
+            rowHeight={sizes[density].rowHeight}
+            headingHeight={sizes[density].headerHeight}
             stickyColumns={stickyColumns}
             stickyFooter={stickyFooter}
         >
@@ -962,6 +942,9 @@ export const DataGrid = <T extends object>({
         if (!hasFlexColumn && column.field === lastScrollingField) return "1fr";
         return column.width ?? DEFAULT_WIDTH;
     };
+    // The column that fills the remaining space keeps at least its width when there's no space left.
+    const getMinWidth = (column: AnyColumn) =>
+        column.minWidth ?? (!column.flex && !hasFlexColumn && column.field === lastScrollingField ? (column.width ?? DEFAULT_WIDTH) : MIN_WIDTH);
 
     /** Rows */
 
@@ -1017,14 +1000,6 @@ export const DataGrid = <T extends object>({
     const totals = useMemo(() => aggregateRows(filteredRows, aggregation, columnsByField), [filteredRows, aggregation, columnsByField]);
     const hasAggregationRow = Object.keys(aggregation).some((field) => displayColumns.some((column) => column.field === field));
 
-    const filterCounts = useMemo(() => {
-        const counts = new Map<string, number>();
-        for (const item of filterModel.items) {
-            if (isFilterActive(item, columnsByField.get(item.field))) counts.set(item.field, (counts.get(item.field) ?? 0) + 1);
-        }
-        return counts;
-    }, [filterModel.items, columnsByField]);
-
     // The top-level items: data rows, or group rows when grouping.
     const items = useMemo<object[]>(() => (groups ? groups.map((group): GroupItem => ({ [GROUP_ROW]: true, group })) : sortedRows), [groups, sortedRows]);
 
@@ -1060,10 +1035,11 @@ export const DataGrid = <T extends object>({
         [pinnedLeftFields, pinnedRightFields],
     );
 
+    const selectionWidth = sizes[density].selectionWidth;
     const declaredWidth = useCallback(
         (field: string) =>
-            field === SELECTION_FIELD ? SELECTION_WIDTH : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH),
-        [columnsByField, groupColumnWidth],
+            field === SELECTION_FIELD ? selectionWidth : field === GROUP_FIELD ? groupColumnWidth : (columnsByField.get(field)?.width ?? DEFAULT_WIDTH),
+        [columnsByField, groupColumnWidth, selectionWidth],
     );
 
     const pinned = useMemo(() => {
@@ -1106,6 +1082,16 @@ export const DataGrid = <T extends object>({
         headers.forEach((header) => observer.observe(header));
         return () => observer.disconnect();
     }, [pinned, pinnedSides, declaredWidth]);
+
+    // The empty state and the loading indicator stay in view when the columns are wider than the grid. They're centered in
+    // the width of the grid, measured into a CSS variable.
+    useLayoutEffect(() => {
+        const container = scrollRef.current;
+        if (!container) return;
+        const observer = new ResizeObserver(() => container.style.setProperty("--grid-width", `${container.clientWidth}px`));
+        observer.observe(container);
+        return () => observer.disconnect();
+    }, []);
 
     /** Actions */
 
@@ -1216,7 +1202,6 @@ export const DataGrid = <T extends object>({
                     else delete next[field];
                     return next;
                 }),
-            openFilterPanel: () => setOpenPanel("filters"),
         }),
         [editingStore],
     );
@@ -1250,21 +1235,21 @@ export const DataGrid = <T extends object>({
 
     const groupingHeaderName = groupingColumn?.headerName ?? groupingField ?? "";
     const headerContextValue = useMemo<DataGridHeaderContextValue>(
-        () => ({ sort, menuField, filterCounts, groupingHeaderName, showToolbar, visibleColumnCount: visibleColumns.length }),
-        [sort, menuField, filterCounts, groupingHeaderName, showToolbar, visibleColumns.length],
+        () => ({ sort, menuField, groupingHeaderName, showToolbar, visibleColumnCount: visibleColumns.length }),
+        [sort, menuField, groupingHeaderName, showToolbar, visibleColumns.length],
     );
 
     const sortDescriptor = useMemo<SortDescriptor | undefined>(() => (sort ? { column: sort.field, direction: sort.direction } : undefined), [sort]);
     const disabledKeys = useMemo(() => [...(groups ? groups.map((group) => group.id) : []), AGGREGATION_ROW_ID], [groups]);
     const selectedCount = selectedKeys.size;
-    const firstItem = items.length === 0 ? 0 : currentPage * pageSize + 1;
-    const lastItem = Math.min(items.length, (currentPage + 1) * pageSize);
+    // The totals row shows with the rows, so not while they load.
+    const hasTotalsRow = hasAggregationRow && items.length > 0 && !loading;
 
     const stickyColumns = useMemo(() => [...pinnedLeftFields, ...pinnedRightFields], [pinnedLeftFields, pinnedRightFields]);
     const selectionPinned = pinned.get(SELECTION_FIELD);
     const selectionCellProps = (isSelectable: boolean) => ({
         style: virtualized ? undefined : getPinnedStyle(selectionPinned),
-        className: cx("py-0 md:pl-4", selectionPinned && pinnedCellClassName, pinnedEdgeClassName(selectionPinned)),
+        className: cx(selectionPinned && pinnedCellClassName, pinnedEdgeClassName(selectionPinned)),
         children: isSelectable ? undefined : null,
     });
 
@@ -1278,7 +1263,7 @@ export const DataGrid = <T extends object>({
                 id={rowId}
                 textValue={group ? group.label : rowHeaderColumn ? getFormattedValue(row, rowHeaderColumn) : ""}
                 selectionCellProps={selectionCellProps(!group)}
-                className={cx("group/row", styles[density].row, virtualized && rightPinnedBoxClassName)}
+                className={cx("group/row", virtualized && rightPinnedBoxClassName)}
             >
                 <AriaCollection items={displayColumns} dependencies={[item]}>
                     {(column) => (
@@ -1308,7 +1293,7 @@ export const DataGrid = <T extends object>({
     return (
         <DataGridContext.Provider value={contextValue}>
             <DataGridHeaderContext.Provider value={headerContextValue}>
-                <div className={cx("flex flex-col overflow-hidden rounded-xl bg-primary shadow-xs ring-1 ring-secondary", className)}>
+                <TableCard.Root size={sizes[density].size} className={cx("flex flex-col", className)}>
                     {showToolbar && (
                         <DataGridToolbar
                             columns={anyColumns.filter((column) => column.type !== "actions")}
@@ -1325,20 +1310,14 @@ export const DataGrid = <T extends object>({
                             onExport={handleExport}
                             openPanel={openPanel}
                             onOpenPanelChange={setOpenPanel}
+                            className={sizes[density].padding}
                         />
                     )}
 
                     <CellEditorLayer />
 
                     <div className="relative flex min-h-0 flex-1 flex-col" aria-busy={loading || undefined}>
-                        {loading && items.length > 0 && <div aria-hidden="true" className="absolute inset-x-0 top-0 z-30 h-0.5 animate-pulse bg-brand-solid" />}
-
-                        <TableVirtualization
-                            virtualized={virtualized}
-                            density={density}
-                            stickyColumns={stickyColumns}
-                            stickyFooter={hasAggregationRow && items.length > 0}
-                        >
+                        <TableVirtualization virtualized={virtualized} density={density} stickyColumns={stickyColumns} stickyFooter={hasTotalsRow}>
                             <Table.ResizableContainer ref={scrollRef} className={cx("min-h-0 flex-1", virtualized && "overflow-hidden")}>
                                 <Table
                                     aria-label={ariaLabelledBy ? undefined : ariaLabel}
@@ -1354,66 +1333,79 @@ export const DataGrid = <T extends object>({
                                     treeColumn={groupingColumn ? GROUP_FIELD : undefined}
                                     className={
                                         virtualized
-                                            ? cx("size-full overflow-auto", styles[density].scrollPadding, hasAggregationRow && "scroll-pb-(--footer-height)")
+                                            ? cx("size-full overflow-auto", sizes[density].scrollPadding, hasTotalsRow && "scroll-pb-(--footer-height)")
                                             : "w-full border-separate border-spacing-0"
                                     }
-                                    style={virtualized ? ({ "--footer-height": `${styles[density].rowHeight}px` } as CSSProperties) : undefined}
+                                    style={virtualized ? ({ "--footer-height": `${sizes[density].rowHeight}px` } as CSSProperties) : undefined}
                                 >
                                     <Table.Header
                                         columns={displayColumns}
                                         dependencies={[groupColumnWidth, hasFlexColumn, lastScrollingField, rowHeaderField, density]}
                                         selectionColumnProps={{
                                             id: SELECTION_FIELD,
-                                            width: SELECTION_WIDTH,
-                                            minWidth: SELECTION_WIDTH,
+                                            width: selectionWidth,
+                                            minWidth: selectionWidth,
                                             style: virtualized ? undefined : getPinnedStyle(pinned.get(SELECTION_FIELD)),
-                                            className: cx(
-                                                "bg-secondary py-0 md:pl-4",
-                                                pinned.has(SELECTION_FIELD) && "z-20",
-                                                pinnedEdgeClassName(pinned.get(SELECTION_FIELD)),
-                                            ),
+                                            className: cx(pinned.has(SELECTION_FIELD) && "z-20 bg-secondary", pinnedEdgeClassName(pinned.get(SELECTION_FIELD))),
                                         }}
-                                        className={cx(virtualized ? rightPinnedHeaderBoxClassName : "sticky top-0", "z-20", styles[density].header)}
+                                        className={cx(virtualized ? rightPinnedHeaderBoxClassName : "sticky top-0", "z-20")}
                                     >
                                         {(column) => (
                                             <ColumnHeader
                                                 id={column.field}
                                                 column={column}
                                                 defaultWidth={getDefaultWidth(column)}
+                                                minWidth={getMinWidth(column)}
                                                 isRowHeader={column.field === rowHeaderField}
                                             />
                                         )}
                                     </Table.Header>
 
                                     <Table.Body
-                                        items={pageItems}
+                                        // While loading, the loading indicator shows in place of the rows.
+                                        items={loading ? [] : pageItems}
                                         dependencies={[displayColumns, density, checkboxSelection, rowHeaderColumn]}
-                                        renderEmptyState={() =>
-                                            loading ? (
-                                                <div className="flex flex-col">
-                                                    {Array.from({ length: 6 }, (_, index) => (
-                                                        <div
-                                                            key={index}
-                                                            className={cx("flex items-center gap-6 border-b border-secondary px-4", styles[density].row)}
-                                                        >
-                                                            <div className="h-3 w-1/4 animate-pulse rounded-full bg-quaternary" />
-                                                            <div className="h-3 w-1/6 animate-pulse rounded-full bg-quaternary" />
-                                                            <div className="h-3 w-1/5 animate-pulse rounded-full bg-quaternary" />
-                                                        </div>
-                                                    ))}
-                                                </div>
-                                            ) : (
-                                                <div className="flex flex-col items-center justify-center gap-1 px-4 py-16 text-center">
-                                                    <p className="text-sm font-semibold text-primary">{rows.length === 0 ? "No rows" : "No results found"}</p>
-                                                    {rows.length > 0 && <p className="text-sm text-tertiary">Try a different search or filter.</p>}
-                                                </div>
-                                            )
-                                        }
+                                        renderEmptyState={() => (
+                                            <div className="sticky start-0 flex w-(--grid-width) items-center justify-center px-8 py-16">
+                                                {loading ? (
+                                                    <LoadingIndicator size="sm" label="Loading..." />
+                                                ) : (
+                                                    <EmptyState size="sm">
+                                                        <EmptyState.Header pattern="none">
+                                                            <EmptyState.FeaturedIcon color="gray" theme="modern-neue" />
+                                                        </EmptyState.Header>
+                                                        <EmptyState.Content>
+                                                            <EmptyState.Title>{rows.length === 0 ? "No rows" : "No results found"}</EmptyState.Title>
+                                                            <EmptyState.Description>
+                                                                {rows.length === 0
+                                                                    ? "There's nothing to show yet."
+                                                                    : "Your search and filters did not match any rows."}
+                                                            </EmptyState.Description>
+                                                        </EmptyState.Content>
+                                                        {/* Only filters can hide every row. */}
+                                                        {rows.length > 0 && (
+                                                            <EmptyState.Footer>
+                                                                <Button
+                                                                    size="sm"
+                                                                    color="secondary"
+                                                                    onClick={() => {
+                                                                        setFilterModel((model) => ({ ...model, items: [], quickFilter: "" }));
+                                                                        setPage(0);
+                                                                    }}
+                                                                >
+                                                                    Clear filters
+                                                                </Button>
+                                                            </EmptyState.Footer>
+                                                        )}
+                                                    </EmptyState>
+                                                )}
+                                            </div>
+                                        )}
                                     >
                                         {renderRow}
                                     </Table.Body>
 
-                                    {hasAggregationRow && items.length > 0 && (
+                                    {hasTotalsRow && (
                                         <Table.Footer className={cx("z-20 border-t-0", !virtualized && "sticky bottom-0")}>
                                             <Table.Row
                                                 id={AGGREGATION_ROW_ID}
@@ -1421,7 +1413,6 @@ export const DataGrid = <T extends object>({
                                                 selectionCellProps={selectionCellProps(false)}
                                                 className={cx(
                                                     "group/row bg-secondary hover:bg-secondary",
-                                                    styles[density].row,
                                                     "[&>td]:before:pointer-events-none [&>td]:before:absolute [&>td]:before:inset-x-0 [&>td]:before:top-0 [&>td]:before:h-px [&>td]:before:bg-border-secondary",
                                                     virtualized &&
                                                         "before:absolute before:inset-x-0 before:top-0 before:z-10 before:h-px before:bg-border-secondary",
@@ -1453,17 +1444,21 @@ export const DataGrid = <T extends object>({
                         </TableVirtualization>
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-secondary px-4 py-3">
-                        <p className="text-sm text-tertiary">
-                            {selectedCount > 0 ? `${formatters.number.format(selectedCount)} ${selectedCount === 1 ? "row" : "rows"} selected` : null}
-                        </p>
-
-                        {pagination ? (
-                            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-                                {/* Like MUI, the page size select only shows when there's a choice. */}
-                                {pageSizeOptions.length > 1 && (
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-sm text-tertiary">Rows per page</span>
+                    {/* Laid out like `PaginationCardMinimal`, with the selected rows and the grid's own page sizes. */}
+                    <div className={cx("flex items-center gap-3 border-t border-secondary px-4 py-3 md:pt-3 md:pb-4", sizes[density].padding)}>
+                        <div className="mr-auto flex min-w-0 items-center gap-3">
+                            {selectedCount > 0 && (
+                                <Badge color="gray" size="sm" type="modern">
+                                    {formatters.number.format(selectedCount)} selected
+                                </Badge>
+                            )}
+                            {pagination ? (
+                                <>
+                                    <span className="text-sm font-medium whitespace-nowrap text-fg-secondary">
+                                        Page {formatters.number.format(currentPage + 1)} of {formatters.number.format(pageCount)}
+                                    </span>
+                                    {/* Like MUI, the page size select only shows when there's a choice. */}
+                                    {pageSizeOptions.length > 1 && (
                                         <Select
                                             size="sm"
                                             aria-label="Rows per page"
@@ -1473,42 +1468,63 @@ export const DataGrid = <T extends object>({
                                                 setPage(0);
                                             }}
                                             items={pageSizeOptions.map((option) => ({ id: option, label: String(option) }))}
-                                            className="w-20"
+                                            className="w-20 max-md:hidden"
                                         >
                                             {(option) => <Select.Item id={option.id}>{option.label}</Select.Item>}
                                         </Select>
-                                    </div>
-                                )}
-                                <span className="text-sm text-secondary tabular-nums">
-                                    {formatters.number.format(firstItem)}–{formatters.number.format(lastItem)} of {formatters.number.format(items.length)}
+                                    )}
+                                </>
+                            ) : (
+                                <span className="text-sm font-medium whitespace-nowrap text-fg-secondary">
+                                    {filteredRows.length < rows.length
+                                        ? `${formatters.number.format(filteredRows.length)} of ${formatters.number.format(rows.length)} rows`
+                                        : `${formatters.number.format(rows.length)} rows`}
                                 </span>
-                                <div className="flex gap-1">
-                                    <ButtonUtility
-                                        size="xs"
-                                        color="secondary"
-                                        tooltip="Go to previous page"
-                                        icon={ChevronLeft}
-                                        isDisabled={currentPage === 0}
-                                        onClick={() => setPage(currentPage - 1)}
-                                    />
-                                    <ButtonUtility
-                                        size="xs"
-                                        color="secondary"
-                                        tooltip="Go to next page"
-                                        icon={ChevronRight}
-                                        isDisabled={currentPage >= pageCount - 1}
-                                        onClick={() => setPage(currentPage + 1)}
-                                    />
-                                </div>
-                            </div>
-                        ) : (
-                            <p className="text-sm text-tertiary">
-                                Total rows: {formatters.number.format(items.length)}
-                                {!groups && items.length < rows.length && ` of ${formatters.number.format(rows.length)}`}
-                            </p>
+                            )}
+                        </div>
+
+                        {pagination && (
+                            <>
+                                <Button
+                                    color="secondary"
+                                    size="sm"
+                                    isDisabled={currentPage === 0}
+                                    onClick={() => setPage(currentPage - 1)}
+                                    className="max-md:hidden"
+                                >
+                                    Previous
+                                </Button>
+                                <Button
+                                    color="secondary"
+                                    size="sm"
+                                    isDisabled={currentPage >= pageCount - 1}
+                                    onClick={() => setPage(currentPage + 1)}
+                                    className="max-md:hidden"
+                                >
+                                    Next
+                                </Button>
+                                <Button
+                                    aria-label="Go to previous page"
+                                    color="secondary"
+                                    size="sm"
+                                    iconLeading={ArrowLeft}
+                                    isDisabled={currentPage === 0}
+                                    onClick={() => setPage(currentPage - 1)}
+                                    className="md:hidden"
+                                />
+                                <Button
+                                    aria-label="Go to next page"
+                                    color="secondary"
+                                    size="sm"
+                                    iconLeading={ArrowRight}
+                                    isDisabled={currentPage >= pageCount - 1}
+                                    onClick={() => setPage(currentPage + 1)}
+                                    className="md:hidden"
+                                />
+                            </>
                         )}
                     </div>
-                </div>
+                </TableCard.Root>
             </DataGridHeaderContext.Provider>
         </DataGridContext.Provider>
     );

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Columns03, Download01, FilterLines, Plus, Printer, Rows01, Rows02, Rows03, SearchLg, Trash01, XClose } from "@untitledui/icons";
-import type { PopoverProps as AriaPopoverProps, Key } from "react-aria-components";
-import { Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger, Popover as AriaPopover } from "react-aria-components";
+import { ChevronDown, Columns03, Download01, FilterLines, Plus, Printer, Rows02, Rows03, SearchLg, Trash01, XClose } from "@untitledui/icons";
+import type { Key } from "react-aria-components";
+import { Dialog as AriaDialog, DialogTrigger as AriaDialogTrigger } from "react-aria-components";
 import { Badge } from "@/components/base/badges/badges";
 import { Button } from "@/components/base/buttons/button";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
@@ -17,22 +17,6 @@ import type { DataGridColumn, DataGridDensity, DataGridFilterItem, DataGridFilte
 import { createFilterItem, getDefaultOperator, getFilterOperators, getOptionLabel, getOptionValue, isFilterActive } from "./data-grid-utils";
 
 export type DataGridPanel = "columns" | "filters";
-
-const PanelPopover = ({ className, ...props }: AriaPopoverProps) => (
-    <AriaPopover
-        placement="bottom start"
-        offset={6}
-        {...props}
-        className={(state) =>
-            cx(
-                "origin-(--trigger-anchor-point) overflow-hidden rounded-xl bg-primary shadow-lg ring-1 ring-secondary_alt will-change-transform",
-                state.isEntering && "duration-150 ease-out animate-in fade-in placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
-                state.isExiting && "duration-100 ease-in animate-out fade-out placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
-                typeof className === "function" ? className(state) : className,
-            )
-        }
-    />
-);
 
 /** Columns panel */
 
@@ -291,10 +275,9 @@ const FilterPanel = <T,>({ columns, model, onChange, onClose }: FilterPanelProps
 
 /** Toolbar */
 
-const densityOptions: { id: DataGridDensity; label: string; icon: typeof Rows01 }[] = [
+const densityOptions: { id: DataGridDensity; label: string; icon: typeof Rows02 }[] = [
     { id: "compact", label: "Compact", icon: Rows03 },
     { id: "standard", label: "Standard", icon: Rows02 },
-    { id: "comfortable", label: "Comfortable", icon: Rows01 },
 ];
 
 interface DataGridToolbarProps<T> {
@@ -311,6 +294,8 @@ interface DataGridToolbarProps<T> {
     onExport: (format: "csv" | "print") => void;
     openPanel: DataGridPanel | null;
     onOpenPanelChange: (panel: DataGridPanel | null) => void;
+    /** The class name of the toolbar, such as a padding that lines up with the cells. */
+    className?: string;
 }
 
 export const DataGridToolbar = <T,>({
@@ -325,6 +310,7 @@ export const DataGridToolbar = <T,>({
     onExport,
     openPanel,
     onOpenPanelChange,
+    className,
 }: DataGridToolbarProps<T>) => {
     const filterableColumns = columns.filter((column) => column.filterable !== false && column.type !== "actions");
     const activeFilterCount = filterModel.items.filter((item) =>
@@ -337,91 +323,96 @@ export const DataGridToolbar = <T,>({
     const isVisible = (model: Record<string, boolean>, field: string) => model[field] !== false;
     const canResetVisibility = columns.some((column) => isVisible(columnVisibility, column.field) !== isVisible(initialColumnVisibility, column.field));
 
+    // Laid out like the search and filters bar of `Table`'s examples.
     return (
-        <div className="flex flex-wrap items-center gap-2 border-b border-secondary px-4 py-3">
-            <AriaDialogTrigger isOpen={openPanel === "columns"} onOpenChange={(isOpen) => onOpenPanelChange(isOpen ? "columns" : null)}>
-                <Button size="sm" color="secondary" iconLeading={Columns03}>
-                    Columns
-                </Button>
-                <PanelPopover>
-                    <ColumnsPanel
-                        columns={columns}
-                        columnVisibility={columnVisibility}
-                        onColumnVisibilityChange={onColumnVisibilityChange}
-                        onReset={() => onColumnVisibilityChange(initialColumnVisibility)}
-                        canReset={canResetVisibility}
-                    />
-                </PanelPopover>
-            </AriaDialogTrigger>
+        <div className={cx("flex flex-wrap gap-3 border-b border-secondary px-4 py-3", className)}>
+            <div className="flex min-w-0 flex-1 flex-wrap gap-3">
+                <Input
+                    size="sm"
+                    icon={SearchLg}
+                    aria-label="Search"
+                    placeholder="Search"
+                    value={filterModel.quickFilter}
+                    onChange={(quickFilter) => onFilterModelChange({ ...filterModel, quickFilter })}
+                    className="min-w-0 flex-1 sm:max-w-70"
+                />
+            </div>
 
-            <AriaDialogTrigger
-                isOpen={openPanel === "filters"}
-                onOpenChange={(isOpen) => {
-                    // Like MUI, opening an empty filter panel starts a filter on the first column.
-                    if (isOpen && filterModel.items.length === 0 && filterableColumns[0]) {
-                        onFilterModelChange({ ...filterModel, items: [createFilterItem(filterableColumns[0])] });
-                    }
-                    onOpenPanelChange(isOpen ? "filters" : null);
-                }}
-            >
-                <Button size="sm" color="secondary" iconLeading={FilterLines}>
-                    <span className="flex items-center gap-1.5">
-                        Filters
-                        {activeFilterCount > 0 && (
-                            <Badge size="sm" color="brand" type="pill-color">
-                                {activeFilterCount}
-                            </Badge>
-                        )}
-                    </span>
-                </Button>
-                <PanelPopover>
-                    <FilterPanel columns={filterableColumns} model={filterModel} onChange={onFilterModelChange} onClose={() => onOpenPanelChange(null)} />
-                </PanelPopover>
-            </AriaDialogTrigger>
+            <div className="flex flex-wrap items-center gap-3">
+                <AriaDialogTrigger isOpen={openPanel === "columns"} onOpenChange={(isOpen) => onOpenPanelChange(isOpen ? "columns" : null)}>
+                    <Button size="sm" color="secondary" iconLeading={Columns03} iconTrailing={ChevronDown}>
+                        Columns
+                    </Button>
+                    <Dropdown.Popover placement="bottom start" className="w-auto">
+                        <ColumnsPanel
+                            columns={columns}
+                            columnVisibility={columnVisibility}
+                            onColumnVisibilityChange={onColumnVisibilityChange}
+                            onReset={() => onColumnVisibilityChange(initialColumnVisibility)}
+                            canReset={canResetVisibility}
+                        />
+                    </Dropdown.Popover>
+                </AriaDialogTrigger>
 
-            <Dropdown.Root>
-                <Button size="sm" color="secondary" iconLeading={DensityIcon}>
-                    Density
-                </Button>
-                <Dropdown.Popover placement="bottom start" className="w-48">
-                    <Dropdown.Menu
-                        aria-label="Density"
-                        selectionMode="single"
-                        disallowEmptySelection
-                        selectedKeys={new Set<Key>([density])}
-                        onSelectionChange={(keys) => {
-                            const [key] = keys === "all" ? [] : [...keys];
-                            const option = densityOptions.find((item) => item.id === key);
-                            if (option) onDensityChange(option.id);
-                        }}
-                        items={densityOptions}
-                    >
-                        {(option) => <Dropdown.Item id={option.id} label={option.label} icon={option.icon} />}
-                    </Dropdown.Menu>
-                </Dropdown.Popover>
-            </Dropdown.Root>
+                <AriaDialogTrigger
+                    isOpen={openPanel === "filters"}
+                    onOpenChange={(isOpen) => {
+                        // Like MUI, opening an empty filter panel starts a filter on the first column.
+                        if (isOpen && filterModel.items.length === 0 && filterableColumns[0]) {
+                            onFilterModelChange({ ...filterModel, items: [createFilterItem(filterableColumns[0])] });
+                        }
+                        onOpenPanelChange(isOpen ? "filters" : null);
+                    }}
+                >
+                    <Button size="sm" color="secondary" iconLeading={FilterLines} iconTrailing={ChevronDown}>
+                        <span className="flex items-center gap-1.5">
+                            Filters
+                            {activeFilterCount > 0 && (
+                                <Badge size="sm" color="gray" type="modern">
+                                    {activeFilterCount}
+                                </Badge>
+                            )}
+                        </span>
+                    </Button>
+                    <Dropdown.Popover placement="bottom start" className="w-auto">
+                        <FilterPanel columns={filterableColumns} model={filterModel} onChange={onFilterModelChange} onClose={() => onOpenPanelChange(null)} />
+                    </Dropdown.Popover>
+                </AriaDialogTrigger>
 
-            <Dropdown.Root>
-                <Button size="sm" color="secondary" iconLeading={Download01}>
-                    Export
-                </Button>
-                <Dropdown.Popover placement="bottom start" className="w-52">
-                    <Dropdown.Menu aria-label="Export" onAction={(key) => onExport(key === "print" ? "print" : "csv")}>
-                        <Dropdown.Item id="csv" label="Download as CSV" icon={Download01} />
-                        <Dropdown.Item id="print" label="Print" icon={Printer} />
-                    </Dropdown.Menu>
-                </Dropdown.Popover>
-            </Dropdown.Root>
+                <Dropdown.Root>
+                    <Button size="sm" color="secondary" iconLeading={DensityIcon} iconTrailing={ChevronDown}>
+                        Density
+                    </Button>
+                    <Dropdown.Popover placement="bottom start" className="w-48">
+                        <Dropdown.Menu
+                            aria-label="Density"
+                            selectionMode="single"
+                            disallowEmptySelection
+                            selectedKeys={new Set<Key>([density])}
+                            onSelectionChange={(keys) => {
+                                const [key] = keys === "all" ? [] : [...keys];
+                                const option = densityOptions.find((item) => item.id === key);
+                                if (option) onDensityChange(option.id);
+                            }}
+                            items={densityOptions}
+                        >
+                            {(option) => <Dropdown.Item id={option.id} label={option.label} icon={option.icon} />}
+                        </Dropdown.Menu>
+                    </Dropdown.Popover>
+                </Dropdown.Root>
 
-            <Input
-                size="sm"
-                icon={SearchLg}
-                aria-label="Search"
-                placeholder="Search"
-                value={filterModel.quickFilter}
-                onChange={(quickFilter) => onFilterModelChange({ ...filterModel, quickFilter })}
-                className="w-full md:ml-auto md:w-64"
-            />
+                <Dropdown.Root>
+                    <Button size="sm" color="secondary" iconLeading={Download01} iconTrailing={ChevronDown}>
+                        Export
+                    </Button>
+                    <Dropdown.Popover placement="bottom start" className="w-52">
+                        <Dropdown.Menu aria-label="Export" onAction={(key) => onExport(key === "print" ? "print" : "csv")}>
+                            <Dropdown.Item id="csv" label="Download as CSV" icon={Download01} />
+                            <Dropdown.Item id="print" label="Print" icon={Printer} />
+                        </Dropdown.Menu>
+                    </Dropdown.Popover>
+                </Dropdown.Root>
+            </div>
         </div>
     );
 };

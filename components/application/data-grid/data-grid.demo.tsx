@@ -40,10 +40,10 @@ const people = [
 ];
 
 const personColumns: DataGridColumn<(typeof people)[number]>[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 120 },
     { field: "firstName", headerName: "First name", width: 150, editable: true },
     { field: "lastName", headerName: "Last name", width: 150, editable: true },
-    { field: "age", headerName: "Age", type: "number", width: 110, editable: true },
+    { field: "age", headerName: "Age", type: "number", width: 120, editable: true },
     {
         field: "fullName",
         headerName: "Full name",
@@ -104,7 +104,7 @@ const actionsColumn: DataGridColumn<CommodityRow> = {
     field: "actions",
     headerName: "Actions",
     type: "actions",
-    width: 96,
+    width: 120,
     hideable: false,
     renderCell: ({ row }) => (
         <div className="flex gap-0.5">

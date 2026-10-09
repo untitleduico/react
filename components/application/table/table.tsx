@@ -77,6 +77,13 @@ const withClassName = <T,>(base: string, className: string | ((state: T) => stri
 /** Whether the table renders only the rows and columns in view. Its parts are then `div`s that React Aria positions. */
 const useIsVirtualized = () => useContext(AriaCollectionRendererContext).isVirtualized ?? false;
 
+/**
+ * Brings the first column after the checkbox (and drag handle) column closer to it. A virtualized table wraps each cell in a
+ * positioned box, so the cells aren't siblings there, and the column is found by its index instead.
+ */
+const firstColumnClassName = (isVirtualized: boolean, allowsDragging: boolean | undefined) =>
+    isVirtualized ? (allowsDragging ? "aria-[colindex=3]:pl-3" : "aria-[colindex=2]:pl-3") : allowsDragging ? "nth-3:pl-3" : "nth-2:pl-3";
+
 const TableCardRoot = ({ children, className, size = "md", ...props }: HTMLAttributes<HTMLDivElement> & { size?: "sm" | "md" }) => {
     // Every row and cell reads this context, also React Aria's copies of them, so a new value on each render would re-render them all.
     const context = useMemo(() => ({ size }), [size]);
@@ -258,7 +265,7 @@ interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTabl
      * @default "left"
      */
     align?: "left" | "center" | "right";
-    /** Content at the end of the header, after the sort indicator, such as a column menu. */
+    /** Content after the sort indicator, such as a column menu button. */
     contentTrailing?: ReactNode | ((state: ColumnRenderProps) => ReactNode);
     /**
      * Whether arrow keys can focus the resize divider, which then resizes with the arrow keys. Turn it off when something
@@ -288,7 +295,7 @@ const TableHead = ({
             className={withClassName(
                 cx(
                     "relative p-0 px-6 py-2 outline-hidden focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary focus-visible:ring-inset",
-                    selectionBehavior === "toggle" && (allowsDragging ? "nth-3:pl-3" : "nth-2:pl-3"),
+                    selectionBehavior === "toggle" && firstColumnClassName(isVirtualized, allowsDragging),
                     "allows-sorting:cursor-pointer",
                     isVirtualized && "flex size-full items-center",
                 ),
@@ -300,7 +307,7 @@ const TableHead = ({
                     className={cx(
                         "flex items-center gap-1",
                         allowsResizing && "min-w-0",
-                        (contentTrailing || align !== "left") && "w-full",
+                        align !== "left" && "w-full",
                         align === "center" && "justify-center",
                         align === "right" && "justify-end",
                     )}
@@ -326,9 +333,7 @@ const TableHead = ({
                         ))}
 
                     {contentTrailing && (
-                        <div className={cx("flex shrink-0 items-center", align === "left" && "ms-auto")}>
-                            {typeof contentTrailing === "function" ? contentTrailing(state) : contentTrailing}
-                        </div>
+                        <div className="flex shrink-0 items-center">{typeof contentTrailing === "function" ? contentTrailing(state) : contentTrailing}</div>
                     )}
 
                     {allowsResizing && props.id !== undefined && <TableColumnResizer columnKey={props.id} isFocusable={isResizerFocusable} />}
@@ -456,7 +461,7 @@ const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellP
                     size === "sm" && "px-5 py-3",
                     size === "md" && "px-6 py-4",
 
-                    selectionBehavior === "toggle" && (allowsDragging ? "nth-3:pl-3" : "nth-2:pl-3"),
+                    selectionBehavior === "toggle" && firstColumnClassName(isVirtualized, allowsDragging),
                     "disabled:opacity-50",
                     // A virtualized cell is a div in a positioned box: it fills the box and centers its content like a <td>.
                     isVirtualized && "size-full content-center",

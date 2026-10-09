@@ -7,7 +7,8 @@ export type DataGridColumnType = "string" | "number" | "date" | "dateTime" | "bo
 
 export type DataGridValueOption = string | { value: string; label: string };
 
-export type DataGridDensity = "compact" | "standard" | "comfortable";
+/** The row density, which uses the sizes of `Table`: compact is its `sm` size and standard its `md` size. */
+export type DataGridDensity = "compact" | "standard";
 
 export type DataGridAggregationFunction = "sum" | "avg" | "min" | "max" | "size";
 
