@@ -148,8 +148,8 @@ components/category/component-name/
 
     ```bash
     bun run build      # TypeScript compilation
-    bun run lint       # ESLint checks
-    bun run prettier   # Code formatting
+    bun run lint       # Oxlint checks
+    bun run format     # Code formatting (oxfmt)
     ```
 
 2. **Test in Storybook**
@@ -209,7 +209,7 @@ Closes #123
 - **Performance** - No unnecessary re-renders or heavy computations
 - **API Design** - Consistent with existing components
 - **Documentation** - Clear stories and examples
-- **Code Quality** - TypeScript, ESLint, and Prettier compliant
+- **Code Quality** - TypeScript, Oxlint, and Oxfmt compliant
 
 ## 🎨 Design guidelines
 
@@ -271,7 +271,6 @@ className = "text-[19px] font-[650] leading-[1.4]";
 // ✅ Correct - Use path aliases
 import { Button } from "@/components/base/buttons/button";
 import { cx } from "@/utils/cx";
-
 // ❌ Wrong - Relative imports
 import { Button } from "../../../base/buttons/button";
 import { cx } from "../../../utils/cx";

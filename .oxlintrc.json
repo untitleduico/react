@@ -1,0 +1,124 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "plugins": [],
+    "categories": {
+        "correctness": "off"
+    },
+    "env": {
+        "builtin": true
+    },
+    "ignorePatterns": ["node_modules/*", "storybook-addon-pixel-perfect/dist"],
+    "overrides": [
+        {
+            "files": ["**/*.{js,jsx,ts,tsx}"],
+            "rules": {
+                "react/display-name": "off",
+                "react/jsx-key": "warn",
+                "react/jsx-no-comment-textnodes": "error",
+                "react/jsx-no-duplicate-props": "error",
+                "react/jsx-no-target-blank": "error",
+                "react/jsx-no-undef": "error",
+                "react/no-children-prop": "error",
+                "react/no-danger-with-children": "error",
+                "react/no-direct-mutation-state": "error",
+                "react/no-find-dom-node": "error",
+                "react/no-is-mounted": "error",
+                "react/no-render-return-value": "error",
+                "react/no-string-refs": "error",
+                "react/no-unescaped-entities": "off",
+                "react/no-unknown-property": [
+                    "error",
+                    {
+                        "ignore": ["fill"]
+                    }
+                ],
+                "react/no-unsafe": "off",
+                "react/react-in-jsx-scope": "off",
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        "patterns": [
+                            {
+                                "group": ["@react-types/*"],
+                                "message": "Import types from react-aria or react-aria-components instead; @react-types/* is not a declared dependency."
+                            },
+                            {
+                                "group": ["@storybook/nextjs", "@storybook/nextjs/*", "@storybook/react", "@storybook/react/*"],
+                                "message": "Import from @storybook/nextjs-vite instead; it is the declared Storybook framework package."
+                            }
+                        ]
+                    }
+                ],
+                "prefer-const": "error",
+                "no-unused-vars": [
+                    "error",
+                    {
+                        "argsIgnorePattern": "^_",
+                        "varsIgnorePattern": "^_"
+                    }
+                ],
+                "no-redeclare": "warn",
+                "jsx-a11y/alt-text": "error",
+                "nextjs/no-img-element": "off",
+                "nextjs/no-html-link-for-pages": "off",
+                "react/rules-of-hooks": "error",
+                "react/exhaustive-deps": "warn",
+                "react/static-components": "error",
+                "react/use-memo": "error",
+                "react/void-use-memo": "error",
+                "react/preserve-manual-memoization": "error",
+                "react/incompatible-library": "warn",
+                "react/immutability": "error",
+                "react/globals": "error",
+                "react/refs": "error",
+                "react/set-state-in-effect": "error",
+                "react/error-boundaries": "error",
+                "react/purity": "error",
+                "react/set-state-in-render": "error",
+                "react/unsupported-syntax": "warn",
+                "typescript/no-explicit-any": "error",
+                "typescript/no-empty-object-type": "error",
+                "typescript/consistent-type-imports": [
+                    "error",
+                    {
+                        "prefer": "type-imports",
+                        "fixStyle": "separate-type-imports",
+                        "disallowTypeAnnotations": true
+                    }
+                ]
+            },
+            "plugins": ["react", "typescript", "nextjs", "jsx-a11y"]
+        },
+        {
+            "files": ["**/*.stories.{ts,tsx,js,jsx,mjs,cjs}", "**/*.story.{ts,tsx,js,jsx,mjs,cjs}"],
+            "rules": {
+                "storybook/await-interactions": "error",
+                "storybook/context-in-play-function": "error",
+                "storybook/default-exports": "error",
+                "storybook/hierarchy-separator": "warn",
+                "storybook/no-redundant-story-name": "warn",
+                "storybook/no-renderer-packages": "error",
+                "storybook/prefer-pascal-case": "warn",
+                "storybook/story-exports": "error",
+                "storybook/use-storybook-expect": "error",
+                "storybook/use-storybook-testing-library": "error",
+                "import/no-anonymous-default-export": "off",
+                "react/rules-of-hooks": "off"
+            },
+            "jsPlugins": ["eslint-plugin-storybook"],
+            "plugins": ["react", "import"]
+        },
+        {
+            "files": [".storybook/main.{js,cjs,mjs,ts}"],
+            "rules": {
+                "storybook/no-uninstalled-addons": "error"
+            },
+            "jsPlugins": ["eslint-plugin-storybook"]
+        }
+    ],
+    "settings": {
+        "react": {
+            "version": "19.2"
+        }
+    }
+}

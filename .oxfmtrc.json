@@ -1,0 +1,34 @@
+{
+    "printWidth": 160,
+    "tabWidth": 4,
+    "sortPackageJson": false,
+    "sortTailwindcss": {
+        "stylesheet": "./styles/globals.css",
+        "functions": ["sortCx", "cx"]
+    },
+    "ignorePatterns": ["package.json"],
+    "sortImports": {
+        "newlinesBetween": false,
+        "customGroups": [
+            {
+                "groupName": "react",
+                "elementNamePattern": ["react"]
+            },
+            {
+                "groupName": "react-dom",
+                "elementNamePattern": ["react-dom"]
+            },
+            {
+                "groupName": "alias",
+                "elementNamePattern": ["@/**"]
+            }
+        ],
+        "groups": [
+            "react",
+            "react-dom",
+            ["builtin", "external", "type-external", "unknown"],
+            "alias",
+            ["parent", "sibling", "index", "type-parent", "type-sibling", "type-index"]
+        ]
+    }
+}

@@ -63,8 +63,8 @@ Closes #<!-- issue number -->
 ## Code quality checklist
 
 - [ ] **Code style**: Follows project conventions
-- [ ] **ESLint**: No linting errors
-- [ ] **Prettier**: Code is properly formatted
+- [ ] **Oxlint**: No linting errors
+- [ ] **Oxfmt**: Code is properly formatted
 - [ ] **TypeScript**: Full type coverage
 - [ ] **Imports**: Uses correct import paths (`@/components/...`)
 - [ ] **Performance**: No unnecessary re-renders or heavy computations
