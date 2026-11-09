@@ -18,19 +18,30 @@ import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./s
 export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./select-shared";
 
 export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement>, CommonProps {
+    /** The options to render in the dropdown. When `children` is a function it is called once per item to render it. */
     items?: SelectItemType[];
+    /** Additional classes merged onto the dropdown popover. */
     popoverClassName?: string;
+    /** Leading icon shown in the trigger, used as a fallback when the selected item has no icon of its own. Accepts a component reference or a rendered element. */
     icon?: FC | ReactNode;
+    /** The dropdown contents: either `Select.Item` elements, or a render function called with each entry of `items`. */
     children: ReactNode | ((item: SelectItemType) => ReactNode);
 }
 
 interface SelectValueProps {
+    /** Whether the dropdown is open, which keeps the trigger in its focused ring style. */
     isOpen: boolean;
+    /** Controls the trigger's padding, text size, and icon size. */
     size: "sm" | "md" | "lg";
+    /** Whether the trigger is focused, which draws the brand focus ring. */
     isFocused: boolean;
+    /** Whether the trigger is dimmed and rejects pointer interaction. */
     isDisabled: boolean;
+    /** Text shown in the trigger while no item is selected. */
     placeholder?: string;
+    /** Ref to the trigger button element. */
     ref?: Ref<HTMLButtonElement>;
+    /** Leading icon shown in the trigger when the selected item has no icon of its own. */
     icon?: FC | ReactNode;
 }
 

@@ -10,9 +10,13 @@ import { cx } from "@/utils/cx";
 type PinInputSize = "xxxs" | "xxs" | "xs" | "sm" | "md" | "lg";
 
 type PinInputContextType = {
+    /** The size the root was rendered with, used by the slots and the caret to pick their dimensions and type scale. */
     size: PinInputSize;
+    /** Whether the root marked the input as disabled. */
     disabled: boolean;
+    /** Generated id shared by the input, its label and its description so they stay wired together. */
     id: string;
+    /** Whether the root marked the entered code as invalid. */
     invalid: boolean;
 };
 
@@ -34,8 +38,11 @@ export const usePinInputContext = () => {
 };
 
 interface RootProps extends ComponentPropsWithRef<"div"> {
+    /** Sets the dimensions, corner radius and type scale of every slot, plus the gap between them. Shared with the sub-components through context. */
     size?: PinInputSize;
+    /** Whether the pin cannot be edited. Disables the underlying input and dims the slots. */
     disabled?: boolean;
+    /** Whether the entered pin failed validation. Renders the slots in the error style and marks each one `aria-invalid`. */
     invalid?: boolean;
 }
 
@@ -60,7 +67,9 @@ const styles = {
 };
 
 type GroupProps = ComponentPropsWithRef<typeof OTPInput> & {
+    /** Character width forwarded to the hidden input as its `size` attribute. Named `width` so it does not clash with the pin input's own `size`. */
     width?: number;
+    /** Additional classes for the hidden text input that sits behind the slots and receives the typing. */
     inputClassName?: string;
 };
 
@@ -84,7 +93,14 @@ const Group = ({ inputClassName, containerClassName, width, maxLength = 4, ...pr
 };
 Group.displayName = "Group";
 
-const Slot = ({ index, className, ...props }: ComponentPropsWithRef<"div"> & { index: number }) => {
+const Slot = ({
+    index,
+    className,
+    ...props
+}: ComponentPropsWithRef<"div"> & {
+    /** Zero-based position of the slot in the group. Selects which character of the entered value it displays, whether it shows the caret, and what its `aria-label` announces. */
+    index: number;
+}) => {
     const { size, disabled, invalid } = usePinInputContext();
     const { slots, isFocused } = useContext(OTPInputContext);
 

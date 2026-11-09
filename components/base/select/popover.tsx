@@ -6,6 +6,7 @@ import { cx } from "@/utils/cx";
 import { OverlayPopover } from "@/utils/overlay-popover";
 
 interface PopoverProps extends AriaPopoverProps, RefAttributes<HTMLElement> {
+    /** Caps how tall the popover can grow before its list starts scrolling: 14rem for `sm`, 16rem for `md`, and 20rem for `lg`. */
     size: "sm" | "md" | "lg";
 }
 

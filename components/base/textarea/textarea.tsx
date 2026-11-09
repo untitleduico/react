@@ -14,7 +14,9 @@ const getResizeHandleBg = (color: string) => {
 };
 
 interface TextAreaBaseProps extends AriaTextAreaProps {
+    /** Ref for the underlying textarea element. */
     ref?: Ref<HTMLTextAreaElement>;
+    /** Controls the padding and text size of the textarea. */
     size?: "sm" | "md";
 }
 
@@ -71,7 +73,7 @@ interface TextFieldProps extends AriaTextFieldProps {
     hideRequiredIndicator?: boolean;
     /** Placeholder text. */
     placeholder?: string;
-    /** Visible height of textarea in rows . */
+    /** Visible height of textarea in rows. */
     rows?: number;
     /** Visible width of textarea in columns. */
     cols?: number;

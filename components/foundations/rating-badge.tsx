@@ -118,9 +118,13 @@ export const Wreath = (props: HTMLAttributes<HTMLOrSVGElement>) => (
 );
 
 interface RatingBadgeProps extends HTMLAttributes<HTMLDivElement> {
+    /** The headline shown between the wreaths, such as the award being highlighted. */
     title?: string;
+    /** The supporting line shown below the title, such as a review count. */
     subtitle?: string;
+    /** The score used to fill the stars above the title. */
     rating?: number;
+    /** Whether the badge is styled for a dark background (`light`) or a light background (`dark`). */
     theme?: "light" | "dark";
 }
 

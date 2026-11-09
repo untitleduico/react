@@ -20,14 +20,23 @@ import { cx } from "@/utils/cx";
 import { SelectItem } from "./select-item";
 
 interface TagSelectValueProps extends AriaGroupProps {
+    /** Controls the height, padding, and text size of the input group, as well as how compact the selected tags are. */
     size: "sm" | "md" | "lg";
+    /** Whether to show the ⌘K hint at the end of the input on medium screens and up. It also reserves a minimum width for the text input. */
     shortcut?: boolean;
+    /** Whether the tags are disabled. This value is not forwarded to the DOM — the group's own disabled styling comes from the enclosing combo box state. */
     isDisabled?: boolean;
+    /** The placeholder text shown in the search input. */
     placeholder?: string;
+    /** Additional CSS classes merged onto the container of the ⌘K hint. */
     shortcutClassName?: string;
+    /** The icon component rendered at the start of the input group. Pass `null` to render no icon. */
     icon?: IconComponentType | null;
+    /** A ref to the group element. `TagSelect` uses it to measure the trigger so the popover can match its width. */
     ref?: RefObject<HTMLDivElement | null>;
+    /** Fires when focus enters the group. `TagSelect` uses it to re-measure the trigger width before the popover opens. */
     onFocus?: FocusEventHandler;
+    /** Fires when the pointer enters the group. `TagSelect` uses it to re-measure the trigger width before the popover opens. */
     onPointerEnter?: PointerEventHandler;
 }
 
@@ -45,20 +54,38 @@ const TagSelectContext = createContext<{
 });
 
 interface TagSelectProps extends Omit<AriaComboBoxProps<SelectItemType>, "children" | "items">, RefAttributes<HTMLDivElement> {
+    /** Helper text rendered below the input. It switches to the error style when the field is invalid. */
     hint?: string;
+    /** The label rendered above the input. Nothing is rendered when it is omitted. */
     label?: string;
+    /** Text for the help tooltip shown next to the label. Only rendered when `label` is set. */
     tooltip?: string;
+    /** Controls the height, padding, and text size of the input, the selected tags, and the popover. */
     size?: "sm" | "md" | "lg";
+    /** The placeholder text shown in the search input. */
     placeholder?: string;
+    /** Whether to show the ⌘K hint at the end of the input on medium screens and up. */
     shortcut?: boolean;
+    /** The full set of options offered in the dropdown. They are filtered as the user types, and already selected items are hidden from the list. */
     items?: SelectItemType[];
+    /** Additional CSS classes merged onto the dropdown popover. */
     popoverClassName?: string;
+    /** Additional CSS classes merged onto the container of the ⌘K hint. */
     shortcutClassName?: string;
+    /** The list state holding the selected items, typically created with `useListData`. The component appends to it on selection and removes from it when a tag is dismissed. */
     selectedItems: ListData<SelectItemType>;
+    /**
+     * The icon component rendered at the start of the input. Pass `null` to render no icon.
+     * @default SearchLg
+     */
     icon?: IconComponentType | null;
+    /** The listbox content: either the options themselves or a render function called with each filtered item. */
     children: AriaListBoxProps<SelectItemType>["children"];
+    /** Fires with the key of an item after its tag has been removed from the selection. */
     onItemCleared?: (key: Key) => void;
+    /** Fires with the key of an item after it has been added to the selection. */
     onItemInserted?: (key: Key) => void;
+    /** Returns the text to display on the tag for a selected item. Without it the item's `label` is used. */
     valueFormatter?: (item: SelectItemType) => string;
 }
 

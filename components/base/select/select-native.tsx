@@ -7,10 +7,15 @@ import { Label } from "@/components/base/input/label";
 import { cx } from "@/utils/cx";
 
 interface NativeSelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "size"> {
+    /** Text rendered in a label above the select and linked to it by a generated id. */
     label?: string;
+    /** Helper text rendered below the select and referenced by its `aria-describedby`. */
     hint?: string;
+    /** Additional classes merged onto the native select element. Use `className` to style the wrapper around it instead. */
     selectClassName?: string;
+    /** Controls the select's padding, text size, and the size of the chevron. Ignored when the select sits inside an `InputGroup`, which imposes its own sizing. */
     size?: "sm" | "md" | "lg";
+    /** The options to render. Each entry becomes an `option` element showing `label` and submitting `value`. */
     options: { label: string; value: string; disabled?: boolean }[];
 }
 

@@ -151,7 +151,9 @@ export interface CommonProps {
     /** When true, keeps the text visible during loading state */
     showTextWhileLoading?: boolean;
 
+    /** The button label. Omitting it while passing an icon renders a square, icon-only button. */
     children?: ReactNode;
+    /** The class name applied to the button. */
     className?: string;
 }
 
