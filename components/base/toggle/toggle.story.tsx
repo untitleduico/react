@@ -21,6 +21,3 @@ TogglesSlim.storyName = "Toggles slim";
 
 export const ToggleSlimBase = () => <ToggleComponents.ToggleSlimBase />;
 ToggleSlimBase.storyName = "Toggle slim base";
-
-export const TogglesFullWidth = () => <ToggleComponents.TogglesFullWidth />;
-TogglesFullWidth.storyName = "Toggles full width";

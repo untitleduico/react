@@ -74,22 +74,3 @@ export const ToggleSlimBase = () => (
         </div>
     </div>
 );
-
-export const TogglesFullWidth = () => (
-    <div className="flex w-full max-w-lg flex-col gap-4">
-        <Toggle
-            label="Remember me"
-            hint="Save my login details for next time, so you can skip this step on this device until you sign out or clear your browser data."
-            size="sm"
-            className="w-full"
-        />
-        <Toggle label="Remember me" hint="Save my login details for next time." size="sm" className="w-full" />
-        <Toggle
-            label="Remember me"
-            hint="Save my login details for next time, so you can skip this step on this device until you sign out or clear your browser data."
-            size="md"
-            className="w-full"
-        />
-        <Toggle label="Remember me" hint="Save my login details for next time." size="md" className="w-full" />
-    </div>
-);
