@@ -149,13 +149,7 @@ const TableHeader = <T extends object>({ columns, children, bordered = true, cla
             }
         >
             {selectionBehavior === "toggle" && (
-                <AriaColumn
-                    className={cx(
-                        "relative py-2 pr-0 pl-4",
-                        // Match the body selection cell width so header/body stay aligned.
-                        size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6",
-                    )}
-                >
+                <AriaColumn className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6")}>
                     {selectionMode === "multiple" && (
                         <div className="flex items-start">
                             <Checkbox slot="selection" size="md" />
@@ -185,7 +179,6 @@ const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadP
             className={(state) =>
                 cx(
                     "relative p-0 py-2 outline-hidden focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary focus-visible:ring-inset",
-                    // FIX #219: keep header horizontal padding in lockstep with TableCell below.
                     size === "sm" ? "px-5" : "px-6",
                     selectionBehavior === "toggle" && "nth-2:pl-3",
                     state.allowsSorting && "cursor-pointer",
@@ -250,13 +243,7 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
             }
         >
             {selectionBehavior === "toggle" && (
-                <AriaCell
-                    className={cx(
-                        "relative py-2 pr-0 pl-4",
-                        // Keep body selection cell width aligned with the header selection column.
-                        size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6",
-                    )}
-                >
+                <AriaCell className={cx("relative py-2 pr-0 pl-4", size === "sm" ? "w-9 md:pl-5" : "w-11 md:pl-6")}>
                     <div className="flex items-end">
                         <Checkbox slot="selection" size="md" />
                     </div>
@@ -286,7 +273,6 @@ const TableCell = ({ className, children, size: sizeProp, ...props }: TableCellP
             className={(state) =>
                 cx(
                     "relative text-sm text-tertiary outline-focus-ring focus-visible:z-1 focus-visible:outline-2 focus-visible:-outline-offset-2",
-                    // FIX #219: horizontal padding must match TableHead above.
                     size === "sm" && "px-5 py-3",
                     size === "md" && "px-6 py-4",
 
