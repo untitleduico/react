@@ -51,7 +51,7 @@ export const ToggleBase = ({ className, isHovered, isDisabled, isFocusVisible, i
     return (
         <div
             className={cx(
-                "cursor-pointer rounded-full bg-tertiary ring-[0.5px] ring-secondary outline-focus-ring transition duration-150 ease-linear ring-inset",
+                "shrink-0 cursor-pointer rounded-full bg-tertiary ring-[0.5px] ring-secondary outline-focus-ring transition duration-150 ease-linear ring-inset",
                 isSelected && "bg-brand-solid",
                 isSelected && isHovered && "bg-brand-solid_hover",
                 isDisabled && "cursor-not-allowed opacity-50",
@@ -114,7 +114,7 @@ export const Toggle = ({ label, hint, className, size = "sm", slim, ...ariaSwitc
             {...ariaSwitchProps}
             className={(state) =>
                 cx(
-                    "relative flex w-max items-start",
+                    "relative flex w-max max-w-full items-start",
                     state.isDisabled && "cursor-not-allowed",
                     styles[size].root,
                     typeof className === "function" ? className(state) : className,
