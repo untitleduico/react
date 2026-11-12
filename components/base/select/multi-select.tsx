@@ -225,6 +225,8 @@ const MultiSelectRoot = ({
                                 "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                                 (state.isFocusVisible || state.isPressed) && "ring-2 ring-brand",
                                 state.isDisabled && "cursor-not-allowed opacity-50",
+                                isInvalid && "ring-error_subtle",
+                                isInvalid && (state.isFocusVisible || state.isPressed) && "ring-2 ring-error",
                             )
                         }
                     >
