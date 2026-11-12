@@ -1,19 +1,20 @@
 "use client";
 
 import type { FC, ReactNode, RefAttributes } from "react";
-import { isValidElement, useCallback, useRef, useState } from "react";
+import { isValidElement, useCallback, useContext, useMemo, useState } from "react";
 import { ChevronDown, SearchLg } from "@untitledui/icons";
 import { useFilter } from "react-aria";
-import type { Selection } from "react-aria-components";
+import type { SelectProps as AriaSelectProps, SelectState as AriaSelectState, Key, Selection } from "react-aria-components";
 import {
     Autocomplete as AriaAutocomplete,
     Button as AriaButton,
-    Dialog as AriaDialog,
-    DialogTrigger as AriaDialogTrigger,
     Input as AriaInput,
     ListBox as AriaListBox,
     Popover as AriaPopover,
     SearchField as AriaSearchField,
+    Select as AriaSelect,
+    SelectStateContext as AriaSelectStateContext,
+    SelectValue as AriaSelectValue,
 } from "react-aria-components";
 import { Button } from "@/components/base/buttons/button";
 import { HintText } from "@/components/base/input/hint-text";
@@ -22,7 +23,16 @@ import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-ic
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 import { SelectItem } from "./select-item";
-import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
+import {
+    type CommonProps,
+    SelectContext,
+    SelectFooter,
+    type SelectFooterContent,
+    SelectFooterSlot,
+    type SelectItemType,
+    getSelectableKeys,
+    sizes,
+} from "./select-shared";
 
 const searchSizes = {
     sm: { wrapper: "py-1", root: "px-3 py-2 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]", text: "text-sm" },
@@ -44,30 +54,37 @@ const popoverMaxHeights = {
 
 interface MultiSelectFooterProps {
     /**
-     * The size of the footer buttons.
-     * @default "sm"
+     * The size of the default footer buttons. Defaults to the size of the parent `MultiSelect`.
+     * @default "md"
      */
     size?: "sm" | "md" | "lg";
-    /** Handler that is called when the reset button is clicked. */
+    /** Handler that is called when the reset button is clicked. When omitted, the button clears the selection. */
     onReset?: () => void;
-    /** Handler that is called when the select all button is clicked. */
+    /** Handler that is called when the select all button is clicked. When omitted, the button selects every enabled item. */
     onSelectAll?: () => void;
+    /** Custom footer actions. When provided, they replace the default "Reset" and "Select all" buttons. */
+    children?: ReactNode;
     /** Additional class name. */
     className?: string;
 }
 
-const MultiSelectFooter = ({ size = "sm", onReset, onSelectAll, className }: MultiSelectFooterProps) => {
-    const btnSize = footerButtonSize[size];
+const MultiSelectFooter = ({ size, onReset, onSelectAll, children, className }: MultiSelectFooterProps) => {
+    const context = useContext(SelectContext);
+    const state = useContext(AriaSelectStateContext) as AriaSelectState<SelectItemType, "multiple"> | null;
+
+    if (children) return <SelectFooter className={className}>{children}</SelectFooter>;
+
+    const btnSize = footerButtonSize[size ?? context.size];
 
     return (
-        <div className={cx("flex items-center justify-between border-t border-secondary p-3", className)}>
-            <Button size={btnSize} color="secondary" onClick={onReset}>
+        <SelectFooter className={className}>
+            <Button size={btnSize} color="secondary" onClick={onReset ?? (() => state?.setValue([]))}>
                 Reset
             </Button>
-            <Button size={btnSize} color="secondary" onClick={onSelectAll}>
+            <Button size={btnSize} color="secondary" onClick={onSelectAll ?? (() => state && state.setValue(getSelectableKeys(state)))}>
                 Select all
             </Button>
-        </div>
+        </SelectFooter>
     );
 };
 
@@ -110,36 +127,49 @@ const MultiSelectEmptyState = ({
     </div>
 );
 
-interface MultiSelectProps extends RefAttributes<HTMLDivElement>, CommonProps {
+interface MultiSelectProps
+    extends
+        Omit<
+            AriaSelectProps<SelectItemType, "multiple">,
+            | "children"
+            | "items"
+            | "className"
+            | "selectionMode"
+            | "value"
+            | "defaultValue"
+            | "onChange"
+            | "selectedKey"
+            | "defaultSelectedKey"
+            | "onSelectionChange"
+            | "placeholder"
+        >,
+        RefAttributes<HTMLDivElement>,
+        CommonProps {
     /** The items to display in the listbox. */
     items?: SelectItemType[];
     /** The children to render for each item. */
     children: ReactNode | ((item: SelectItemType) => ReactNode);
-    /** The currently selected keys (controlled). */
+    /** The currently selected keys (controlled). `"all"` selects every enabled entry of `items`. */
     selectedKeys?: Selection;
-    /** The initial selected keys (uncontrolled). */
+    /** The initial selected keys (uncontrolled). `"all"` selects every enabled entry of `items`. */
     defaultSelectedKeys?: Selection;
     /** Handler that is called when the selection changes. */
     onSelectionChange?: (keys: Selection) => void;
-    /** Whether the select is disabled. */
-    isDisabled?: boolean;
-    /** Whether the select is required. */
-    isRequired?: boolean;
-    /** Whether the select is in an invalid state. */
-    isInvalid?: boolean;
     /** Additional class name for the popover. */
     popoverClassName?: string;
     /** Additional class name for the root element. */
     className?: string;
-    /** Handler that is called when the reset button is clicked. */
+    /** Handler that is called when the default footer's reset button is clicked. When omitted, the button clears the selection. */
     onReset?: () => void;
-    /** Handler that is called when the select all button is clicked. */
+    /** Handler that is called when the default footer's select all button is clicked. When omitted, the button selects every enabled item. */
     onSelectAll?: () => void;
     /**
-     * Whether to show the footer with reset and select all buttons.
+     * Whether to show the footer.
      * @default true
      */
     showFooter?: boolean;
+    /** Replaces the default "Reset" and "Select all" footer. Pass a function to receive the select's React Aria state, e.g. to change the selection or close the dropdown. */
+    footer?: SelectFooterContent<"multiple">;
     /**
      * Whether to show the search input in the popover.
      * @default true
@@ -157,6 +187,14 @@ interface MultiSelectProps extends RefAttributes<HTMLDivElement>, CommonProps {
     icon?: FC | ReactNode;
 }
 
+/** Converts a `Selection` to the key array React Aria's multiple-selection `Select` expects. */
+const toKeyArray = (keys: Selection | undefined, items: SelectItemType[] | undefined): Key[] | undefined => {
+    if (keys === undefined) return undefined;
+    if (keys === "all") return (items ?? []).filter((item) => !item.isDisabled).map((item) => item.id);
+
+    return [...keys];
+};
+
 const MultiSelectRoot = ({
     items,
     children,
@@ -164,9 +202,8 @@ const MultiSelectRoot = ({
     selectedKeys,
     defaultSelectedKeys,
     onSelectionChange,
-    isDisabled,
-    isRequired,
     isInvalid,
+    isRequired,
     placeholder = "Select",
     label,
     hint,
@@ -177,27 +214,22 @@ const MultiSelectRoot = ({
     onReset,
     onSelectAll,
     showFooter = true,
+    footer,
     showSearch = true,
     emptyStateTitle,
     emptyStateDescription,
     selectedCountFormatter,
     supportingText,
     icon,
+    ...rest
 }: MultiSelectProps) => {
     const { contains } = useFilter({ sensitivity: "base" });
     const [searchValue, setSearchValue] = useState("");
 
-    const triggerRef = useRef<HTMLButtonElement>(null);
-    const [popoverWidth, setPopoverWidth] = useState("");
-
-    const onResize = useCallback(() => {
-        if (!triggerRef.current) return;
-        const rect = triggerRef.current.getBoundingClientRect();
-        setPopoverWidth(rect.width + "px");
-    }, []);
-
-    const selectedCount = selectedKeys instanceof Set ? selectedKeys.size : selectedKeys === "all" ? (items?.length ?? 0) : 0;
-    const hasSelection = selectedCount > 0;
+    const value = useMemo(() => toKeyArray(selectedKeys, items), [selectedKeys, items]);
+    // Uncontrolled default is only read on mount, so it doesn't need to track `items`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const defaultValue = useMemo(() => toKeyArray(defaultSelectedKeys, items), []);
 
     // Capitalized alias so a function-component icon can be rendered as JSX (mirrors Select).
     const Icon = icon;
@@ -208,119 +240,119 @@ const MultiSelectRoot = ({
 
     return (
         <SelectContext.Provider value={{ size }}>
-            <div className={cx("flex flex-col gap-1.5", className)}>
+            <AriaSelect<SelectItemType, "multiple">
+                {...rest}
+                selectionMode="multiple"
+                value={value}
+                defaultValue={defaultValue}
+                onChange={(keys) => onSelectionChange?.(new Set(keys))}
+                isInvalid={isInvalid}
+                isRequired={isRequired}
+                allowsEmptyCollection
+                className={cx("flex flex-col gap-1.5", className)}
+            >
                 {label && (
                     <Label isRequired={hideRequiredIndicator ? false : isRequired} isInvalid={isInvalid} tooltip={tooltip}>
                         {label}
                     </Label>
                 )}
 
-                <AriaDialogTrigger>
-                    <AriaButton
-                        ref={triggerRef}
-                        isDisabled={isDisabled}
-                        onClick={onResize}
-                        className={(state) =>
-                            cx(
-                                "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
-                                (state.isFocusVisible || state.isPressed) && "ring-2 ring-brand",
-                                state.isDisabled && "cursor-not-allowed opacity-50",
-                            )
-                        }
+                <AriaButton
+                    className={(state) =>
+                        cx(
+                            "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
+                            (state.isFocusVisible || state.isPressed) && "ring-2 ring-brand",
+                            state.isDisabled && "cursor-not-allowed opacity-50",
+                        )
+                    }
+                >
+                    <span
+                        className={cx("flex w-full items-center truncate text-left", sizes[size].root, "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary")}
                     >
-                        <span
-                            className={cx(
-                                "flex w-full items-center truncate text-left",
-                                sizes[size].root,
-                                "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
-                            )}
-                        >
-                            {isReactComponent(Icon) ? <Icon data-icon aria-hidden="true" /> : isValidElement(Icon) ? Icon : null}
+                        {isReactComponent(Icon) ? <Icon data-icon aria-hidden="true" /> : isValidElement(Icon) ? Icon : null}
 
-                            {hasSelection ? (
-                                <span className={cx("flex items-center", sizes[size].textContainer)}>
-                                    <span className={cx("font-medium text-primary", sizes[size].text)}>
-                                        {selectedCountFormatter ? selectedCountFormatter(selectedCount) : `${selectedCount} selected`}
+                        <AriaSelectValue<SelectItemType> className="flex min-w-0 items-center truncate">
+                            {({ selectedItems }) => {
+                                const selectedCount = selectedItems.length;
+
+                                return selectedCount > 0 ? (
+                                    <span className={cx("flex items-center", sizes[size].textContainer)}>
+                                        <span className={cx("font-medium text-primary", sizes[size].text)}>
+                                            {selectedCountFormatter ? selectedCountFormatter(selectedCount) : `${selectedCount} selected`}
+                                        </span>
+                                        {supportingText && <span className={cx("text-tertiary", sizes[size].text)}>{supportingText}</span>}
                                     </span>
-                                    {supportingText && <span className={cx("text-tertiary", sizes[size].text)}>{supportingText}</span>}
-                                </span>
-                            ) : (
-                                <span className={cx("text-placeholder", sizes[size].text)}>{placeholder}</span>
-                            )}
+                                ) : (
+                                    <span className={cx("text-placeholder", sizes[size].text)}>{placeholder}</span>
+                                );
+                            }}
+                        </AriaSelectValue>
 
-                            <ChevronDown
-                                aria-hidden="true"
-                                className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.25px]")}
-                            />
-                        </span>
-                    </AriaButton>
+                        <ChevronDown
+                            aria-hidden="true"
+                            className={cx("ml-auto shrink-0 text-fg-quaternary", size === "lg" ? "size-5" : "size-4 stroke-[2.25px]")}
+                        />
+                    </span>
+                </AriaButton>
 
-                    <AriaPopover
-                        placement="bottom"
-                        offset={4}
-                        containerPadding={0}
-                        style={{ width: popoverWidth || undefined }}
-                        className={(state) =>
-                            cx(
-                                "w-(--trigger-width) origin-(--trigger-anchor-point) overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary_alt outline-hidden will-change-transform",
-                                state.isEntering &&
-                                    "duration-150 ease-out animate-in fade-in placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
-                                state.isExiting &&
-                                    "duration-100 ease-in animate-out fade-out placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
-                                popoverClassName,
-                            )
-                        }
-                    >
-                        <AriaDialog className="outline-hidden">
-                            <AriaAutocomplete filter={contains} inputValue={searchValue} onInputChange={setSearchValue}>
-                                {showSearch && (
-                                    <div className={cx("border-b border-secondary", searchSizes[size].wrapper)}>
-                                        <AriaSearchField aria-label="Search" value={searchValue} onChange={setSearchValue} autoFocus>
-                                            <div className={cx("flex items-center", searchSizes[size].root)}>
-                                                <SearchLg data-icon aria-hidden="true" className="shrink-0 text-fg-quaternary" />
-                                                <AriaInput
-                                                    placeholder="Search"
-                                                    className={cx(
-                                                        "w-full appearance-none bg-transparent text-primary caret-alpha-black/90 outline-hidden placeholder:text-placeholder",
-                                                        searchSizes[size].text,
-                                                    )}
-                                                />
-                                            </div>
-                                        </AriaSearchField>
-                                    </div>
-                                )}
-
-                                <AriaListBox
-                                    aria-label={label || "Options"}
-                                    items={items}
-                                    selectionMode="multiple"
-                                    selectedKeys={selectedKeys}
-                                    defaultSelectedKeys={defaultSelectedKeys}
-                                    onSelectionChange={onSelectionChange}
-                                    renderEmptyState={() => (
-                                        <MultiSelectEmptyState
-                                            title={emptyStateTitle}
-                                            description={emptyStateDescription}
-                                            onClearSearch={searchValue ? handleClearSearch : undefined}
+                <AriaPopover
+                    placement="bottom"
+                    offset={4}
+                    containerPadding={0}
+                    className={(state) =>
+                        cx(
+                            "flex w-(--trigger-width) origin-(--trigger-anchor-point) flex-col overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary_alt outline-hidden will-change-transform",
+                            state.isEntering &&
+                                "duration-150 ease-out animate-in fade-in placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
+                            state.isExiting &&
+                                "duration-100 ease-in animate-out fade-out placement-top:slide-out-to-bottom-0.5 placement-bottom:slide-out-to-top-0.5",
+                            popoverClassName,
+                        )
+                    }
+                >
+                    <AriaAutocomplete filter={contains} inputValue={searchValue} onInputChange={setSearchValue}>
+                        {showSearch && (
+                            <div className={cx("border-b border-secondary", searchSizes[size].wrapper)}>
+                                <AriaSearchField aria-label="Search" value={searchValue} onChange={setSearchValue} autoFocus>
+                                    <div className={cx("flex items-center", searchSizes[size].root)}>
+                                        <SearchLg data-icon aria-hidden="true" className="shrink-0 text-fg-quaternary" />
+                                        <AriaInput
+                                            placeholder="Search"
+                                            className={cx(
+                                                "w-full appearance-none bg-transparent text-primary caret-alpha-black/90 outline-hidden placeholder:text-placeholder",
+                                                searchSizes[size].text,
+                                            )}
                                         />
-                                    )}
-                                    className={cx("overflow-y-auto py-1 outline-hidden", popoverMaxHeights[size])}
-                                >
-                                    {children}
-                                </AriaListBox>
-                            </AriaAutocomplete>
+                                    </div>
+                                </AriaSearchField>
+                            </div>
+                        )}
 
-                            {showFooter && <MultiSelectFooter size={size} onReset={onReset} onSelectAll={onSelectAll} />}
-                        </AriaDialog>
-                    </AriaPopover>
-                </AriaDialogTrigger>
+                        <AriaListBox
+                            items={items}
+                            renderEmptyState={() => (
+                                <MultiSelectEmptyState
+                                    title={emptyStateTitle}
+                                    description={emptyStateDescription}
+                                    onClearSearch={searchValue ? handleClearSearch : undefined}
+                                />
+                            )}
+                            className={cx("overflow-y-auto py-1 outline-hidden", popoverMaxHeights[size])}
+                        >
+                            {children}
+                        </AriaListBox>
+                    </AriaAutocomplete>
+
+                    {showFooter &&
+                        (footer === undefined ? <MultiSelectFooter onReset={onReset} onSelectAll={onSelectAll} /> : <SelectFooterSlot footer={footer} />)}
+                </AriaPopover>
 
                 {hint && (
                     <HintText isInvalid={isInvalid} className={cx(size === "sm" && "text-xs")}>
                         {hint}
                     </HintText>
                 )}
-            </div>
+            </AriaSelect>
         </SelectContext.Provider>
     );
 };

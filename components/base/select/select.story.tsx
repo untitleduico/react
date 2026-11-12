@@ -42,6 +42,9 @@ Search.decorators = [DefaultDecorator];
 export const Tags = () => <Selects.Tags />;
 Tags.decorators = [WiderDecorator];
 
+export const Footer = () => <Selects.FooterDemo />;
+Footer.decorators = [DefaultDecorator];
+
 export const MultiSelectSm = () => <Selects.MultiSelectSmDemo />;
 MultiSelectSm.decorators = [DefaultDecorator];
 MultiSelectSm.storyName = "Multi select (sm)";
@@ -61,3 +64,11 @@ MultiSelectLg.storyName = "Multi select (lg)";
 export const MultiSelectDisabled = () => <Selects.MultiSelectDisabledDemo />;
 MultiSelectDisabled.decorators = [DefaultDecorator];
 MultiSelectDisabled.storyName = "Multi select (disabled)";
+
+export const MultiSelectUncontrolled = () => <Selects.MultiSelectUncontrolledDemo />;
+MultiSelectUncontrolled.decorators = [DefaultDecorator];
+MultiSelectUncontrolled.storyName = "Multi select (uncontrolled)";
+
+export const MultiSelectCustomFooter = () => <Selects.MultiSelectCustomFooterDemo />;
+MultiSelectCustomFooter.decorators = [DefaultDecorator];
+MultiSelectCustomFooter.storyName = "Multi select (custom footer)";
