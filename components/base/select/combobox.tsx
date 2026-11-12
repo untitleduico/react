@@ -60,11 +60,13 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: I
         <AriaGroup
             ref={ref}
             {...otherProps}
-            className={({ isFocusWithin, isDisabled }) =>
+            className={({ isFocusWithin, isDisabled, isInvalid }) =>
                 cx(
                     "relative flex w-full items-center gap-2 rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition-shadow duration-100 ease-linear ring-inset",
                     isDisabled && "cursor-not-allowed opacity-50",
                     isFocusWithin && "ring-2 ring-brand",
+                    isInvalid && "ring-error_subtle",
+                    isInvalid && isFocusWithin && "ring-2 ring-error",
 
                     // Icon styles
                     "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
@@ -153,7 +155,7 @@ export const ComboBox = ({
                 {(state) => (
                     <div className="flex flex-col gap-1.5">
                         {otherProps.label && (
-                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} tooltip={otherProps.tooltip}>
+                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} isInvalid={state.isInvalid} tooltip={otherProps.tooltip}>
                                 {otherProps.label}
                             </Label>
                         )}

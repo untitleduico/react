@@ -197,7 +197,7 @@ export const TagSelectBase = ({
                     {(state) => (
                         <>
                             {props.label && (
-                                <Label isRequired={state.isRequired} tooltip={props.tooltip}>
+                                <Label isRequired={state.isRequired} isInvalid={state.isInvalid} tooltip={props.tooltip}>
                                     {props.label}
                                 </Label>
                             )}
@@ -385,11 +385,13 @@ export const TagSelectTagsValue = ({
     return (
         <AriaGroup
             {...otherProps}
-            className={({ isFocusWithin, isDisabled }) =>
+            className={({ isFocusWithin, isDisabled, isInvalid }) =>
                 cx(
                     "relative flex w-full items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                     isDisabled && "cursor-not-allowed opacity-50",
                     isFocusWithin && "ring-2 ring-brand",
+                    isInvalid && "ring-error_subtle",
+                    isInvalid && isFocusWithin && "ring-2 ring-error",
 
                     // Icon styles
                     "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",
