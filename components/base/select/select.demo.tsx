@@ -1463,18 +1463,18 @@ export const MultiSelectUncontrolledDemo = () => (
 export const MultiSelectCustomFooterDemo = () => (
     <MultiSelect
         size="md"
-        label="Équipes"
-        placeholder="Sélectionner des équipes"
+        label="Teams"
+        hint="The footer actions use the select state."
+        placeholder="Select teams"
         items={teamItems}
         defaultSelectedKeys={new Set(["design", "product"])}
-        selectedCountFormatter={(count) => `${count} sélectionnée(s)`}
         footer={(state) => (
             <MultiSelect.Footer>
                 <Button size="sm" color="secondary" onClick={() => state.setValue([])}>
-                    Réinitialiser
+                    Reset
                 </Button>
-                <Button size="sm" color="secondary" onClick={() => state.setValue(teamItems.map((team) => team.id))}>
-                    Tout sélectionner
+                <Button size="sm" color="secondary" onClick={() => state.close()}>
+                    Done
                 </Button>
             </MultiSelect.Footer>
         )}
