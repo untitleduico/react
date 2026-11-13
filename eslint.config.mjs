@@ -52,6 +52,11 @@ export default [
                             message: "Import types from react-aria or react-aria-components instead; @react-types/* is not a declared dependency.",
                         },
                         {
+                            // Bare "react-stately" only; @react-stately/utils is a declared dependency.
+                            group: ["react-stately"],
+                            message: "Import from react-aria-components instead; react-stately is not a declared dependency.",
+                        },
+                        {
                             group: ["@storybook/nextjs", "@storybook/nextjs/*", "@storybook/react", "@storybook/react/*"],
                             message: "Import from @storybook/nextjs-vite instead; it is the declared Storybook framework package.",
                         },
