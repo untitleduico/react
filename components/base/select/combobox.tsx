@@ -39,6 +39,8 @@ interface ComboBoxValueProps extends AriaGroupProps {
     shortcutClassName?: string;
     /** Leading icon rendered before the input. Falls back to a search icon when omitted. */
     icon?: FC | ReactNode;
+    /** Whether clicking the input opens the dropdown, including when the input already has focus. */
+    opensOnClick?: boolean;
     /** Fires when focus moves into the field. Used to re-measure the field so the popover matches its width. */
     onFocus?: FocusEventHandler;
     /** Fires when the pointer enters the field. Used to re-measure the field so the popover matches its width. */
@@ -47,7 +49,7 @@ interface ComboBoxValueProps extends AriaGroupProps {
     ref?: Ref<HTMLDivElement>;
 }
 
-const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: IconProp, ref, ...otherProps }: ComboBoxValueProps) => {
+const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: IconProp, opensOnClick, ref, ...otherProps }: ComboBoxValueProps) => {
     const state = useContext(ComboBoxStateContext);
 
     const value = state?.selectedItem?.value || null;
@@ -55,6 +57,12 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: I
 
     const first = inputValue?.split(value?.supportingText)?.[0] || "";
     const last = inputValue?.split(first)[1];
+
+    // React Aria opens the dropdown on focus only, so a click on an input that already has
+    // focus (after a selection or Escape) has to open it here.
+    const openOnClick = () => {
+        if (state && !state.isOpen) state.open(null, "focus");
+    };
 
     return (
         <AriaGroup
@@ -91,6 +99,7 @@ const ComboBoxValue = ({ size, shortcut, placeholder, shortcutClassName, icon: I
 
                 <AriaInput
                     placeholder={placeholder}
+                    onClick={opensOnClick ? openOnClick : undefined}
                     className={cx(
                         "z-10 w-full appearance-none bg-transparent text-transparent caret-alpha-black/90 placeholder:text-placeholder focus:outline-hidden disabled:cursor-not-allowed",
                         sizes[size].text,
@@ -127,6 +136,7 @@ export const ComboBox = ({
     shortcutClassName,
     icon,
     hideRequiredIndicator,
+    menuTrigger = "focus",
     ...otherProps
 }: ComboBoxProps) => {
     const placeholderRef = useRef<HTMLDivElement>(null);
@@ -149,7 +159,7 @@ export const ComboBox = ({
 
     return (
         <SelectContext.Provider value={{ size }}>
-            <AriaComboBox menuTrigger="focus" {...otherProps}>
+            <AriaComboBox menuTrigger={menuTrigger} {...otherProps}>
                 {(state) => (
                     <div className="flex flex-col gap-1.5">
                         {otherProps.label && (
@@ -165,6 +175,7 @@ export const ComboBox = ({
                             shortcutClassName={shortcutClassName}
                             icon={icon}
                             size={size}
+                            opensOnClick={menuTrigger === "focus" && !otherProps.isReadOnly}
                             // This is a workaround to correctly calculating the trigger width
                             // while using ResizeObserver wasn't 100% reliable.
                             onFocus={onResize}
