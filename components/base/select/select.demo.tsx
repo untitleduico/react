@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { User01 } from "@untitledui/icons";
-import type { Selection } from "react-aria-components";
+import { Plus, User01 } from "@untitledui/icons";
+import type { Key, Selection } from "react-aria-components";
 import { useListData } from "react-stately";
+import { Button } from "@/components/base/buttons/button";
 import { MultiSelect } from "@/components/base/select/multi-select";
 import { Select, type SelectItemType } from "@/components/base/select/select";
 import { NativeSelect } from "@/components/base/select/select-native";
@@ -1385,6 +1386,98 @@ export const MultiSelectDisabledDemo = () => (
         placeholder="Select teams"
         items={teamItems}
         isDisabled
+    >
+        {(item) => (
+            <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                {item.label}
+            </MultiSelect.Item>
+        )}
+    </MultiSelect>
+);
+
+export const FooterDemo = () => {
+    const [members, setMembers] = useState(items.slice(0, 5));
+    const [selectedKey, setSelectedKey] = useState<Key | null>(null);
+
+    const addMember = () => {
+        const member = {
+            label: "Drew Cano",
+            id: "@drew",
+            supportingText: "@drew",
+            avatarUrl: "https://www.untitledui.com/images/avatars/drew-cano?fm=webp&q=80",
+        };
+
+        setMembers((current) => (current.some((item) => item.id === member.id) ? current : [...current, member]));
+        setSelectedKey(member.id);
+    };
+
+    return (
+        <Select
+            label="Team member"
+            placeholder="Select team member"
+            items={members}
+            selectedKey={selectedKey}
+            onSelectionChange={setSelectedKey}
+            footer={(state) => (
+                <Select.Footer>
+                    <Button
+                        size="sm"
+                        color="link-color"
+                        iconLeading={Plus}
+                        onClick={() => {
+                            addMember();
+                            state.close();
+                        }}
+                    >
+                        Add team member
+                    </Button>
+                </Select.Footer>
+            )}
+        >
+            {(item) => (
+                <Select.Item id={item.id} supportingText={item.supportingText} avatarUrl={item.avatarUrl}>
+                    {item.label}
+                </Select.Item>
+            )}
+        </Select>
+    );
+};
+
+export const MultiSelectUncontrolledDemo = () => (
+    <MultiSelect
+        size="md"
+        label="Teams"
+        hint="The footer works without any handlers."
+        placeholder="Select teams"
+        items={teamItems}
+        defaultSelectedKeys={new Set(["design"])}
+    >
+        {(item) => (
+            <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">
+                {item.label}
+            </MultiSelect.Item>
+        )}
+    </MultiSelect>
+);
+
+export const MultiSelectCustomFooterDemo = () => (
+    <MultiSelect
+        size="md"
+        label="Teams"
+        hint="The footer actions use the select state."
+        placeholder="Select teams"
+        items={teamItems}
+        defaultSelectedKeys={new Set(["design", "product"])}
+        footer={(state) => (
+            <MultiSelect.Footer>
+                <Button size="sm" color="secondary" onClick={() => state.setValue([])}>
+                    Reset
+                </Button>
+                <Button size="sm" color="secondary" onClick={() => state.close()}>
+                    Done
+                </Button>
+            </MultiSelect.Footer>
+        )}
     >
         {(item) => (
             <MultiSelect.Item id={item.id} supportingText={item.supportingText} selectionIndicator="checkbox" selectionIndicatorAlign="left">

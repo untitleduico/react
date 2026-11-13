@@ -13,7 +13,7 @@ import { isReactComponent } from "@/utils/is-react-component";
 import { ComboBox } from "./combobox";
 import { Popover } from "./popover";
 import { SelectItem } from "./select-item";
-import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
+import { type CommonProps, SelectContext, SelectFooter, type SelectFooterContent, SelectFooterSlot, type SelectItemType, sizes } from "./select-shared";
 
 export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./select-shared";
 
@@ -26,6 +26,8 @@ export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "chil
     icon?: FC | ReactNode;
     /** The dropdown contents: either `Select.Item` elements, or a render function called with each entry of `items`. */
     children: ReactNode | ((item: SelectItemType) => ReactNode);
+    /** Content pinned below the options, such as `Select.Footer` with custom actions. Pass a function to receive the select's React Aria state, e.g. to change the selection or close the dropdown. */
+    footer?: SelectFooterContent<"single">;
 }
 
 interface SelectValueProps {
@@ -116,6 +118,7 @@ const Select = ({
     tooltip,
     hideRequiredIndicator,
     className,
+    footer,
     ...rest
 }: SelectProps) => {
     return (
@@ -131,10 +134,15 @@ const Select = ({
 
                         <SelectValue {...state} {...{ size, placeholder }} icon={icon} />
 
-                        <Popover size={size} className={rest.popoverClassName}>
-                            <AriaListBox items={items} className="size-full outline-hidden">
+                        <Popover size={size} className={cx(footer !== undefined && "flex flex-col overflow-y-hidden py-0", rest.popoverClassName)}>
+                            <AriaListBox
+                                items={items}
+                                className={cx("size-full outline-hidden", footer !== undefined && "min-h-0 flex-1 overflow-y-auto py-1")}
+                            >
                                 {children}
                             </AriaListBox>
+
+                            {footer !== undefined && <SelectFooterSlot footer={footer} />}
                         </Popover>
 
                         {hint && (
@@ -152,8 +160,10 @@ const Select = ({
 const _Select = Select as typeof Select & {
     ComboBox: typeof ComboBox;
     Item: typeof SelectItem;
+    Footer: typeof SelectFooter;
 };
 _Select.ComboBox = ComboBox;
 _Select.Item = SelectItem;
+_Select.Footer = SelectFooter;
 
 export { _Select as Select };
