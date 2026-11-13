@@ -3,12 +3,11 @@
 import { type FC, type ReactNode, useState } from "react";
 import { User01 } from "@untitledui/icons";
 import { cx } from "@/utils/cx";
-import { AvatarOnlineIndicator, VerifiedTick } from "./base-components";
-import { AvatarCount } from "./base-components/avatar-count";
+import { AvatarBadgeSizeContext, AvatarCount, AvatarOnlineIndicator, VerifiedTick, badgePositions } from "./base-components";
 
 export interface AvatarProps {
     /**
-     * The dimensions of the avatar, which also scale the initials, placeholder icon and status indicator.
+     * The dimensions of the avatar, which also scale the initials, placeholder icon and badges.
      */
     size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
     /**
@@ -41,7 +40,7 @@ export interface AvatarProps {
      */
     border?: boolean;
     /**
-     * Display a badge (i.e. company logo).
+     * Display a badge (i.e. company logo). Badges such as `AvatarCompanyIcon` take their size from the avatar.
      */
     badge?: ReactNode;
     /**
@@ -128,11 +127,11 @@ export const Avatar = ({
 
     const renderBadgeContent = () => {
         if (status) {
-            return <AvatarOnlineIndicator status={status} size={size} />;
+            return <AvatarOnlineIndicator status={status} />;
         }
 
         if (verified) {
-            return <VerifiedTick size={size} className={cx("absolute right-0 bottom-0", size === "xs" && "-right-px -bottom-px")} />;
+            return <VerifiedTick className={cx("absolute", badgePositions.verified, size === "xs" && badgePositions.verifiedXs)} />;
         }
 
         if (count) {
@@ -168,7 +167,7 @@ export const Avatar = ({
             >
                 {renderMainContent()}
             </div>
-            {renderBadgeContent()}
+            <AvatarBadgeSizeContext.Provider value={size}>{renderBadgeContent()}</AvatarBadgeSizeContext.Provider>
         </div>
     );
 };
