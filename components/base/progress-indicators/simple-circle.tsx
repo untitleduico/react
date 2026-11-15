@@ -1,6 +1,19 @@
 "use client";
 
-export const CircleProgressBar = (props: { value: number; min?: 0; max?: 100 }) => {
+export const CircleProgressBar = (props: {
+    /** How far along the progress is. Its position between `min` and `max` sets the length of the filled arc and the percentage shown in the middle of the circle. */
+    value: number;
+    /**
+     * Lower bound of the range `value` is measured against.
+     * @default 0
+     */
+    min?: 0;
+    /**
+     * Upper bound of the range `value` is measured against.
+     * @default 100
+     */
+    max?: 100;
+}) => {
     const { value, min = 0, max = 100 } = props;
     const percentage = ((value - min) * 100) / (max - min);
 

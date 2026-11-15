@@ -17,6 +17,7 @@ const now = today(getLocalTimeZone());
 const highlightedDates = [today(getLocalTimeZone())];
 
 interface DateRangePickerProps extends AriaDateRangePickerProps<DateValue> {
+    /** Controls the size of the trigger button that opens the calendar. */
     size?: ButtonProps["size"];
     /** The function to call when the apply button is clicked. */
     onApply?: () => void;
@@ -79,9 +80,11 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
     return (
         <AriaDateRangePicker aria-label="Date range picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
-                <Button size={size} color="secondary" iconLeading={CalendarIcon}>
-                    {!value ? <span className="text-placeholder">Select dates</span> : `${formattedStartDate} – ${formattedEndDate}`}
-                </Button>
+                {({ isInvalid }) => (
+                    <Button size={size} color="secondary" iconLeading={CalendarIcon} className={cx(isInvalid && "ring-error_subtle outline-error")}>
+                        {!value ? <span className="text-placeholder">Select dates</span> : `${formattedStartDate} – ${formattedEndDate}`}
+                    </Button>
+                )}
             </AriaGroup>
             <AriaPopover
                 placement="bottom right"

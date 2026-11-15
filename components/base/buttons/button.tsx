@@ -1,7 +1,7 @@
 "use client";
 
 import type { FC, ReactElement, ReactNode } from "react";
-import React, { isValidElement } from "react";
+import { isValidElement } from "react";
 import type { ButtonProps as AriaButtonProps, LinkProps as AriaLinkProps } from "react-aria-components";
 import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
 import { cx, sortCx } from "@/utils/cx";
@@ -151,7 +151,9 @@ export interface CommonProps {
     /** When true, keeps the text visible during loading state */
     showTextWhileLoading?: boolean;
 
+    /** The button label. Omitting it while passing an icon renders a square, icon-only button. */
     children?: ReactNode;
+    /** The class name applied to the button. */
     className?: string;
 }
 

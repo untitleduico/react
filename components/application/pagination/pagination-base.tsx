@@ -1,7 +1,7 @@
 "use client";
 
 import type { CSSProperties, FC, HTMLAttributes, ReactNode } from "react";
-import React, { cloneElement, createContext, isValidElement, useCallback, useContext, useEffect, useState } from "react";
+import { cloneElement, createContext, isValidElement, useCallback, useContext, useMemo } from "react";
 
 type PaginationPage = {
     /** The type of the pagination item. */
@@ -39,6 +39,7 @@ export interface PaginationRootProps {
     page: number;
     /** Total number of pages */
     total: number;
+    /** The pagination parts to render, such as `Pagination.PrevTrigger`, `Pagination.Context` and `Pagination.NextTrigger`. */
     children: ReactNode;
     /** The style of the pagination root. */
     style?: CSSProperties;
@@ -49,8 +50,6 @@ export interface PaginationRootProps {
 }
 
 const PaginationRoot = ({ total, siblingCount = 1, page, onPageChange, children, style, className }: PaginationRootProps) => {
-    const [pages, setPages] = useState<PaginationItemType[]>([]);
-
     const createPaginationItems = useCallback((): PaginationItemType[] => {
         const items: PaginationItemType[] = [];
         // Calculate the maximum number of pagination elements (pages, potential ellipsis, first and last) to show
@@ -152,10 +151,7 @@ const PaginationRoot = ({ total, siblingCount = 1, page, onPageChange, children,
         return items;
     }, [total, siblingCount, page]);
 
-    useEffect(() => {
-        const paginationItems = createPaginationItems();
-        setPages(paginationItems);
-    }, [createPaginationItems]);
+    const pages = useMemo(() => createPaginationItems(), [createPaginationItems]);
 
     const onPageChangeHandler = (newPage: number) => {
         onPageChange?.(newPage);
@@ -339,9 +335,13 @@ const PaginationItem = ({ value, isCurrent, children, style, className, ariaLabe
     );
 };
 interface PaginationEllipsisProps {
+    /** The identifier of the ellipsis within the generated list of pagination items. */
     key: number;
+    /** The content rendered in place of the skipped pages, such as an ellipsis character. Hidden from assistive technology. */
     children?: ReactNode;
+    /** The style of the ellipsis. */
     style?: CSSProperties;
+    /** The class name of the ellipsis. Can be a function returning the class name. */
     className?: string | (() => string);
 }
 
@@ -356,6 +356,7 @@ const PaginationEllipsis: FC<PaginationEllipsisProps> = ({ children, style, clas
 };
 
 interface PaginationContextComponentProps {
+    /** A render prop called with the pagination state (pages, current page, total and the page change handler). */
     children: (pagination: PaginationContextType) => ReactNode;
 }
 

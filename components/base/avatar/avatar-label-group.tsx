@@ -11,10 +11,15 @@ const styles = {
 };
 
 interface AvatarLabelGroupProps extends AvatarProps {
+    /** The dimensions of the avatar, which also set the text size of the title and subtitle. */
     size: "sm" | "md" | "lg";
+    /** Whether the avatar is a circle rather than a rounded square. */
     rounded?: boolean;
+    /** The primary line of text shown next to the avatar, such as a person's name. */
     title: string | ReactNode;
+    /** The secondary line of text shown below the title. Truncates when it overflows. */
     subtitle: string | ReactNode;
+    /** The class name applied to the avatar, while `className` styles the whole group. */
     avatarClassName?: string;
 }
 

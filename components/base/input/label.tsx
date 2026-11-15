@@ -8,11 +8,17 @@ import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
 import { cx } from "@/utils/cx";
 
 interface LabelProps extends AriaLabelProps {
+    /** The label text, rendered before the required asterisk and the tooltip trigger. */
     children: ReactNode;
+    /** Whether the required asterisk is tinted with the error color. When left undefined, it follows the invalid state of the surrounding field instead. */
     isInvalid?: boolean;
+    /** Whether the required asterisk is shown. When left undefined, it appears only if the surrounding field is marked required. */
     isRequired?: boolean;
+    /** Title text for a help tooltip. Setting it renders a help icon after the label that stays interactive even when the field is disabled. */
     tooltip?: string;
+    /** Supporting text shown under the tooltip title. Only rendered when `tooltip` is set. */
     tooltipDescription?: string;
+    /** Ref to the underlying label element. */
     ref?: Ref<HTMLLabelElement>;
 }
 

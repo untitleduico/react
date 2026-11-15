@@ -6,12 +6,19 @@ import { Switch as AriaSwitch } from "react-aria-components";
 import { cx } from "@/utils/cx";
 
 interface ToggleBaseProps {
+    /** Controls the track and knob dimensions, and how far the knob slides when selected. */
     size?: "sm" | "md";
+    /** Renders the compact variant: an unpadded track with a bordered knob that overlaps its edges instead of sitting inside them. */
     slim?: boolean;
+    /** Additional classes merged onto the track element. */
     className?: string;
+    /** Whether to darken the track while selected, for the hover appearance. Normally passed down by `Toggle` from React Aria's render state rather than set by hand. */
     isHovered?: boolean;
+    /** Whether to draw the keyboard focus ring around the track. Normally passed down by `Toggle` rather than set by hand. */
     isFocusVisible?: boolean;
+    /** Whether to render the on appearance: brand-filled track with the knob slid to the right. Normally passed down by `Toggle` rather than set by hand. */
     isSelected?: boolean;
+    /** Whether to render the dimmed, not-allowed appearance. Normally passed down by `Toggle` rather than set by hand. */
     isDisabled?: boolean;
 }
 
@@ -44,7 +51,7 @@ export const ToggleBase = ({ className, isHovered, isDisabled, isFocusVisible, i
     return (
         <div
             className={cx(
-                "cursor-pointer rounded-full bg-tertiary ring-[0.5px] ring-secondary outline-focus-ring transition duration-150 ease-linear ring-inset",
+                "shrink-0 cursor-pointer rounded-full bg-tertiary ring-[0.5px] ring-secondary outline-focus-ring transition duration-150 ease-linear ring-inset",
                 isSelected && "bg-brand-solid",
                 isSelected && isHovered && "bg-brand-solid_hover",
                 isDisabled && "cursor-not-allowed opacity-50",
@@ -91,9 +98,13 @@ const styles = {
 };
 
 interface ToggleProps extends AriaSwitchProps {
+    /** Controls the toggle dimensions, the gap between it and the text, and the label and hint typography. */
     size?: "sm" | "md";
+    /** Text rendered beside the toggle. It sits inside the switch's label element, so it also acts as the accessible name and flips the toggle when clicked. */
     label?: string;
+    /** Supporting text rendered under the label. Clicks on it are stopped so reading the hint does not flip the toggle. */
     hint?: ReactNode;
+    /** Renders the compact toggle variant, with a shorter track and a bordered knob that overlaps its edges. */
     slim?: boolean;
 }
 
@@ -103,7 +114,7 @@ export const Toggle = ({ label, hint, className, size = "sm", slim, ...ariaSwitc
             {...ariaSwitchProps}
             className={(state) =>
                 cx(
-                    "relative flex w-max items-start",
+                    "relative flex w-max max-w-full items-start",
                     state.isDisabled && "cursor-not-allowed",
                     styles[size].root,
                     typeof className === "function" ? className(state) : className,

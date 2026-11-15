@@ -15,7 +15,18 @@ interface PaginationProps extends Partial<Omit<PaginationRootProps, "children">>
     rounded?: boolean;
 }
 
-const PaginationItem = ({ value, rounded, isCurrent }: { value: number; rounded?: boolean; isCurrent: boolean }) => {
+const PaginationItem = ({
+    value,
+    rounded,
+    isCurrent,
+}: {
+    /** The page number this item navigates to, also used as its label. */
+    value: number;
+    /** Whether the button is a circle rather than a rounded square. */
+    rounded?: boolean;
+    /** Whether this item is the page currently being viewed, which highlights it and marks it as the current page. */
+    isCurrent: boolean;
+}) => {
     return (
         <Pagination.Item
             value={value}

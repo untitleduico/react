@@ -7,6 +7,6 @@
  *          it returns the first character of each word.
  */
 export const getInitials = (name: string) => {
-    const [firstName, lastName] = name.split(" ");
+    const [firstName = "", lastName] = name.split(" ");
     return firstName.charAt(0) + (lastName ? lastName.charAt(0) : "");
 };

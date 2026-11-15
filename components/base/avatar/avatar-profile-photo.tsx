@@ -40,6 +40,7 @@ const tickSizeMap = {
 } as const;
 
 interface AvatarProfilePhotoProps extends AvatarProps {
+    /** The dimensions of the photo, which also scale the surrounding ring, initials and status indicator. */
     size: "sm" | "md" | "lg";
 }
 

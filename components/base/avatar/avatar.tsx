@@ -7,13 +7,25 @@ import { AvatarOnlineIndicator, VerifiedTick } from "./base-components";
 import { AvatarCount } from "./base-components/avatar-count";
 
 export interface AvatarProps {
+    /**
+     * The dimensions of the avatar, which also scale the initials, placeholder icon and status indicator.
+     */
     size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+    /**
+     * The class name for the outer wrapper of the avatar.
+     */
     className?: string;
     /**
      * The class name for the main child of the avatar.
      */
     contentClassName?: string;
+    /**
+     * The URL of the avatar image. Falls back to the initials, placeholder icon or placeholder if it is missing or fails to load.
+     */
     src?: string | null;
+    /**
+     * The alternative text for the avatar image.
+     */
     alt?: string;
     /**
      * Display an inner contrast border around the avatar image.

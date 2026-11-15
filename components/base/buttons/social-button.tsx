@@ -46,6 +46,7 @@ export const styles = sortCx({
 });
 
 interface CommonProps {
+    /** The provider the button signs in with, which selects both the logo and the brand color. */
     social: "google" | "facebook" | "apple" | "twitter" | "figma" | "dribble";
     /** Disables the button and shows a disabled state */
     isDisabled?: boolean;
@@ -54,10 +55,17 @@ interface CommonProps {
      * @deprecated Use `isDisabled` instead, for consistency with `Button` and React Aria.
      */
     disabled?: boolean;
+    /**
+     * How the provider branding is applied. `brand` fills the button with the provider's color,
+     * `color` keeps a neutral button with a full-color logo, and `gray` keeps both neutral.
+     */
     theme?: "brand" | "color" | "gray";
+    /** Controls the padding, text size and logo size of the button. */
     size?: keyof typeof styles.sizes;
 
+    /** The button label. Omitting it renders a square, icon-only button. */
     children?: ReactNode;
+    /** The class name applied to the button. */
     className?: string;
 }
 

@@ -49,7 +49,15 @@ export const TableRowActionsDropdown = () => (
 
 const TableContext = createContext<{ size: "sm" | "md" }>({ size: "md" });
 
-const TableCardRoot = ({ children, className, size = "md", ...props }: HTMLAttributes<HTMLDivElement> & { size?: "sm" | "md" }) => {
+const TableCardRoot = ({
+    children,
+    className,
+    size = "md",
+    ...props
+}: HTMLAttributes<HTMLDivElement> & {
+    /** Controls the density of the card and every descendant header, row and cell. */
+    size?: "sm" | "md";
+}) => {
     return (
         <TableContext.Provider value={{ size }}>
             <div {...props} className={cx("overflow-hidden rounded-xl bg-primary shadow-xs ring-1 ring-secondary", className)}>
@@ -104,6 +112,7 @@ const TableCardHeader = ({ title, badge, description, contentTrailing, className
 };
 
 interface TableRootProps extends AriaTableProps, Omit<ComponentPropsWithRef<"table">, "className" | "slot" | "style"> {
+    /** Controls the density of the header, rows and cells. The size of a wrapping `TableCard.Root` takes precedence. */
     size?: "sm" | "md";
 }
 
@@ -122,7 +131,9 @@ TableRoot.displayName = "Table";
 
 interface TableHeaderProps<T extends object>
     extends AriaTableHeaderProps<T>, Omit<ComponentPropsWithRef<"thead">, "children" | "className" | "slot" | "style"> {
+    /** Whether to draw a hairline border along the bottom edge of the header row. */
     bordered?: boolean;
+    /** Controls the height of the header row. Falls back to the size inherited from the table. */
     size?: "sm" | "md";
 }
 
@@ -165,11 +176,14 @@ const TableHeader = <T extends object>({ columns, children, bordered = true, cla
 TableHeader.displayName = "TableHeader";
 
 interface TableHeadProps extends AriaColumnProps, Omit<ThHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
+    /** The column heading text, rendered before any children. */
     label?: string;
+    /** Help text shown in a tooltip when hovering the help icon next to the heading. */
     tooltip?: string;
 }
 
 const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadProps) => {
+    const { size } = useContext(TableContext);
     const { selectionBehavior } = useTableOptions();
 
     return (
@@ -177,7 +191,8 @@ const TableHead = ({ className, tooltip, label, children, ...props }: TableHeadP
             {...props}
             className={(state) =>
                 cx(
-                    "relative p-0 px-6 py-2 outline-hidden focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary focus-visible:ring-inset",
+                    "relative p-0 py-2 outline-hidden focus-visible:z-1 focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-bg-primary focus-visible:ring-inset",
+                    size === "sm" ? "px-5" : "px-6",
                     selectionBehavior === "toggle" && "nth-2:pl-3",
                     state.allowsSorting && "cursor-pointer",
                     typeof className === "function" ? className(state) : className,
@@ -214,7 +229,9 @@ TableHead.displayName = "TableHead";
 
 interface TableRowProps<T extends object>
     extends AriaRowProps<T>, Omit<ComponentPropsWithRef<"tr">, "children" | "className" | "onClick" | "slot" | "style" | "id"> {
+    /** Whether the row keeps a secondary background while it is selected. */
     highlightSelectedRow?: boolean;
+    /** Controls the height of the row. Falls back to the size inherited from the table. */
     size?: "sm" | "md";
 }
 
@@ -255,7 +272,9 @@ const TableRow = <T extends object>({ columns, children, className, highlightSel
 TableRow.displayName = "TableRow";
 
 interface TableCellProps extends AriaCellProps, Omit<TdHTMLAttributes<HTMLTableCellElement>, "children" | "className" | "style" | "id"> {
+    /** A ref to the underlying `td` element. */
     ref?: Ref<HTMLTableCellElement>;
+    /** Controls the horizontal and vertical padding of the cell. Falls back to the size inherited from the table. */
     size?: "sm" | "md";
 }
 

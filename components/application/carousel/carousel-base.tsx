@@ -79,6 +79,15 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
         setSelectedIndex(api.selectedScrollSnap());
     }, []);
 
+    // Read the initial position when Embla hands over a new api. Doing it here rather than in the
+    // effect below avoids an extra render, and the effect only subscribes to later changes.
+    const [syncedApi, setSyncedApi] = useState<CarouselApi>(undefined);
+    if (api !== syncedApi) {
+        setSyncedApi(api);
+        onInit(api);
+        onSelect(api);
+    }
+
     const scrollPrev = useCallback(() => {
         api?.scrollPrev();
     }, [api]);
@@ -100,26 +109,27 @@ const CarouselRoot = ({ orientation = "horizontal", opts, setApi, plugins, class
         [scrollPrev, scrollNext],
     );
 
-    useEffect(() => {
-        if (!api || !setApi) return;
-
-        setApi(api);
-    }, [api, setApi]);
-
+    // Subscribe before handing the api to setApi: effects run in order, so a consumer that
+    // scrolls as soon as it gets the api must find these listeners already attached.
     useEffect(() => {
         if (!api) return;
-
-        onInit(api);
-        onSelect(api);
 
         api.on("reInit", onInit);
         api.on("reInit", onSelect);
         api.on("select", onSelect);
 
         return () => {
-            api?.off("select", onSelect);
+            api.off("reInit", onInit);
+            api.off("reInit", onSelect);
+            api.off("select", onSelect);
         };
     }, [api, onInit, onSelect]);
+
+    useEffect(() => {
+        if (!api || !setApi) return;
+
+        setApi(api);
+    }, [api, setApi]);
 
     return (
         <CarouselContext.Provider
@@ -282,7 +292,9 @@ const CarouselIndicator = ({ index, isSelected = false, children, asChild, class
 };
 
 interface CarouselIndicatorGroupProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+    /** The indicators to render. Can be a render prop, which is called once per scroll snap with its index. */
     children: ReactNode | ((props: { index: number }) => ReactNode);
+    /** The class name applied to the indicator group. */
     className?: string;
 }
 

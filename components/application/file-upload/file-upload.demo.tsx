@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { FileUpload, getReadableFileSize } from "@/components/application/file-upload/file-upload-base";
 
-const uploadFile = (file: File, onProgress: (progress: number) => void) => {
+const uploadFile = (_file: File, onProgress: (progress: number) => void) => {
     // Add your upload logic here...
 
     // This is dummy upload logic

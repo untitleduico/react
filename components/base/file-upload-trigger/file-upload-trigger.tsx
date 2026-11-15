@@ -1,7 +1,7 @@
 "use client";
 
 import type { DetailedReactHTMLElement, HTMLAttributes, ReactNode } from "react";
-import React, { cloneElement, useRef } from "react";
+import React, { cloneElement, useState } from "react";
 import { filterDOMProps } from "@react-aria/utils";
 
 interface FileTriggerProps {
@@ -37,20 +37,19 @@ interface FileTriggerProps {
 export const FileTrigger = (props: FileTriggerProps) => {
     const { children, onSelect, acceptedFileTypes, allowsMultiple, defaultCamera, acceptDirectory, ...rest } = props;
 
-    const inputRef = useRef<HTMLInputElement | null>(null);
+    // A callback ref into state (not useRef): the click handler below is handed to cloneElement,
+    // and reading a ref there is flagged because the compiler can't prove it only runs on click.
+    const [input, setInput] = useState<HTMLInputElement | null>(null);
     const domProps = filterDOMProps(rest);
+
+    const openFileDialog = () => input?.click();
 
     // Make sure that only one child is passed to the component.
     const clonableElement = React.Children.only(children);
 
     // Clone the child element and add an `onClick` handler to open the file dialog.
     const mainElement = cloneElement(clonableElement as DetailedReactHTMLElement<HTMLAttributes<HTMLElement>, HTMLElement>, {
-        onClick: () => {
-            if (inputRef.current?.value) {
-                inputRef.current.value = "";
-            }
-            inputRef.current?.click();
-        },
+        onClick: openFileDialog,
     });
 
     return (
@@ -59,14 +58,19 @@ export const FileTrigger = (props: FileTriggerProps) => {
             <input
                 {...domProps}
                 type="file"
-                ref={inputRef}
+                ref={setInput}
+                // Clear the previous selection as the dialog opens, so picking the same file again still fires onChange.
+                onClick={(e) => {
+                    e.currentTarget.value = "";
+                }}
                 style={{ display: "none" }}
                 accept={acceptedFileTypes?.toString()}
                 onChange={(e) => onSelect?.(e.target.files)}
                 capture={defaultCamera}
                 multiple={allowsMultiple}
-                // @ts-expect-error
-                webkitdirectory={acceptDirectory ? "" : undefined}
+                // Spread rather than a JSX attribute: whether @types/react knows `webkitdirectory`
+                // depends on its version, and a spread type-checks either way.
+                {...(acceptDirectory ? { webkitdirectory: "" } : {})}
             />
         </>
     );

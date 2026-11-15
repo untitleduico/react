@@ -17,6 +17,7 @@ interface DatePickerProps extends AriaDatePickerProps<DateValue> {
     onApply?: () => void;
     /** The function to call when the cancel button is clicked. */
     onCancel?: () => void;
+    /** Controls the size of the trigger button that opens the calendar. */
     size?: ButtonProps["size"];
 }
 
@@ -33,9 +34,11 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
     return (
         <AriaDatePicker aria-label="Date picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
-                <Button size={size} color="secondary" iconLeading={CalendarIcon}>
-                    {formattedDate}
-                </Button>
+                {({ isInvalid }) => (
+                    <Button size={size} color="secondary" iconLeading={CalendarIcon} className={cx(isInvalid && "ring-error_subtle outline-error")}>
+                        {formattedDate}
+                    </Button>
+                )}
             </AriaGroup>
             <AriaPopover
                 offset={8}
