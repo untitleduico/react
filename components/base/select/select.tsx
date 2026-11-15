@@ -37,6 +37,8 @@ interface SelectValueProps {
     isFocused: boolean;
     /** Whether the trigger is dimmed and rejects pointer interaction. */
     isDisabled: boolean;
+    /** Whether the select is invalid, which draws the error ring in place of the default and focus rings. */
+    isInvalid: boolean;
     /** Text shown in the trigger while no item is selected. */
     placeholder?: string;
     /** Ref to the trigger button element. */
@@ -45,7 +47,7 @@ interface SelectValueProps {
     icon?: FC | ReactNode;
 }
 
-const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, ref }: SelectValueProps) => {
+const SelectValue = ({ isOpen, isFocused, isDisabled, isInvalid, size, placeholder, icon, ref }: SelectValueProps) => {
     return (
         <AriaButton
             ref={ref}
@@ -53,6 +55,8 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, r
                 "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                 (isFocused || isOpen) && "ring-2 ring-brand",
                 isDisabled && "cursor-not-allowed opacity-50",
+                isInvalid && "ring-error_subtle",
+                isInvalid && (isFocused || isOpen) && "ring-2 ring-error",
             )}
         >
             <AriaSelectValue<SelectItemType>
@@ -124,7 +128,7 @@ const Select = ({
                 {(state) => (
                     <>
                         {label && (
-                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} tooltip={tooltip}>
+                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} isInvalid={state.isInvalid} tooltip={tooltip}>
                                 {label}
                             </Label>
                         )}
