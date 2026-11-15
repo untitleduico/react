@@ -238,6 +238,22 @@ const MultiSelectRoot = ({
         setSearchValue("");
     }, []);
 
+    const listBox = (
+        <AriaListBox
+            items={items}
+            renderEmptyState={() => (
+                <MultiSelectEmptyState
+                    title={emptyStateTitle}
+                    description={emptyStateDescription}
+                    onClearSearch={searchValue ? handleClearSearch : undefined}
+                />
+            )}
+            className={cx("overflow-y-auto py-1 outline-hidden", popoverMaxHeights[size])}
+        >
+            {children}
+        </AriaListBox>
+    );
+
     return (
         <SelectContext.Provider value={{ size }}>
             <AriaSelect<SelectItemType, "multiple">
@@ -312,8 +328,9 @@ const MultiSelectRoot = ({
                         )
                     }
                 >
-                    <AriaAutocomplete filter={contains} inputValue={searchValue} onInputChange={setSearchValue}>
-                        {showSearch && (
+                    {/* Only wrap the list when there is a search field: Autocomplete routes keyboard navigation through its input, so without one the list can't be navigated. */}
+                    {showSearch ? (
+                        <AriaAutocomplete filter={contains} inputValue={searchValue} onInputChange={setSearchValue}>
                             <div className={cx("border-b border-secondary", searchSizes[size].wrapper)}>
                                 <AriaSearchField aria-label="Search" value={searchValue} onChange={setSearchValue} autoFocus>
                                     <div className={cx("flex items-center", searchSizes[size].root)}>
@@ -328,22 +345,12 @@ const MultiSelectRoot = ({
                                     </div>
                                 </AriaSearchField>
                             </div>
-                        )}
 
-                        <AriaListBox
-                            items={items}
-                            renderEmptyState={() => (
-                                <MultiSelectEmptyState
-                                    title={emptyStateTitle}
-                                    description={emptyStateDescription}
-                                    onClearSearch={searchValue ? handleClearSearch : undefined}
-                                />
-                            )}
-                            className={cx("overflow-y-auto py-1 outline-hidden", popoverMaxHeights[size])}
-                        >
-                            {children}
-                        </AriaListBox>
-                    </AriaAutocomplete>
+                            {listBox}
+                        </AriaAutocomplete>
+                    ) : (
+                        listBox
+                    )}
 
                     {showFooter &&
                         (footer === undefined ? <MultiSelectFooter onReset={onReset} onSelectAll={onSelectAll} /> : <SelectFooterSlot footer={footer} />)}
