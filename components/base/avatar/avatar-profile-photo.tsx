@@ -4,7 +4,7 @@ import { useState } from "react";
 import { User01 } from "@untitledui/icons";
 import { cx } from "@/utils/cx";
 import { type AvatarProps } from "./avatar";
-import { AvatarOnlineIndicator, VerifiedTick } from "./base-components";
+import { AvatarBadgeSizeContext, AvatarOnlineIndicator, VerifiedTick, badgePositions } from "./base-components";
 
 const styles = {
     sm: {
@@ -13,7 +13,6 @@ const styles = {
         content: "outline-[0.5px] -outline-offset-[0.5px] before:border",
         icon: "size-9",
         initials: "text-display-sm font-semibold",
-        badge: "bottom-0.5 right-0.5",
     },
     md: {
         root: "size-24 p-1",
@@ -21,7 +20,6 @@ const styles = {
         content: "shadow-xl outline-[0.75px] -outline-offset-[0.75px] before:border-[1.5px]",
         icon: "size-12",
         initials: "text-display-md font-semibold",
-        badge: "bottom-1 right-1",
     },
     lg: {
         root: "size-40 p-1.5",
@@ -29,11 +27,10 @@ const styles = {
         content: "shadow-2xl outline-[0.75px] -outline-offset-[0.75px] before:border-[1.5px]",
         icon: "size-20",
         initials: "text-display-xl font-semibold",
-        badge: "bottom-2 right-2",
     },
 };
 
-const tickSizeMap = {
+const badgeSizeMap = {
     sm: "2xl",
     md: "3xl",
     lg: "4xl",
@@ -112,11 +109,11 @@ export const AvatarProfilePhoto = ({
 
     const renderBadgeContent = () => {
         if (status) {
-            return <AvatarOnlineIndicator status={status} size={tickSizeMap[size]} className={styles[size].badge} />;
+            return <AvatarOnlineIndicator status={status} className={badgePositions.profilePhoto[size]} />;
         }
 
         if (verified) {
-            return <VerifiedTick size={tickSizeMap[size]} className={cx("absolute", styles[size].badge)} />;
+            return <VerifiedTick className={cx("absolute", badgePositions.profilePhoto[size])} />;
         }
 
         return badge;
@@ -132,7 +129,7 @@ export const AvatarProfilePhoto = ({
             )}
         >
             {renderMainContent()}
-            {renderBadgeContent()}
+            <AvatarBadgeSizeContext.Provider value={badgeSizeMap[size]}>{renderBadgeContent()}</AvatarBadgeSizeContext.Provider>
         </div>
     );
 };
