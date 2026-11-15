@@ -52,9 +52,10 @@ export default [
                             message: "Import types from react-aria or react-aria-components instead; @react-types/* is not a declared dependency.",
                         },
                         {
-                            // Bare "react-stately" only; @react-stately/utils is a declared dependency.
-                            group: ["react-stately"],
-                            message: "Import from react-aria-components instead; react-stately is not a declared dependency.",
+                            // The react-stately package itself, not @react-stately/utils or a local file of that name.
+                            regex: "^react-stately(/|$)",
+                            message:
+                                "react-stately is not a declared dependency. Import useListData, useTreeData, useAsyncList and their types from react-aria-components, which re-exports them.",
                         },
                         {
                             group: ["@storybook/nextjs", "@storybook/nextjs/*", "@storybook/react", "@storybook/react/*"],

@@ -61,6 +61,7 @@
   "devDependencies": {
     "@chromatic-com/storybook": "^5.3.1",
     "@eslint/eslintrc": "^3.3.7",
+    "@next/eslint-plugin-next": "^16.3.6",
     "@storybook/addon-themes": "^10.6.0",
     "@storybook/nextjs-vite": "10.6.0",
     "@tailwindcss/postcss": "^4.3.3",
