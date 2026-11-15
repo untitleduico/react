@@ -23,8 +23,8 @@ export const useAvatarBadgeSize = (size?: AvatarBadgeSize): AvatarBadgeSize => {
  * The size of each badge for every avatar size.
  *
  * The badges are not meant to share one size. The online indicator is smaller than the other badges,
- * and the count never gets smaller than 14px so that it always fits a digit. There is no company icon
- * larger than `2xl`, so profile photos reuse that one.
+ * and the count is as large as the verified tick. There is no company icon or count larger than `2xl`,
+ * so profile photos reuse those.
  */
 export const badgeSizes = sortCx({
     online: {
@@ -58,8 +58,8 @@ export const badgeSizes = sortCx({
         "4xl": "size-5 ring-[1.67px]",
     },
     count: {
-        xs: "h-3.5 min-w-3.5 px-[3px] text-[10px] leading-[13px]",
-        sm: "h-3.5 min-w-3.5 px-[3px] text-[10px] leading-[13px]",
+        xs: "h-2.5 min-w-2.5 px-0.5 text-[8px] leading-[9px]",
+        sm: "h-3 min-w-3 px-[3px] text-[9px] leading-[11px]",
         md: "h-3.5 min-w-3.5 px-[3px] text-[10px] leading-[13px]",
         lg: "h-4 min-w-4 px-[3px] text-[11px] leading-[15px]",
         xl: "h-4.5 min-w-4.5 px-1 text-xs leading-[17px]",
@@ -73,16 +73,15 @@ export const badgeSizes = sortCx({
  * Where each badge sits on its avatar.
  *
  * These offsets are intentional and differ between badges on purpose, so keep them as they are
- * when changing a badge. The count moves outwards on `xs` and `sm`, where it would otherwise sit
- * further inside the avatar than it does on the larger sizes.
+ * when changing a badge. The verified tick and the count both move 1px outwards on `xs`.
  */
 export const badgePositions = sortCx({
     online: "right-0 bottom-0",
     verified: "right-0 bottom-0",
     verifiedXs: "-right-px -bottom-px",
     count: {
-        xs: "-right-0.75 -bottom-0.75",
-        sm: "-right-px -bottom-px",
+        xs: "-right-px -bottom-px",
+        sm: "right-0 bottom-0",
         md: "right-0 bottom-0",
         lg: "right-0 bottom-0",
         xl: "right-0 bottom-0",
