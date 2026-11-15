@@ -28,3 +28,5 @@ LabelGroup.storyName = "Label group";
 
 export const ProfilePhoto = () => <Avatar.ProfilePhoto />;
 ProfilePhoto.storyName = "Profile photo";
+
+export const Badges = () => <Avatar.Badges />;
