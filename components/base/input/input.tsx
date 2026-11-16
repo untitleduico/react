@@ -3,7 +3,14 @@
 import { type ComponentType, type HTMLAttributes, type ReactNode, type Ref, createContext, useContext, useState } from "react";
 import { Eye, EyeOff, HelpCircle, InfoCircle } from "@untitledui/icons";
 import type { InputProps as AriaInputProps, TextFieldProps as AriaTextFieldProps } from "react-aria-components";
-import { Button as AriaButton, Group as AriaGroup, Input as AriaInput, TextField as AriaTextField } from "react-aria-components";
+import {
+    Button as AriaButton,
+    Group as AriaGroup,
+    Input as AriaInput,
+    InputContext as AriaInputContext,
+    TextField as AriaTextField,
+    useSlottedContext,
+} from "react-aria-components";
 import { HintText } from "@/components/base/input/hint-text";
 import { Label } from "@/components/base/input/label";
 import { Tooltip, TooltipTrigger } from "@/components/base/tooltip/tooltip";
@@ -58,13 +65,19 @@ export const InputBase = ({
     tooltipClassName,
     inputClassName,
     iconClassName,
-    type = "text",
+    type: typeProp,
     ...inputProps
 }: InputBaseProps) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    // Check if the input has a leading icon or tooltip
-    const hasTrailingIcon = tooltip || isInvalid;
+    // Without a `type` of its own, the input keeps the one set on the field around it (e.g. `<TextField type="password">`)
+    const fieldInputProps = useSlottedContext(AriaInputContext, inputProps.slot);
+    const type = typeProp ?? fieldInputProps?.type ?? "text";
+    const isPassword = type === "password";
+
+    // The tooltip and the password toggle sit over the end of the input, so the text has to stop before them.
+    // The invalid icon is shown with CSS (`group-invalid/input`), so the classes below make room for it the same way.
+    const hasTrailingIcon = tooltip || isPassword;
     const hasLeadingIcon = Icon;
 
     // If the input is inside a `TextFieldContext`, use its context to simplify applying styles
@@ -74,19 +87,19 @@ export const InputBase = ({
 
     const sizes = sortCx({
         sm: {
-            root: cx("px-3 py-2 text-sm", hasLeadingIcon && "pl-9", hasTrailingIcon && "pr-9"),
+            root: cx("px-3 py-2 text-sm group-invalid/input:pr-9", hasLeadingIcon && "pl-9", hasTrailingIcon && "pr-9"),
             iconLeading: "left-3 size-4 stroke-[2.25px]",
             iconTrailing: "right-3",
             shortcut: "pr-1.5",
         },
         md: {
-            root: cx("px-3 py-2 text-md", hasLeadingIcon && "pl-10", hasTrailingIcon && "pr-9"),
+            root: cx("px-3 py-2 text-md group-invalid/input:pr-9", hasLeadingIcon && "pl-10", hasTrailingIcon && "pr-9"),
             iconLeading: "left-3 size-5",
             iconTrailing: "right-3",
             shortcut: "pr-2",
         },
         lg: {
-            root: cx("px-3.5 py-2.5 text-md", hasLeadingIcon && "pl-10.5", hasTrailingIcon && "pr-9.5"),
+            root: cx("px-3.5 py-2.5 text-md group-invalid/input:pr-9.5", hasLeadingIcon && "pl-10.5", hasTrailingIcon && "pr-9.5"),
             iconLeading: "left-3.5 size-5",
             iconTrailing: "right-3.5",
             shortcut: "pr-2.5",
@@ -130,7 +143,7 @@ export const InputBase = ({
                 {...(inputProps as AriaInputProps)}
                 ref={ref}
                 required={isRequired}
-                type={type === "password" && isPasswordVisible ? "text" : type}
+                type={isPassword && isPasswordVisible ? "text" : type}
                 placeholder={placeholder}
                 className={cx(
                     "m-0 w-full bg-transparent text-primary ring-0 outline-hidden placeholder:text-placeholder autofill:rounded-lg autofill:text-primary disabled:cursor-not-allowed",
@@ -141,7 +154,7 @@ export const InputBase = ({
             />
 
             {/* Tooltip and help icon */}
-            {tooltip && type !== "password" && (
+            {tooltip && !isPassword && (
                 <Tooltip title={tooltip} placement="top">
                     <TooltipTrigger
                         className={cx(
@@ -157,7 +170,7 @@ export const InputBase = ({
             )}
 
             {/* Invalid icon */}
-            {type !== "password" && (
+            {!isPassword && (
                 <InfoCircle
                     className={cx(
                         "pointer-events-none absolute hidden size-4 stroke-[2.25px] text-fg-error-secondary group-invalid/input:block",
@@ -169,9 +182,10 @@ export const InputBase = ({
             )}
 
             {/* Password visibility toggle */}
-            {type === "password" && (
+            {isPassword && (
                 <AriaButton
-                    aria-label="Toggle password visibility"
+                    aria-label="Show password"
+                    aria-pressed={isPasswordVisible}
                     onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                     className={cx(
                         "absolute flex cursor-pointer items-center justify-center text-fg-quaternary transition duration-100 ease-linear hover:text-fg-quaternary_hover focus:text-fg-quaternary_hover focus:outline-hidden",
