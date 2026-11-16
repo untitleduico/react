@@ -341,13 +341,24 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
                             // For workaround, onKeyDown is added to the button
                             onKeyDown={(event) => handleTagKeyDown(event, value.id)}
                             onPress={(event) => {
-                                tagSelectContext.onRemove(new Set([value.id]));
-
-                                // The pressed button unmounts with its tag, so hand focus back to the input.
-                                // The keyboard handler above has already moved focus to a neighbouring tag.
+                                // The pressed button unmounts with its tag, so move focus first: to the next tag,
+                                // or to the previous one from the last tag, as React Aria's TagGroup does, and to
+                                // the input once no tags are left. For key presses the keyboard handler above
+                                // has already moved it.
                                 if (event.pointerType !== "keyboard") {
-                                    inputRef.current?.focus();
+                                    const tags = tagSelectContext.selectedItems.items;
+                                    const isLastTag = tags[tags.length - 1]?.id === value.id;
+
+                                    if (tags.length === 1) {
+                                        inputRef.current?.focus();
+                                    } else if (isLastTag) {
+                                        focusManager?.focusPrevious({ from: event.target, wrap: false, tabbable: false });
+                                    } else {
+                                        focusManager?.focusNext({ from: event.target, wrap: false, tabbable: false });
+                                    }
                                 }
+
+                                tagSelectContext.onRemove(new Set([value.id]));
                             }}
                         />
                     </span>
