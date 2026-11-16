@@ -12,8 +12,9 @@ import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 import { ComboBox } from "./combobox";
 import { Popover } from "./popover";
+import { SelectFooter, SelectFooterSlot } from "./select-footer";
 import { SelectItem } from "./select-item";
-import { type CommonProps, SelectContext, SelectFooter, type SelectFooterContent, SelectFooterSlot, type SelectItemType, sizes } from "./select-shared";
+import { type CommonProps, SelectContext, type SelectFooterContent, type SelectItemType, sizes } from "./select-shared";
 
 export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./select-shared";
 
