@@ -242,6 +242,7 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
     const focusManager = useFocusManager();
     const tagSelectContext = useContext(TagSelectContext);
     const comboBoxStateContext = useContext(ComboBoxStateContext);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         const isCaretAtStart = event.currentTarget.selectionStart === 0 && event.currentTarget.selectionEnd === 0;
@@ -328,18 +329,33 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
                         </p>
 
                         <TagCloseX
+                            // The combobox passes its trigger props (id, aria-haspopup, aria-expanded, onPress)
+                            // to every button inside it. `slot={null}` opts out, so the remove button isn't
+                            // announced as a second dropdown trigger. Tags stay out of the tab order: they are
+                            // reached from the input with the arrow keys.
+                            slot={null}
+                            excludeFromTabOrder
                             size={size === "sm" ? "sm" : "md"}
                             isDisabled={isDisabled}
                             className="ml-0.75"
                             // For workaround, onKeyDown is added to the button
                             onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                            onPress={() => tagSelectContext.onRemove(new Set([value.id]))}
+                            onPress={(event) => {
+                                tagSelectContext.onRemove(new Set([value.id]));
+
+                                // The pressed button unmounts with its tag, so hand focus back to the input.
+                                // The keyboard handler above has already moved focus to a neighbouring tag.
+                                if (event.pointerType !== "keyboard") {
+                                    inputRef.current?.focus();
+                                }
+                            }}
                         />
                     </span>
                 ))}
 
             <div className={cx("relative flex min-w-12 flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
                 <AriaInput
+                    ref={inputRef}
                     placeholder={placeholder}
                     onKeyDown={handleInputKeyDown}
                     onMouseDown={handleInputMouseDown}
