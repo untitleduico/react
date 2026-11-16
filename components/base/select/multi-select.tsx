@@ -22,17 +22,9 @@ import { Label } from "@/components/base/input/label";
 import { FeaturedIcon } from "@/components/foundations/featured-icon/featured-icon";
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
+import { SelectFooter, SelectFooterSlot } from "./select-footer";
 import { SelectItem } from "./select-item";
-import {
-    type CommonProps,
-    SelectContext,
-    SelectFooter,
-    type SelectFooterContent,
-    SelectFooterSlot,
-    type SelectItemType,
-    getSelectableKeys,
-    sizes,
-} from "./select-shared";
+import { type CommonProps, SelectContext, type SelectFooterContent, type SelectItemType, getSelectableKeys, sizes } from "./select-shared";
 
 const searchSizes = {
     sm: { wrapper: "py-1", root: "px-3 py-2 gap-2 *:data-icon:size-4 *:data-icon:stroke-[2.25px]", text: "text-sm" },
