@@ -4,7 +4,14 @@ import type { FocusEventHandler, KeyboardEvent, PointerEventHandler, RefAttribut
 import React, { createContext, useCallback, useContext, useRef, useState } from "react";
 import { SearchLg } from "@untitledui/icons";
 import { FocusScope, useFilter, useFocusManager } from "react-aria";
-import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key, ListData } from "react-aria-components";
+import type {
+    ComboBoxProps as AriaComboBoxProps,
+    GroupProps as AriaGroupProps,
+    ListBoxProps as AriaListBoxProps,
+    Key,
+    ListData,
+    PressEvent,
+} from "react-aria-components";
 import {
     ComboBox as AriaComboBox,
     Group as AriaGroup,
@@ -304,6 +311,26 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
         }
     };
 
+    const handleTagRemovePress = (event: PressEvent, value: Key) => {
+        // The pressed button unmounts with its tag, so move focus first: to the next tag, or to the
+        // previous one from the last tag, as React Aria's TagGroup does, and to the input once no
+        // tags are left. For key presses, handleTagKeyDown has already moved it.
+        if (event.pointerType !== "keyboard") {
+            const tags = tagSelectContext.selectedItems.items;
+            const isLastTag = tags[tags.length - 1]?.id === value;
+
+            if (tags.length === 1) {
+                inputRef.current?.focus();
+            } else if (isLastTag) {
+                focusManager?.focusPrevious({ from: event.target, wrap: false, tabbable: false });
+            } else {
+                focusManager?.focusNext({ from: event.target, wrap: false, tabbable: false });
+            }
+        }
+
+        tagSelectContext.onRemove(new Set([value]));
+    };
+
     const isSelectionEmpty = tagSelectContext?.selectedItems?.items?.length === 0;
 
     return (
@@ -340,26 +367,7 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
                             className="ml-0.75"
                             // For workaround, onKeyDown is added to the button
                             onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                            onPress={(event) => {
-                                // The pressed button unmounts with its tag, so move focus first: to the next tag,
-                                // or to the previous one from the last tag, as React Aria's TagGroup does, and to
-                                // the input once no tags are left. For key presses the keyboard handler above
-                                // has already moved it.
-                                if (event.pointerType !== "keyboard") {
-                                    const tags = tagSelectContext.selectedItems.items;
-                                    const isLastTag = tags[tags.length - 1]?.id === value.id;
-
-                                    if (tags.length === 1) {
-                                        inputRef.current?.focus();
-                                    } else if (isLastTag) {
-                                        focusManager?.focusPrevious({ from: event.target, wrap: false, tabbable: false });
-                                    } else {
-                                        focusManager?.focusNext({ from: event.target, wrap: false, tabbable: false });
-                                    }
-                                }
-
-                                tagSelectContext.onRemove(new Set([value.id]));
-                            }}
+                            onPress={(event) => handleTagRemovePress(event, value.id)}
                         />
                     </span>
                 ))}
