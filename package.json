@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "storybook": "storybook dev -p 6006 --no-open",
+    "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o ./storybook-static",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
@@ -59,11 +59,11 @@
     "zod": "^4.6.5"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.3.1",
+    "@chromatic-com/storybook": "^5.6.0",
     "@eslint/eslintrc": "^3.3.7",
     "@next/eslint-plugin-next": "^16.3.6",
-    "@storybook/addon-themes": "^10.6.0",
-    "@storybook/nextjs-vite": "10.6.0",
+    "@storybook/addon-themes": "11.0.0-beta.3",
+    "@storybook/nextjs-vite": "11.0.0-beta.3",
     "@tailwindcss/postcss": "^4.3.3",
     "@tailwindcss/vite": "^4.3.3",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
@@ -83,13 +83,13 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "eslint-plugin-simple-import-sort": "^14.0.0",
-    "eslint-plugin-storybook": "10.6.0",
+    "eslint-plugin-storybook": "11.0.0-beta.3",
     "eslint-plugin-tailwindcss": "^4.4.0",
     "eslint-plugin-unused-imports": "^4.4.1",
     "postcss": "^8.5.28",
     "prettier": "^3.9.9",
     "prettier-plugin-tailwindcss": "^0.8.1",
-    "storybook": "^10.6.0",
+    "storybook": "11.0.0-beta.3",
     "typescript": "^6.0.3",
     "vite": "^8.3.1"
   }
