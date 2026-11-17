@@ -147,7 +147,7 @@ components/category/component-name/
 1. **Run tests**
 
     ```bash
-    bun run build      # TypeScript compilation
+    bun check          # Type checking
     bun lint --fix     # Lint checks
     bun fmt            # Code formatting
     ```

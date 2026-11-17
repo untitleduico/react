@@ -8,7 +8,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o ./storybook-static",
-    "type-check": "tsc --noEmit",
+    "type-check": "bun check",
     "test": "bun run type-check && bun lint && bun fmt --check"
   },
   "keywords": [
