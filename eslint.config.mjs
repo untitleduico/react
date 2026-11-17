@@ -2,7 +2,6 @@ import nextPlugin from "@next/eslint-plugin-next";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
-import prettierPlugin from "eslint-plugin-prettier";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import storybook from "eslint-plugin-storybook";
@@ -32,7 +31,6 @@ export default [
         },
         plugins: {
             "@typescript-eslint": tsPlugin,
-            prettier: prettierPlugin,
             "unused-imports": unusedImports,
             react: reactPlugin,
             "react-hooks": reactHooksPlugin,
@@ -87,13 +85,6 @@ export default [
             "@next/next/no-img-element": "off",
             "@next/next/no-html-link-for-pages": "off",
 
-            "prettier/prettier": [
-                "warn",
-                {},
-                {
-                    usePrettierrc: true,
-                },
-            ],
             "react/react-in-jsx-scope": "off",
             "react/display-name": "off",
             "react/jsx-key": "warn",

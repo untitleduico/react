@@ -12,14 +12,16 @@ concurrency:
 
 jobs:
     check:
-        name: "type-check, lint, prettier"
+        name: "type-check, lint, format"
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
 
+            # bun lint is in canary only. Once Bun 1.4.5 ships it, bump packageManager in package.json
+            # and drop bun-version, so this reads the version from there like local installs do.
             - uses: oven-sh/setup-bun@v2
               with:
-                  bun-version: latest
+                  bun-version: canary
 
             # The isolated linker links only declared dependencies, so an import of a package
             # that is merely hoisted in from another dependency fails here instead of on a
@@ -27,8 +29,8 @@ jobs:
             - name: Install dependencies
               run: bun install --frozen-lockfile --linker isolated
 
-            # tsc (with the Vite template's unused-code checks), eslint with the rules
-            # create-next-app enables, and prettier. Components are copied into users'
+            # bun check (with the Vite template's unused-code checks), bun lint with the rules
+            # create-next-app enables, and bun fmt. Components are copied into users'
             # projects, so anything this catches would otherwise land there.
             - name: Check
               run: bun run test
