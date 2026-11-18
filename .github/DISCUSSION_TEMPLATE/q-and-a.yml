@@ -37,6 +37,6 @@ body:
       attributes:
           label: Environment
           description: What versions are you using? (React, TypeScript, etc.)
-          placeholder: "React 18, TypeScript 5.0, etc."
+          placeholder: "React 19.3, TypeScript 6.0, etc."
       validations:
           required: false
