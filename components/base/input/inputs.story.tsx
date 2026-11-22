@@ -78,3 +78,7 @@ Tags.storyName = "Tag inputs inner";
 export const TagsOuter = () => <Inputs.TagInputsOuter />;
 TagsOuter.decorators = [WiderDecorator];
 TagsOuter.storyName = "Tag inputs outer";
+
+export const Clearable = () => <Inputs.Clearable />;
+Clearable.decorators = [DefaultDecorator];
+Clearable.storyName = "Clearable input";
