@@ -5,7 +5,6 @@ import { Avatar } from "@/components/base/avatar/avatar";
 import { AvatarLabelGroup } from "@/components/base/avatar/avatar-label-group";
 import { AvatarProfilePhoto } from "@/components/base/avatar/avatar-profile-photo";
 import { AvatarAddButton, AvatarCompanyIcon } from "@/components/base/avatar/base-components";
-import { AvatarCount } from "./base-components/avatar-count";
 
 export const DefaultDemo = () => {
     return (
@@ -38,7 +37,7 @@ export const CompanyLogoDemo = () => {
             size="md"
             src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
             alt="Olivia Rhye"
-            badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
+            badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
         />
     );
 };
@@ -324,58 +323,22 @@ export const Default = () => (
 
         <div className="flex items-start gap-8">
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="xs"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="xs" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="sm"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="sm" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="md"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="md" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="lg"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="lg" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="xl"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    size="2xl"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar size="2xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
         </div>
 
@@ -407,7 +370,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xs" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -416,7 +379,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="sm" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -425,7 +388,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -434,7 +397,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="lg" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -443,7 +406,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xl" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -452,7 +415,7 @@ export const Default = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="2xl" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
         </div>
@@ -505,64 +468,22 @@ export const WithBorder = () => (
 
         <div className="flex items-start gap-8">
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="xs"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="xs" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="sm"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="sm" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="md"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="md" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="lg"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="lg" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="xl"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
             <a href="#" className="group inline-flex focus:outline-hidden">
-                <Avatar
-                    border
-                    size="2xl"
-                    src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
-                    alt="Olivia Rhye"
-                    focusable
-                    badge={<AvatarCount count={5} />}
-                />
+                <Avatar border size="2xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" focusable count={5} />
             </a>
         </div>
 
@@ -602,7 +523,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xs" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -612,7 +533,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="sm" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -622,7 +543,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -632,7 +553,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="lg" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -642,7 +563,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xl" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
             <a href="#" className="group relative inline-flex focus:outline-hidden">
@@ -652,7 +573,7 @@ export const WithBorder = () => (
                     src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
                     focusable
                     alt="Olivia Rhye"
-                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="2xl" />}
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 />
             </a>
         </div>
@@ -703,32 +624,32 @@ export const Placeholder = () => (
         <div className="flex items-start gap-8">
             <Avatar
                 size="xs"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xs" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
             <Avatar
                 size="sm"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="sm" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
             <Avatar
                 size="md"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
             <Avatar
                 size="lg"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="lg" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
             <Avatar
                 size="xl"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xl" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
             <Avatar
                 size="2xl"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="2xl" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
                 placeholderIcon={User01}
             />
         </div>
@@ -756,36 +677,12 @@ export const Initials = () => (
         </div>
 
         <div className="flex items-start gap-8">
-            <Avatar
-                size="xs"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xs" />}
-                initials="OR"
-            />
-            <Avatar
-                size="sm"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="sm" />}
-                initials="OR"
-            />
-            <Avatar
-                size="md"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
-                initials="OR"
-            />
-            <Avatar
-                size="lg"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="lg" />}
-                initials="OR"
-            />
-            <Avatar
-                size="xl"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="xl" />}
-                initials="OR"
-            />
-            <Avatar
-                size="2xl"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="2xl" />}
-                initials="OR"
-            />
+            <Avatar size="xs" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
+            <Avatar size="sm" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
+            <Avatar size="md" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
+            <Avatar size="lg" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
+            <Avatar size="xl" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
+            <Avatar size="2xl" badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />} initials="OR" />
         </div>
     </div>
 );
@@ -850,7 +747,7 @@ export const LabelGroup = () => (
                 alt="Olivia Rhye"
                 title="Olivia Rhye"
                 subtitle="olivia@untitledui.com"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="sm" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
             />
             <AvatarLabelGroup
                 size="md"
@@ -858,7 +755,7 @@ export const LabelGroup = () => (
                 alt="Olivia Rhye"
                 title="Olivia Rhye"
                 subtitle="olivia@untitledui.com"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="md" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
             />
             <AvatarLabelGroup
                 size="lg"
@@ -866,7 +763,7 @@ export const LabelGroup = () => (
                 alt="Olivia Rhye"
                 title="Olivia Rhye"
                 subtitle="olivia@untitledui.com"
-                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." size="lg" />}
+                badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
             />
         </div>
 
@@ -917,6 +814,63 @@ export const ProfilePhoto = () => (
             <AvatarProfilePhoto verified size="sm" initials="OR" />
             <AvatarProfilePhoto verified size="md" initials="OR" />
             <AvatarProfilePhoto verified size="lg" initials="OR" />
+        </div>
+    </div>
+);
+
+const avatarSizes = ["xs", "sm", "md", "lg", "xl", "2xl"] as const;
+const profilePhotoSizes = ["sm", "md", "lg"] as const;
+const avatarSrc = "https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80";
+
+/** Every badge on every avatar size, to catch a badge drifting in size or position. */
+export const Badges = () => (
+    <div className="flex flex-col gap-4">
+        {[5, 12, 128].map((count) => (
+            <div key={count} className="flex items-start gap-8">
+                {avatarSizes.map((size) => (
+                    <Avatar key={size} size={size} src={avatarSrc} alt="Olivia Rhye" count={count} />
+                ))}
+            </div>
+        ))}
+
+        {(["online", "offline"] as const).map((status) => (
+            <div key={status} className="flex items-start gap-8">
+                {avatarSizes.map((size) => (
+                    <Avatar key={size} size={size} src={avatarSrc} alt="Olivia Rhye" status={status} />
+                ))}
+            </div>
+        ))}
+
+        <div className="flex items-start gap-8">
+            {avatarSizes.map((size) => (
+                <Avatar
+                    key={size}
+                    size={size}
+                    src={avatarSrc}
+                    alt="Olivia Rhye"
+                    badge={<AvatarCompanyIcon src="https://www.untitledui.com/logos/images/Layers.jpg" alt="Layers Inc." />}
+                />
+            ))}
+        </div>
+
+        <div className="flex items-start gap-8">
+            {avatarSizes.map((size) => (
+                <Avatar key={size} size={size} src={avatarSrc} alt="Olivia Rhye" verified />
+            ))}
+        </div>
+
+        {(["online", "offline"] as const).map((status) => (
+            <div key={status} className="flex items-start gap-8">
+                {profilePhotoSizes.map((size) => (
+                    <AvatarProfilePhoto key={size} size={size} src={avatarSrc} alt="Olivia Rhye" status={status} />
+                ))}
+            </div>
+        ))}
+
+        <div className="flex items-start gap-8">
+            {profilePhotoSizes.map((size) => (
+                <AvatarProfilePhoto key={size} size={size} src={avatarSrc} alt="Olivia Rhye" verified />
+            ))}
         </div>
     </div>
 );

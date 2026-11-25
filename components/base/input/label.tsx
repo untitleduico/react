@@ -51,6 +51,10 @@ export const Label = ({ isInvalid, isRequired, tooltip, tooltipDescription, clas
             {tooltip && (
                 <Tooltip title={tooltip} description={tooltipDescription} placement="top">
                     <TooltipTrigger
+                        // Fields like Select and ComboBox pass their trigger props (id, aria-haspopup, onPress)
+                        // to every button inside them. `slot={null}` opts out, so the help icon doesn't become
+                        // a second dropdown trigger.
+                        slot={null}
                         // `TooltipTrigger` inherits the disabled state from the parent form field
                         // but we don't that. We want the tooltip be enabled even if the parent
                         // field is disabled.

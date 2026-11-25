@@ -2,6 +2,7 @@
 
 import type { FC, ReactNode } from "react";
 import { createContext } from "react";
+import type { SelectState as AriaSelectState, Key } from "react-aria-components";
 
 export type SelectItemType = {
     /** Unique identifier for the item. */
@@ -49,3 +50,14 @@ export const sizes = {
 };
 
 export const SelectContext = createContext<{ size: "sm" | "md" | "lg" }>({ size: "md" });
+
+/** Content for the `footer` prop: a node, or a function that receives the select's React Aria state. */
+export type SelectFooterContent<M extends "single" | "multiple"> = ReactNode | ((state: AriaSelectState<SelectItemType, M>) => ReactNode);
+
+/**
+ * Returns the keys of every enabled item in the collection, for "select all" actions.
+ * Pass the result to `state.setValue()`: React Aria's Select ignores `selectionManager.selectAll()`
+ * (https://github.com/adobe/react-spectrum/issues/10958).
+ */
+export const getSelectableKeys = (state: AriaSelectState<SelectItemType, "single" | "multiple">): Key[] =>
+    [...state.collection.getKeys()].filter((key) => state.collection.getItem(key)?.type === "item" && !state.selectionManager.isDisabled(key));

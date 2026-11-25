@@ -1,5 +1,5 @@
 import type { FC, ReactElement } from "react";
-import type { StoryContext, StoryFn } from "@storybook/nextjs-vite";
+import type { Decorator } from "@storybook/nextjs-vite";
 
 export declare type ImageSrc = {
     height: number;
@@ -22,18 +22,20 @@ export declare type Globals = {
 
 export type Viewports = "desktop" | "mobile";
 
-type CustomRenderer = (Story: FC, context: StoryContext) => ReactElement;
+type CustomRenderer = (Story: FC, context: Parameters<Decorator>[1]) => ReactElement;
 
-export const withOverlayAware = (customRenderer?: CustomRenderer) => (Story: StoryFn, context: StoryContext) => {
-    const { overlay } = context.globals as Globals;
+export const withOverlayAware =
+    (customRenderer?: CustomRenderer): Decorator =>
+    (Story, context) => {
+        const { overlay } = context.globals as Globals;
 
-    if (overlay?.visible) {
-        return Story(context.args, context) as ReactElement;
-    }
+        if (overlay?.visible) {
+            return Story();
+        }
 
-    if (customRenderer) {
-        return customRenderer(Story as FC, context);
-    }
+        if (customRenderer) {
+            return customRenderer(Story as FC, context);
+        }
 
-    return Story(context.args, context) as ReactElement;
-};
+        return Story();
+    };

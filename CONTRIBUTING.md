@@ -147,9 +147,9 @@ components/category/component-name/
 1. **Run tests**
 
     ```bash
-    bun run build      # TypeScript compilation
-    bun run lint       # Oxlint checks
-    bun run format     # Code formatting (oxfmt)
+    bun check          # Type checking
+    bun lint --fix     # Lint checks
+    bun fmt            # Code formatting
     ```
 
 2. **Test in Storybook**
@@ -267,6 +267,7 @@ className = "text-[19px] font-[650] leading-[1.4]";
 
 ### Import paths
 
+<!-- prettier-ignore -->
 ```tsx
 // ✅ Correct - Use path aliases
 import { Button } from "@/components/base/buttons/button";

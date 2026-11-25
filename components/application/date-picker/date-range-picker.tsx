@@ -56,7 +56,7 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
                 label: "Last month",
                 value: {
                     start: startOfMonth(now).subtract({ months: 1 }),
-                    end: endOfMonth(now).subtract({ months: 1 }),
+                    end: endOfMonth(now.subtract({ months: 1 })),
                 },
             },
             thisYear: { label: "This year", value: { start: startOfMonth(now.set({ month: 1 })), end: endOfMonth(now.set({ month: 12 })) } },
@@ -81,9 +81,11 @@ export const DateRangePicker = ({ value: valueProp, defaultValue, onChange, onAp
     return (
         <AriaDateRangePicker aria-label="Date range picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
-                <Button size={size} color="secondary" iconLeading={CalendarIcon}>
-                    {!value ? <span className="text-placeholder">Select dates</span> : `${formattedStartDate} – ${formattedEndDate}`}
-                </Button>
+                {({ isInvalid }) => (
+                    <Button size={size} color="secondary" iconLeading={CalendarIcon} className={cx(isInvalid && "ring-error_subtle outline-error")}>
+                        {!value ? <span className="text-placeholder">Select dates</span> : `${formattedStartDate} – ${formattedEndDate}`}
+                    </Button>
+                )}
             </AriaGroup>
             <OverlayPopover
                 placement="bottom end"

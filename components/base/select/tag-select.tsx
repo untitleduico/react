@@ -4,10 +4,22 @@ import type { FocusEventHandler, KeyboardEvent, PointerEventHandler, RefAttribut
 import React, { createContext, useCallback, useContext, useRef, useState } from "react";
 import { SearchLg } from "@untitledui/icons";
 import { FocusScope, useFilter, useFocusManager } from "react-aria";
-import type { ComboBoxProps as AriaComboBoxProps, GroupProps as AriaGroupProps, ListBoxProps as AriaListBoxProps, Key } from "react-aria-components";
-import { ComboBox as AriaComboBox, Group as AriaGroup, Input as AriaInput, ListBox as AriaListBox, ComboBoxStateContext } from "react-aria-components";
-import type { ListData } from "react-stately";
-import { useListData } from "react-stately";
+import type {
+    ComboBoxProps as AriaComboBoxProps,
+    GroupProps as AriaGroupProps,
+    ListBoxProps as AriaListBoxProps,
+    Key,
+    ListData,
+    PressEvent,
+} from "react-aria-components";
+import {
+    ComboBox as AriaComboBox,
+    Group as AriaGroup,
+    Input as AriaInput,
+    ListBox as AriaListBox,
+    ComboBoxStateContext,
+    useListData,
+} from "react-aria-components";
 import { Avatar } from "@/components/base/avatar/avatar";
 import type { IconComponentType } from "@/components/base/badges/badge-types";
 import { HintText } from "@/components/base/input/hint-text";
@@ -197,7 +209,7 @@ export const TagSelectBase = ({
                     {(state) => (
                         <>
                             {props.label && (
-                                <Label isRequired={state.isRequired} tooltip={props.tooltip}>
+                                <Label isRequired={state.isRequired} isInvalid={state.isInvalid} tooltip={props.tooltip}>
                                     {props.label}
                                 </Label>
                             )}
@@ -237,6 +249,7 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
     const focusManager = useFocusManager();
     const tagSelectContext = useContext(TagSelectContext);
     const comboBoxStateContext = useContext(ComboBoxStateContext);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
         const isCaretAtStart = event.currentTarget.selectionStart === 0 && event.currentTarget.selectionEnd === 0;
@@ -298,6 +311,26 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
         }
     };
 
+    const handleTagRemovePress = (event: PressEvent, value: Key) => {
+        // The pressed button unmounts with its tag, so move focus first: to the next tag, or to the
+        // previous one from the last tag, as React Aria's TagGroup does, and to the input once no
+        // tags are left. For key presses, handleTagKeyDown has already moved it.
+        if (event.pointerType !== "keyboard") {
+            const tags = tagSelectContext.selectedItems.items;
+            const isLastTag = tags[tags.length - 1]?.id === value;
+
+            if (tags.length === 1) {
+                inputRef.current?.focus();
+            } else if (isLastTag) {
+                focusManager?.focusPrevious({ from: event.target, wrap: false, tabbable: false });
+            } else {
+                focusManager?.focusNext({ from: event.target, wrap: false, tabbable: false });
+            }
+        }
+
+        tagSelectContext.onRemove(new Set([value]));
+    };
+
     const isSelectionEmpty = tagSelectContext?.selectedItems?.items?.length === 0;
 
     return (
@@ -323,18 +356,25 @@ const InnerTagSelect = ({ isDisabled, shortcut, shortcutClassName, placeholder, 
                         </p>
 
                         <TagCloseX
+                            // The combobox passes its trigger props (id, aria-haspopup, aria-expanded, onPress)
+                            // to every button inside it. `slot={null}` opts out, so the remove button isn't
+                            // announced as a second dropdown trigger. Tags stay out of the tab order: they are
+                            // reached from the input with the arrow keys.
+                            slot={null}
+                            excludeFromTabOrder
                             size={size === "sm" ? "sm" : "md"}
                             isDisabled={isDisabled}
                             className="ml-0.75"
                             // For workaround, onKeyDown is added to the button
                             onKeyDown={(event) => handleTagKeyDown(event, value.id)}
-                            onPress={() => tagSelectContext.onRemove(new Set([value.id]))}
+                            onPress={(event) => handleTagRemovePress(event, value.id)}
                         />
                     </span>
                 ))}
 
             <div className={cx("relative flex min-w-12 flex-1 flex-row items-center", !isSelectionEmpty && "ml-0.5", shortcut && "min-w-[30%]")}>
                 <AriaInput
+                    ref={inputRef}
                     placeholder={placeholder}
                     onKeyDown={handleInputKeyDown}
                     onMouseDown={handleInputMouseDown}
@@ -385,11 +425,13 @@ export const TagSelectTagsValue = ({
     return (
         <AriaGroup
             {...otherProps}
-            className={({ isFocusWithin, isDisabled }) =>
+            className={({ isFocusWithin, isDisabled, isInvalid }) =>
                 cx(
                     "relative flex w-full items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                     isDisabled && "cursor-not-allowed opacity-50",
                     isFocusWithin && "ring-2 ring-brand",
+                    isInvalid && "ring-error_subtle",
+                    isInvalid && isFocusWithin && "ring-2 ring-error",
 
                     // Icon styles
                     "*:data-icon:shrink-0 *:data-icon:text-fg-quaternary",

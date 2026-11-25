@@ -225,7 +225,7 @@ export const RangeCalendarCardDemo = () => {
                 label: "Last month",
                 value: {
                     start: startOfMonth(now).subtract({ months: 1 }),
-                    end: endOfMonth(now).subtract({ months: 1 }),
+                    end: endOfMonth(now.subtract({ months: 1 })),
                 },
             },
             thisYear: { label: "This year", value: { start: startOfMonth(now.set({ month: 1 })), end: endOfMonth(now.set({ month: 12 })) } },

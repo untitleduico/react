@@ -35,9 +35,11 @@ export const DatePicker = ({ value: valueProp, defaultValue, onChange, onApply, 
     return (
         <AriaDatePicker aria-label="Date picker" shouldCloseOnSelect={false} {...props} value={value} onChange={setValue}>
             <AriaGroup>
-                <Button size={size} color="secondary" iconLeading={CalendarIcon}>
-                    {formattedDate}
-                </Button>
+                {({ isInvalid }) => (
+                    <Button size={size} color="secondary" iconLeading={CalendarIcon} className={cx(isInvalid && "ring-error_subtle outline-error")}>
+                        {formattedDate}
+                    </Button>
+                )}
             </AriaGroup>
             <OverlayPopover
                 offset={8}

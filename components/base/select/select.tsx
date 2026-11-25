@@ -12,8 +12,9 @@ import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 import { ComboBox } from "./combobox";
 import { Popover } from "./popover";
+import { SelectFooter, SelectFooterSlot } from "./select-footer";
 import { SelectItem } from "./select-item";
-import { type CommonProps, SelectContext, type SelectItemType, sizes } from "./select-shared";
+import { type CommonProps, SelectContext, type SelectFooterContent, type SelectItemType, sizes } from "./select-shared";
 
 export { SelectContext, sizes, type CommonProps, type SelectItemType } from "./select-shared";
 
@@ -26,6 +27,8 @@ export interface SelectProps extends Omit<AriaSelectProps<SelectItemType>, "chil
     icon?: FC | ReactNode;
     /** The dropdown contents: either `Select.Item` elements, or a render function called with each entry of `items`. */
     children: ReactNode | ((item: SelectItemType) => ReactNode);
+    /** Content pinned below the options, such as `Select.Footer` with custom actions. Pass a function to receive the select's React Aria state, e.g. to change the selection or close the dropdown. */
+    footer?: SelectFooterContent<"single">;
 }
 
 interface SelectValueProps {
@@ -37,6 +40,8 @@ interface SelectValueProps {
     isFocused: boolean;
     /** Whether the trigger is dimmed and rejects pointer interaction. */
     isDisabled: boolean;
+    /** Whether the select is invalid, which draws the error ring in place of the default and focus rings. */
+    isInvalid: boolean;
     /** Text shown in the trigger while no item is selected. */
     placeholder?: string;
     /** Ref to the trigger button element. */
@@ -45,7 +50,7 @@ interface SelectValueProps {
     icon?: FC | ReactNode;
 }
 
-const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, ref }: SelectValueProps) => {
+const SelectValue = ({ isOpen, isFocused, isDisabled, isInvalid, size, placeholder, icon, ref }: SelectValueProps) => {
     return (
         <AriaButton
             ref={ref}
@@ -53,6 +58,8 @@ const SelectValue = ({ isOpen, isFocused, isDisabled, size, placeholder, icon, r
                 "relative flex w-full cursor-pointer items-center rounded-lg bg-primary shadow-xs ring-1 ring-primary outline-hidden transition duration-100 ease-linear ring-inset",
                 (isFocused || isOpen) && "ring-2 ring-brand",
                 isDisabled && "cursor-not-allowed opacity-50",
+                isInvalid && "ring-error_subtle",
+                isInvalid && (isFocused || isOpen) && "ring-2 ring-error",
             )}
         >
             <AriaSelectValue<SelectItemType>
@@ -116,6 +123,7 @@ const Select = ({
     tooltip,
     hideRequiredIndicator,
     className,
+    footer,
     ...rest
 }: SelectProps) => {
     return (
@@ -124,17 +132,22 @@ const Select = ({
                 {(state) => (
                     <>
                         {label && (
-                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} tooltip={tooltip}>
+                            <Label isRequired={hideRequiredIndicator ? false : state.isRequired} isInvalid={state.isInvalid} tooltip={tooltip}>
                                 {label}
                             </Label>
                         )}
 
                         <SelectValue {...state} {...{ size, placeholder }} icon={icon} />
 
-                        <Popover size={size} className={rest.popoverClassName}>
-                            <AriaListBox items={items} className="size-full outline-hidden">
+                        <Popover size={size} className={cx(footer !== undefined && "flex flex-col overflow-y-hidden py-0", rest.popoverClassName)}>
+                            <AriaListBox
+                                items={items}
+                                className={cx("size-full outline-hidden", footer !== undefined && "min-h-0 flex-1 overflow-y-auto py-1")}
+                            >
                                 {children}
                             </AriaListBox>
+
+                            {footer !== undefined && <SelectFooterSlot footer={footer} />}
                         </Popover>
 
                         {hint && (
@@ -152,8 +165,10 @@ const Select = ({
 const _Select = Select as typeof Select & {
     ComboBox: typeof ComboBox;
     Item: typeof SelectItem;
+    Footer: typeof SelectFooter;
 };
 _Select.ComboBox = ComboBox;
 _Select.Item = SelectItem;
+_Select.Footer = SelectFooter;
 
 export { _Select as Select };
