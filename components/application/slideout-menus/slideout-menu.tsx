@@ -25,7 +25,7 @@ export const ModalOverlay = (props: ModalOverlayProps) => {
                 : {})}
             className={(state) =>
                 cx(
-                    "fixed inset-0 flex min-h-dvh w-full items-center justify-end bg-overlay/70 pl-6 outline-hidden ease-linear md:pl-10",
+                    "fixed inset-0 flex min-h-dvh w-full items-center justify-end bg-primary-solid/70 pl-6 outline-hidden ease-linear md:pl-10",
                     state.isEntering && "duration-300 animate-in fade-in",
                     state.isExiting && "duration-500 animate-out fade-out",
                     typeof props.className === "function" ? props.className(state) : props.className,
@@ -65,10 +65,7 @@ export const Dialog = (props: DialogProps) => (
         role="dialog"
         aria-label="Slideout menu"
         {...props}
-        className={cx(
-            "relative flex size-full flex-col items-start gap-6 overflow-y-auto bg-primary ring-1 ring-secondary_alt outline-hidden",
-            props.className,
-        )}
+        className={cx("relative flex size-full flex-col items-start gap-6 overflow-y-auto bg-primary ring-1 ring-secondary outline-hidden", props.className)}
     />
 );
 Dialog.displayName = "Dialog";

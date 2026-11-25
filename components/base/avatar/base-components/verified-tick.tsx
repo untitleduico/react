@@ -1,16 +1,26 @@
 "use client";
 
+import { useId } from "react";
 import { cx } from "@/utils/cx";
 import { type AvatarBadgeSize, badgeSizes, useAvatarBadgeSize } from "./avatar-badge";
 
 interface VerifiedTickProps {
     /** The size of the avatar the tick belongs to. Inherited from the avatar when omitted. */
     size?: AvatarBadgeSize;
+    /**
+     * The style of the tick: the blue `default` badge or the `gold` badge.
+     * @default "default"
+     */
+    variant?: "default" | "gold";
     className?: string;
 }
 
-export const VerifiedTick = ({ className, ...props }: VerifiedTickProps) => {
+export const VerifiedTick = ({ variant = "default", className, ...props }: VerifiedTickProps) => {
     const size = useAvatarBadgeSize(props.size);
+
+    if (variant === "gold") {
+        return <GoldTick className={cx("z-10", badgeSizes.verified[size], className)} />;
+    }
 
     return (
         <svg className={cx("z-10 text-utility-blue-500", badgeSizes.verified[size], className)} viewBox="0 0 10 10" fill="none">
@@ -24,6 +34,43 @@ export const VerifiedTick = ({ className, ...props }: VerifiedTickProps) => {
                 d="M6.95829 3.68932C7.02509 3.58439 7.04747 3.45723 7.02051 3.3358C6.99356 3.21437 6.91946 3.10862 6.81454 3.04182C6.70961 2.97502 6.58245 2.95264 6.46102 2.97959C6.33959 3.00655 6.23384 3.08064 6.16704 3.18557L4.33141 6.06995L3.49141 5.01995C3.41375 4.92281 3.30069 4.8605 3.17709 4.84673C3.05349 4.83296 2.92949 4.86885 2.83235 4.94651C2.73522 5.02417 2.67291 5.13723 2.65914 5.26083C2.64536 5.38443 2.68125 5.50843 2.75891 5.60557L4.00891 7.16807C4.0555 7.22638 4.11533 7.27271 4.18344 7.30323C4.25154 7.33375 4.32595 7.34757 4.40047 7.34353C4.47499 7.3395 4.54747 7.31773 4.61188 7.28004C4.67629 7.24234 4.73077 7.18981 4.77079 7.12682L6.95829 3.68932Z"
                 fill="white"
             />
+        </svg>
+    );
+};
+
+const GOLD_SHAPE =
+    "M8 0L9.97771 1.91324L12.7023 1.52786L13.1777 4.23817L15.6085 5.52786L14.4 8L15.6085 10.4721L13.1777 11.7618L12.7023 14.4721L9.97771 14.0868L8 16L6.02229 14.0868L3.29772 14.4721L2.82229 11.7618L0.391548 10.4721L1.6 8L0.391548 5.52786L2.82229 4.23817L3.29772 1.52786L6.02229 1.91324L8 0Z";
+
+const GoldTick = ({ className }: { className?: string }) => {
+    // Gradient and mask ids must be unique per instance so several ticks on one page don't clash
+    const id = useId().replace(/:/g, "");
+
+    return (
+        <svg className={className} viewBox="0 0 16 16" fill="none">
+            <defs>
+                <linearGradient id={`${id}-fill`} x1="2.94838" y1="1.52635" x2="12.1453" y2="15.3539" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#FDE047" />
+                    <stop offset="0.406" stopColor="#EAB308" />
+                    <stop offset="0.989" stopColor="#FACC15" />
+                </linearGradient>
+                <linearGradient id={`${id}-stroke`} x1="2.1038" y1="0.761702" x2="13.5424" y2="17.4873" gradientUnits="userSpaceOnUse">
+                    <stop stopColor="#FACC15" />
+                    <stop offset="0.5" stopColor="#CA8A04" />
+                    <stop offset="1" stopColor="#FACC15" />
+                </linearGradient>
+                <mask id={`${id}-mask`} fill="white">
+                    <path d={GOLD_SHAPE} />
+                </mask>
+            </defs>
+            <path d={GOLD_SHAPE} fill={`url(#${id}-fill)`} />
+            <path d={GOLD_SHAPE} strokeWidth="1.5" stroke={`url(#${id}-stroke)`} mask={`url(#${id}-mask)`} />
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M4.00263 8.02991L7.01053 11.0369L11.9667 5.62465L12 5.5957L11.9956 6.82202L7.01053 12.2659L4.00263 9.25798L4 8.02553L4.00439 8.02816L4.00263 8.02991Z"
+                fill="#CA8A04"
+            />
+            <path d="M11.9948 5.59306L7.01102 11.0367L4.00415 8.02984L5.13679 6.88872L6.95448 8.70641L10.8141 4.5L11.9948 5.59306Z" fill="white" />
         </svg>
     );
 };

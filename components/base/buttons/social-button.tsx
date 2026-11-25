@@ -4,7 +4,7 @@ import type { ReactElement, ReactNode, RefAttributes } from "react";
 import type { ButtonProps as AriaButtonProps, LinkProps as AriaLinkProps } from "react-aria-components";
 import { Button as AriaButton, Link as AriaLink } from "react-aria-components";
 import { cx, sortCx } from "@/utils/cx";
-import { AppleLogo, DribbleLogo, FacebookLogo, FigmaLogo, FigmaLogoOutlined, GoogleLogo, TwitterLogo } from "./social-logos";
+import { AppleLogo, DribbleLogo, FacebookLogo, FigmaLogo, FigmaLogoOutlined, GitHubLogo, GoogleLogo, TwitterLogo } from "./social-logos";
 
 export const styles = sortCx({
     common: {
@@ -29,17 +29,17 @@ export const styles = sortCx({
             icon: "text-fg-quaternary group-hover:text-fg-quaternary_hover",
         },
         black: {
-            root: "bg-black text-white shadow-xs-skeuomorphic ring-1 ring-transparent ring-inset before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
+            root: "bg-black text-white shadow-xs-skeuomorphic ring-1 ring-transparent ring-inset",
             icon: "",
         },
 
         facebook: {
-            root: "bg-[#1877F2] text-white shadow-xs-skeuomorphic ring-1 ring-transparent ring-inset before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0% hover:bg-[#0C63D4]",
+            root: "bg-[#1877F2] text-white shadow-xs-skeuomorphic ring-1 ring-secondary ring-inset hover:bg-[#0C63D4]",
             icon: "",
         },
 
         dribble: {
-            root: "bg-[#EA4C89] text-white shadow-xs-skeuomorphic ring-1 ring-transparent ring-inset before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0% hover:bg-[#E62872]",
+            root: "bg-[#EA4C89] text-white shadow-xs-skeuomorphic ring-1 ring-secondary ring-inset hover:bg-[#E62872]",
             icon: "",
         },
     },
@@ -47,7 +47,7 @@ export const styles = sortCx({
 
 interface CommonProps {
     /** The provider the button signs in with, which selects both the logo and the brand color. */
-    social: "google" | "facebook" | "apple" | "twitter" | "figma" | "dribble";
+    social: "google" | "facebook" | "apple" | "github" | "twitter" | "figma" | "dribble";
     /** Disables the button and shows a disabled state */
     isDisabled?: boolean;
     /**
@@ -91,6 +91,7 @@ export const SocialButton: {
         google: "gray",
         facebook: "facebook",
         apple: "black",
+        github: "black",
         twitter: "black",
         figma: "black",
         dribble: "dribble",
@@ -102,6 +103,7 @@ export const SocialButton: {
         google: GoogleLogo,
         facebook: FacebookLogo,
         apple: AppleLogo,
+        github: GitHubLogo,
         twitter: TwitterLogo,
         figma: theme === "gray" ? FigmaLogoOutlined : FigmaLogo,
         dribble: DribbleLogo,
@@ -117,9 +119,9 @@ export const SocialButton: {
                     styles.sizes[size].icon,
                     theme === "gray"
                         ? colorStyles.icon
-                        : theme === "brand" && (social === "facebook" || social === "apple" || social === "twitter")
+                        : theme === "brand" && (social === "facebook" || social === "apple" || social === "github" || social === "twitter")
                           ? "text-white"
-                          : theme === "color" && (social === "apple" || social === "twitter")
+                          : theme === "color" && (social === "apple" || social === "github" || social === "twitter")
                             ? "text-alpha-black"
                             : "",
                 )}

@@ -46,24 +46,24 @@ const styles = sortCx({
     },
 
     dark: {
-        base: "text-fg-white shadow-xs-skeuomorphic before:absolute before:inset-px before:border before:border-white/12 before:mask-b-from-0%",
+        base: "text-fg-white shadow-xs-skeuomorphic ring-1 ring-secondary ring-inset",
         sizes: {
-            sm: "size-8 rounded-md before:rounded-[5px]",
-            md: "size-10 rounded-lg before:rounded-[7px]",
-            lg: "size-12 rounded-[10px] before:rounded-[9px]",
-            xl: "size-14 rounded-xl before:rounded-[11px]",
+            sm: "size-8 rounded-md",
+            md: "size-10 rounded-lg",
+            lg: "size-12 rounded-[10px]",
+            xl: "size-14 rounded-xl",
         },
         colors: {
-            brand: "bg-brand-solid before:border-utility-brand-200/12",
-            gray: "bg-secondary-solid before:border-utility-neutral-200/12",
-            error: "bg-error-solid before:border-utility-red-200/12",
-            warning: "bg-warning-solid before:border-utility-yellow-200/12",
-            success: "bg-success-solid before:border-utility-green-200/12",
+            brand: "bg-brand-solid",
+            gray: "bg-secondary-solid",
+            error: "bg-error-solid",
+            warning: "bg-warning-solid",
+            success: "bg-success-solid",
         },
     },
 
     modern: {
-        base: "bg-primary shadow-xs-skeuomorphic ring-1 ring-primary ring-inset",
+        base: "bg-primary_alt shadow-xs-skeuomorphic ring-1 ring-primary ring-inset",
         sizes: {
             sm: "size-8 rounded-md",
             md: "size-10 rounded-lg",
@@ -80,9 +80,9 @@ const styles = sortCx({
     },
     "modern-neue": {
         base: [
-            "bg-primary_alt ring-1 ring-inset before:absolute before:inset-1",
+            "bg-primary_alt ring-1 ring-primary ring-inset before:absolute before:inset-1",
             // Shadow
-            "before:shadow-[0px_1px_2px_0px_rgba(0,0,0,0.1),0px_3px_3px_0px_rgba(0,0,0,0.09),1px_8px_5px_0px_rgba(0,0,0,0.05),2px_21px_6px_0px_rgba(0,0,0,0),0px_0px_0px_1px_rgba(0,0,0,0.08),1px_13px_5px_0px_rgba(0,0,0,0.01),0px_-2px_2px_0px_rgba(0,0,0,0.13)_inset] before:ring-1 before:ring-secondary_alt",
+            "before:shadow-[0px_1px_2px_1px_rgba(0,0,0,0.1),0px_3px_3px_1px_rgba(0,0,0,0.1),0px_-2px_2px_0px_rgba(0,0,0,0.1)_inset] before:ring-1 before:ring-secondary",
         ].join(" "),
         sizes: {
             sm: "size-8 rounded-[8px] before:rounded-[4px]",
@@ -91,11 +91,11 @@ const styles = sortCx({
             xl: "size-14 rounded-[14px] before:rounded-[10px]",
         },
         colors: {
-            brand: "",
-            gray: "text-fg-secondary ring-primary",
-            error: "",
-            warning: "",
-            success: "",
+            brand: "text-fg-brand-primary",
+            gray: "text-fg-secondary",
+            error: "text-fg-error-primary",
+            warning: "text-fg-warning-primary",
+            success: "text-fg-success-primary",
         },
     },
 
@@ -128,7 +128,7 @@ interface FeaturedIconProps {
     icon?: FC<{ className?: string }> | ReactNode;
     /** Controls the dimensions of the wrapper and the icon inside it. */
     size?: "sm" | "md" | "lg" | "xl";
-    /** The semantic color used for the background, icon and border of the current theme. The `modern` and `modern-neue` themes are only styled for `gray`. */
+    /** The semantic color used for the background, icon and border of the current theme. */
     color: "brand" | "gray" | "success" | "warning" | "error";
     /** The visual treatment of the icon container, from a subtle tinted circle to a solid, outlined or skeuomorphic surface. */
     theme?: "light" | "gradient" | "dark" | "outline" | "modern" | "modern-neue";

@@ -78,22 +78,30 @@ export const OutlineDemo = () => {
 
 export const ModernDemo = () => {
     return (
-        <div className="flex items-start gap-4">
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern" size="sm" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern" size="md" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern" size="lg" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern" size="xl" />
+        <div className="flex flex-col items-start gap-8">
+            {(["brand", "gray", "error", "warning", "success"] as const).map((color) => (
+                <div key={color} className="flex gap-8">
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern" size="sm" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern" size="md" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern" size="lg" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern" size="xl" />
+                </div>
+            ))}
         </div>
     );
 };
 
 export const ModernNeueDemo = () => {
     return (
-        <div className="flex items-start gap-4">
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern-neue" size="sm" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern-neue" size="md" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern-neue" size="lg" />
-            <FeaturedIcon color="gray" icon={CheckCircle} theme="modern-neue" size="xl" />
+        <div className="flex flex-col items-start gap-8">
+            {(["brand", "gray", "error", "warning", "success"] as const).map((color) => (
+                <div key={color} className="flex gap-8">
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern-neue" size="sm" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern-neue" size="md" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern-neue" size="lg" />
+                    <FeaturedIcon color={color} icon={CheckCircle} theme="modern-neue" size="xl" />
+                </div>
+            ))}
         </div>
     );
 };

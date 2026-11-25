@@ -35,7 +35,7 @@ export const CustomRadarChartTick = ({ payload, x, y, textAnchor, stroke }: Base
 
     return (
         <Fragment>
-            <rect ref={rectRef} x={x} y={y} rx={11} className="fill-utility-neutral-50 stroke-border-secondary_alt stroke-1"></rect>
+            <rect ref={rectRef} x={x} y={y} rx={11} className="fill-utility-neutral-50 stroke-border-secondary stroke-1"></rect>
             <text ref={textRef} x={x} y={Number(y) + 5} stroke={stroke} textAnchor={textAnchor} className="recharts-text recharts-polar-angle-axis-tick-value">
                 <tspan x={x} dy="0em" className="fill-utility-neutral-700 text-xs font-medium">
                     {payload.value}

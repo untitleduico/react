@@ -2,7 +2,7 @@
 
 import type { SVGProps } from "react";
 
-const LightcoinIcon = (props: SVGProps<SVGSVGElement>) => {
+const LitecoinIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg width="34" height="24" viewBox="0 0 34 24" fill="none" {...props}>
             <path
@@ -23,4 +23,4 @@ const LightcoinIcon = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-export default LightcoinIcon;
+export default LitecoinIcon;

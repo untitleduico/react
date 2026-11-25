@@ -48,11 +48,11 @@ export interface AvatarProps {
      */
     status?: "online" | "offline";
     /**
-     * Display a verified tick icon.
+     * Display a verified tick icon. Pass `"gold"` for the gold tick.
      *
      * @default false
      */
-    verified?: boolean;
+    verified?: boolean | "gold";
     /**
      * Display a count badge.
      */
@@ -131,7 +131,12 @@ export const Avatar = ({
         }
 
         if (verified) {
-            return <VerifiedTick className={cx("absolute", badgePositions.verified, size === "xs" && badgePositions.verifiedXs)} />;
+            return (
+                <VerifiedTick
+                    variant={verified === "gold" ? "gold" : "default"}
+                    className={cx("absolute", badgePositions.verified, size === "xs" && badgePositions.verifiedXs)}
+                />
+            );
         }
 
         if (count) {
@@ -149,7 +154,7 @@ export const Avatar = ({
                 rounded && "rounded-full",
                 // Focus styles
                 focusable && "outline-transparent group-focus-visible:outline-2 group-focus-visible:outline-offset-2 group-focus-visible:outline-focus-ring",
-                border && "ring-1 ring-secondary_alt",
+                border && "ring-1 ring-secondary",
                 border && styles[size].rootWithBorder,
                 styles[size].root,
                 className,

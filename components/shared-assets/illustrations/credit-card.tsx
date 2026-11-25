@@ -38,7 +38,7 @@ export const sm = ({
                     />
                     <path
                         d="M127 11.75C130.452 11.75 133.25 14.5482 133.25 18V78C133.25 81.4518 130.452 84.25 127 84.25H24C20.5482 84.25 17.75 81.4518 17.75 78V18C17.75 14.5482 20.5482 11.75 24 11.75H127Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                         strokeWidth="0.5"
                     />
                     <path
@@ -133,7 +133,7 @@ export const md = ({
                     />
                     <path
                         d="M153 15.75C156.452 15.75 159.25 18.5482 159.25 22V96C159.25 99.4518 156.452 102.25 153 102.25H27C23.5482 102.25 20.75 99.4518 20.75 96V22C20.75 18.5482 23.5482 15.75 27 15.75H153Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                         strokeWidth="0.5"
                     />
                     <path
@@ -227,7 +227,7 @@ export const lg = ({
                     />
                     <path
                         d="M187 21.75C190.452 21.75 193.25 24.5482 193.25 28V120C193.25 123.452 190.452 126.25 187 126.25H33C29.5482 126.25 26.75 123.452 26.75 120V28C26.75 24.5482 29.5482 21.75 33 21.75H187Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                         strokeWidth="0.5"
                     />
                     <path

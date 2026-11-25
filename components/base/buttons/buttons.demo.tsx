@@ -1,8 +1,9 @@
 "use client";
 
 import type { HTMLAttributes } from "react";
-import { Check, Copy01, DownloadCloud02, Edit01, Edit02, Placeholder, Trash01, Trash02 } from "@untitledui/icons";
+import { ArrowRight, Check, Copy01, DownloadCloud02, Edit01, Edit02, Placeholder, Trash01, Trash02 } from "@untitledui/icons";
 import { Button } from "@/components/base/buttons/button";
+import { ButtonHoldToConfirm } from "@/components/base/buttons/button-hold-to-confirm";
 import { ButtonUtility } from "@/components/base/buttons/button-utility";
 import { CloseButton } from "@/components/base/buttons/close-button";
 import { cx } from "@/utils/cx";
@@ -1176,6 +1177,35 @@ export const UtilityButton = () => {
                     <ButtonUtility size="sm" color="tertiary" tooltip="Tooltip" icon={Placeholder} />
                     <ButtonUtility isDisabled size="sm" color="tertiary" tooltip="Tooltip" icon={Placeholder} />
                 </div>
+            </div>
+        </div>
+    );
+};
+
+export const HoldToConfirm = () => {
+    return (
+        <div className="flex flex-col items-start gap-6">
+            <div className="flex gap-4">
+                <ButtonHoldToConfirm size="md" color="primary" iconTrailing={ArrowRight} onConfirm={() => console.log("Confirmed")}>
+                    Hold to confirm
+                </ButtonHoldToConfirm>
+                <ButtonHoldToConfirm size="md" color="secondary" iconTrailing={ArrowRight} onConfirm={() => console.log("Confirmed")}>
+                    Hold to confirm
+                </ButtonHoldToConfirm>
+                <ButtonHoldToConfirm size="md" color="tertiary" iconTrailing={ArrowRight} onConfirm={() => console.log("Confirmed")}>
+                    Hold to confirm
+                </ButtonHoldToConfirm>
+            </div>
+            <div className="flex gap-4">
+                <ButtonHoldToConfirm size="md" color="primary-destructive" iconLeading={Trash01} onConfirm={() => console.log("Deleted")}>
+                    Hold to delete
+                </ButtonHoldToConfirm>
+                <ButtonHoldToConfirm size="md" color="secondary-destructive" iconLeading={Trash01} onConfirm={() => console.log("Deleted")}>
+                    Hold to delete
+                </ButtonHoldToConfirm>
+                <ButtonHoldToConfirm size="md" color="tertiary-destructive" iconLeading={Trash01} onConfirm={() => console.log("Deleted")}>
+                    Hold to delete
+                </ButtonHoldToConfirm>
             </div>
         </div>
     );

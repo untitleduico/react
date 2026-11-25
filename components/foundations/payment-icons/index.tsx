@@ -19,7 +19,7 @@ export { default as CoinbaseIcon } from "./coinbase-icon";
 export { default as DinersClubIcon } from "./diners-club-icon";
 export { default as DiscoverIcon } from "./discover-icon";
 export { default as EloIcon } from "./elo-icon";
-export { default as EtheriumIcon } from "./etherium-icon";
+export { default as EthereumIcon } from "./ethereum-icon";
 export { default as ForbrugsforeningenIcon } from "./forbrugsforeningen-icon";
 export { default as GiropayIcon } from "./giropay-icon";
 export { default as GooglePayIcon } from "./google-pay-icon";
@@ -27,7 +27,7 @@ export { default as IdealIcon } from "./ideal-icon";
 export { default as InteracIcon } from "./interac-icon";
 export { default as JCBIcon } from "./jcb-icon";
 export { default as KlarnaIcon } from "./klarna-icon";
-export { default as LightcoinIcon } from "./lightcoin-icon";
+export { default as LitecoinIcon } from "./litecoin-icon";
 export { default as MaestroIcon } from "./maestro-icon";
 export { default as MastercardIcon } from "./mastercard-icon";
 export { default as PayoneerIcon } from "./payoneer-icon";
@@ -56,3 +56,15 @@ export { default as WiseIcon } from "./wise-icon";
 export { default as YandexIcon } from "./yandex-icon";
 export { default as ZelleIcon } from "./zelle-icon";
 export { default as ZipPayIcon } from "./zip-pay-icon";
+
+/**
+ * Misspelled alias kept for backwards compatibility.
+ * @deprecated Use `EthereumIcon` instead.
+ */
+export { default as EtheriumIcon } from "./ethereum-icon";
+
+/**
+ * Misspelled alias kept for backwards compatibility.
+ * @deprecated Use `LitecoinIcon` instead.
+ */
+export { default as LightcoinIcon } from "./litecoin-icon";

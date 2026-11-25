@@ -220,7 +220,7 @@ export const BadgeWithIcon = <T extends BadgeTypes>(props: BadgeWithIconProps<T>
 
     const pillSizes = {
         sm: {
-            trailing: "gap-0.5 py-0.5 pl-2 pr-1.5 text-xs font-medium",
+            trailing: "gap-0.5 py-0.5 pl-2 pr-1.25 text-xs font-medium",
             leading: "gap-0.5 py-0.5 pr-2 pl-1.5 text-xs font-medium",
         },
         md: {
@@ -234,8 +234,8 @@ export const BadgeWithIcon = <T extends BadgeTypes>(props: BadgeWithIconProps<T>
     };
     const badgeSizes = {
         sm: {
-            trailing: "gap-0.5 py-0.5 pl-2 pr-1.5 text-xs font-medium",
-            leading: "gap-0.5 py-0.5 pr-2 pl-1.5 text-xs font-medium",
+            trailing: "gap-0.5 py-0.5 pl-1.5 pr-1.25 text-xs font-medium",
+            leading: "gap-0.5 py-0.5 pr-1.5 pl-1.25 text-xs font-medium",
         },
         md: {
             trailing: "gap-1 py-0.5 pl-2 pr-1.5 text-sm font-medium",
@@ -281,12 +281,12 @@ export const BadgeWithFlag = <T extends BadgeTypes>(props: BadgeWithFlagProps<T>
     const colors = withPillTypes[type];
 
     const pillSizes = {
-        sm: "gap-1 py-0.5 pl-0.75 pr-2 text-xs font-medium",
+        sm: "gap-1 py-0.5 pl-1 pr-2 text-xs font-medium",
         md: "gap-1.5 py-0.5 pl-1 pr-2.5 text-sm font-medium",
         lg: "gap-1.5 py-1 pl-1.5 pr-3 text-sm font-medium",
     };
     const badgeSizes = {
-        sm: "gap-1 py-0.5 pl-1 pr-1.5 text-xs font-medium",
+        sm: "gap-1 py-0.5 pl-1.25 pr-1.5 text-xs font-medium",
         md: "gap-1.5 py-0.5 pl-1.5 pr-2 text-sm font-medium",
         lg: "gap-1.5 py-1 pl-2 pr-2.5 text-sm font-medium rounded-lg",
     };
@@ -299,7 +299,11 @@ export const BadgeWithFlag = <T extends BadgeTypes>(props: BadgeWithFlagProps<T>
 
     return (
         <span className={cx(colors.common, sizes[type][size], colors.styles[color].root)}>
-            <img src={`https://www.untitledui.com/images/flags/${flag}.svg`} className="size-4 max-w-none rounded-full" alt={`${flag} flag`} />
+            <img
+                src={`https://www.untitledui.com/images/flags/${flag}.svg`}
+                className={cx("max-w-none rounded-full", size === "sm" ? "size-3.5" : "size-4")}
+                alt={`${flag} flag`}
+            />
             {children}
         </span>
     );
@@ -324,12 +328,12 @@ export const BadgeWithImage = <T extends BadgeTypes>(props: BadgeWithImageProps<
     const colors = withPillTypes[type];
 
     const pillSizes = {
-        sm: "gap-1 py-0.5 pl-0.75 pr-2 text-xs font-medium",
+        sm: "gap-1 py-0.5 pl-1 pr-2 text-xs font-medium",
         md: "gap-1.5 py-0.5 pl-1 pr-2.5 text-sm font-medium",
         lg: "gap-1.5 py-1 pl-1.5 pr-3 text-sm font-medium",
     };
     const badgeSizes = {
-        sm: "gap-1 py-0.5 pl-1 pr-1.5 text-xs font-medium",
+        sm: "gap-1 py-0.5 pl-1.25 pr-1.5 text-xs font-medium",
         md: "gap-1.5 py-0.5 pl-1.5 pr-2 text-sm font-medium",
         lg: "gap-1.5 py-1 pl-2 pr-2.5 text-sm font-medium rounded-lg",
     };
@@ -342,7 +346,7 @@ export const BadgeWithImage = <T extends BadgeTypes>(props: BadgeWithImageProps<
 
     return (
         <span className={cx(colors.common, sizes[type][size], colors.styles[color].root)}>
-            <img src={imgSrc} className="size-4 max-w-none rounded-full" alt="Badge image" />
+            <img src={imgSrc} className={cx("max-w-none rounded-full", size === "sm" ? "size-3.5" : "size-4")} alt="Badge image" />
             {children}
         </span>
     );

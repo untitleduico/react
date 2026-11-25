@@ -79,7 +79,7 @@ export const Tooltip = ({
                     >
                         <span className="text-xs font-semibold text-white">{title}</span>
 
-                        {description && <span className="text-xs font-medium text-tooltip-supporting-text">{description}</span>}
+                        {description && <span className="text-xs font-medium text-neutral-400">{description}</span>}
 
                         {arrow && (
                             <AriaOverlayArrow>

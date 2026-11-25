@@ -35,7 +35,7 @@ export const sm = ({
                     <path d="M76.0006 92.1898L118 73.5312V20.375L76.3298 2L34 20.375V73.5312L76.0006 92.1898Z" className="fill-utility-neutral-50" />
                     <path
                         d="M118.5 73.8564L118.203 73.9883L76.2031 92.6465L76.001 92.7373L75.7979 92.6465L33.7969 73.9883L33.5 73.8564V20.0469L33.8008 19.916L76.1309 1.54102L76.3311 1.4541L76.5312 1.54297L118.202 19.918L118.5 20.0488V73.8564Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                     />
                     <path d="M76 38.0629V92.2344L34 73.5312V20.375L76 38.0629Z" className="fill-utility-neutral-200" />
                     <path d="M76.0008 38.0938V92.2344L118 73.5312V20.375L76.0008 38.0938Z" fill="url(#box-gradient-sm)" />
@@ -116,7 +116,7 @@ export const md = ({
                     <path d="M86.0007 113.664L138 90.5625V24.75L86.4084 2L34 24.75V90.5625L86.0007 113.664Z" className="fill-utility-neutral-50" />
                     <path
                         d="M138.5 90.8877L138.203 91.0195L86.2041 114.12L86.001 114.211L85.7979 114.12L33.7969 91.0195L33.5 90.8877V24.4219L33.8008 24.291L86.209 1.54102L86.4102 1.4541L86.6104 1.54297L138.202 24.293L138.5 24.4238V90.8877Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                     />
                     <path d="M86 46.6493V113.719L34 90.5625V24.75L86 46.6493Z" className="fill-utility-neutral-200" />
                     <path d="M86.001 46.6875V113.719L138 90.5625V24.75L86.001 46.6875Z" fill="url(#box-gradient-md)" />
@@ -198,7 +198,7 @@ export const lg = ({
                     <path d="M110.001 139.432L174 111V30L110.503 2L46 30V111L110.001 139.432Z" className="fill-utility-neutral-50" />
                     <path
                         d="M174.5 111.325L174.203 111.457L110.204 139.889L110.001 139.979L109.798 139.889L45.7969 111.457L45.5 111.325V29.6719L45.8008 29.541L110.304 1.54102L110.504 1.4541L110.704 1.54297L174.202 29.543L174.5 29.6738V111.325Z"
-                        className="stroke-border-secondary_alt"
+                        className="stroke-border-secondary"
                     />
                     <path d="M110 56.9531V139.5L46 111V30.0001L110 56.9531Z" className="fill-utility-neutral-200" />
                     <path d="M110.001 57V139.5L174 111V30L110.001 57Z" fill="url(#box-gradient-lg)" />
