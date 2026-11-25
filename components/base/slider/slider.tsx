@@ -14,7 +14,7 @@ const styles = sortCx({
     default: "hidden",
     bottom: "absolute top-2 left-1/2 -translate-x-1/2 translate-y-full text-md font-medium text-primary",
     "top-floating":
-        "absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full rounded-lg bg-primary px-2 py-1.5 text-xs font-semibold text-secondary shadow-lg ring-1 ring-secondary_alt",
+        "absolute -top-2 left-1/2 -translate-x-1/2 -translate-y-full rounded-lg bg-primary px-2 py-1.5 text-xs font-semibold text-secondary shadow-lg ring-1 ring-secondary",
 });
 
 interface SliderProps extends AriaSliderProps {
@@ -56,7 +56,7 @@ export const Slider = ({ labelPosition = "default", minValue = 0, maxValue = 100
                                         index={index}
                                         className={({ isFocusVisible, isDragging }) =>
                                             cx(
-                                                "top-1/2 box-border size-6 cursor-grab rounded-full bg-slider-handle-bg shadow-md ring-2 ring-slider-handle-border ring-inset",
+                                                "top-1/2 box-border size-6 cursor-grab rounded-full bg-fg-white shadow-md ring-2 ring-fg-brand-primary ring-inset",
                                                 isFocusVisible && "outline-2 outline-offset-2 outline-focus-ring",
                                                 isDragging && "cursor-grabbing",
                                             )

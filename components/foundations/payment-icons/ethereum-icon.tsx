@@ -2,7 +2,7 @@
 
 import type { SVGProps } from "react";
 
-const EtheriumIcon = (props: SVGProps<SVGSVGElement>) => {
+const EthereumIcon = (props: SVGProps<SVGSVGElement>) => {
     return (
         <svg width="34" height="24" viewBox="0 0 34 24" fill="none" {...props}>
             <path
@@ -24,4 +24,4 @@ const EtheriumIcon = (props: SVGProps<SVGSVGElement>) => {
     );
 };
 
-export default EtheriumIcon;
+export default EthereumIcon;

@@ -30,3 +30,9 @@ export const ProfilePhoto = () => <Avatar.ProfilePhoto />;
 ProfilePhoto.storyName = "Profile photo";
 
 export const Badges = () => <Avatar.Badges />;
+
+export const ProfilePhotoSquare = () => <Avatar.ProfilePhotoSquare />;
+ProfilePhotoSquare.storyName = "Profile photo (square)";
+
+export const VerifiedGold = () => <Avatar.VerifiedGold />;
+VerifiedGold.storyName = "Verified (gold)";

@@ -40,7 +40,7 @@ export const CalendarDemo = () => <Calendar aria-label="Calendar" />;
 
 export const CalendarCardDemo = () => (
     <AriaDatePicker aria-label="Calendar card" defaultValue={now}>
-        <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+        <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary">
             <div className="flex px-6 py-5">
                 <Calendar />
             </div>
@@ -115,7 +115,7 @@ export const DateTimePickerDemo = () => {
                     )
                 }
             >
-                <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+                <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary">
                     {({ close }) => (
                         <>
                             <div className="flex">
@@ -249,7 +249,7 @@ export const RangeCalendarCardDemo = () => {
 
     return (
         <AriaDateRangePicker aria-label="Range calendar" value={value} onChange={setValue}>
-            <AriaDialog className="flex rounded-2xl bg-primary shadow-xl ring ring-secondary_alt focus:outline-hidden">
+            <AriaDialog className="flex rounded-2xl bg-primary shadow-xl ring ring-secondary focus:outline-hidden">
                 <div className="hidden w-38 flex-col gap-0.5 border-r border-solid border-secondary p-3 lg:flex">
                     {Object.values(presets).map((preset) => (
                         <RangePresetButton
@@ -329,10 +329,10 @@ export const DarkModeDemo = () => {
                     clipPath: "polygon(0 0, var(--clip-boundary) 0, var(--clip-boundary) 100%, 0 100%)",
                     transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
-                className="peer/light absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl bg-tertiary outline-1 -outline-offset-1 outline-secondary_alt transition-all duration-200 peer-hover/dark:[--clip-boundary:10%] hover:z-10 hover:[--clip-boundary:90%]"
+                className="peer/light absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl bg-tertiary outline-1 -outline-offset-1 outline-secondary transition-all duration-200 peer-hover/dark:[--clip-boundary:10%] hover:z-10 hover:[--clip-boundary:90%]"
             >
                 <AriaDatePicker aria-label="Calendar card" value={value} onChange={setValue}>
-                    <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+                    <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary">
                         <div className="flex px-6 py-5">
                             <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue} />
                         </div>
@@ -352,10 +352,10 @@ export const DarkModeDemo = () => {
                     clipPath: "polygon(var(--clip-boundary) 0, 100% 0, 100% 100%, var(--clip-boundary) 100%)",
                     transitionTimingFunction: "cubic-bezier(0.25, 0.1, 0.25, 1)",
                 }}
-                className="peer/dark dark-mode absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl bg-tertiary outline-1 -outline-offset-1 outline-secondary_alt transition-all duration-200 peer-hover/light:[--clip-boundary:90%] hover:z-10 hover:[--clip-boundary:10%]"
+                className="peer/dark dark-mode absolute inset-0 flex items-center justify-center overflow-hidden rounded-2xl bg-tertiary outline-1 -outline-offset-1 outline-secondary transition-all duration-200 peer-hover/light:[--clip-boundary:90%] hover:z-10 hover:[--clip-boundary:10%]"
             >
                 <AriaDatePicker aria-label="Calendar card" value={value} onChange={setValue}>
-                    <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary_alt">
+                    <AriaDialog className="rounded-2xl bg-primary shadow-xl ring ring-secondary">
                         <div className="flex px-6 py-5">
                             <Calendar focusedValue={focusedValue} onFocusChange={setFocusedValue} />
                         </div>

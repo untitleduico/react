@@ -126,13 +126,13 @@ export const ChartTooltipContent = ({ active, payload, label, isRadialChart, isP
             {!secondaryTitle ? null : Array.isArray(secondaryTitle) ? (
                 <div>
                     {secondaryTitle.map((entry, index) => (
-                        <p key={index} className={cx("text-xs text-tooltip-supporting-text")}>
+                        <p key={index} className={cx("text-xs text-neutral-400")}>
                             {`${entry.name}: ${formatter ? formatter(entry.value, entry.name, entry, index, entry.payload) : entry.value}`}
                         </p>
                     ))}
                 </div>
             ) : (
-                <p className="text-xs text-tooltip-supporting-text">{secondaryTitle}</p>
+                <p className="text-xs text-neutral-400">{secondaryTitle}</p>
             )}
         </div>
     );

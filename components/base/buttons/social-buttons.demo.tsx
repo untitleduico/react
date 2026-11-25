@@ -77,6 +77,31 @@ export const SocialButtonAppleDemo = () => {
     );
 };
 
+export const SocialButtonGitHubDemo = () => {
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="flex gap-8">
+                <SocialButton social="github" theme="brand">
+                    Sign in with GitHub
+                </SocialButton>
+                <SocialButton social="github" theme="brand" />
+            </div>
+            <div className="flex gap-8">
+                <SocialButton social="github" theme="color">
+                    Sign in with GitHub
+                </SocialButton>
+                <SocialButton social="github" theme="color" />
+            </div>
+            <div className="flex gap-8">
+                <SocialButton social="github" theme="gray">
+                    Sign in with GitHub
+                </SocialButton>
+                <SocialButton social="github" theme="gray" />
+            </div>
+        </div>
+    );
+};
+
 export const SocialButtonTwitterDemo = () => {
     return (
         <div className="flex flex-col gap-4">
@@ -296,6 +321,28 @@ export const SocialButtons = () => {
                         Sign in with Apple
                     </SocialButton>
                     <SocialButton social="apple" theme="gray" />
+                </div>
+            </div>
+
+            {/* GitHub */}
+            <div className="mb-4 flex justify-items-start gap-16">
+                <div className="grid grid-cols-[238px_44px] justify-items-start gap-8">
+                    <SocialButton social="github" theme="brand">
+                        Sign in with GitHub
+                    </SocialButton>
+                    <SocialButton social="github" theme="brand" />
+                </div>
+                <div className="grid grid-cols-[238px_44px] justify-items-start gap-8">
+                    <SocialButton social="github" theme="color">
+                        Sign in with GitHub
+                    </SocialButton>
+                    <SocialButton social="github" theme="color" />
+                </div>
+                <div className="grid grid-cols-[238px_44px] justify-items-start gap-8">
+                    <SocialButton social="github" theme="gray">
+                        Sign in with GitHub
+                    </SocialButton>
+                    <SocialButton social="github" theme="gray" />
                 </div>
             </div>
 

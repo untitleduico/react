@@ -40,3 +40,6 @@ export const CloseX = () => <Buttons.CloseX />;
 
 export const UtilityButton = () => <Buttons.UtilityButton />;
 UtilityButton.storyName = "Utility button";
+
+export const HoldToConfirm = () => <Buttons.HoldToConfirm />;
+HoldToConfirm.storyName = "Hold to confirm";

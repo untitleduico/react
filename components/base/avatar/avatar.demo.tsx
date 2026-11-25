@@ -874,3 +874,44 @@ export const Badges = () => (
         </div>
     </div>
 );
+
+export const ProfilePhotoSquare = () => (
+    <div className="flex flex-col gap-16">
+        <div className="flex gap-8">
+            <AvatarProfilePhoto rounded={false} verified size="sm" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+            <AvatarProfilePhoto rounded={false} verified size="md" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+            <AvatarProfilePhoto rounded={false} verified size="lg" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        </div>
+
+        <div className="flex gap-8">
+            <AvatarProfilePhoto rounded={false} verified size="sm" placeholderIcon={User01} />
+            <AvatarProfilePhoto rounded={false} verified size="md" placeholderIcon={User01} />
+            <AvatarProfilePhoto rounded={false} verified size="lg" placeholderIcon={User01} />
+        </div>
+
+        <div className="flex gap-8">
+            <AvatarProfilePhoto rounded={false} verified size="sm" initials="OR" />
+            <AvatarProfilePhoto rounded={false} verified size="md" initials="OR" />
+            <AvatarProfilePhoto rounded={false} verified size="lg" initials="OR" />
+        </div>
+    </div>
+);
+
+export const VerifiedGold = () => (
+    <div className="flex items-end gap-8">
+        <Avatar verified="gold" size="xs" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <Avatar verified="gold" size="sm" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <Avatar verified="gold" size="md" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <Avatar verified="gold" size="lg" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <Avatar verified="gold" size="xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <Avatar verified="gold" size="2xl" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <AvatarProfilePhoto verified="gold" size="md" src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80" alt="Olivia Rhye" />
+        <AvatarProfilePhoto
+            verified="gold"
+            rounded={false}
+            size="md"
+            src="https://www.untitledui.com/images/avatars/olivia-rhye?fm=webp&q=80"
+            alt="Olivia Rhye"
+        />
+    </div>
+);

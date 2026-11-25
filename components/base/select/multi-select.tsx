@@ -311,7 +311,7 @@ const MultiSelectRoot = ({
                     containerPadding={0}
                     className={(state) =>
                         cx(
-                            "flex w-(--trigger-width) origin-(--trigger-anchor-point) flex-col overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary_alt outline-hidden will-change-transform",
+                            "flex w-(--trigger-width) origin-(--trigger-anchor-point) flex-col overflow-hidden rounded-lg bg-primary shadow-lg ring-1 ring-secondary outline-hidden will-change-transform",
                             state.isEntering &&
                                 "duration-150 ease-out animate-in fade-in placement-top:slide-in-from-bottom-0.5 placement-bottom:slide-in-from-top-0.5",
                             state.isExiting &&

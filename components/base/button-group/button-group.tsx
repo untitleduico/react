@@ -15,19 +15,21 @@ export const styles = sortCx({
         root: [
             "group/button-group inline-flex h-max cursor-pointer items-center bg-primary font-semibold whitespace-nowrap text-secondary shadow-skeuomorphic ring-1 ring-primary outline-brand transition duration-100 ease-linear ring-inset",
             // Hover and focus styles
-            "hover:bg-primary_hover hover:text-secondary_hover focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
+            // The hover tint is translucent, so it's layered over the opaque bg-primary as an image. Replacing the background
+            // would let the neighbouring item's ring show through the 1px overlap and darken the divider.
+            "hover:bg-[linear-gradient(var(--color-bg-primary_hover),var(--color-bg-primary_hover))] hover:text-secondary_hover focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2",
             // Disabled styles
             "disabled:cursor-not-allowed disabled:text-secondary/50 disabled:*:opacity-50",
             // Selected styles
-            "selected:bg-primary_hover selected:text-secondary_hover",
+            "selected:bg-[linear-gradient(var(--color-bg-primary_hover),var(--color-bg-primary_hover))] selected:text-secondary_hover",
         ].join(" "),
         icon: "pointer-events-none text-fg-quaternary transition-[inherit] group-hover/button-group:text-fg-quaternary_hover group-selected/button-group:text-fg-quaternary_hover",
     },
 
     sizes: {
         sm: {
-            root: "gap-1.5 px-3.5 py-2 text-sm not-last:pr-[calc(calc(var(--spacing)*3.5)+1px)] first:rounded-l-lg last:rounded-r-lg data-icon-leading:pl-3 data-icon-only:px-2.5",
-            icon: "size-5",
+            root: "gap-1.5 px-3.5 py-2 text-sm not-last:pr-[calc(calc(var(--spacing)*3.5)+1px)] first:rounded-l-lg last:rounded-r-lg data-icon-leading:pl-3 data-icon-only:p-2.5",
+            icon: "size-4 stroke-[2.25px]",
         },
         md: {
             root: "gap-1.5 px-4 py-2.5 text-sm not-last:pr-[calc(calc(var(--spacing)*4)+1px)] first:rounded-l-lg last:rounded-r-lg data-icon-leading:pl-3.5 data-icon-only:px-3",

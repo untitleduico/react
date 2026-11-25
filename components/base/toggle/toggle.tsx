@@ -71,9 +71,9 @@ export const ToggleBase = ({ className, isHovered, isDisabled, isFocusVisible, i
                     "rounded-full bg-fg-white shadow-sm",
 
                     slim && "shadow-xs",
-                    slim && "border border-toggle-border",
-                    slim && isSelected && "border-toggle-slim-border_pressed",
-                    slim && isSelected && isHovered && "border-toggle-slim-border_pressed-hover",
+                    slim && "border border-toggle-slim-border",
+                    slim && isSelected && "border-brand-solid",
+                    slim && isSelected && isHovered && "border-brand-solid_hover",
 
                     classes.switch,
                 )}
